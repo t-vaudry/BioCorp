@@ -69,6 +69,10 @@ ol, ul{
   list-style: none;
 }
 
+h2 {
+  color: #005580;
+}
+
 .img-portfolio {
     margin-bottom: 30px;
 }
@@ -126,6 +130,8 @@ header.carousel .fill {
 footer {
     margin: 50px 0;
 }
+
+
 
 /* Responsive Styles */
 
