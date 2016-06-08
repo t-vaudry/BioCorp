@@ -1,0 +1,13 @@
+{
+  "name": "Biocorp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "connect": "~3.4.1",
+    "serve-static": "~1.11.0",
+    "express": "~4.13.4"
+  }
+}
