@@ -1,0 +1,220 @@
+<% include ../header %>
+<!-- multistep form -->
+<div class="container" id="rzDesign">
+<form id="msform">
+  <!-- progressbar -->
+  <ul id="progressbar">
+    <li class="active">Sequence Selection</li>
+    <li>Design Options</li>
+    <li>Design Review</li>
+    <li>Design In Progress</li>
+  </ul>
+  <!-- Step 1: Sequence Selection -->
+  <fieldset id="fsSeqSel">
+    <div class="row">
+      <h2 class="fs-title">Select the sequence</h2>
+      <h3 class="fs-subtitle">The sequence you want to cleave</h3>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-5">
+        <p class="substep-description">Search for sequence number.<br/>You may also find your sequence <a target="_blank" href="http://www.ncbi.nlm.nih.gov/genbank/">here</a></p>
+        <input id="accession" placeholder="(example: M73307)"/>
+        <button id="submit_ACN" class="btn" type="button">Search</button>
+        <div id="accession_alert" class="alert invisible"></div>
+      </div>
+      <div class="col-lg-2">
+          <div class="bar-separator span2"><span class="emp">Or</div>
+      </div>
+      <div class="col-lg-5">
+        <div class="span5 tile" id="drop">
+          <p class="substep-description">Select a file with your sequence to upload.<br/> (TXT or FASTA format)</p>
+          <button class="btn" id="selectFileButton" onclick="$('#selectFileInput').click()">
+      Select File
+          </button>
+          <input type="file" style="visibility:hidden;" id="selectFileInput">
+        </div>
+      </div>
+
+      <div id="sequence-wrap">
+        <div id="sequence_alert" class="alert alert-error invisible"></div>
+        <textarea id="sequence-display" maxlength="3000" class="input-block-level" rows="10" placeholder="Paste your sequence here..."></textarea>
+        <div id="sequence_alert" class="alert invisible"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="rz-select">Select Ribozyme</label>
+        <select class="form-control" id="rz-select">
+          <option>Hammerhead Ribozyme</option>
+          <option>YL Ribozyme</option>
+          <option>Pistol Ribozyme</option>
+          <option disabled="true">XXX Ribozyme</option>
+
+        </select>
+      </div>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li>Hammerhead Ribozyme</li>
+        <li>Pistol Ribozyme</li>
+        <li>YL Ribozyme</li>
+      </ul>
+    </div>
+    <input type="button" name="next" class="stepNext action-button" value="Next">
+  </fieldset>
+
+  <!-- Step 2: Design Options -->
+  <fieldset id="fsDesignOption">
+    <h2 class="fs-title">Design Options</h2>
+    <h3 class="fs-subtitle">Please select the options that will be applied during the design of the ribozyme</h3>
+    <div class="container">
+      <div id="designAlert" class="alert alert-danger">
+        Error!!
+      </div>
+
+      <legend data-toggle="collapse" data-target=".regionOption" align="left"><span class="rtdDrop glyphicon glyphicon-arrow-right"></span>  Regions for Target Design <i class="glyphicon glyphicon-question-sign pull-right"></i></legend>
+      <ul class="collapse regionOption divCollapse">
+          <li><input type="checkbox" name="region" value="5"> 5'UTR</li>
+          <li><input type="checkbox" name="region" value="ORF" checked="true"> Open Reading Frame (ORF)</li>
+          <li><input type="checkbox" name="region" value="3"> 3'UTR</li>
+      </ul>
+
+      <legend data-toggle="collapse" data-target=".targetenvOption" align="left"><span class="teDrop glyphicon glyphicon-arrow-right"></span>  Target Environment <i class="glyphicon glyphicon-question-sign pull-right"></i></legend>
+      <ul class="collapse targetenvOption divCollapse">
+        <li><input type="radio" name="env" value="vitro" required="true" id="vitroRadio"> In-vitro</li>
+        <li><input type="radio" name="env" value="vivo" required="true" id="vivoRadio"> In-vivo </li>
+        <li>
+          <div class="form-group">
+            <select class="form-control" id="envVivo" name="envVivo" disabled="true">
+            <option value="mouse (taxid:10090)" selected="selected">Mouse</option>
+            <option value="rat (taxid:10114)">Rat</option>
+            <option value="human (taxid:9606)">Human</option>
+            <option value="daphnia (taxid:6668)">Daphnia</option>
+            <option value="ecoli (taxid:562)">E Coli</option>
+            <option value="yeast (taxid:4932)">Yeast</option>
+          </select>
+          </div></li>
+      </ul>
+
+      <legend data-toggle="collapse" data-target=".envpropOption" align="left"><span class="epDrop glyphicon glyphicon-arrow-right"></span>  Environment Properties <i class="glyphicon glyphicon-question-sign pull-right"></i></legend>
+      <ul class="envpropOption collapse divCollapse">
+        <li>
+          <label for="temperature" style="margin-right:60px;">Temperature</label>
+          <input type="number" name="temperature" value="37" min="0" step="0.1"  style="width:80px;"> &#8451
+        </li>
+        <li>
+          <label for="naC" style="margin-right:55px; margin-left:14px;">Na&#8314 Concentration</label>
+          <input type="number" name="naC" value="150" min="0" step="0.1" style="width:80px;"> mM
+        </li>
+        <li>
+          <label for="mgC" style="margin-right:10px;">Mg<sup>2</sup>&#8314 Concentration</label>
+          <input type="number" name="mgC" value="1" min="0" step="0.1" style="width:80px;"> mM
+        </li>
+        <li>
+          <label for="oligoC" style="margin-right:15px;">Oligomer Concentration</label>
+          <input type="number" name="oligoC" value="200" min="0" step="0.1" style="width:80px;"> nM
+        </li>
+      </ul>
+
+      <!-- Option cannot be implemented as Dr.Kharma requested. -->
+      <!-- has to find a way in the future -->
+      <legend data-toggle="collapse" data-target=".cutsiteOption" align="left"><span class="pcDrop glyphicon glyphicon-arrow-right"></span>  Potential Cut-sites <i class="glyphicon glyphicon-question-sign pull-right"></i></legend>
+      <div class="cutsiteOption collapse divCollapse">
+        <div class="form-group">
+          <label for="cutsites">Preferred Cut-Sites</label>
+          <select class="form-control" name="cutsites" multiple="multiple">
+            <option selected="selected" value="GUC">GUC</option>
+            <option value="CUC">CUC</option>
+ 	          <option value="AUC">AUC</option>
+ 	          <option value="UUC">UUC</option>
+ 	          <option value="AUA">AUA</option>
+ 	          <option value="UUC">UUA</option>
+ 	          <option value="GUA">GUA</option>
+ 	          <option value="CUA">CUA</option>
+ 	          <option value="GUU">GUU</option>
+ 	          <option value="CUU">CUU</option>
+ 	          <option value="AUU">AUU</option>
+ 	          <option value="UUU">UUU</option>
+          </select>
+        </div>
+      </div>
+
+      <legend data-toggle="collapse" data-target=".shapeOption" align="left"><span class="rsDrop glyphicon glyphicon-arrow-right"></span>  Ribozyme Shape <i class="glyphicon glyphicon-question-sign pull-right"></i></legend>
+      <ul class="shapeOption collapse divCollapse">
+        <li><input type="radio" name="shape" value="Minimal" required="true">Minimal (before 2003)</li>
+        <li><input type="radio" name="shape" value="Wishbone" required="true">Wishbone (discovered in 2003)</li>
+      </ul>
+
+      <legend data-toggle="collapse" data-target=".armsOption" align="left"><span class="alDrop glyphicon glyphicon-arrow-down"></span>  Advanced Options - Arms Length <i class="glyphicon glyphicon-question-sign pull-right"></i></legend>
+      <div class="armsOption collapse in divCollapse">
+        <li>
+        <label for="left_arm_min">Helix I minimum Length</label>
+        <input type="number" name="left_arm_min" value="5" style="width:80px; margin-left:15px;"> nucleotides
+        </li>
+
+        <li>
+        <label for="left_arm_min">Helix I maximum Length</label>
+        <input type="number" name="left_arm_max" value="5" style="width:80px; margin-left:15px;"> nucleotides
+        </li>
+
+        <li>
+        <label for="left_arm_min">Helix III minimum Length</label>
+        <input type="number" name="right_arm_min" value="5" style="width:80px; margin-left:5px;"> nucleotides
+        </li>
+
+        <li>
+        <label for="left_arm_min">Helix III maximum Length</label>
+        <input type="number" name="right_arm_max" value="5" style="width:80px; margin-left:8px;"> nucleotides
+        </li>
+      </div>
+
+      <legend data-toggle="collapse" data-target=".promoOption" align="left"><span class="promoDrop glyphicon glyphicon-arrow-right"></span>  Promoter <i class="glyphicon glyphicon-question-sign pull-right"></i></legend>
+      <div class="promoOption collapse divCollapse">
+        <li><input type="radio" name="promo" value="append" required="true" id="append_promo"> Append</li>
+        <li><input type="radio" name="promo" value="notappend" required="true" id="not_append_promo"> Not Append </li>
+        <li>
+          <div class="form-group">
+            <select class="form-control" id="promoList" name="promoList" disabled="true">
+            <option value="T7" selected="selected">T7</option>
+            <option value="prokaryotes">Prokaryotes</option>
+            <option value="eukaryotes">Eukaryotes</option>
+            </select>
+          </div></li>
+      </div>
+
+      <legend data-toggle="collapse" data-target=".specOption" align="left"><span class="speDrop glyphicon glyphicon-arrow-right"></span>  Specificity <i class="glyphicon glyphicon-question-sign pull-right"></i></legend>
+      <ul class="specOption collapse divCollapse">
+        <li>
+          <input type="radio" name="specificity" value="cleavage" required="true"> Cleavage Only
+        </li>
+        <li>
+          <input type="radio" name="specificity" value="hybrid" required="true"> Cleavage and Hybridization
+        </li>
+      </ul>
+    </div>
+
+    <div id="designAlert2" class="alert alert-danger">
+      Error!!
+    </div>
+
+    <input type="button" name="previous" class="previous action-button" value="Previous" />
+    <input type="button" name="next" class="stepNext action-button" value="Next" />
+  </fieldset>
+
+  <!-- Setp 3: Design Review -->
+  <fieldset id="fsDesignReview">
+    <h2 class="fs-title">Design Review</h2>
+    <h3 class="fs-subtitle">Here are the design options that will be applied to the sequence.</h3>
+    <input type="button" name="previous" class="previous action-button" value="Previous" />
+    <input type="button" name="next" class="stepNext action-button" value="Submit" />
+  </fieldset>
+
+  <!-- Step 4: In Process -->
+  <fieldset id="fsProcessing">
+    <h2 class="fs-title">Processing</h2>
+    <h3 class="fs-subtitle">Your request has been submitted. You can wait for the design process to finish, or enter your email and we will send you a link once it is completed.</h3>
+
+    <input type="submit" name="submit" class="submit action-button" value="Close" />
+  </fieldset>
+</form>
+</div>
+
+<% include ../footer %>
