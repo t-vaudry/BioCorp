@@ -74,6 +74,33 @@ h2 {
   color: #005580;
 }
 
+td {
+ text-align: left;
+}
+
+.big-container {
+
+  min-height: 80%;
+  height: auto !important;
+
+}
+
+.clearfooter {
+  height: 330px;
+  clear: both
+}
+
+#footer {
+  clear: both;
+
+  height: 12em;
+  position: relative;
+}
+
+.invisible{
+  display: none;
+}
+
 .img-portfolio {
     margin-bottom: 30px;
 }
@@ -134,7 +161,7 @@ footer {
     height: 50px;
     width: 100%;
 
-    position: absolute;
+    position: relative;
 }
 
 .regionOption {

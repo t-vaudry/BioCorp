@@ -6,6 +6,13 @@ var animating; //flag to prevent quick multi-click glitches
 
 $(document).ready(function() {
 
+	if($('#fsSeqSel').length > 0){
+		console.log($('#fsSeqSel').height());
+		$('#footer').css('margin-top', function(){
+			return $('#fsSeqSel').height();
+		});
+	};
+
 	$(".stepNext").click(function(){
 		if(animating) return false;
 		animating = true;
@@ -31,11 +38,16 @@ $(document).ready(function() {
 				break;
 		}
 		console.log(next_fs.attr('id'));
+		console.log(current_fs.height());
+		console.log(next_fs.height());
 
+
+		$('#footer').css('margin-top', function(){
+			return next_fs.height();
+		});
 		//current_fs = $("#fsSeqSel");
 		//next_fs = $("#fsDesignOption");
-		console.log(current_fs);
-		console.log(next_fs);
+
 		//activate next step on progressbar using the index of next_fs
 		$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
 
@@ -109,6 +121,11 @@ $(document).ready(function() {
 
 	$('.divCollapse').on('shown.bs.collapse' , function() {
     $(this).prev().find("span").addClass('glyphicon-arrow-down').removeClass('glyphicon-arrow-right');
+
+		console.log($('#stepTwoDiv').height());
+		$('#footer').css('margin-top', function(){
+			return $('#stepTwoDiv').height();
+		});
   });
 
 	$('.divCollapse').on('hidden.bs.collapse', function() {
@@ -118,7 +135,6 @@ $(document).ready(function() {
 	$('#vivoRadio').click(function(){
 		$('#envVivo').prop('disabled', false);
 	});
-
 
 	$('#vitroRadio').click(function(){
 		$('#envVivo').prop('disabled', true);
@@ -131,6 +147,7 @@ $(document).ready(function() {
 	$('#not_append_promo').click(function(){
 		$('#promoList').prop('disabled', true);
 	});
+
 
 
 });

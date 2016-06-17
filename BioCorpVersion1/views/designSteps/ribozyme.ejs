@@ -9,15 +9,17 @@
     <li>Design Review</li>
     <li>Design In Progress</li>
   </ul>
+
+
   <!-- Step 1: Sequence Selection -->
-  <fieldset id="fsSeqSel">
+  <fieldset id="fsSeqSel" style="margin-bottom:40px;">
     <div class="row">
       <h2 class="fs-title">Select the sequence</h2>
       <h3 class="fs-subtitle">The sequence you want to cleave</h3>
     </div>
 
     <div class="row">
-      <div class="col-lg-5">
+      <div class="col-lg-5" style="margin-bottom:15px;">
         <p class="substep-description">Search for sequence number.<br/>You may also find your sequence <a target="_blank" href="http://www.ncbi.nlm.nih.gov/genbank/">here</a></p>
         <input id="accession" placeholder="(example: M73307)"/>
         <button id="submit_ACN" class="btn" type="button">Search</button>
@@ -61,11 +63,12 @@
     <input type="button" name="next" class="stepNext action-button" value="Next">
   </fieldset>
 
+
   <!-- Step 2: Design Options -->
-  <fieldset id="fsDesignOption">
+  <fieldset id="fsDesignOption" style="margin-bottom:40px;">
     <h2 class="fs-title">Design Options</h2>
     <h3 class="fs-subtitle">Please select the options that will be applied during the design of the ribozyme</h3>
-    <div class="container">
+    <div class="container" id="stepTwoDiv">
       <div id="designAlert" class="alert alert-danger">
         Error!!
       </div>
@@ -114,6 +117,7 @@
         </li>
       </ul>
 
+
       <!-- Option cannot be implemented as Dr.Kharma requested. -->
       <!-- has to find a way in the future -->
       <legend data-toggle="collapse" data-target=".cutsiteOption" align="left"><span class="pcDrop glyphicon glyphicon-arrow-right"></span>  Potential Cut-sites <i class="glyphicon glyphicon-question-sign pull-right"></i></legend>
@@ -139,7 +143,7 @@
 
       <legend data-toggle="collapse" data-target=".shapeOption" align="left"><span class="rsDrop glyphicon glyphicon-arrow-right"></span>  Ribozyme Shape <i class="glyphicon glyphicon-question-sign pull-right"></i></legend>
       <ul class="shapeOption collapse divCollapse">
-        <li><input type="radio" name="shape" value="Minimal" required="true">Minimal (before 2003)</li>
+        <li><input type="radio" name="shape" value="Minimal" required="true" checked="checked">Minimal (before 2003)</li>
         <li><input type="radio" name="shape" value="Wishbone" required="true">Wishbone (discovered in 2003)</li>
       </ul>
 
@@ -169,7 +173,7 @@
       <legend data-toggle="collapse" data-target=".promoOption" align="left"><span class="promoDrop glyphicon glyphicon-arrow-right"></span>  Promoter <i class="glyphicon glyphicon-question-sign pull-right"></i></legend>
       <div class="promoOption collapse divCollapse">
         <li><input type="radio" name="promo" value="append" required="true" id="append_promo"> Append</li>
-        <li><input type="radio" name="promo" value="notappend" required="true" id="not_append_promo"> Not Append </li>
+        <li><input type="radio" name="promo" value="notappend" required="true" id="not_append_promo" checked="true"> Not Append </li>
         <li>
           <div class="form-group">
             <select class="form-control" id="promoList" name="promoList" disabled="true">
@@ -183,7 +187,7 @@
       <legend data-toggle="collapse" data-target=".specOption" align="left"><span class="speDrop glyphicon glyphicon-arrow-right"></span>  Specificity <i class="glyphicon glyphicon-question-sign pull-right"></i></legend>
       <ul class="specOption collapse divCollapse">
         <li>
-          <input type="radio" name="specificity" value="cleavage" required="true"> Cleavage Only
+          <input type="radio" name="specificity" value="cleavage" required="true" checked="checked"> Cleavage Only
         </li>
         <li>
           <input type="radio" name="specificity" value="hybrid" required="true"> Cleavage and Hybridization
@@ -203,6 +207,97 @@
   <fieldset id="fsDesignReview">
     <h2 class="fs-title">Design Review</h2>
     <h3 class="fs-subtitle">Here are the design options that will be applied to the sequence.</h3>
+
+    <div class="container summary">
+      <div id="submitAlert" class="alert alert-danger"></div>
+      <div>
+        <table class="table table-hover table-condensed">
+          <thead>
+            <th>Design Option</th>
+            <th>Value</th>
+          </thead>
+          <tbody>
+            <tr class="invisible" id="accessionNumberRow">
+              <td>Accession Number</td>
+              <td id="accessionNumber"></td>
+            </tr>
+
+            <tr>
+              <td>Sequence Length</td>
+              <td id="seqLength"></td>
+            </tr>
+
+            <tr id="targetRegionRow">
+              <td>Target Region</td>
+              <td id="targetRegion"></td>
+            </tr>
+
+            <tr>
+              <td>Target Environment</td>
+              <td id="targetEnv"></td>
+            </tr>
+
+            <tr id="vivoEnvRow" class="invisible">
+              <td>In-vivo Environment</td>
+              <td id="vivoEnv"></td>
+            </tr>
+
+            <tr>
+              <td>Temperature</td>
+              <td id="tempEnv"></td>
+            </tr>
+
+            <tr>
+              <td>Na&#8314; Concentration</td>
+              <td id="naEnv"></td>
+            </tr>
+
+            <tr>
+              <td>Mg<sup>2</sup>&#8314; Concentration</td>
+              <td id="mgEnv"></td>
+            </tr>
+
+            <tr>
+              <td>Oligomer Concentration</td>
+              <td id="oligoEnv"></td>
+            </tr>
+
+            <tr>
+              <td>Cut-sites</td>
+              <td id="cutsites"></td>
+            </tr>
+
+            <tr>
+              <td>Fold Shape</td>
+              <td id="foldShape"></td>
+            </tr>
+
+            <tr>
+              <td>Helix I Length</td>
+              <td id="leftArm"></td>
+            </tr>
+
+            <tr>
+              <td>Helix III Length</td>
+              <td id="rightArm"></td>
+            </tr>
+
+            <tr>
+              <td>Use Promoter</td>
+              <td id="promoter"></td>
+            </tr>
+
+            <tr>
+              <td>Specificity</td>
+              <td id="specificity"></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
     <input type="button" name="previous" class="previous action-button" value="Previous" />
     <input type="button" name="next" class="stepNext action-button" value="Submit" />
   </fieldset>
@@ -215,6 +310,7 @@
     <input type="submit" name="submit" class="submit action-button" value="Close" />
   </fieldset>
 </form>
+
 </div>
 
 <% include ../footer %>

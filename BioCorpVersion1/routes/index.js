@@ -15,5 +15,8 @@ router.get('/ribozyme', function(req, res, next){
   res.render('./designSteps/ribozyme', { title: 'Design with Ribozyme'});
 });
 
+router.get('/index', function(req, res, next){
+  res.render('index', {title: 'BioCorp'});
+});
 
 module.exports = router;
