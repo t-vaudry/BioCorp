@@ -3,9 +3,12 @@ var current_fs, next_fs, previous_fs; //fieldsets
 var temp;
 var left, opacity, scale; //fieldset properties which we will animate
 var animating; //flag to prevent quick multi-click glitches
+var nextStep;
 
-$(document).ready(function() {
-
+//$(document).ready(function() {
+window.onload = function() {
+	var stepNextBtn = $('.stepNext');
+	console.log($(stepNextBtn).parent());
 	if($('#fsSeqSel').length > 0){
 		console.log($('#fsSeqSel').height());
 		$('#footer').css('margin-top', function(){
@@ -13,7 +16,14 @@ $(document).ready(function() {
 		});
 	};
 
-	$(".stepNext").click(function(){
+
+	$('.stepNext').click(function(){
+
+		if($(this).hasClass('disabled')){
+			console.log("Submit1 is disabled!!!");
+			return;
+		}
+
 		if(animating) return false;
 		animating = true;
 
@@ -76,7 +86,7 @@ $(document).ready(function() {
 		});
 
 	});
-
+//};
 	$(".previous").click(function(){
 		if(animating) return false;
 		animating = true;
@@ -147,7 +157,5 @@ $(document).ready(function() {
 	$('#not_append_promo').click(function(){
 		$('#promoList').prop('disabled', true);
 	});
-
-
-
-});
+}
+//});

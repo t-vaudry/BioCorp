@@ -19,11 +19,14 @@
     </div>
 
     <div class="row">
+      <div class="container">
+
+
       <div class="col-lg-5" style="margin-bottom:15px;">
         <p class="substep-description">Search for sequence number.<br/>You may also find your sequence <a target="_blank" href="http://www.ncbi.nlm.nih.gov/genbank/">here</a></p>
         <input id="accession" placeholder="(example: M73307)"/>
         <button id="submit_ACN" class="btn" type="button">Search</button>
-        <div id="accession_alert" class="alert invisible"></div>
+        <div id="accession_alert" class="alert invisible" style="margin-top:20px;"></div>
       </div>
       <div class="col-lg-2">
           <div class="bar-separator span2"><span class="emp">Or</div>
@@ -38,6 +41,7 @@
         </div>
       </div>
 
+      </div>
       <div id="sequence-wrap">
         <div id="sequence_alert" class="alert alert-error invisible"></div>
         <textarea id="sequence-display" maxlength="3000" class="input-block-level" rows="10" placeholder="Paste your sequence here..."></textarea>
@@ -60,7 +64,7 @@
         <li>YL Ribozyme</li>
       </ul>
     </div>
-    <input type="button" name="next" class="stepNext action-button" value="Next">
+    <input type="button" name="next" class="btn btn-primary btn-large stepNext  disabled action-button" value="Next" id="submit1">
   </fieldset>
 
 
@@ -69,18 +73,28 @@
     <h2 class="fs-title">Design Options</h2>
     <h3 class="fs-subtitle">Please select the options that will be applied during the design of the ribozyme</h3>
     <div class="container" id="stepTwoDiv">
-      <div id="designAlert" class="alert alert-danger">
+      <div id="designAlert" class="alert alert-danger invisible">
         Error!!
       </div>
 
-      <legend data-toggle="collapse" data-target=".regionOption" align="left"><span class="rtdDrop glyphicon glyphicon-arrow-right"></span>  Regions for Target Design <i class="glyphicon glyphicon-question-sign pull-right"></i></legend>
+      <div class="collapse-container">
+      <legend data-toggle="collapse" data-target=".regionOption" align="left"><span class="rtdDrop glyphicon glyphicon-arrow-right"></span>  Regions for Target Design </legend>
+      <i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#regionTargetModal"></i>
+      </div>
+
       <ul class="collapse regionOption divCollapse">
           <li><input type="checkbox" name="region" value="5"> 5'UTR</li>
           <li><input type="checkbox" name="region" value="ORF" checked="true"> Open Reading Frame (ORF)</li>
           <li><input type="checkbox" name="region" value="3"> 3'UTR</li>
       </ul>
 
-      <legend data-toggle="collapse" data-target=".targetenvOption" align="left"><span class="teDrop glyphicon glyphicon-arrow-right"></span>  Target Environment <i class="glyphicon glyphicon-question-sign pull-right"></i></legend>
+
+
+      <div class="collapse-container">
+
+      <legend data-toggle="collapse" data-target=".targetenvOption" align="left"><span class="teDrop glyphicon glyphicon-arrow-right"></span>  Target Environment</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#targetEnvironmentModal"></i>
+      </div>
+
       <ul class="collapse targetenvOption divCollapse">
         <li><input type="radio" name="env" value="vitro" required="true" id="vitroRadio"> In-vitro</li>
         <li><input type="radio" name="env" value="vivo" required="true" id="vivoRadio"> In-vivo </li>
@@ -97,7 +111,10 @@
           </div></li>
       </ul>
 
-      <legend data-toggle="collapse" data-target=".envpropOption" align="left"><span class="epDrop glyphicon glyphicon-arrow-right"></span>  Environment Properties <i class="glyphicon glyphicon-question-sign pull-right"></i></legend>
+      <div class="collapse-container">
+      <legend data-toggle="collapse" data-target=".envpropOption" align="left"><span class="epDrop glyphicon glyphicon-arrow-right"></span>  Environment Properties</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#envPropertyModal"></i>
+      </div>
+
       <ul class="envpropOption collapse divCollapse">
         <li>
           <label for="temperature" style="margin-right:60px;">Temperature</label>
@@ -120,7 +137,10 @@
 
       <!-- Option cannot be implemented as Dr.Kharma requested. -->
       <!-- has to find a way in the future -->
-      <legend data-toggle="collapse" data-target=".cutsiteOption" align="left"><span class="pcDrop glyphicon glyphicon-arrow-right"></span>  Potential Cut-sites <i class="glyphicon glyphicon-question-sign pull-right"></i></legend>
+      <div class="collapse-container">
+      <legend data-toggle="collapse" data-target=".cutsiteOption" align="left"><span class="pcDrop glyphicon glyphicon-arrow-right"></span>  Potential Cut-sites</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#potentialCutSitesModal"></i>
+      </div>
+
       <div class="cutsiteOption collapse divCollapse">
         <div class="form-group">
           <label for="cutsites">Preferred Cut-Sites</label>
@@ -141,13 +161,18 @@
         </div>
       </div>
 
-      <legend data-toggle="collapse" data-target=".shapeOption" align="left"><span class="rsDrop glyphicon glyphicon-arrow-right"></span>  Ribozyme Shape <i class="glyphicon glyphicon-question-sign pull-right"></i></legend>
+      <div class="collapse-container">
+      <legend data-toggle="collapse" data-target=".shapeOption" align="left"><span class="rsDrop glyphicon glyphicon-arrow-right"></span>  Ribozyme Shape</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#rzShapeModal"></i>
+      </div>
       <ul class="shapeOption collapse divCollapse">
         <li><input type="radio" name="shape" value="Minimal" required="true" checked="checked">Minimal (before 2003)</li>
         <li><input type="radio" name="shape" value="Wishbone" required="true">Wishbone (discovered in 2003)</li>
       </ul>
 
-      <legend data-toggle="collapse" data-target=".armsOption" align="left"><span class="alDrop glyphicon glyphicon-arrow-down"></span>  Advanced Options - Arms Length <i class="glyphicon glyphicon-question-sign pull-right"></i></legend>
+      <div class="collapse-container">
+      <legend data-toggle="collapse" data-target=".armsOption" align="left"><span class="alDrop glyphicon glyphicon-arrow-down"></span>  Advanced Options - Arms Length</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#armsLengthModal"></i>
+      </div>
+
       <div class="armsOption collapse in divCollapse">
         <li>
         <label for="left_arm_min">Helix I minimum Length</label>
@@ -170,7 +195,10 @@
         </li>
       </div>
 
-      <legend data-toggle="collapse" data-target=".promoOption" align="left"><span class="promoDrop glyphicon glyphicon-arrow-right"></span>  Promoter <i class="glyphicon glyphicon-question-sign pull-right"></i></legend>
+      <div class="collapse-container">
+      <legend data-toggle="collapse" data-target=".promoOption" align="left"><span class="promoDrop glyphicon glyphicon-arrow-right"></span>  Promoter</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#promoterModal"></i>
+      </div>
+
       <div class="promoOption collapse divCollapse">
         <li><input type="radio" name="promo" value="append" required="true" id="append_promo"> Append</li>
         <li><input type="radio" name="promo" value="notappend" required="true" id="not_append_promo" checked="true"> Not Append </li>
@@ -184,7 +212,10 @@
           </div></li>
       </div>
 
-      <legend data-toggle="collapse" data-target=".specOption" align="left"><span class="speDrop glyphicon glyphicon-arrow-right"></span>  Specificity <i class="glyphicon glyphicon-question-sign pull-right"></i></legend>
+      <div class="collapse-container">
+      <legend data-toggle="collapse" data-target=".specOption" align="left"><span class="speDrop glyphicon glyphicon-arrow-right"></span>  Specificity</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#specificityModal"></i>
+      </div>
+
       <ul class="specOption collapse divCollapse">
         <li>
           <input type="radio" name="specificity" value="cleavage" required="true" checked="checked"> Cleavage Only
@@ -195,7 +226,7 @@
       </ul>
     </div>
 
-    <div id="designAlert2" class="alert alert-danger">
+    <div id="designAlert2" class="alert alert-danger invisible">
       Error!!
     </div>
 
@@ -312,5 +343,5 @@
 </form>
 
 </div>
-
+<% include ./modals %>
 <% include ../footer %>

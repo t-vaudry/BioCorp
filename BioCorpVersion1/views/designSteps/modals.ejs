@@ -1,0 +1,168 @@
+<!-- Modal for Regions for Target Design-->
+<div class="modal fade" id="regionTargetModal" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Regions for Target Design</h4>
+
+      </div>
+      <div class="modal-body">
+        <p>Select what part of the RNA you will be targeting. No cut-sites (NUH) outside the selected areas will be considered.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default action-button" name="button" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Modal for Target Environment-->
+<div class="modal fade" id="targetEnvironmentModal" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Target Environment</h4>
+
+      </div>
+      <div class="modal-body">
+        <p>Select what environment the ribozyme will be tested on.
+	If in-vivo, you may specify an organism so that we may
+	test that the ribozyme does not anneal to off-target locations.
+  If the organism is not in the list, you may select other. You will then be prompted for a tax-id that can be found in the 'Blast' site. In the organism text box, you can find all organisms that NCBI has in their data base, then copy the tax-id unto this website.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default action-button" name="button" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal for Environment Properties-->
+<div class="modal fade" id="envPropertyModal" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Environment Properties</h4>
+
+      </div>
+      <div class="modal-body">
+        <p>Provide details of the environment in which the ribozyme will
+	be used. This will allow for optimization over a wide range of
+        annealing temperatures, and will help the algorithm
+	predict better the secondary structure of the ribozyme.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default action-button" name="button" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Modal for Potential Cut-sites -->
+<div class="modal fade" id="potentialCutSitesModal" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Potential Cut-Sites</h4>
+
+      </div>
+      <div class="modal-body">
+        <p>Select one or multiple cut-sites for attachment on the target. Please note that a larger number of cut-sites means increased work-load and thus more waiting time. It is recommended that you use GUC and another alternate cut-site, but not more.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default action-button" name="button" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal for Regions for Ribozyme Shape-->
+<div class="modal fade" id="rzShapeModal" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Ribozyme Shape</h4>
+
+      </div>
+      <div class="modal-body">
+        <p>Choose the catalytic core that will be used to design the ribozyme.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default action-button" name="button" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal for Arms Length-->
+<div class="modal fade" id="armsLengthModal" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Arms Length</h4>
+
+      </div>
+      <div class="modal-body">
+        <p>These parameters relate to the length of the various helices on the ribozyme.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default action-button" name="button" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal for Promoter-->
+<div class="modal fade" id="promoterModal" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Promoter</h4>
+
+      </div>
+      <div class="modal-body">
+        <p>If the checkbox is checked, the T7 promoter will be added to the final DNA. If desired this should be used in vitro.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default action-button" name="button" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal for Specificity-->
+<div class="modal fade" id="specificityModal" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Specificity</h4>
+
+      </div>
+      <div class="modal-body">
+        <p>When verifying specificity, we can either find off-target locations where the ribozyme will cleave or it will
+          hybridize strongly enough to silence the gene. If you select cleavage-only, non-cleaving sites will not be considered.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default action-button" name="button" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

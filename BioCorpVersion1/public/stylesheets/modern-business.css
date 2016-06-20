@@ -164,6 +164,7 @@ footer {
     position: relative;
 }
 
+/* Design Options Styles */
 .regionOption {
   margin-left: 30%;
   margin-bottom: 15px;
@@ -258,6 +259,17 @@ select.disabled {
 input[type=number] {
   height: 10px;
 }
+
+legend[data-toggle=collapse]{
+  float: left;
+  width: 98%;
+}
+
+i[data-toggle=modal]{
+  float: left;
+  font-size: 1.5em;
+}
+
 
 /* Responsive Styles */
 
