@@ -100,12 +100,12 @@ function GetDnaForCandidate( candidate , appendT7 )
 
 function GetDisplayHtmlForCandidate( candidate , appendT7 )
 {
-  var TEMPLATE = 
+  var TEMPLATE =
   "<div class='target-download'>DNA:  </div><b class='utr'>5' - </b>{0}<b class='utr'> - 3'</b><br/>\
   <div class='target-download'>Rz: </div><b class='utr'>3' - </b>{1}<b class='utr'> - 5'</b>\
   ";
 
-  return TEMPLATE.replace('{0}', GetDnaForCandidate( candidate , appendT7 ) ) 
+  return TEMPLATE.replace('{0}', GetDnaForCandidate( candidate , appendT7 ) )
     .replace('{1}', Reverse(candidate.Sequence) ) ;
 }
 
@@ -199,7 +199,7 @@ function FindUTRBoundaries(ondone)
           clock = parseInt(click[0].substr(4)) ;// trim from
           cluck = parseInt(click[1].trim().substr(2) ) ; // get to
           request.sequence = request.OriginalSequence.substr(clock, cluck - clock +1 );
-        
+
         }
         else if ( ORFInfo != -1)
         {
@@ -213,9 +213,9 @@ function FindUTRBoundaries(ondone)
              request.OriginalSequence.substr(clock, cluck - clock +1);
           var ARF =
              request.OriginalSequence.substr(cluck);
-          var URF = 
+          var URF =
              request.OriginalSequence.substr(0,clock);
-            
+
           if( request.region.length == 1)
           {
             if(request.region[0] = "3'")
@@ -244,7 +244,7 @@ function FindUTRBoundaries(ondone)
         ondone(0);
       }
   }
-  ); 
+  );
 }
 
 /*
@@ -260,7 +260,7 @@ function FindUTRBoundaries(ondone)
 function AppendPromoter(candidateDna,promoter, depth)
 {
 	var promAdded =  RnaToDna ( ReverseComplement (promoter) );
-	
+
   var candidate = candidateDna;
   var jj;
   for( jj = 0; jj < depth ;++jj)
@@ -284,4 +284,3 @@ function AppendPromoter(candidateDna,promoter, depth)
   candidate += promAdded.substr(matchBegin);
   return candidate;
 }
-

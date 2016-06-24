@@ -3,11 +3,12 @@ var router = express.Router();
 
 
 router.get('/', function(req, res, next){
-  res.render('./designSteps/step0', {title: 'Step 1'});
+  res.render('./designSteps/step0', {title: 'Step 0'});
 });
 
 router.get('/step1', function(req, res, next){
   res.render('./designSteps/step1', {title: 'Step 1'});
 });
+
 
 module.exports = router;

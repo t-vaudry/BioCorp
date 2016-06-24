@@ -270,6 +270,9 @@ i[data-toggle=modal]{
   font-size: 1.5em;
 }
 
+.collapse-container {
+  height: 31px;
+}
 
 /* Responsive Styles */
 

@@ -157,5 +157,6 @@ window.onload = function() {
 	$('#not_append_promo').click(function(){
 		$('#promoList').prop('disabled', true);
 	});
+
 }
 //});

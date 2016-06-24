@@ -251,39 +251,46 @@ SequenceInput.prototype.getText = function(){
 
 
 SequenceInput.prototype.emptyText = function(){
-    this.el.value = "";
+  //  this.el.value = "";
 };
 
 
 function SequenceAlert(el, el2){
     this.el = el;
-
+    this.el2 = el2;
+    console.log(this.el);
+    console.log(this.el2);
 }
 
 //state = {"ok": "true/false" , "error" : "<str>"}
 SequenceAlert.prototype.setState = function(state){
     this.el.removeClass("invisible");
+    this.el2.removeClass('invisible');
 
     if(state.ok === false){
-	this.el.addClass("alert-error").removeClass("alert-success");
-
+	     this.el.addClass("alert-error").removeClass("alert-success");
+       this.el2.addClass('alert-error').removeClass('alert-success');
     }
     else {
-	this.el.removeClass("alert-error").addClass("alert-success");
-
+	     this.el.removeClass("alert-error").addClass("alert-success");
+       this.el2.removeClass('alert-error').addClass('alert-success');
     }
     this.el.text(state.error);
+    this.el2.text(state.error);
 
 };
 
 SequenceAlert.prototype.hide = function(){
     this.el.addClass("invisible");
     this.el.removeClass("alert-error alert-success");
+    this.el2.addClass("invisible");
+    this.el2.removeClass("alert-error alert-success");
 
 };
 
 SequenceAlert.prototype.show = function(){
     this.el.removeClass("invisible");
+    this.el2.removeClass("invisible");
 
 };
 
@@ -366,6 +373,7 @@ SmartFieldSet.prototype.setState = function(show){
 function SummaryTable(){}
 
 SummaryTable.prototype.setTableData = function(data){
+    console.log(data.cutsites);
     if(data.env.target){
 	$("#vivoEnvRow").removeClass("invisible");
     }

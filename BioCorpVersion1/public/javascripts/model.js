@@ -1,9 +1,9 @@
-/*var indexUrl = window.location.href.indexOf("client_tests");
+var indexUrl = window.location.href.indexOf("client_tests");
 var testMode = (indexUrl !== -1);
 if(testMode){
     var urlLocation =  window.location.href.substr(0, indexUrl) + 'ribosoft/';
     var testEmailUser = "test@test.test";
-}*/
+}
 
 function Env(type, target){
     //type is either "vivo" or "vitro"
