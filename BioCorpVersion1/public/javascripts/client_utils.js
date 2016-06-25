@@ -1,18 +1,22 @@
-function FileLoader(textField) {}
+function FileLoader(textField) {
+}
 
 FileLoader.readFile = function(fileToRead) {
+
     var reader = new FileReader();
     reader.readAsText(fileToRead);
     reader.onload = function() {
-	var input = reader.result;
-	var validation = InputValidation.isInputValid(input);
-	seqInput.setText(input);
-	request.sequence = InputValidation.cleanInput(input);
-	seqAlert.setState(validation);
+	     var input = reader.result;
+       console.log(input);
+	     var validation = InputValidation.isInputValid(input);
+
+	     seqInput.setText(input);
+	     request.sequence = InputValidation.cleanInput(input);
+	     seqAlert.setState(validation);
         if(validation.ok){
-	    submit1.enable();
+	        submit1.removeClass('disabled');
         }
-        request.accessionNumber = '';
+       request.accessionNumber = '';
     };
 }
 
@@ -20,6 +24,8 @@ FileLoader.handleFileBrowsed  = function(evt) {
     file = $('#selectFileInput')[0].files[0];
     FileLoader.readFile(file);
 }
+
+
 
 String.prototype.endsWith = function(substr){
     return this.substring(this.indexOf(substr)) == substr;
@@ -236,6 +242,7 @@ InputValidation.isInputValid = function(str){
 function SequenceInput(el){
     this.el = el;
 }
+
 
 SequenceInput.prototype.isInputValid = function(){
     return InputValidation.isInputValid(this.el.value);

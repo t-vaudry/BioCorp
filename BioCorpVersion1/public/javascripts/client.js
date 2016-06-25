@@ -1,21 +1,25 @@
 
 $(document).ready(initializePage);
-//$(document).on("page:load", initializePage)
-
-
-function initializePage() {
+$(document).on("page:load", initializePage)
   /***** Sequence Selection *****/
+  var seqInput = new SequenceInput($('#sequence-display')[0]);
   var seqInput = new SequenceInput($('#sequence-display')[0]);
   var seqAlert = new SequenceAlert($('#sequence_alert'), $('#sequence_alert'));
   var submit1 = $('#submit1');
   var searchAccession = new Button($('#submit_ACN'));
   var accessionAlert = new AccessionAlert($('#accession_alert'));
   var request = new Request();
+  var fileLoader = new FileLoader();
 
-  /**** Design Option ******/
+    /**** Design Option ******/
   var summary = new SummaryTable();
   var designAlert = new SequenceAlert($('#designAlert'), $('#designAlert2'));
   var validator = new DesignParamsValidator(designAlert);
+function initializePage() {
+
+
+
+
 
   function fetchInputAccessionNumber(){
     var validator = new AccNumberValidator($('#accession').val());
@@ -248,40 +252,6 @@ function initializePage() {
     $('#promosequence-display').addClass('invisible');
   });
 
+  $('#selectFileInput').change(FileLoader.handleFileBrowsed);
 
 };
-
-function AccNumberValidator(accessionNumber){
-  this.accessionNumber = accessionNumber;
-  this.isValid = false;
-}
-
-AccNumberValidator.prototype.validate = function(successCallback, errorCallback){
-  var self = this;
-  $.$.ajax({
-    url: 'http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi',
-    type: 'GET',
-    data: {
-      db: 'nuccore',
-      'id': this.accessionNumber,
-      rettype: 'fasta',
-      retmode: 'text'
-    },
-    success: function(d){
-      self.isValid = true;
-      successCallback(d);
-    },
-    error: function(jqXHR, textStatus, errorThrown){
-      self.isValid = false;
-      errorCallback(errorThrown);
-    }
-  });
-}
-
-AccNumberValidator.prototype.getValidAccessionNumber = function(){
-  return this.isValid? this.accessionNumber : '';
-}
-
-AccNumberValidator.prototype.getAccessionNumber = function(){
-  return this.accessionNumber;
-}
