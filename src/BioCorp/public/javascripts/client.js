@@ -1,6 +1,7 @@
 
 $(document).ready(initializePage);
-$(document).on("page:load", initializePage)
+$(document).on("page:load", initializePage);
+
   /***** Sequence Selection *****/
   var seqInput = new SequenceInput($('#sequence-display')[0]);
   var seqInput = new SequenceInput($('#sequence-display')[0]);
@@ -17,10 +18,6 @@ $(document).on("page:load", initializePage)
   var validator = new DesignParamsValidator(designAlert);
 function initializePage() {
 
-
-
-
-
   function fetchInputAccessionNumber(){
     var validator = new AccNumberValidator($('#accession').val());
     if(!validator.getAccessionNumber()){
@@ -36,17 +33,20 @@ function initializePage() {
       seqInput.setText(input);
       seqAlert.setState(validation);
       if(validation.ok){
-        console.log(3333333333)
+        console.log(3333333333);
         submit1.removeClass('disabled');
       }
       accessionAlert.setState("Success");
+      window.setTimeout(function(){
+        accessionAlert.hide();
+        seqAlert.hide();
+      }, 3000);
       request.accessionNumber = validator.getValidAccessionNumber();
     },
     function(error){
       accessionAlert.setState("Failure");
       request.accessionNumber = validator.getValidAccessionNumber();
-    })  ;
-
+    })
   };
   console.log("document loaded!!");
   searchAccession.click(fetchInputAccessionNumber);
@@ -93,9 +93,9 @@ function initializePage() {
     request.extractData(data);
     console.log(request);
     console.log(data);
-    var regionCount = request.region != undefined ? request.region.length : 0;
+    var regionCount = request.region !== undefined ? request.region.length : 0;
 
-    if(regionCount == 0 && request.accessionNumber != undefined){
+    if(regionCount === 0 && request.accessionNumber !== undefined){
       designAlert.setState({ok:false, error:"At least one region must be selected for the sequence (e.q. ORF)"});
       return;
     }
@@ -114,14 +114,13 @@ function initializePage() {
           function findingDone(e){
             if(e == 1){
               $('#stepTwoFinish').removeClass('disabled');
-            } else if(e == 0){
+            } else if(e === 0){
               designAlert.setState({ok:false, error: "NCBI is not responding or is temporily down." + "Please try again in a minute or select the whole gene. " + "(Multiple searches in a small window of time may " + "cause this)"});
             } else{
               designAlert.setState({ok:false, error:"The region of the RNA you have selected is more than 2000 nucleotides." + "To permit fair use of the software among users, the sequence must be less than 2000 nucleotides. " + "Please select a smaller region or manually trim the sequence in the first step to respect this condition"});
             }
             designAlert.hide();
-          }
-        , request);
+          }, request);
       }
     }
 
@@ -163,7 +162,7 @@ function initializePage() {
             //This monster grabs the "from x,    to y" right after the tag found
             var cleck =  clack.substr(clack.indexOf("from",ORFInfo), clack.indexOf ( "," ,clack.indexOf( "to" ,ORFInfo) ) - clack.indexOf("from",ORFInfo)) ;
             var click = cleck.split(","); //This small thing splits it into "from" and "to"
-            clock = parseInt(click[0].substr(4)) ;// trim from
+            clock = parseInt(click[0].substr(4));// trim from
             cluck = parseInt(click[1].trim().substr(2) ) ; // get to
 
             var ORF =
@@ -254,4 +253,4 @@ function initializePage() {
 
   $('#selectFileInput').change(FileLoader.handleFileBrowsed);
 
-};
+}

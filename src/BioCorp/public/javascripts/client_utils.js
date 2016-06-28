@@ -15,6 +15,9 @@ FileLoader.readFile = function(fileToRead) {
 	     seqAlert.setState(validation);
         if(validation.ok){
 	        submit1.removeClass('disabled');
+          window.setTimeout(function(){
+            seqAlert.hide();
+          }, 3000);
         }
        request.accessionNumber = '';
     };
