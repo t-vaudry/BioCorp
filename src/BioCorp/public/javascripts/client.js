@@ -215,6 +215,8 @@ function initializePage() {
     $('#notcomputedRadio').prop('checked', false);
   });
 
+
+
   function PromoterOthersListener(){
     var promo = $('#promoList option:selected').attr('value');
     if(promo == 'Others'){
@@ -254,3 +256,13 @@ function initializePage() {
   $('#selectFileInput').change(FileLoader.handleFileBrowsed);
 
 }
+
+
+  function handleResuspend(checkbox){
+    if(checkbox.checked){
+      console.log("Checkbox is checked!!!");
+      $('#resuspendList').removeAttr('disabled');
+    } else{
+      $('#resuspendList').attr('disabled', 'true');
+    }
+  }

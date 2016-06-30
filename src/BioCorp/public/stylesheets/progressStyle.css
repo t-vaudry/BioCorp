@@ -21,16 +21,15 @@ body {
 
 }
 /*form styles*/
-#msform {
+#msform, #oligoForm {
 
 	width: 1600px;
 	margin: 100px 50px 50px -5%;
 	text-align: center;
 	position: relative;
-
-
 }
-#msform fieldset {
+
+#msform fieldset, #oligoForm fieldset {
 	background: white;
 	border: 0 none;
 	border-radius: 3px;
@@ -43,15 +42,13 @@ body {
 
 	/*stacking fieldsets above each other*/
 	position: absolute;
-
-
 }
 /*Hide all except first fieldset*/
-#msform fieldset:not(:first-of-type) {
+#msform fieldset:not(:first-of-type), #oligoForm fieldset:not(:first-of-type) {
 	display: none;
 }
 /*inputs*/
-#msform input, #msform textarea {
+#msform input, #msform textarea, #oligoForm input, #oligoForm textarea {
 	padding: 15px;
 	border: 1px solid #ccc;
 	border-radius: 3px;
@@ -63,7 +60,7 @@ body {
 	font-size: 13px;
 }
 /*buttons*/
-#msform .action-button {
+#msform .action-button, #oligoForm .action-button{
 	width: 100px;
 	background: #27AE60;
 	font-weight: bold;
@@ -74,7 +71,7 @@ body {
 	padding: 10px 5px;
 	margin: 10px 5px;
 }
-#msform .action-button:hover, #msform .action-button:focus {
+#msform .action-button:hover, #msform .action-button:focus, #oligoForm .action-button:hover, #oligoForm .action-button:focus  {
 	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
 }
 /*headings*/
@@ -91,7 +88,7 @@ body {
 	margin-bottom: 20px;
 }
 /*progressbar*/
-#progressbar {
+#progressbar, #oligoProgressbar{
 	margin-bottom: 30px;
 	margin-left: -22%;
 	overflow: hidden;
@@ -99,7 +96,7 @@ body {
 	counter-reset: step;
 
 }
-#progressbar li {
+#progressbar li, #oligoProgressbar li {
 	list-style-type: none;
 	color: black;
 	text-transform: uppercase;
@@ -108,7 +105,7 @@ body {
 	float: left;
 	position: relative;
 }
-#progressbar li:before {
+#progressbar li:before, #oligoProgressbar li:before {
 	content: counter(step);
 	counter-increment: step;
 	width: 20px;
@@ -121,7 +118,7 @@ body {
 	margin: 0 auto 5px auto;
 }
 /*progressbar connectors*/
-#progressbar li:after {
+#progressbar li:after, #oligoProgressbar li:after {
 	content: '';
 	width: 96%;
 	height: 2px;
@@ -131,13 +128,13 @@ body {
 	top: 9px;
 	z-index: 0; /*put it behind the numbers*/
 }
-#progressbar li:first-child:after {
+#progressbar li:first-child:after, #oligoProgressbar li:first-child:after{
 	/*connector not needed before the first step*/
 	content: none;
 }
 /*marking active/completed steps green*/
 /*The number of the step and the connector before it = green*/
-#progressbar li.active:before,  #progressbar li.active:after{
+#progressbar li.active:before,  #progressbar li.active:after, #oligoProgressbar li.active:before,  #oligoProgressbar li.active:after{
 	background: #27AE60;
 	color: white;
 }
@@ -146,6 +143,6 @@ body {
 	margin-top: 37%;
 }
 
-#rzDesign {
+#rzDesign, #oligoOrder {
 	position: relative;
 }

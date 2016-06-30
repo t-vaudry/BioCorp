@@ -1,0 +1,25 @@
+{
+  "name": "hammerhead-design",
+  "version": "1.3.1",
+  "description": "Set of tools to design Hammerhead Ribozymes",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=test node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anas-ambri/node-hammerhead-design.git"
+  },
+  "keywords": [
+    "hammerhead",
+    "ribozymes",
+    "design"
+  ],
+  "author": "Gabriel K. Belmonte",
+  "license": "All rights reserved Dr. Nawwaf Kharma (http://drkharma.com)",
+  "readmeFilename": "README.md",
+  "gitHead": "bd79c03a6a167742b37632a013a7f0da38f6fc74",
+  "dependencies": {
+    "rimraf": "~2.2.5"
+  }
+}

@@ -164,6 +164,30 @@ footer {
     position: relative;
 }
 
+/* Oligo Order Style */
+
+.modification {
+  margin-left: 20%;
+  margin-bottom: 15px;
+}
+
+.modification li{
+  float: left;
+  margin-left: 10%;
+  margin-bottom: 15px;
+}
+
+#optional {
+  margin-left: 20%;
+  margin-bottom: 15px;
+}
+
+#optional li{
+  float: left;
+  margin-left: 10%;
+  margin-bottom: 15px;
+}
+
 /* Design Options Styles */
 .regionOption {
   margin-left: 30%;

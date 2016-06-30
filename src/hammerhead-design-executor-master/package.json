@@ -1,0 +1,35 @@
+{
+  "name": "hammerhead-design-executor",
+  "version": "0.0.1",
+  "description": "A wrapper script to execute hammerhead design requests",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=test node index.js",
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anas-ambri/hammerhead-design-executor"
+  },
+  "keywords": [
+    "hammerhead",
+    "design",
+    "executor"
+  ],
+  "author": "Anas Ambri",
+  "readmeFilename": "README.md",
+  "gitHead": "17cbec481e144e237fa05ccd102843c505dd4038",
+  "dependencies": {
+    "hammerhead-design": "latest",
+    "mongoose": "~3.6.20",
+    "nodemailer": "~0.5.5",
+    "heapdump": "~0.2.7"
+  },
+  "devDependencies": {
+    "should": "~2.0.1",
+    "mocha": "~1.13.0",
+    "async": "~0.2.9",
+    "rimraf": "~2.2.2",
+    "mkdirp": "~0.3.5"
+  }
+}

@@ -16,6 +16,12 @@ window.onload = function() {
 		});
 	};
 
+	if($('#fsOligoOrder').length > 0){
+		console.log($('#fsOligoOrder').height());
+		$('#footer').css('margin-top', function(){
+			return $('#fsOligoOrder').height();
+		});
+	};
 
 	$('.stepNext').click(function(){
 
@@ -46,6 +52,14 @@ window.onload = function() {
 				current_fs = $("#fsDesignReview");
 				next_fs = $("#fsProcessing");
 				break;
+			case "fsOligoOrder":
+				current_fs = $("#fsOligoOrder");
+				next_fs = $("#fsOligoPersonal");
+				break;
+			case "fsOligoPersonal":
+				current_fs = $("#fsOligoPersonal");
+				next_fs = $("#fsOligoReview");
+				break;
 		}
 		console.log(next_fs.attr('id'));
 		console.log(current_fs.height());
@@ -60,6 +74,7 @@ window.onload = function() {
 
 		//activate next step on progressbar using the index of next_fs
 		$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+		$("#oligoProgressbar li").eq($("fieldset").index(next_fs)).addClass("active");
 
 		//show the next fieldset
 		next_fs.show();

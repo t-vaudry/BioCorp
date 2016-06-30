@@ -1,0 +1,9 @@
+{
+    "dbUrl": "mongodb://localhost/ribosoft-db",
+    "reporter": true,
+    "user_smtp": "ribosoft.mailer@gmail.com",
+    "pass_smtp": "ribosoft",
+    "host" : "http://www.drkharma.com/ribosoft/",
+    "admin": "kharma@ece.concordia.ca",
+    "devContact" : "ribosoft.contact@gmail.com"
+}

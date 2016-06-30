@@ -23,6 +23,10 @@ router.get('/license', function(req, res, next){
   res.render('license', {title: 'License'});
 });
 
+router.get('/oligoOrder', function(req, res, next){
+  res.render('./designSteps/oligoOrder', { title: 'Order Your Oligoo'});
+});
+
 
 /*
 exports.license = function(req, res){
