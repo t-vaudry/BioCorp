@@ -1,0 +1,172 @@
+<% include header %>
+<div class="row-fluid step-header span12">
+      <div class="step-container">
+        <h3 class="step-title"><%= stepTitle %></h3>
+<h4>Design Summary</h4><br/>
+<div>
+      <table class="table table-hover table-condensed">
+      <thead>
+        <tr>
+          <th>Design Option</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+	<% if(input.accessionNumber) { %>
+	<tr class="invisible" id="accessionNumberRow">
+          <td>Accession number</td>
+          <td id="accessionNumber"><%= input.accessionNumber %></td>
+        </tr>
+	<% } %>
+        <tr>
+          <td>Sequence Length</td>
+          <td id="seqLength"><%= input.sequence.length %></td>
+        </tr>
+        <tr id="targetRegionRow">
+          <td>Target Region</td>
+          <td id="targetRegion"><%= input.targetRegion %></td>
+        </tr>
+        <tr>
+          <td>Target Environment</td>
+          <td id="targetEnv"><%= input.targetEnv %></td>
+        </tr>
+	<% if(input.vivoEnv) { %>
+        <tr id="vivoEnvRow" class="invisible">
+          <td>In-vivo Environment</td>
+          <td id="vivoEnv"><%= input.vivoEnv %></td>
+        </tr>
+	<% } %>
+        <tr>
+          <td>Temperature</td>
+          <td id="tempEnv"><%= input.tempEnv %> &deg;C</td>
+        </tr>
+        <tr>
+          <td>Na&#8314; Concentration</td>
+          <td id="naEnv"><%= input.naEnv %> mM</td>
+        </tr>
+        <tr>
+          <td>Mg<sup>2</sup>&#8314; Concentration</td>
+          <td id="mgEnv"><%= input.mgEnv %> mM</td>
+        </tr>
+        <tr>
+          <td>Oligomer Concentration</td>
+          <td id="oligoEnv"><%= input.oligoEnv %> mM</td>
+        </tr>
+        <tr>
+          <td>Cut-sites</td>
+          <td id="cutsites"><%= input.cutsites %></td>
+        </tr>
+        <tr>
+          <td>Fold Shape</td>
+          <td id="foldShape"><%= input.foldShape %></td>
+        </tr>
+	<tr>
+          <td>Helix I Length</td>
+          <td id="leftArm">[<%= input.left_arm_min %>, <%= input.left_arm_max %>]</td>
+        </tr>
+	<tr>
+          <td>Helix III Length</td>
+          <td id="rightArm">[<%= input.right_arm_min %>, <%= input.right_arm_max %>]</td>
+        </tr>
+	<tr>
+          <td>T7 promoter used?</td>
+          <td id="promoter"><%= input.promoter %></td>
+        </tr>
+	<tr>
+          <td>Specificity</td>
+          <td id="specificity"><%= input.specificity %></td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+<h4>Design Results</h4>
+<% if(resultMessage) { %><p class="step-description"><%= resultMessage %></p><% } %>
+<% if(results) { %>
+  <script>
+  var results = <%- JSON.stringify(results) %>;
+  DecompressRequest(results);
+  var container = results.CutsiteTypesCandidateContainer;
+  var core  =  results.coreTypeId == 0? "CUGAUGAGGCCGAAAGGCCGAA" : "CUGAUGAGUCGCUGAAAUGCGACGAA";
+  var html ="<div class='step-contents center'>\
+  <table class='table table-hover' id='results'>\
+       <thead>\
+           <th><p>Cut-site Number</p></th>\
+           <th><p>Sequence</p></th> \
+           <th><p>Melting Temperature (Left) (&deg;C)</p></th> \
+           <th><p>Melting Temperature (Right)(&deg;C)</p></th> \
+           <th><p>Accessibility 1</p></th> \
+           <th><p>Accessibility 2</p></th> \
+           <th><p>Ribozyme Shape Quality</p></th>";
+
+           html += "<th id='specificity-col'><p>Weighted off-target hits</p></th>";
+           html += "<th id='rank-col'><p>Overall Rank</p></th></thead>";
+       container.forEach(function(type, ind1) {
+            type.Cutsites.forEach(function(cutsite,ind2) {
+                 cutsite.Candidates.forEach(function(candidate,ind3) {
+		 html +="<tr> \
+                  <td>"+cutsite.ID+"</td> \
+                  <td class='sequence_col'>"
+                  + candidate.Sequence.substr (0, candidate.Sequence.indexOf(core))
+                  + "<emp class ='core-highlight'>" + candidate.Sequence.substr (candidate.Sequence.indexOf(core), core.length) + "</emp>"
+                  + candidate.Sequence.substr (candidate.Sequence.indexOf(core) + core.length )
+                  +"</td> \
+                  <td class='melting_col'>"+candidate.MeltingTemperatureLeft+"</td> \
+                  <td class='melting_col'>"+candidate.MeltingTemperatureRight+"</td> \
+                  <td>"+candidate.Fitness_Target+"</td> \
+                  <td>"+candidate.Fitness_Target_dG+"</td> \
+                  <td>"+candidate.Fitness_Shape+"</td>";
+                  if(results.InVivoOrganism)
+                    html+= "<td info='"+ind1+","+ind2+","+ind3+"' class='specificity-entry'>"+candidate.Fitness_Specificity+"</td>";
+                  else
+                    html+= "<td info='"+ind1+","+ind2+","+ind3+"' class='specificity-entry'>"+"N/A"+"</td>";
+                  html+= "<td>"+(candidate.rank+1).toString()+" </td></tr>";
+                })
+            })
+       })
+    html += "</table>";
+    $('.step-container').append(html);
+  </script>
+  <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+	<div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Candidate description</h4>
+	</div>
+	<div class="modal-body" id="modal-body">
+	  <div class="candidate-details">
+	    <h5>Sequence</h5><p id="sequence"></p>
+	  </div>
+	</div>
+	<div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <a id="download-link" class="btn btn-primary" download="sequence.txt" href="data:text/plain">Download Sequence</a>
+	</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="offtargetModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+	<div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Off-target hits</h4>
+	</div>
+	<div class="modal-body" id="modal-body">
+	  <div>
+	    <p id="print"></p>
+	  </div>
+	</div>
+	<div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
+<% } %>
+
+      </div>
+</div>
+<% include footer %>

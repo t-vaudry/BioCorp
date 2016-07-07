@@ -51,6 +51,7 @@ function Request(
 Request.prototype.submitRequest = function(callback){
     var data = JSON.stringify(this);
     var url = window.location.href.substr(0, window.location.href.indexOf("#"));
+    console.log("URL after submitRequest call is " + url);
     $.ajax({
         type: "POST",
         url: (urlLocation || url)+"requests/",

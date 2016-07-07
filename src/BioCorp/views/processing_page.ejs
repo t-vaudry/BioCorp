@@ -1,0 +1,30 @@
+<% include header %>
+
+<div class="container" id="inProcessPage">
+
+  <h3 class="step-title"> Ribozyme Design In Process</h3>
+  <p class="step-description">Your request has been submitted. You can wait for the design process to finish, or enter your email and we will send you a link once it is completed.</p>
+  <div class="step-contents center">
+  <div id="processingAlert" class="alert alert-error invisible"></div>
+  <div class="jumbotron">
+    <h5>Estimated Time Left: <span id="timeLeft"></span></h5>
+    <div class="progress progress-striped active">
+      <div class="bar"></div>
+    </div>
+  </div>
+  <div class="emailInvite container">
+    <div class="form-signin" id="confirmation-email">
+      <h2 class="form-signin-heading">Email saved</h2>
+      <p>You can now close the tab and wait for the results to be emailed to you. They will be kept for a week after completion.</p>
+    </div>
+    <div class="form-signin resultsButton invisible" id="results-ready">
+      <h2>Your results are ready!</h2>
+      <input type="submit" id="submit4" class="btn btn-large btn-success" value="See Results"/>
+    </div>
+
+  </div>
+  </div>
+
+</div>
+
+<% include footer %>

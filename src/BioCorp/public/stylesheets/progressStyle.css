@@ -143,6 +143,11 @@ body {
 	margin-top: 37%;
 }
 
-#rzDesign, #oligoOrder {
+#rzDesign, #oligoOrder{
 	position: relative;
+}
+
+#inProcessPage {
+	position: relative;
+	margin-top: 5%;
 }

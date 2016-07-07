@@ -268,8 +268,7 @@ SequenceInput.prototype.emptyText = function(){
 function SequenceAlert(el, el2){
     this.el = el;
     this.el2 = el2;
-    console.log(this.el);
-    console.log(this.el2);
+
 }
 
 //state = {"ok": "true/false" , "error" : "<str>"}
@@ -521,9 +520,9 @@ DesignParamsValidator.prototype.validate = function(request){
     else if( (request.naC < 0) || (request.mgC < 0) || (request.oligoC < 0) ) {
 	this.alert.setState({ok:false, error:"Environment concentrations cannot be below 0"});
     }
-    else if(request.left_arm_max > 23  || request.right_arm_max > 23 || request.left_arm_min < 1 || request.right_arm_min < 1  )
+    else if(request.left_arm_max > 34  || request.right_arm_max > 34 || request.left_arm_min < 1 || request.right_arm_min < 1  )
     {
-    this.alert.setState({ok:false, error:"The arm lengths have to be between 1 and 23. This ensures that relevant results can be provided in a timely fashion and allows fair share of the software among users."});
+    this.alert.setState({ok:false, error:"The arm lengths have to be between 1 and 34. This ensures that relevant results can be provided in a timely fashion and allows fair share of the software among users."});
     }
     else {
 	this.alert.hide();

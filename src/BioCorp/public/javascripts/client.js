@@ -4,13 +4,26 @@ $(document).on("page:load", initializePage);
 
   /***** Sequence Selection *****/
   var seqInput = new SequenceInput($('#sequence-display')[0]);
-  var seqInput = new SequenceInput($('#sequence-display')[0]);
+
   var seqAlert = new SequenceAlert($('#sequence_alert'), $('#sequence_alert'));
   var submit1 = $('#submit1');
   var searchAccession = new Button($('#submit_ACN'));
   var accessionAlert = new AccessionAlert($('#accession_alert'));
   var request = new Request();
   var fileLoader = new FileLoader();
+
+  /* Step 3 */
+  var submissionAlert = new SequenceAlert($('#submitAlert'), $('#submitAlert2'));
+  var userInfoAlert = new SequenceAlert($('#organization-alert'), $('#organization-alert'));
+
+  /* Step 4 */
+  var progressBar = new ProgressBar($(".bar"), $("#timeLeft"), request);
+  var stateReporter = new StateReporter($(".resultsButton").next());
+  var resultsPanel = new ResultsPanel($(".resultsButton"));
+  var submit4 = new Button($("#submit4"));
+  var processingAlert = new SequenceAlert($("#processingAlert"), $("#processingAlert"));
+
+  var emailReporter = new EmailReporter($("#input-email"), $("#confirmation-email"), $("#emailAlert"));
 
     /**** Design Option ******/
   var summary = new SummaryTable();
@@ -33,7 +46,6 @@ function initializePage() {
       seqInput.setText(input);
       seqAlert.setState(validation);
       if(validation.ok){
-        console.log(3333333333);
         submit1.removeClass('disabled');
       }
       accessionAlert.setState("Success");
@@ -201,7 +213,57 @@ function initializePage() {
         }
     }
     );
+
+    if($(".progress").length > 0) {
+      updatePage();
+      submit4.click(finishStep4);
+      $("#emailSubmit").click(function(){
+        emailReporter.submit($("#emailInput").val());
+      });
+    }
+
+    if($("#results").length > 0) {
+        $("#results").dataTable();
+	$("thead tr th:nth-child(2) p").tooltip({title:"5'-3' Sequence of the generated ribozyme"});
+	$("thead tr th:nth-child(3) p").tooltip({title:'Hybridization temperature of the ribozymes left arm'});
+  $("thead tr th:nth-child(4) p").tooltip({title:'Hybridization temperature of the ribozymes right arm'});
+	$("thead tr th:nth-child(5) p").tooltip({title:'Measure of target accessibility based on the RNA folding on itself. 1 is the best value, 0 is the worst.'});
+	$("thead tr th:nth-child(6) p").tooltip({title:'Second measure of accessibility based on the thermodynamical favourability of the RNA switching to an open configuration. A greater value is better. Values will range between 0 and 1.' +
+  'This value is on a cutsite-basis.'});
+	$("thead tr th:nth-child(7) p").tooltip({title:'Measure of how good the shape is based on annealing pairs that are not in the catalytic core. A greater value is better. Values will range between 0 and 1.'});
+	$("thead tr th:nth-child(8) p").tooltip({title:'Number of off-target hits, weighted by how good the match is and whether it is just hybridizing or fully cleaving. '
+                                         +'XN-type genes are not counted to this value, but are reported on the list. Click on the number for details. Lowest is better.'});
+	$("thead tr th:nth-child(9) p").tooltip({title:'Overall Rank based on the quality of each attribute independently, e.g. a candidate with highest accessibility will be rank 1 regardless of everything else.'});
+
+    }
+
+
   }
+
+  $('#stepThreeFinish').click(function(){
+    userInfoAlert.hide();
+    submissionAlert.hide();
+    request.organization = $('#organization').val();
+    request.emailUser = $('#email').val();
+    console.log(request);
+    console.log(window.location);
+    if(!request.organization && !request.emailUser){
+      userInfoAlert.setState({ok: false, error: "You must enter the name of your organization and your email address in order to submit a request"});
+    } else if(!request.organization){
+      userInfoAlert.setState({ok: false, error: "You must enter the name of your organization in order to submit a request"});
+    } else if(!request.emailUser){
+      userInfoAlert.setState({ok: false, error: "Your must enter your email address in order to submit a request"});
+    } else{
+      request.submitRequest(function(err, location){
+        if(err){
+          submissionAlert.setState({ok:false, error: "" + err});
+          submissionAlert.show();
+        } else{
+          window.location.replace(location.replace('requests', 'processing'));
+        }
+      });
+    }
+  });
 
   $('#vitroRadio').click(function(){
     $('#cleavageRadio').prop('checked', false);
@@ -257,7 +319,6 @@ function initializePage() {
 
 }
 
-
   function handleResuspend(checkbox){
     if(checkbox.checked){
       console.log("Checkbox is checked!!!");
@@ -266,3 +327,74 @@ function initializePage() {
       $('#resuspendList').attr('disabled', 'true');
     }
   }
+
+  // Step 4
+  function updatePage(){
+    var countErrors = 0;
+    var timeoutInterval = 1000 * 60 * 1;
+    request.getRequestStatus(function(err, data){
+      if(err){
+        processingAlert.setState({ok: false, error: err});
+        countErrors += 1;
+        if(countErrors > 3){
+          clearTimeout(timeout);
+        }
+      } else {
+        var remainingMin = data.duration.remainingDuration * 1000 * 60;
+        timeoutInterval = remainingMin / 10;
+        progressBar.update(data.duration.remainingDuration);
+
+        console.log("State of request is " + data.state);
+        resultsPanel.updatePanel(data.status);
+      }
+
+      var timeout = setTimeout(updatePage, timeoutInterval);
+      if(data && data.duration.remainingDuration == 0){
+        clearTimeout(timeout);
+      }
+    });
+  };
+
+  function finishStep4(){
+    window.location.replace(window.location.href.replace('processing', 'results'));
+  };
+
+  var showAlertOffTarget = function(ev){
+    var target = $(ev.target);
+    try{
+        var inx = target.attr('info').split(',');
+        var offtar_hits = results.CutsiteTypesCandidateContainer[parseInt(inx[0])].Cutsites[parseInt(inx[1])].OfftargetLocations ;
+    var marr = new Array();
+  for(var kk = 0 ; kk < offtar_hits.length ; ++kk)
+{
+  var offtarHit = offtar_hits[kk].split(',');
+  offtarHit[0] =  "Gene: <a href='http://www.ncbi.nlm.nih.gov/nuccore/"+offtarHit[0]+"'>" +offtarHit[0] +"</a>";
+  offtarHit[1] =  "Percent Match: "+offtarHit[1];
+  offtarHit[2] =  "Location at Gene: "+offtarHit[2].substr(1);
+  marr.push( offtarHit.join("&nbsp;&nbsp;&nbsp;") );
+}
+
+  $("#print").html(marr.join('<br>'));
+	ev.stopPropagation();
+	$("#offtargetModal").modal();
+    }
+    catch (err) {
+	console.error(err);
+    }
+};
+
+var showExtraInfo = function(ev){
+    var target = $(ev.currentTarget.children[6]);
+    var indexes = target.attr('info').split(',').map(function(el){
+          return parseInt(el);
+    });
+
+    var uset7 = (results.Preferences.promoter != undefined) ;
+    var candidate = results.CutsiteTypesCandidateContainer[indexes[0]].Cutsites[indexes[1]].Candidates[indexes[2]];
+    $("#sequence").html(GetDisplayHtmlForCandidate (candidate , uset7 ));
+    document.getElementById("download-link").href="data:text/plain,"+
+    ">Candidate DNA for request " + results.ID + " cut-site type \"" + results.CutsiteTypesCandidateContainer[indexes[0]].Type
+    + "\" at location " + (results.CutsiteTypesCandidateContainer[indexes[0]].Cutsites[indexes[1]].Location +1) + " %0D%0A "
+    + GetDnaForCandidate(candidate, uset7);
+    $("#resultModal").modal();
+};

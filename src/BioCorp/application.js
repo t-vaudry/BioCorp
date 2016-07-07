@@ -1,3 +1,7 @@
+
+require("./models/request");
+require("./models/db");
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -8,6 +12,10 @@ var $ = require('jquery');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var designRoute = require('./routes/designsteps');
+var mongoose = require('mongoose');
+var api = require('./routes/api');
+
+
 
 var app = express();
 
@@ -19,7 +27,7 @@ app.set('view engine', 'ejs');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -27,6 +35,13 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/designSteps', designRoute);
 app.use('/license', routes);
+
+app.post('/requests/', api.createRequest);
+app.get('/requests/:id', api.getRequest);
+app.delete('/requests/:id', api.deleteRequest);
+app.put('/requests/:id', api.updateRequest);
+app.get('/requests/:id/status', api.getRequestStatus);
+app.get('/requests/:id/results', api.getResults);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

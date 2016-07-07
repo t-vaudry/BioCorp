@@ -1,0 +1,5 @@
+{
+  "expirationDelay": 7,
+  "ribosoftDbUrl": "mongodb://localhost/ribosoft-db",
+  "ribosoftTestDbUrl": "mongodb://localhost/ribosoft-db-test"
+}
