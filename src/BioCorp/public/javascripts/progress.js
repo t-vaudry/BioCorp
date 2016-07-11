@@ -8,7 +8,7 @@ var nextStep;
 //$(document).ready(function() {
 window.onload = function() {
 	var stepNextBtn = $('.stepNext');
-	console.log($(stepNextBtn).parent());
+
 	if($('#fsSeqSel').length > 0){
 		console.log($('#fsSeqSel').height());
 		$('#footer').css('margin-top', function(){

@@ -16,8 +16,6 @@ body {
     margin: 0 0 50px 0;
 }
 
-
-
 .navbar-default {
   background-color: #EFEFEF;
   border-style: solid;
@@ -196,7 +194,7 @@ footer {
 
 .regionOption li{
   float: left;
-  margin-right: 100px;
+  margin-right: 10%;
   margin-bottom: 15px;
 }
 
@@ -281,12 +279,12 @@ select.disabled {
 }
 
 input[type=number] {
-  height: 10px;
+  height: 5%;
 }
 
 legend[data-toggle=collapse]{
   float: left;
-  width: 98%;
+  width: 95%;
 }
 
 i[data-toggle=modal]{
@@ -296,6 +294,7 @@ i[data-toggle=modal]{
 
 .collapse-container {
   height: 31px;
+  width: 95%;
 }
 
 /* Responsive Styles */

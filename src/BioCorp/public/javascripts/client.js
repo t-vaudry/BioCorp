@@ -293,17 +293,29 @@ function initializePage() {
         case 'T7':
           console.log('T7 Promoter Selected');
           $('#promosequence-display').addClass('invisible');
+          $('#footer').css('margin-top', function(){
+            return $('#stepTwoDiv').height();
+          });
           break;
         case 'CMV':
           console.log('CMV Promoter Selected');
           $('#promosequence-display').addClass('invisible');
+          $('#footer').css('margin-top', function(){
+            return $('#stepTwoDiv').height();
+          });
           break;
         case 'Others':
           $('#promosequence-display').removeClass('invisible');
+          $('#footer').css('margin-top', function(){
+            return $('#stepTwoDiv').height();
+          });
           console.log('Manual Input Activated');
           break;
         default:
           $('#promosequence-display').addClass('invisible');
+          $('#footer').css('margin-top', function(){
+            return $('#stepTwoDiv').height();
+          });
           break;
       }
     });

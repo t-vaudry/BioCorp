@@ -23,8 +23,8 @@ body {
 /*form styles*/
 #msform, #oligoForm {
 
-	width: 1600px;
-	margin: 100px 50px 50px -5%;
+	width: 100%;
+	margin: 10% 5% 5% -5%;
 	text-align: center;
 	position: relative;
 }
@@ -37,7 +37,7 @@ body {
 	padding: 20px 30px;
 
 	box-sizing: border-box;
-	width: 80%;
+	width: 100%;
 	margin: 0 0 0 0;
 
 	/*stacking fieldsets above each other*/
@@ -76,21 +76,22 @@ body {
 }
 /*headings*/
 .fs-title {
-	font-size: 15px;
+	font-size: 1.5em;
 	text-transform: uppercase;
 	color: #2C3E50;
 	margin-bottom: 10px;
 }
 .fs-subtitle {
 	font-weight: normal;
-	font-size: 13px;
+	font-size: 1.3em;
 	color: #666;
 	margin-bottom: 20px;
 }
 /*progressbar*/
 #progressbar, #oligoProgressbar{
+	width: 110%;
 	margin-bottom: 30px;
-	margin-left: -22%;
+	margin-left: -5%;
 	overflow: hidden;
 	/*CSS counters to number the steps*/
 	counter-reset: step;
@@ -108,10 +109,10 @@ body {
 #progressbar li:before, #oligoProgressbar li:before {
 	content: counter(step);
 	counter-increment: step;
-	width: 20px;
+	width: 20%;
 	line-height: 20px;
 	display: block;
-	font-size: 10px;
+	font-size: 1.3em;
 	color: #333;
 	background: white;
 	border-radius: 3px;
@@ -120,11 +121,11 @@ body {
 /*progressbar connectors*/
 #progressbar li:after, #oligoProgressbar li:after {
 	content: '';
-	width: 96%;
+	width: 80%;
 	height: 2px;
 	background: white;
 	position: absolute;
-	left: -47.9%;
+	left: -40%;
 	top: 9px;
 	z-index: 0; /*put it behind the numbers*/
 }
