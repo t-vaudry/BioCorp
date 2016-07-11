@@ -1,5 +1,5 @@
 var algorithm = require('hammerhead-design'),
-    heapdump = require('heapdump'),
+  //  heapdump = require('heapdump'),
     rimraf = require('rimraf'),
     path = require('path'),
     fs = require('fs');
@@ -9,9 +9,9 @@ var AlgoRequest = algorithm.Model.DomainObjects.Request;
 
 var scheduler = exports = module.exports = {};
 
-var generateHeapDump = function(filename){
-    heapdump.writeSnapshot('./'+filename+'.heapsnapshot');
-}
+//var generateHeapDump = function(filename){
+//    heapdump.writeSnapshot('./'+filename+'.heapsnapshot');
+//}
 
 scheduler.startProcessingRequest = function(req, callback){
     if(!req){

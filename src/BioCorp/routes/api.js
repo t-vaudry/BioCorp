@@ -57,6 +57,7 @@ module.exports = {
 
   getRequest : function(req, res, next){
     var uuid = req.params.id;
+    console.log("UUID = " + uuid);
     Request.findOne({uuid: uuid}, function(err, result){
       if(err){
         utils.returnInternalError(err, next);

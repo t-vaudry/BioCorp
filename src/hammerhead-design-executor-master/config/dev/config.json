@@ -3,7 +3,7 @@
     "reporter": false,
     "user_smtp": "ribosoft.mailer@gmail.com",
     "pass_smtp": "ribosoft",
-    "host" : "http://localhost/ribosoft/",
+    "host" : "http://localhost:3000/",
     "admin": "ribosoft.mailer@gmail.com",
     "devContact" : "ribosoft.contact@gmail.com"
 }

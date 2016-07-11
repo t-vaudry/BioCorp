@@ -5,7 +5,7 @@ var scheduler = require('./lib/scheduler/'),
     config = require('./config/'),
     util = require('util');
 
-var intervalTimeout = 15 * 1000 * 60; //Every 15 mins
+var intervalTimeout = 1 * 1000 * 60; //Every 15 mins
 
 var app = {};
 

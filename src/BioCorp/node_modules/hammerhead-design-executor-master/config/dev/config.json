@@ -1,0 +1,9 @@
+{
+    "dbUrl": "mongodb://localhost/ribosoft-db-test",
+    "reporter": false,
+    "user_smtp": "ribosoft.mailer@gmail.com",
+    "pass_smtp": "ribosoft",
+    "host" : "http://localhost/ribosoft/",
+    "admin": "ribosoft.mailer@gmail.com",
+    "devContact" : "ribosoft.contact@gmail.com"
+}
