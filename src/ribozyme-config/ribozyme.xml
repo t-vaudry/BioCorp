@@ -1,28 +1,44 @@
 <root>
-<!--
-    yl-hhRz Structure:
-    5' GGGGG [same as substrate(2)] [Stem I(8) complementary] CUGAUGAGAACAAACCC
-    [Pseudoknot(8) complementary] CGUCG [A or AC] [Stem III(3-12) complementary ] 3'
- -->
-<ribozyme name='yl' type='hhRz' structure='5-3'>
+<ribozyme name='hammerHead' type='Rz' structure='5-3'>
+    <cutsite>
+        <seq strand='single' structure='5-3'>GUC</seq>
+    </cutsite>
+    <seq strand='single' lengthFrom='5' lengthTo='10' substrate='complementary' substrDistFromCutsite='0' substrateDirection='5-3'/>
+    <seq strand='single'>CUGA</seq>
+    <seq strand='double' from='26' to='35'>UGAGUCGCU</seq>
+    <seq strand='single'>GAAA</seq>
+    <seq strand='double' from='13' to='21'>TGCGACGAA</seq>
+    <seq strand='single' lengthFrom='5' lengthTo='10' substrate='complementary' substrDistFromCutsite='2' substrateDirection='3-5'/>
+</ribozyme>
+<ribozyme name='yl-hh' type='Rz' structure='5-3'>
+    <cutsite>
+        <seq strand='single' structure='5-3'>GUC</seq>
+    </cutsite>
     <!-- Fixed Single Strand-->
     <seq strand='single'>GGGGG</seq>
     <!-- Single Strand same as substrate-->
-    <seq strand='single' lengthFrom='2' lengthTo='2' substrate='same'/>
-    <seq strand='single' lengthFrom='8' lengthTo='8' substrate='complementary'/>
-    <seq strand='single'>CUGAUGAGAACAAACCC</seq>
+    <seq strand='single' lengthFrom='2' lengthTo='2' substrate='same' substrateDistFromCutsite='11' substrateDirection='5-3'/>
+    <seq strand='single' lengthFrom='8' lengthTo='8' substrate='complementary' substrDistFromCutsite='3' substrateDirection='5-3'/>
+    <seq strand='single'>CUGAUG</seq>
+    <seq strand='double' from='43' to='45'>AGA</seq>
+    <seq strand='single'>ACAAACCC</seq>
     <!-- Single Strand complementary pseudoknot with substrate-->
-    <seq strand='single' pkFrom='33' pkTo='40' substrate='complementary'/>
-    <seq strand='single'>CGUCGAAA</seq>
+    <seq strand='single' pkFrom='33' pkTo='40' substrate='complementary' substrDistFromCutsite='11' substrateDirection='5-3'/>
+    <seq strand='single'>CG</seq>
+    <seq strand='double' from='22' to='24'>UCG</seq>
+   <seq strand='single'>AA</seq>
     <!-- Variable length Single Strand complementary to substrate-->
-    <seq strand='single' lengthFrom='3' lengthTo='12' substrate='complementary'/>
+    <seq strand='single' lengthFrom='3' lengthTo='12' substrate='complementary' substrDistFromCutsite='-1' substrateDirection='3-5'/>
 </ribozyme>
 <!--
     pistol-hhRz Structure:
     5' GG AGCC GU [UCGGG (pseudoknot)] C GGCU AUAAACA [length 4 complementary to substrate] 
     UCAGG [CCCGA (pseudoknot)] AGCG [length 4-34 complementary to substrate] 3'
 -->
-<ribozyme name='pistol' type='hhRz' structure='5-3'>
+<ribozyme name='pistol' type='Rz' structure='5-3'>
+    <cutsite>
+        <seq strand='single' structure='5-3'>GU</seq>
+    </cutsite>
     <seq strand='single'>GG</seq>
     <!-- Double Strand complementary to itself attached with position 15 to 18 -->
     <seq strand='double' from='15' to='18'>AGCC</seq>
@@ -32,11 +48,11 @@
     <seq strand='single'>C</seq>
     <seq strand='double' from='3' to='6'>GGCU</seq>
     <seq strand='single'>AUAAACA</seq>
-    <seq strand='single' lengthFrom='4' lengthTo='4' substrate='complementary'/>
+    <seq strand='single' lengthFrom='4' lengthTo='4' substrate='complementary' substrDistFromCutsite='2' substrateDirection='5-3'/>
     <seq strand='single'>UCAGG</seq>
     <seq strand='single' pkFrom='9' pkTo='13'>CCCGA</seq>
     <seq strand='single'>AGCG</seq>
-    <seq strand='single' lengthFrom='4' lengthTo='34' substrate='complementary'/>   
+    <seq strand='single' lengthFrom='4' lengthTo='34' substrate='complementary' substrDistFromCutsite='1' substrateDirection='3-5'/>   
 </ribozyme>
 <!--
 SOFA-HDV-hhRz example Structure:
@@ -45,11 +61,14 @@ GGG CCAGCUAG  UUU  GAGACAAGAA  GUUU  CA  GGGUCC  ACC U  CC UCGC  GGU
 AAACCAU  GG  GCAUCCG  UUCG  CGGAUGG  CUAAG  GGACCC  UUU  CUAGCUGG
 ......55 .. 58...... 65... 69...... 77.... 82..... 88.. 91......98
 -->
-<ribozyme name='SOFA-HDV' type='hhRz' structure='5-3'>
+<ribozyme name='SOFA-HDV' type='Rz' structure='5-3'>
+    <cutsite>
+        <seq strand='single' structure='5-3' complimentaryBasePair='U'>G</seq>
+    </cutsite>
     <seq strand='single'>GGG</seq>
     <seq strand='double' from='91' to='98'>CCAGCUAG</seq>
     <seq strand='single'>UUU</seq>
-    <seq strand='single' lengthFrom='7' lengthTo='20' substrate='complementary'/>
+    <seq strand='single' lengthFrom='7' lengthTo='20' substrate='complementary' substrDistFromCutsite='12' substrateDirection='5-3'/>
     <seq strand='single'>GUUU</seq>
     <seq strand='single'>CA</seq>
     <seq strand='double' from='82' to='87'>GGGUCC</seq>
@@ -58,7 +77,7 @@ AAACCAU  GG  GCAUCCG  UUCG  CGGAUGG  CUAAG  GGACCC  UUU  CUAGCUGG
     <seq strand='single' pkFrom='56' pkTo='57'>CC</seq>
     <seq strand='single'>UCGC</seq>
     <seq strand='double' from='37' to='39'>GGU</seq>
-    <seq strand='single' lengthFrom='7' lengthTo='7' substrate='complementary'/>
+    <seq strand='single' lengthFrom='7' lengthTo='7' substrate='complementary' substrDistFromCutsite='0' substrateDirection='5-3'/>
     <seq strand='single' pkFrom='41' pkTo='42'>GG</seq>
     <seq strand='double' from='69' to='76'>GCAUCCG</seq>
     <seq strand='single'>UUCG</seq>
