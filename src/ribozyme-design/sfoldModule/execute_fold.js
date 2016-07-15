@@ -180,8 +180,8 @@ Fold.FoldCandidates = function ( cutSite , candidateArray, reportObj)
 	reportObj.AddToExecutionCount (candidateArray.length );
 	for(var ii = 0; ii < candidateArray.length ; ++ii )
 	{
-		// Fold.ExecuteFolding({'ID' :candidateArray[ii].ID, 'cutsiteID': cutSite.ID, 'requestID': cutSite.requestID, 'sequence':candidateArray[ii].Sequence },
-		Fold.ExecuteFolding({'ID' :candidateArray[ii].ID, 'cutsiteID': cutSite.ID, 'requestID': cutSite.requestID, 'sequence':candidateArray[ii] },
+		Fold.ExecuteFolding({'ID' :candidateArray[ii].ID, 'cutsiteID': cutSite.ID, 'requestID': cutSite.requestID, 'sequence':candidateArray[ii].Sequence },
+		// Fold.ExecuteFolding({'ID' :candidateArray[ii].ID, 'cutsiteID': cutSite.ID, 'requestID': cutSite.requestID, 'sequence':candidateArray[ii] },
 					'',
 					reportObj
 					);

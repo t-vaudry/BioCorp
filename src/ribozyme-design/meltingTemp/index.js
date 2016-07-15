@@ -23,38 +23,6 @@ function MeltingTCalcRouter(str, prefs) {
     return meltingT;
 }
 
-// function CleanseCandidates(rawCandidatesPerCutsite,prefs)
-// {
-//     var res = new Array();
-//     for (var ii = 0; ii < rawCandidatesPerCutsite.length; ++ii)
-//     {
-//         var cutsiteCandidates = rawCandidatesPerCutsite[ii];
-//         var cleansed = new Array();
-//         cleansed.BaseSequence = cutsiteCandidates.BaseSequence;
-//         cleansed.BaseCutindex = cutsiteCandidates.BaseCutindex;
-
-//         for (var jj = 0; jj < cutsiteCandidates.length ; ++jj)
-//         {
-//             var candidate = cutsiteCandidates[jj];
-//             //Remove non-annealing c (G in this case since it is reverse complemented candidate)
-//             //left and right arms are computed individually
-//             var seqToCompute = candidate.seq.substr(0, candidate.cut) ;
-//             var seqToCompute2 = candidate.seq.substr(candidate.cut + 1);
-//             var meltingT = MeltingTCalcRouter(seqToCompute, prefs);
-//             var meltingT2 = MeltingTCalcRouter(seqToCompute2, prefs);
-//             candidate.MeltingTemperature = meltingT + meltingT2;
-//             candidate.MeltingTemperatureLeft = meltingT;
-//             candidate.MeltingTemperatureRight = meltingT2;
-//             if (meltingT >= (prefs.tempEnv - MELTING_LOWERBOUND) && meltingT <= (prefs.tempEnv + MELTING_UPPERBOUND) &&
-//                 meltingT2 >= (prefs.tempEnv - MELTING_LOWERBOUND) && meltingT2 <= (prefs.tempEnv + MELTING_UPPERBOUND)) {
-//         		cleansed.push(candidate);
-// 	        }
-//         }
-//         res.push(cleansed);
-//     }
-//     return res;
-// }
-
 function CleanseCandidates(rawCandidatesPerCutsite,prefs)
 {
     var res = new Array();

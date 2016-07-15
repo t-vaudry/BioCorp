@@ -56,7 +56,7 @@ function CreateCandidates (substrateSeq, cutSites, options)
 				var substrateDirection = seq.$['substrateDirection'];
 
 				if (typeof seq._ !== 'undefined') {
-					candidateSeqs.push({"seq" : Reverse(seq._), "complementary" :false});
+					candidateSeqs.push({"seq" : Reverse(seq._), "complementary" :false, "pk" :false});
 				}
 				if (typeof lengthFrom !== 'undefined') {
 					lengthFrom = parseInt(lengthFrom);
@@ -70,10 +70,10 @@ function CreateCandidates (substrateSeq, cutSites, options)
 							if((start + length - 1) > highestEnd) highestEnd = start + length - 1;
 
 							if(substrate == 'complementary'){
-								candidateSeqs.push({"seq" : Complement(substrateSeq.substr(start,length)), "complementary" :true});
+								candidateSeqs.push({"seq" : Complement(substrateSeq.substr(start,length)), "complementary" :true, "pk" :false, "cutsiteRelativePos" :"right"});
 							} else if(substrate == 'same'){
 								var strand = substrateSeq.substr(start,length);
-								candidateSeqs.push({"seq" : substrateSeq.substr(start,length), "complementary" :false});
+								candidateSeqs.push({"seq" : substrateSeq.substr(start,length), "complementary" :false, "pk" :false, "cutsiteRelativePos" :"right"});
 							}
 						} else if(substrateDirection == '3-5'){
 							var start = cutSites[ii] - substrDistFromCutsite - length;
@@ -82,9 +82,9 @@ function CreateCandidates (substrateSeq, cutSites, options)
 							if((start + length - 1) > highestEnd) highestEnd = start + length - 1;
 
 							if(substrate == 'complementary'){
-								candidateSeqs.push({"seq" : Complement(substrateSeq.substr(start,length)), "complementary" :true});
+								candidateSeqs.push({"seq" : Complement(substrateSeq.substr(start,length)), "complementary" :true, "pk" :false, "cutsiteRelativePos" :"left"});
 							} else if(substrate == 'same'){
-								candidateSeqs.push({"seq" : substrateSeq.substr(start,length), "complementary" :false});
+								candidateSeqs.push({"seq" : substrateSeq.substr(start,length), "complementary" :false, "pk" :false, "cutsiteRelativePos" :"left"});
 							}
 						}
 					}
@@ -100,9 +100,9 @@ function CreateCandidates (substrateSeq, cutSites, options)
 
 						if(substrate == 'complementary'){
 							var strand = substrateSeq.substr(start,length);
-							candidateSeqs.push({"seq" : Complement(substrateSeq.substr(start,length)), "complementary" :true});
+							candidateSeqs.push({"seq" : Complement(substrateSeq.substr(start,length)), "complementary" :true, "pk" :true, "cutsiteRelativePos" :"right"});
 						} else if(substrate == 'same'){
-							candidateSeqs.push({"seq" : substrateSeq.substr(start,length), "complementary" :false});
+							candidateSeqs.push({"seq" : substrateSeq.substr(start,length), "complementary" :false, "pk" :true, "cutsiteRelativePos" :"right"});
 						}
 					} else if(substrateDirection == '3-5'){
 						var start = cutSites[ii] - substrDistFromCutsite - length;
@@ -110,14 +110,14 @@ function CreateCandidates (substrateSeq, cutSites, options)
 						if((start + length - 1) > highestEnd) highestEnd = start + length - 1;
 
 						if(substrate == 'complementary'){
-							candidateSeqs.push({"seq" : Complement(substrateSeq.substr(start,length)), "complementary" :true});
+							candidateSeqs.push({"seq" : Complement(substrateSeq.substr(start,length)), "complementary" :true, "pk" :true, "cutsiteRelativePos" :"left"});
 						} else if(substrate == 'same'){
-							candidateSeqs.push({"seq" : substrateSeq.substr(start,length), "complementary" :false});
+							candidateSeqs.push({"seq" : substrateSeq.substr(start,length), "complementary" :false, "pk" :true, "cutsiteRelativePos" :"left"});
 						}
 					}
 				}
 			} else if(seq.$['strand'] == 'double'){
-				candidateSeqs.push({"seq" : Reverse(seq._), "complementary" :false});
+				candidateSeqs.push({"seq" : Reverse(seq._), "complementary" :false, "pk" :false});
 			}
 			arrayOfCandidateSeqs.push(candidateSeqs);
 		});
@@ -129,10 +129,11 @@ function CreateCandidates (substrateSeq, cutSites, options)
 			for(var b = 0; b < candidateSeqs.length; b++){
 				var seq = candidateSeqs[b].seq;
 				var complementary = candidateSeqs[b].complementary;
+				var pk = candidateSeqs[b].pk;
 				if(cutsiteCandidates.length == 0){
 					var compPositions = new Array();
 					if(complementary){
-						compPositions.push({"start" : 0, "end": seq.length});
+						compPositions.push({"start" : 0, "end": seq.length, "pk" :pk});
 					}
 					newCandidates.push({"seq" : seq, "targetLocation" :cutSites[ii], "compPositions" : compPositions });
 				} else {
@@ -140,9 +141,9 @@ function CreateCandidates (substrateSeq, cutSites, options)
 						var compPositions = cutsiteCandidates[c].compPositions.slice();
 						if(complementary){
 							var start = cutsiteCandidates[c].seq.length;
-							compPositions.push({"start" : start, "end": start + seq.length});
+							compPositions.push({"start" : start, "end": start + seq.length, "pk" :pk});
 						}
-						newCandidates.push({"seq" : cutsiteCandidates[c].seq + seq, "compPositions" : compPositions });
+						newCandidates.push({"seq" : cutsiteCandidates[c].seq + seq, "targetLocation" :cutSites[ii], "compPositions" : compPositions });
 					}
 				}
 			}

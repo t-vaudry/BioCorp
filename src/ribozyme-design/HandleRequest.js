@@ -374,31 +374,31 @@ function _handleRequestPart1(request)
             }
             //Save the cutsite location at the cutsite level.
             var locationOnTarget = -1;
-            if(candidates.length  != 0)
+            if(candidates.length  != 0){
                 locationOnTarget = candidates[0].cutSiteLocation;
-            
-            cutSites.push
-            (
-                {
-                    'Candidates' : candidates,
-                    'ID': generatedCutsiteId,
-                    'Location': locationOnTarget,
-                    'BaseSeq': cutsiteCandidates.BaseSequence,
-                    'BaseCutindex': cutsiteCandidates.BaseCutindex,
-                    'SpecificityFitness': -1,
-                    'OfftargetLocations':[]
-                }
-            );
+                cutSites.push
+                (
+                    {
+                        'Candidates' : candidates,
+                        'ID': generatedCutsiteId,
+                        'Location': locationOnTarget,
+                        'BaseSeq': cutsiteCandidates.BaseSequence,
+                        'BaseCutindex': cutsiteCandidates.BaseCutindex,
+                        'SpecificityFitness': -1,
+                        'OfftargetLocations':[]
+                    }
+                );
 
-            FoldCandidates 
-            ( 
-                { 
-                    'ID': generatedCutsiteId,
-                    'requestID':request.ID
-                }, 
-                candidates, 
-                reportObj
-             ) ; 
+                FoldCandidates 
+                ( 
+                    { 
+                        'ID': generatedCutsiteId,
+                        'requestID':request.ID
+                    }, 
+                    candidates, 
+                    reportObj
+                ) ; 
+            }
 		}
 		cutsiteTypeCutsiteContainer.Cutsites = cutSites;
 		CutsiteTypesCandidateContainer.push(cutsiteTypeCutsiteContainer);
@@ -506,7 +506,9 @@ function _handleRequestPart3(reportObject)
                         'sequence':request.TargetSequence
                     }
                 );
-            var constraint = { 'left': cutsite.Location - (request.Preferences.left_arm_max - 1), 'right': (request.Preferences.right_arm_max + request.Preferences.left_arm_max + 2) };
+            //TODO: Get Max arms length
+            var maxArmLength = AlgorithmUtilities.FindMaxArm(cutsite.Candidates);
+            var constraint = { 'left': cutsite.Location - (maxArmLength.left - 1), 'right': (maxArmLength.right + maxArmLength.left + 2) };
             constraint.left = constraint.left > 0 ? constraint.left : 1;
             constraint.right = ((constraint.right + cutsite.Location - 1) < seq.length) ? constraint.right : (seq.length - cutsite.Location);
             constraintsArr.push(constraint);

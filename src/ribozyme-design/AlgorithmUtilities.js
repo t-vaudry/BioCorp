@@ -238,6 +238,19 @@ function CalculateArmLength(complementaryPositions) {
     return armsLengthList;
 }
 
+function FindMaxArm(candidates) {
+    var maxLeft = 0;
+    var maxRight = 0;
+    for (var ii = 0; ii < candidates.length ; ++ii) {
+        var left = candidates[ii].ArmLengthList[0];
+        var right = candidates[ii].ArmLengthList[candidates[ii].ArmLengthList.length - 1];
+        if(left > maxLeft) maxLeft = left;
+        if(right > maxRight) maxRight = right;
+        
+    }
+    return {"left": maxLeft, "right": maxRight};
+}
+
 exports.SequenceLength = SequenceLength;
 exports.ReverseComplement = ReverseComplement;
 exports.Reverse = Reverse;
@@ -250,3 +263,4 @@ exports.CompressObjectArrayIntoTable = CompressObjectArrayIntoTable;
 exports.CompressCandidates = CompressCandidates;
 exports.DeleteFolderRecursive = deleteFolderRecursive;
 exports.CalculateArmLength = CalculateArmLength;
+exports.FindMaxArm = FindMaxArm;
