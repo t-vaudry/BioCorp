@@ -1,0 +1,10 @@
+{
+  "name": "XMLReader",
+  "private": true,
+  "scripts": {
+    "start": "node test.js"
+  },
+  "dependencies": {
+    "xml2js": "~0.4.16"
+  }
+}
