@@ -70,8 +70,10 @@ var request = new Request
         // 'right_arm_min': 5,
         // 'left_arm_max':13,
         // 'right_arm_max':13,
-        'rz_name' : 'yl',
-        'rz_type' : 'hhRz',
+        // 'rz_name' : 'yl',
+        // 'rz_type' : 'hhRz',
+        'rz_name' : 'hammerHead',
+        'rz_type' : 'Rz',
         'promoter': '',
         'specificity':true
 //        5 TAATACGACTCACTATAGGG
