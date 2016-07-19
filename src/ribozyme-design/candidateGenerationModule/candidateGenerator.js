@@ -76,7 +76,7 @@ function CreateCandidates (substrateSeq, cutSites, options)
 								candidateSeqs.push({"seq" : substrateSeq.substr(start,length), "complementary" :false, "pk" :false, "cutsiteRelativePos" :"right"});
 							}
 						} else if(substrateDirection == '3-5'){
-							var start = cutSites[ii] - substrDistFromCutsite - length;
+							var start = cutSites[ii] - substrDistFromCutsite - (length - 1);
 							if(start < 0) continue;
 							if(start < smallestStart ) smallestStart = start;
 							if((start + length - 1) > highestEnd) highestEnd = start + length - 1;

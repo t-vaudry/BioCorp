@@ -23,7 +23,7 @@
     <!-- Fixed Single Strand-->
     <seq strand='single'>GGGGG</seq>
     <!-- Single Strand same as substrate-->
-    <seq strand='single' lengthFrom='2' lengthTo='2' substrate='same' substrateDistFromCutsite='11' substrateDirection='5-3'/>
+    <seq strand='single' lengthFrom='2' lengthTo='2' substrate='same' substrDistFromCutsite='11' substrateDirection='5-3'/>
     <seq strand='single' lengthFrom='8' lengthTo='8' substrate='complementary' substrDistFromCutsite='3' substrateDirection='5-3'/>
     <seq strand='single'>CUGAUG</seq>
     <seq strand='double' from='43' to='45'>AGA</seq>

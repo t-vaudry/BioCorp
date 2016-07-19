@@ -59,16 +59,28 @@ function Verify(arr1, arr2, verificationName)
 }
 
 var genSeqsNormal= 
-TestObj.GenerateCandidates ('GUACGUAUGCAUCGACUAGUCAGCAGAUCGUACUGAUGCUAGCUAGCUAGCUAGAGAUGAGUACGCCGAGAGUAGGUCGUGCUAGCGCGCGAGAGAGU',
-							'GUC', 
+TestObj.GenerateCandidates ('GCACGCAUGCAUCGACUAGUCAGCAGAUCGUACUGAUGCUAGCUAGCUAGCUAGAGAUGAGUACGCCGAGAGUAGGUCGUGCUAGCGCGCGAGAGAGC',
+							'GU', 
 							{
-								'rz_name' : 'yl',
-								'rz_type' : 'hhRz',
+								'rz_name' : 'pistol',
+								'rz_type' : 'Rz',
 								// 'rz_name' : 'SOFA-HDV',
 								// 'rz_type' : 'hhRz',
 								'promoter' : ''
 							}
 							);
+
+// var genSeqsNormal= 
+// TestObj.GenerateCandidates ('GUACGUAUGCAUCGACUAGUCAGCAGAUCGUACUGAUGCUAGCUAGCUAGCUAGAGAUGAGUACGCCGAGAGUAGGUCGUGCUAGCGCGCGAGAGAGU',
+// 							'GUC', 
+// 							{
+// 								'rz_name' : 'yl',
+// 								'rz_type' : 'hhRz',
+// 								// 'rz_name' : 'SOFA-HDV',
+// 								// 'rz_type' : 'hhRz',
+// 								'promoter' : ''
+// 							}
+// 							);
 
 
 // var genSeqsNormal= 

@@ -401,6 +401,7 @@ SummaryTable.prototype.setTableData = function(data){
     $("#cutsites").text(data.cutsites.join(", "));
     $("#foldShape").text(data.foldShape);
     $("#promoter").text(data.promoter ? "Yes" : "No");
+    $("#ribozymeType").text(data.ribozymeSelection);
     if(typeof data.left_arm_min !== 'undefined' && typeof data.left_arm_max !== 'undefined'){
         $("#leftArm").text("Between "+ data.left_arm_min + " and "+data.left_arm_max);
     }

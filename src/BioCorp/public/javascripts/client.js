@@ -69,6 +69,7 @@ function initializePage() {
     console.log(request.sequence);
     var selection = $('#rz-select option:selected').attr('value');
     console.log(selection);
+    request.ribozymeSelection = selection; 
     $('div[name="ribozymeHelixSizes"]').hide();
     $('#' + selection).show();
   });

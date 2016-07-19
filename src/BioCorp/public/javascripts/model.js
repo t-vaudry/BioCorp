@@ -23,6 +23,7 @@ function Request(
     targetRegion,
     targetEnv,
     vivoEnv,
+    ribozymeSelection,
     left_arm_min,
     right_arm_min,
     left_arm_max,
@@ -38,6 +39,7 @@ function Request(
     this.mgC = mgEnv;
     this.oligoC = oligoEnv;
     this.cutsites = cutsites;
+    this.ribozymeSelection = ribozymeSelection;
     this.left_arm_min = left_arm_min;
     this.right_arm_min = right_arm_min;
     this.left_arm_max = left_arm_max;
@@ -104,6 +106,7 @@ Request.getRequest = function(callback){
 		response.region,
 		response.env.type,
 		response.env.target,
+        response.ribozymeSelection,
 		response.left_arm_min,
 		response.right_arm_min,
 		response.left_arm_max,
