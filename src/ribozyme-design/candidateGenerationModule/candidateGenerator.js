@@ -42,6 +42,7 @@ function CreateCandidates (substrateSeq, cutSites, options)
 	    Log("Creating candidates for cutsite location " + cutSites[ii], "CreateCandidates", 10);
 	    // firstCutsiteCands.BaseSequence = ''; //Keep track of the longest base sequence for the given cutsite
 		var arrayOfCandidateSeqs = new Array();
+		var avoidCutsite = false;
 		var smallestStart = 999999;
 		var highestEnd = 0;
 		ribozyme.seq.forEach(function(seq) {
@@ -105,7 +106,7 @@ function CreateCandidates (substrateSeq, cutSites, options)
 							candidateSeqs.push({"seq" : substrateSeq.substr(start,length), "complementary" :false, "pk" :true, "cutsiteRelativePos" :"right"});
 						}
 					} else if(substrateDirection == '3-5'){
-						var start = cutSites[ii] - substrDistFromCutsite - length;
+						var start = cutSites[ii] - substrDistFromCutsite - (length - 1);
 						if(start < smallestStart ) smallestStart = start;
 						if((start + length - 1) > highestEnd) highestEnd = start + length - 1;
 
@@ -119,8 +120,12 @@ function CreateCandidates (substrateSeq, cutSites, options)
 			} else if(seq.$['strand'] == 'double'){
 				candidateSeqs.push({"seq" : Reverse(seq._), "complementary" :false, "pk" :false});
 			}
+			if(candidateSeqs.length == 0) avoidCutsite = true;
 			arrayOfCandidateSeqs.push(candidateSeqs);
 		});
+
+		if(avoidCutsite) 
+			continue;
 
 	    var cutsiteCandidates = new Array();
 		for(var a = arrayOfCandidateSeqs.length - 1; a >= 0; a--){
