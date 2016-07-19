@@ -401,8 +401,12 @@ SummaryTable.prototype.setTableData = function(data){
     $("#cutsites").text(data.cutsites.join(", "));
     $("#foldShape").text(data.foldShape);
     $("#promoter").text(data.promoter ? "Yes" : "No");
-    $("#leftArm").text("Between "+ data.left_arm_min + " and "+data.left_arm_max);
-    $("#rightArm").text("Between "+ data.right_arm_min + " and "+data.right_arm_max);
+    if(typeof data.left_arm_min !== 'undefined' && typeof data.left_arm_max !== 'undefined'){
+        $("#leftArm").text("Between "+ data.left_arm_min + " and "+data.left_arm_max);
+    }
+    if(data.right_arm_min !== 'undefined' && data.right_arm_max !== 'undefined'){
+        $("#rightArm").text("Between "+ data.right_arm_min + " and "+data.right_arm_max);
+    }
     $("#specificity").text(data.specificity == "hybrid"?"Cleavage and Hybridization":"Cleavage only");
 }
 

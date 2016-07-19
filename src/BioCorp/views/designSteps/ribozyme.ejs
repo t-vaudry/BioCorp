@@ -51,11 +51,13 @@
       <div class="form-group">
         <label for="rz-select">Select Ribozyme</label>
         <select class="form-control" id="rz-select">
-          <option value="hhrz" selected="selected">Hammerhead Ribozyme</option>
-          <option value="ylrz">YL Ribozyme</option>
-          <option value="pistol">Pistol Ribozyme</option>
-          <option value="hdv">SOFA-HDV Ribozyme</option>
-
+          <% ribozymeList.forEach(function(ribozyme, index) { %>
+            <option value="<%= ribozyme['name'] %>-<%= ribozyme['type'] %>"
+              <% if (index == 0){ %>
+                selected="selected"
+              <% } %> 
+            ><%= ribozyme['title'] %></option>
+          <% }); %>
         </select>
       </div>
 
@@ -170,27 +172,25 @@
       <legend data-toggle="collapse" data-target=".armsOption" align="left"><span class="alDrop glyphicon glyphicon-arrow-right"></span>  Advanced Options - Arms Length</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#armsLengthModal"></i>
       </div>
 
-      <ul class="armsOption collapse in divCollapse">
-        <li>
-        <label for="left_arm_min">Helix I minimum Length</label>
-        <input type="number" name="left_arm_min" value="5" style="width:80px; margin-left:15px;" id="laMin"> nucleotides
-        </li>
+      <% ribozymeHelixSizes.forEach(function(ribozymeHelixSize, index) { %>
+        <div name="ribozymeHelixSizes" id="<%= ribozymeHelixSize['name'] %>-<%= ribozymeHelixSize['type'] %>" style="display: none;">
+          <ul class="armsOption collapse in divCollapse">
 
-        <li>
-        <label for="left_arm_max">Helix I maximum Length</label>
-        <input type="number" name="left_arm_max" value="5" style="width:80px; margin-left:15px;" id="laMax"> nucleotides
-        </li>
+          <% ribozymeHelixSize['helixValues'].forEach(function(helixValue, index) { %>
+            <li>
+            <label for="<%= helixValue['helixId']%>_min"><%= helixValue['helixName']%> minimum Length</label>
+            <input type="number" name="<%= helixValue['helixId']%>_min" value="<%= helixValue['lengthFrom']%>" style="width:80px; margin-left:15px;"> nucleotides
+            </li>
 
-        <li>
-        <label for="right_arm_min">Helix III minimum Length</label>
-        <input type="number" name="right_arm_min" value="5" style="width:80px; margin-left:5px;" id="raMin"> nucleotides
-        </li>
+            <li>
+            <label for="<%= helixValue['helixId']%>_max"><%= helixValue['helixName']%> maximum Length</label>
+            <input type="number" name="<%= helixValue['helixId']%>_max" value="<%= helixValue['lengthTo']%>" style="width:80px; margin-left:15px;"> nucleotides
+            </li>
+          <% }); %>
 
-        <li>
-        <label for="right_arm_max">Helix III maximum Length</label>
-        <input type="number" name="right_arm_max" value="5" style="width:80px; margin-left:8px;" id="raMax"> nucleotides
-        </li>
-      </ul>
+          </ul>
+        </div>
+      <% }); %>
 
       <div class="collapse-container">
       <legend data-toggle="collapse" data-target=".promoOption" align="left"><span class="promoDrop glyphicon glyphicon-arrow-right"></span>  Promoter</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#promoterModal"></i>

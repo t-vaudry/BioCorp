@@ -116,7 +116,33 @@ RibozymeConfigXML.prototype.getRibozymeList = function(){
             valuesToPush['name'] = ribozyme.$['name'];
             valuesToPush['type'] = ribozyme.$['type'];
             valuesToPush['structure'] = ribozyme.$['structure'];             
+            valuesToPush['title'] = ribozyme.$['title'];             
             valuesToReturn.push(valuesToPush);
+        });
+        console.log('Done');
+    });
+    return valuesToReturn;
+}
+
+RibozymeConfigXML.prototype.getRibozymeHelixSizes = function(){
+    var valuesToReturn = new Array();
+    this.parser.parseString(this.data, function (err, result) {
+        result.root.ribozyme.forEach(function(ribozyme) {
+            var helixValuesToPush = new Array();
+            var rzName = ribozyme.$['name'];
+            var rzType = ribozyme.$['type'];
+            ribozyme.seq.forEach(function(sequence){
+                var name = sequence.$['name'];
+                if(typeof name !== 'undefined'){
+                    var helixValue = new Object();
+                    helixValue['helixName'] = name;
+                    helixValue['helixId'] = sequence.$['id'];
+                    helixValue['lengthFrom'] = sequence.$['lengthFrom'];
+                    helixValue['lengthTo'] = sequence.$['lengthTo'];
+                    helixValuesToPush.push(helixValue);
+                }
+            });
+            valuesToReturn.push({"name": rzName, "type": rzType, "helixValues": helixValuesToPush});
         });
         console.log('Done');
     });

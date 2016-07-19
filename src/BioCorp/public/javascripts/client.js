@@ -69,39 +69,20 @@ function initializePage() {
     console.log(request.sequence);
     var selection = $('#rz-select option:selected').attr('value');
     console.log(selection);
-    switch(selection){
-      case 'hhrz':
-        $('#laMin').attr('value', '5');
-        $('#laMax').attr('value', '10');
-        $('#raMin').attr('value', '5');
-        $('#raMax').attr('value', '10');
-        break;
-      case 'ylrz':
-        $('#laMin').attr('value', '8');
-        $('#laMax').attr('value', '8');
-        $('#raMin').attr('value', '3');
-        $('#raMax').attr('value', '12');
-        break;
-      case 'pistol':
-        $('#laMin').attr('value', '4');
-        $('#laMax').attr('value', '4');
-        $('#raMin').attr('value', '4');
-        $('#raMax').attr('value', '34');
-        break;
-      case 'hdv':
-        $('#laMin').attr('value', '0');
-        $('#laMax').attr('value', '0');
-        $('#raMin').attr('value', '0');
-        $('#raMax').attr('value', '0');
-        break;
-      default:
-        break;
-    }
+    $('div[name="ribozymeHelixSizes"]').hide();
+    $('#' + selection).show();
   });
 
 
   $('#stepTwoFinish').click(function(event){
-    var data = $("#msform").serializeArray();
+    var data = $("#msform").serializeArray().filter( function( item ) {
+      return (item.name != 'left_arm_min' && item.name != 'left_arm_max'
+        && item.name != 'right_arm_min' && item.name != 'right_arm_max');
+    });
+    var visibleHelixSize = $("div[name='ribozymeHelixSizes'][style!='display: none;'] :input").serializeArray();
+
+    $.merge(data, visibleHelixSize);
+
     request.extractData(data);
     console.log(request);
     console.log(data);

@@ -5,6 +5,7 @@ var config = require('../config/');
 var url = require('url');
 var mongoose = require('mongoose');
 var Request = mongoose.model('Request');
+var RibozymeConfigXML = require('../../ribozyme-design/XMLReader/').RibozymeConfigXML;
 
 /* GET home page. */
 
@@ -17,7 +18,15 @@ router.get('/step0', function(req, res, next){
 });
 
 router.get('/ribozyme', function(req, res, next){
-  res.render('./designSteps/ribozyme', { title: 'Design with Ribozyme'});
+  //Read list of ribozymes from XML configuration file
+  var config = new RibozymeConfigXML('../ribozyme-design/config/ribozyme.xml');
+  config.getConfigXML();
+  var ribozymeList = config.getRibozymeList();
+  var ribozymeHelixSizes = config.getRibozymeHelixSizes();
+  res.render('./designSteps/ribozyme',
+    { title: 'Design with Ribozyme', 
+      ribozymeList: ribozymeList, 
+      ribozymeHelixSizes: ribozymeHelixSizes });
 });
 
 router.get('/index', function(req, res, next){
