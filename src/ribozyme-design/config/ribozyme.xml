@@ -3,13 +3,13 @@
     <cutsite>
         <seq strand='single' structure='5-3'>GUC</seq>
     </cutsite>
-    <seq strand='single' name='Helix I' id='left_arm' lengthFrom='5' lengthTo='10' substrate='complementary' substrDistFromCutsite='0' substrateDirection='5-3'/>
+    <seq strand='single' name='Helix I' id='left_arm' lengthFrom='5' lengthTo='10' substrate='complementary' substrDistFromCutsite='3' substrateDirection='5-3'/>
     <seq strand='single'>CUGAUGA</seq>
     <seq strand='double' from='23' to='26'>GGCC</seq>
     <seq strand='single'>GAAA</seq>
     <seq strand='double' from='15' to='18'>GGCC</seq>
     <seq strand='single'>GAA</seq>
-    <seq strand='single' name='Helix III' id='right_arm' lengthFrom='5' lengthTo='10' substrate='complementary' substrDistFromCutsite='2' substrateDirection='3-5'/>
+    <seq strand='single' name='Helix III' id='right_arm' lengthFrom='5' lengthTo='10' substrate='complementary' substrDistFromCutsite='-1' substrateDirection='3-5'/>
 </ribozyme>
 <!--
     yl-hhRz Structure:

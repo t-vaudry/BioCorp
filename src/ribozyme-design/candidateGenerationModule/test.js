@@ -58,22 +58,20 @@ function Verify(arr1, arr2, verificationName)
     }
 }
 
-var genSeqsNormal= 
-TestObj.GenerateCandidates ('GCACGCAUGCAUCGACUAGUCAGCAGAUCGUACUGAUGCUAGCUAGCUAGCUAGAGAUGAGUACGCCGAGAGUAGGUCGUGCUAGCGCGCGAGAGAGC',
-							'G', 
-							{
-								'rz_name' : 'SOFA-HDV',
-								'rz_type' : 'Rz',
-								'promoter' : ''
-							}
-							);
+// var genSeqsNormal= 
+// TestObj.GenerateCandidates ('GUACGUAUGCAUCGACUAGUCAGCAGAUCGUACUGAUGCUAGCUAGCUAGCUAGAGAUGAGUACGCCGAGAGUAGGUCGUGCUAGCGCGCGAGAGAGU',
+// 							'G', 
+// 							{
+// 								'ribozymeSelection' : 'SOFA-HDV-Rz',
+// 								'promoter' : ''
+// 							}
+// 							);
 
 // var genSeqsNormal= 
 // TestObj.GenerateCandidates ('GUACGUAUGCAUCGACUAGUCAGCAGAUCGUACUGAUGCUAGCUAGCUAGCUAGAGAUGAGUACGCCGAGAGUAGGUCGUGCUAGCGCGCGAGAGAGU',
 // 							'GU', 
 // 							{
-// 								'rz_name' : 'pistol',
-// 								'rz_type' : 'Rz',
+// 								'ribozymeSelection' : 'pistol-Rz',
 // 								'promoter' : ''
 // 							}
 // 							);
@@ -82,24 +80,24 @@ TestObj.GenerateCandidates ('GCACGCAUGCAUCGACUAGUCAGCAGAUCGUACUGAUGCUAGCUAGCUAGC
 // TestObj.GenerateCandidates ('GUACGUAUGCAUCGACUAGUCAGCAGAUCGUACUGAUGCUAGCUAGCUAGCUAGAGAUGAGUACGCCGAGAGUAGGUCGUGCUAGCGCGCGAGAGAGU',
 // 							'GUC', 
 // 							{
-// 								'rz_name' : 'yl',
-// 								'rz_type' : 'hhRz',
+// 								'ribozymeSelection' : 'yl-hhRz',
 // 								'promoter' : ''
 // 							}
 // 							);
 
 
-// var genSeqsNormal= 
-// TestObj.GenerateCandidates ('GUACGUAUGCAUCGACUAGUCAGCAGAUCGUACUGAUGCUAGCUAGCUAGCUAGAGAUGAGUACGCCGAGAGUAGGUCGUGCUAGCGCGCGAGAGAGU',
-// 							'GUC', 
-// 							{
-// 								'left_arm_min' : 2 ,
-// 								'right_arm_min' : 2,
-// 								'left_arm_max' : 5,
-// 								'right_arm_max' : 5,
-// 								'promoter' : ''
-// 							}
-// 							);
+var genSeqsNormal= 
+TestObj.GenerateCandidates ('GUACGUAUGCAUCGACUAGUCAGCAGAUCGUACUGAUGCUAGCUAGCUAGCUAGAGAUGAGUACGCCGAGAGUAGGUCGUGCUAGCGCGCGAGAGAGU',
+							'GUC', 
+							{
+								'left_arm_min' : 2 ,
+								'right_arm_min' : 2,
+								'left_arm_max' : 5,
+								'right_arm_max' : 5,
+								'ribozymeSelection' : 'hammerHead-Rz',
+								'promoter' : ''
+							}
+							);
 
 
 // var genSeqs= 
@@ -158,30 +156,30 @@ ShowCandidates(genSeqsNormal);
 //     coreAdded.push(tempArr);
 // }
 
-// var genSeqsNormalResults =
-//     [
-//         ['CUGACUA',
-//         'GCUGACUA',
-//         'UGCUGACUA',
-//         'CUGACUAG',
-//         'GCUGACUAG',
-//         'UGCUGACUAG',
-//         'CUGACUAGU',
-//         'GCUGACUAGU',
-//         'UGCUGACUAGU'
-//         ],
-//         [
-//         'ACGACCU',
-//         'CACGACCU',
-//         'GCACGACCU',
-//         'ACGACCUA',
-//         'CACGACCUA',
-//         'GCACGACCUA',
-//         'ACGACCUAC',
-//         'CACGACCUAC',
-//         'GCACGACCUAC'
-//         ]
-//     ];
+var genSeqsNormalResults =
+    [
+        [ 'CUGACUA',
+         'GCUGACUA',
+        'UGCUGACUA',
+          'CUGACUAG',
+         'GCUGACUAG',
+        'UGCUGACUAG',
+          'CUGACUAGU',
+         'GCUGACUAGU',
+        'UGCUGACUAGU'
+        ],
+        [
+        'ACGACCU',
+        'CACGACCU',
+        'GCACGACCU',
+        'ACGACCUA',
+        'CACGACCUA',
+        'GCACGACCUA',
+        'ACGACCUAC',
+        'CACGACCUAC',
+        'GCACGACCUAC'
+        ]
+    ];
 
 // var genSeqsResults =
 // [
@@ -250,8 +248,8 @@ ShowCandidates(genSeqsNormal);
 //     'GCACCUGAUGAGUCCGUGAGGACGAAACCUACCCUAUAGUGAGUCGUAUUA'
 //     ]
 // ];
-// console.log("Verification...");
-// Verify(genSeqsNormal, genSeqsNormalResults, '"Sequences"');
+console.log("Verification...");
+Verify(genSeqsNormal, genSeqsNormalResults, '"Sequences"');
 // Verify(genSeqs, genSeqsResults, '"Sequences with promoter"');
 // Verify(coreAdded, CoreAddedResults, '"Sequences with core"');
 // console.log("Verification Complete");

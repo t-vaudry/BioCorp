@@ -31,8 +31,9 @@ function CreateCandidates (substrateSeq, cutSites, options)
 {
 	var Candidates = new Array();
 
-	var rzName = options.rz_name;
-	var rzType = options.rz_type;
+	var rzNameType = options.ribozymeSelection.split("-");
+	var rzName = rzNameType[0];
+	var rzType = rzNameType[1];
 
 	var config = new RibozymeConfigXML('config/ribozyme.xml');
 	var ribozyme = config.getRzByNameType(rzName, rzType);
@@ -62,6 +63,16 @@ function CreateCandidates (substrateSeq, cutSites, options)
 				if (typeof lengthFrom !== 'undefined') {
 					lengthFrom = parseInt(lengthFrom);
 					lengthTo = parseInt(lengthTo);
+
+					var id = seq.$['id'];
+					if (typeof id !== 'undefined') {
+						var arm_min = id + '_min';
+						if(arm_min in options) lengthFrom = parseInt(options[arm_min]);
+
+						var arm_max = id + '_max';
+						if(arm_max in options) lengthTo = parseInt(options[arm_max]);
+					}
+
 					substrDistFromCutsite = parseInt(substrDistFromCutsite);
 					for(var length = lengthFrom; length <= lengthTo; length++){
 						if(substrateDirection == '5-3'){
