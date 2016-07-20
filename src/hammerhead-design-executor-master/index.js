@@ -6,7 +6,7 @@ var scheduler = require('./lib/scheduler/'),
     util = require('util');
 
 var intervalTimeout = 1 * 1000 * 60; //Every 15 mins
-
+var tryTime = 1;
 var app = {};
 
 app.launchPendingRequests = function(callback){
@@ -123,7 +123,7 @@ var executeScript = function(){
 	function(err){
 	    if(err)
 		console.log( "Process failed because of "+err );
-	    console.log( "Executor finished. Rescheduling in "+(intervalTimeout/(60 * 1000))+" minutes");
+	    console.log( "Executor finished. Rescheduling in "+(intervalTimeout/(60 * 1000))+" minutes " + " Tried: " + (tryTime++) );
 	    setTimeout(executeScript, intervalTimeout);
 	});
 };

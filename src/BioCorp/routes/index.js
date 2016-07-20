@@ -79,6 +79,7 @@ router.get('/results/:id', function(req, res, next){
         oligoEnv: request.oligoEnv,
         cutsites: request.cutsites.join(", "),
         promoter: (request.promoter ? "Yes" : "No"),
+        ribozymeSelection: request.ribozymeSelection,
         left_arm_min: request.left_arm_min,
         right_arm_min: request.right_arm_min,
         left_arm_max: request.left_arm_max,

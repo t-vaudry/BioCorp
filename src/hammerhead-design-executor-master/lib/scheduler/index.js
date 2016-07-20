@@ -1,4 +1,4 @@
-var algorithm = require('hammerhead-design'),
+var algorithm = require('../../../ribozyme-design'),
   //  heapdump = require('heapdump'),
     rimraf = require('rimraf'),
     path = require('path'),
@@ -25,6 +25,7 @@ scheduler.startProcessingRequest = function(req, callback){
 	    'mgEnv' : req.mgEnv,
 	    'oligoEnv' : req.oligoEnv,
 	    'cutsites' : req.cutsites,
+		'ribozymeSelection' : req.ribozymeSelection,
 	    'left_arm_min' : req.left_arm_min,
 	    'right_arm_min' : req.right_arm_min,
 	    'right_arm_max' : req.right_arm_max,

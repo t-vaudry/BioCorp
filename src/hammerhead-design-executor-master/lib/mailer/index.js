@@ -218,6 +218,10 @@ var outputRequestInfo = function(request){
           <td>Fold Shape</td> \
           <td id='foldShape'>"+request.foldShape+"</td> \
         </tr> \
+        <tr> \
+          <td>Ribozyme Type</td> \
+          <td id='ribozymeSelection'>"+request.ribozymeSelection+"</td> \
+        </tr> \
 	<tr> \
           <td>Helix I Length</td> \
           <td id='leftArm'>["+request.left_arm_min+", "+request.left_arm_max+"]</td> \

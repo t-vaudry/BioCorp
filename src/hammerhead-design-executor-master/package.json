@@ -20,7 +20,6 @@
   "readmeFilename": "README.md",
   "gitHead": "17cbec481e144e237fa05ccd102843c505dd4038",
   "dependencies": {
-    "hammerhead-design": "latest",
     "mongoose": "~3.6.20",
     "nodemailer": "~0.5.5"
   },

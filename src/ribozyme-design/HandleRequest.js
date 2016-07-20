@@ -311,13 +311,12 @@ function _handleRequestPart1(request)
 				request.TargetSequence,
 				possibleCutsitesTypes[ii], 
 				{
-				    // 'left_arm_min': request.Preferences.left_arm_min,
-				    // 'right_arm_min': request.Preferences.right_arm_min,
-				    // 'left_arm_max': request.Preferences.left_arm_max,
-				    // 'right_arm_max': request.Preferences.right_arm_max,
-                    'rz_name' : request.Preferences.rz_name,
-                    'rz_type' : request.Preferences.rz_type
-				    // 'coreTypeId': request.coreTypeId
+                    'ribozymeSelection': request.Preferences.ribozymeSelection,
+				    'left_arm_min': request.Preferences.left_arm_min,
+				    'right_arm_min': request.Preferences.right_arm_min,
+				    'left_arm_max': request.Preferences.left_arm_max,
+				    'right_arm_max': request.Preferences.right_arm_max,
+				    'coreTypeId': request.coreTypeId
 				}
 			);
         //Find the candidate count

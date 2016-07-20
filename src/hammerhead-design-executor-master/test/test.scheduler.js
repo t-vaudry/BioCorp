@@ -1,4 +1,4 @@
-var algorithm = require('hammerhead-design'),
+var algorithm = require('../../ribozyme-design'),
     should = require('should'),
     async = require('async'),
     fs = require('fs'),

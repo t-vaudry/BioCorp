@@ -54,6 +54,7 @@ utils.createRequest = function(id, test_data, callback){
 				    toTargetRegion(test_data.region),
 				    test_data.env.type,
 				    test_data.env.target,
+					test_data.ribozymeSelection,
 				    test_data.left_arm_min,
 				    test_data.right_arm_min,
 				    test_data.left_arm_max,

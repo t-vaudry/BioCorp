@@ -34,6 +34,7 @@ module.exports = {
                 region,
                 (req.body.env.type === "vivo"),
                 vivoEnv,
+                req.body.ribozymeSelection,
                 parseInt(req.body.left_arm_min),
                 parseInt(req.body.right_arm_min),
                 parseInt(req.body.left_arm_max),
@@ -216,6 +217,7 @@ module.exports = {
                             result.targetEnv = (req.body.env.type === "vivo");
                             result.vivoEnv = vivoEnv;
                             result.emailUser = req.body.emailUser;
+                            result.ribozymeSelection = req.body.ribozymeSelection;
                             result.left_arm_min = parseInt(req.body.left_arm_min);
                             result.right_arm_min = parseInt(req.body.right_arm_min);
                             result.left_arm_max = parseInt(req.body.left_arm_max);
@@ -278,6 +280,7 @@ function sendRequestResponse(res, result){
     cutsites: result.cutsites,
     region: result.getRegion(),
     env: result.getEnv(),
+    ribozymeSelection: ribozymeSelection,
     left_arm_min: result.left_arm_min,
     right_arm_min: result.right_arm_min,
     left_arm_max: result.left_arm_max,

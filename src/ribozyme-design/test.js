@@ -66,14 +66,11 @@ var request = new Request
         'mgEnv' : 1, //mM
         'oligoEnv': 12,
         'cutsites' : ['GUC'],
-        // 'left_arm_min': 5,
-        // 'right_arm_min': 5,
-        // 'left_arm_max':13,
-        // 'right_arm_max':13,
-        'rz_name' : 'yl',
-        'rz_type' : 'hhRz',
-        // 'rz_name' : 'pistol',
-        // 'rz_type' : 'hhRz',
+        'ribozymeSelection': 'hammerHead-Rz',
+        'left_arm_min': 5,
+        'right_arm_min': 5,
+        'left_arm_max':13,
+        'right_arm_max':13,
         'promoter': '',
         'specificity':true
 //        5 TAATACGACTCACTATAGGG

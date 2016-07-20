@@ -1,6 +1,8 @@
 var RibozymeConfigXML = require('../XMLReader/').RibozymeConfigXML;
 var Utils = require('../AlgorithmUtilities.js');
 var Log = require('./../log/').Log;
+var config = require('../config/config.json');
+var config_xml_path = config.env.config_xml_path;
 var ReverseComplement = Utils.ReverseComplement;
 var Reverse = Utils.Reverse;
 var Complement = Utils.Complement;
@@ -35,7 +37,7 @@ function CreateCandidates (substrateSeq, cutSites, options)
 	var rzName = rzNameType[0];
 	var rzType = rzNameType[1];
 
-	var config = new RibozymeConfigXML('config/ribozyme.xml');
+	var config = new RibozymeConfigXML(config_xml_path);
 	var ribozyme = config.getRzByNameType(rzName, rzType);
 
 	for(var ii = 0 ; ii < cutSites.length;++ii)

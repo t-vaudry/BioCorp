@@ -1,4 +1,4 @@
-var algorithm = require('hammerhead-design'),
+var algorithm = require('../../ribozyme-design'),
     should = require('should'),
     fs = require('fs'),
     lib = require('../index.js'),
@@ -26,11 +26,12 @@ describe('Algorithm library', function(){
                 'mgEnv' : 1, //mM
                 'oligoEnv': 12,
                 'cutsites' : ['GUC','AUC'],
+                'ribozymeSelection' : 'hammerhead-Rz',
                 'left_arm_min': 3,
                 'right_arm_min': 3,
                 'left_arm_max':10,
                 'right_arm_max':10,
-		'promoter' : 'TAATACGACTCACTATAGGG'
+                'promoter' : 'TAATACGACTCACTATAGGG'
             },
             testID,
             0,//CoreType

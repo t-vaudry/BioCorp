@@ -1,5 +1,6 @@
 {
     "env": {
+	"config_xml_path": "/home/mohiul/git/Biocorp/src/ribozyme-design/config/ribozyme.xml",
 	"sfold_path": "~/PhdResearch/Ribosoft/sfold-2.2/bin/sfold",
 	"unafold_path": "UNAFold.pl"
     },
