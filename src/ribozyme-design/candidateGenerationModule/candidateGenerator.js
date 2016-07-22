@@ -36,7 +36,7 @@ function CreateCandidates (substrateSeq, cutSites, options)
 	var rzNameType = options.ribozymeSelection.split("-");
 	var rzName = rzNameType[0];
 	var rzType = rzNameType[1];
-
+	Log("Config XML path: " + config_xml_path, "CreateCandidates", 10);
 	var config = new RibozymeConfigXML(config_xml_path);
 	var ribozyme = config.getRzByNameType(rzName, rzType);
 
@@ -69,10 +69,10 @@ function CreateCandidates (substrateSeq, cutSites, options)
 					var id = seq.$['id'];
 					if (typeof id !== 'undefined') {
 						var arm_min = id + '_min';
-						if(arm_min in options) lengthFrom = parseInt(options[arm_min]);
+						if(arm_min in options && options[arm_min] > 0) lengthFrom = parseInt(options[arm_min]);
 
 						var arm_max = id + '_max';
-						if(arm_max in options) lengthTo = parseInt(options[arm_max]);
+						if(arm_max in options && options[arm_max] > 0) lengthTo = parseInt(options[arm_max]);
 					}
 
 					substrDistFromCutsite = parseInt(substrDistFromCutsite);
@@ -84,10 +84,17 @@ function CreateCandidates (substrateSeq, cutSites, options)
 							if((start + length - 1) > highestEnd) highestEnd = start + length - 1;
 
 							if(substrate == 'complementary'){
-								candidateSeqs.push({"seq" : Complement(substrateSeq.substr(start,length)), "complementary" :true, "pk" :false, "cutsiteRelativePos" :"right"});
+								candidateSeqs.push({"seq" : Complement(substrateSeq.substr(start,length)),
+								 "complementary" :true, 
+								 "pk" :false, 
+								 "cutsiteRelativePos" :"right", 
+								 "substrDistFromCutsite": substrDistFromCutsite});
 							} else if(substrate == 'same'){
 								var strand = substrateSeq.substr(start,length);
-								candidateSeqs.push({"seq" : substrateSeq.substr(start,length), "complementary" :false, "pk" :false, "cutsiteRelativePos" :"right"});
+								candidateSeqs.push({"seq" : substrateSeq.substr(start,length),
+								 "complementary" :false, 
+								 "pk" :false, 
+								 "cutsiteRelativePos" :"right"});
 							}
 						} else if(substrateDirection == '3-5'){
 							var start = cutSites[ii] - substrDistFromCutsite - (length - 1);
@@ -96,9 +103,16 @@ function CreateCandidates (substrateSeq, cutSites, options)
 							if((start + length - 1) > highestEnd) highestEnd = start + length - 1;
 
 							if(substrate == 'complementary'){
-								candidateSeqs.push({"seq" : Complement(substrateSeq.substr(start,length)), "complementary" :true, "pk" :false, "cutsiteRelativePos" :"left"});
+								candidateSeqs.push({"seq" : Complement(substrateSeq.substr(start,length)),
+								 "complementary" :true, 
+								 "pk" :false, 
+								 "cutsiteRelativePos" :"left", 
+								 "substrDistFromCutsite": substrDistFromCutsite});
 							} else if(substrate == 'same'){
-								candidateSeqs.push({"seq" : substrateSeq.substr(start,length), "complementary" :false, "pk" :false, "cutsiteRelativePos" :"left"});
+								candidateSeqs.push({"seq" : substrateSeq.substr(start,length),
+								 "complementary" :false, 
+								 "pk" :false, 
+								 "cutsiteRelativePos" :"left"});
 							}
 						}
 					}
@@ -114,9 +128,16 @@ function CreateCandidates (substrateSeq, cutSites, options)
 
 						if(substrate == 'complementary'){
 							var strand = substrateSeq.substr(start,length);
-							candidateSeqs.push({"seq" : Complement(substrateSeq.substr(start,length)), "complementary" :true, "pk" :true, "cutsiteRelativePos" :"right"});
+							candidateSeqs.push({"seq" : Complement(substrateSeq.substr(start,length)),
+							 "complementary" :true, 
+							 "pk" :true, 
+							 "cutsiteRelativePos" :"right", 
+							 "substrDistFromCutsite": substrDistFromCutsite});
 						} else if(substrate == 'same'){
-							candidateSeqs.push({"seq" : substrateSeq.substr(start,length), "complementary" :false, "pk" :true, "cutsiteRelativePos" :"right"});
+							candidateSeqs.push({"seq" : substrateSeq.substr(start,length),
+							 "complementary" :false, 
+							 "pk" :true, 
+							 "cutsiteRelativePos" :"right"});
 						}
 					} else if(substrateDirection == '3-5'){
 						var start = cutSites[ii] - substrDistFromCutsite - (length - 1);
@@ -124,9 +145,16 @@ function CreateCandidates (substrateSeq, cutSites, options)
 						if((start + length - 1) > highestEnd) highestEnd = start + length - 1;
 
 						if(substrate == 'complementary'){
-							candidateSeqs.push({"seq" : Complement(substrateSeq.substr(start,length)), "complementary" :true, "pk" :true, "cutsiteRelativePos" :"left"});
+							candidateSeqs.push({"seq" : Complement(substrateSeq.substr(start,length)),
+							 "complementary" :true, 
+							 "pk" :true, 
+							 "cutsiteRelativePos" :"left", 
+							 "substrDistFromCutsite": substrDistFromCutsite});
 						} else if(substrate == 'same'){
-							candidateSeqs.push({"seq" : substrateSeq.substr(start,length), "complementary" :false, "pk" :true, "cutsiteRelativePos" :"left"});
+							candidateSeqs.push({"seq" : substrateSeq.substr(start,length),
+							 "complementary" :false, 
+							 "pk" :true, 
+							 "cutsiteRelativePos" :"left"});
 						}
 					}
 				}
@@ -148,10 +176,17 @@ function CreateCandidates (substrateSeq, cutSites, options)
 				var seq = candidateSeqs[b].seq;
 				var complementary = candidateSeqs[b].complementary;
 				var pk = candidateSeqs[b].pk;
+				var cutsiteRelativePos = candidateSeqs[b].cutsiteRelativePos;
+				var substrDistFromCutsite = candidateSeqs[b].substrDistFromCutsite;
 				if(cutsiteCandidates.length == 0){
 					var compPositions = new Array();
 					if(complementary){
-						compPositions.push({"start" : 0, "end": seq.length, "pk" :pk});
+						compPositions.push({"start" : 0,
+						 "end": seq.length, 
+						 "pk" :pk, 
+						 "cutsiteRelativePos": cutsiteRelativePos,
+						 "substrDistFromCutsite": substrDistFromCutsite
+						});
 					}
 					newCandidates.push({"seq" : seq, "targetLocation" :cutSites[ii], "compPositions" : compPositions });
 				} else {
@@ -159,7 +194,12 @@ function CreateCandidates (substrateSeq, cutSites, options)
 						var compPositions = cutsiteCandidates[c].compPositions.slice();
 						if(complementary){
 							var start = cutsiteCandidates[c].seq.length;
-							compPositions.push({"start" : start, "end": start + seq.length, "pk" :pk});
+							compPositions.push({"start" : start,
+							 "end": start + seq.length, 
+							 "pk" :pk,
+							 "cutsiteRelativePos": cutsiteRelativePos,
+							 "substrDistFromCutsite": substrDistFromCutsite
+							});
 						}
 						newCandidates.push({"seq" : cutsiteCandidates[c].seq + seq, "targetLocation" :cutSites[ii], "compPositions" : compPositions });
 					}

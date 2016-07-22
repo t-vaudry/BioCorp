@@ -402,10 +402,12 @@ SummaryTable.prototype.setTableData = function(data){
     $("#foldShape").text(data.foldShape);
     $("#promoter").text(data.promoter ? "Yes" : "No");
     $("#ribozymeType").text(data.ribozymeSelection);
-    if(typeof data.left_arm_min !== 'undefined' && typeof data.left_arm_max !== 'undefined'){
+    if(typeof data.left_arm_min !== 'undefined' && typeof data.left_arm_max !== 'undefined'
+        && data.left_arm_min > 0 && data.left_arm_max > 0){
         $("#leftArm").text("Between "+ data.left_arm_min + " and "+data.left_arm_max);
     }
-    if(data.right_arm_min !== 'undefined' && data.right_arm_max !== 'undefined'){
+    if(typeof data.right_arm_min !== 'undefined' && typeof data.right_arm_max !== 'undefined'
+        && data.right_arm_min > 0 && data.right_arm_max > 0){
         $("#rightArm").text("Between "+ data.right_arm_min + " and "+data.right_arm_max);
     }
     $("#specificity").text(data.specificity == "hybrid"?"Cleavage and Hybridization":"Cleavage only");
@@ -525,10 +527,10 @@ DesignParamsValidator.prototype.validate = function(request){
     else if( (request.naC < 0) || (request.mgC < 0) || (request.oligoC < 0) ) {
 	this.alert.setState({ok:false, error:"Environment concentrations cannot be below 0"});
     }
-    else if(request.left_arm_max > 34  || request.right_arm_max > 34 || request.left_arm_min < 1 || request.right_arm_min < 1  )
-    {
-    this.alert.setState({ok:false, error:"The arm lengths have to be between 1 and 34. This ensures that relevant results can be provided in a timely fashion and allows fair share of the software among users."});
-    }
+    // else if(request.left_arm_max > 34  || request.right_arm_max > 34 || request.left_arm_min < 1 || request.right_arm_min < 1  )
+    // {
+    // this.alert.setState({ok:false, error:"The arm lengths have to be between 1 and 34. This ensures that relevant results can be provided in a timely fashion and allows fair share of the software among users."});
+    // }
     else {
 	this.alert.hide();
 	valid = true;

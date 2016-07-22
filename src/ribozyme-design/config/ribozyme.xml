@@ -24,7 +24,7 @@
     <seq strand='single'>GGGGG</seq>
     <!-- Single Strand same as substrate-->
     <seq strand='single' lengthFrom='2' lengthTo='2' substrate='same' substrDistFromCutsite='11' substrateDirection='5-3'/>
-    <seq strand='single' lengthFrom='8' lengthTo='8' substrate='complementary' substrDistFromCutsite='3' substrateDirection='5-3'/>
+    <seq strand='single' name='Helix I' id='left_arm' lengthFrom='8' lengthTo='8' substrate='complementary' substrDistFromCutsite='3' substrateDirection='5-3'/>
     <seq strand='single'>CUGAUG</seq>
     <seq strand='double' from='43' to='45'>AGA</seq>
     <seq strand='single'>ACAAACCC</seq>
@@ -64,7 +64,7 @@ GGG CCAGCUAG  UUU  GAGACAAGAA  GUUU  CA  GGGUCC  ACC U  CC UCGC  GGU
 AAACCAU  GG  GCAUCCG  UUCG  CGGAUGG  CUAAG  GGACCC  UUU  CUAGCUGG
 ......55 .. 58...... 65... 69...... 77.... 82..... 88.. 91......98
 -->
-<ribozyme name='SOFA-HDV' type='Rz' structure='5-3' title='SOFA HDV'>
+<ribozyme name='SOFA_HDV' type='Rz' structure='5-3' title='SOFA HDV'>
     <seq strand='single'>GGG</seq>
     <seq strand='double' from='91' to='98'>CCAGCUAG</seq>
     <seq strand='single'>UUU</seq>

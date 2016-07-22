@@ -91,79 +91,78 @@ Request.statics = {
 
 Request.methods = {
     getEnv : function(){
-	if (this.targetEnv)
-	    return {type: this.getTargetEnv(), target: this.vivoEnv};
-	else
-	    return {type: this.getTargetEnv(), target: ''};
+		if (this.targetEnv)
+			return {type: this.getTargetEnv(), target: this.vivoEnv};
+		else
+			return {type: this.getTargetEnv(), target: ''};
     },
     getTargetEnv : function(){
-	return (this.targetEnv)? 'vivo':'vitro';
+		return (this.targetEnv)? 'vivo':'vitro';
     },
     getRegion : function(){
-	switch(this.targetRegion){
-	case 3 :
-	    return ['3\''];
-	case 4 :
-	default:
-	    return ['ORF'];
-	case 5 :
-	    return ['5\''];
-	case 7 :
-	    return ['3\'', 'ORF'];
-	case 9 :
-	    return ['ORF', '5\''];
-	case 12 :
-	    return ['3\'', 'ORF', '5\''];
-
-	}
+		switch(this.targetRegion){
+			case 3 :
+				return ['3\''];
+			case 4 :
+			default:
+				return ['ORF'];
+			case 5 :
+				return ['5\''];
+			case 7 :
+				return ['3\'', 'ORF'];
+			case 9 :
+				return ['ORF', '5\''];
+			case 12 :
+				return ['3\'', 'ORF', '5\''];
+		}
     },
     setStatus : function(newStatus){
-	//status is always between 1 and 5, and is always incremented by 1
-	if( newStatus > 5 || newStatus< 1 || newStatus - 1 !== this.status) {
-            return false;
-	}
-	
-	this.status = newStatus;
-	return true;
+		//status is always between 1 and 5, and is always incremented by 1
+		if( newStatus > 5 || newStatus< 1 || newStatus - 1 !== this.status) {
+			return false;
+		}
+		
+		this.status = newStatus;
+		return true;
     },
     getDetailedStatus : function(){
-	switch(this.status){
-	case 1:
-	default:
-	    return "Created";
-	case 2:
-	    return "Ready for processing";
-	case 3:
-	    return "In-Processing";
-	case 4:
-	case 5:
-	    return "Processed";
-	}
+		switch(this.status){
+			case 1:
+			default:
+				return "Created";
+			case 2:
+				return "Ready for processing";
+			case 3:
+				return "In-Processing";
+			case 4:
+			case 5:
+				return "Processed";
+		}
     },
     getState : function(){
-	return this.state;
+		return this.state;
     },
     getRemainingTime : function(unit){
-	if(this.getDetailedStatus() == "Processed")
-	    return {remainingDuration: 0, unit: 'min'};
-	switch(unit){
-	case 'min':
-	default:
-	    return {remainingDuration: this.remainingDuration, unit: 'min'};
-	case 'h':
-	    return {remainingDuration: this.remainingDuration/60, unit: 'h'};
-	}
+		if(this.getDetailedStatus() == "Processed")
+			return {remainingDuration: 0, unit: 'min'};
+		switch(unit){
+			case 'min':
+			default:
+				return {remainingDuration: this.remainingDuration, unit: 'min'};
+			case 'h':
+				return {remainingDuration: this.remainingDuration/60, unit: 'h'};
+		}
     },
     setRemainingTime : function(duration){
-	switch(duration.unit){
-	case 'min':
-	default:
-	    this.remainingDuration = duration.remainingDuration;
-	    break;
-	case 'h':
-	    this.remainingDuration = duration.remainingDuration * 60;
-	    break;
-	}	    
+		switch(duration.unit){
+		case 'min':
+		default:
+			this.remainingDuration = duration.remainingDuration;
+			break;
+		case 'h':
+			this.remainingDuration = duration.remainingDuration * 60;
+			break;
+		}	    
     }
 };
 

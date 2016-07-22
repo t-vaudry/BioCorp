@@ -40,21 +40,21 @@ app.notifyFinishedRequests = function(callback){
 
 app.handleRunningRequests = function(callback){
     async.waterfall([
-	queryer.getRunningRequest,
-	queryer.updateRunningRequestDuration,
-	queryer.stopBlockedRequest,
-	mailer.notifyOwnerRequestFailed
+		queryer.getRunningRequest,
+		queryer.updateRunningRequestDuration,
+		queryer.stopBlockedRequest,
+		mailer.notifyOwnerRequestFailed
     ], function(err, result){
-	if(err){
-	    if(err.message == "No running request")
-		callback(null, "No running request");
-	    else
-		callback(new Error("Error "+err.message+" while updating running request" ));
-	} else if (result) {
-	    callback(null, "Result of running request "+result);
-	} else {
-	    callback(null);
-	}
+		if(err){
+			if(err.message == "No running request")
+			callback(null, "No running request");
+			else
+			callback(new Error("Error "+err.message+" while updating running request" ));
+		} else if (result) {
+			callback(null, "Result of running request "+result);
+		} else {
+			callback(null);
+		}
     });
 };
 
@@ -94,30 +94,30 @@ var executeScript = function(){
 	[
 	    app.handleRunningRequests,
 	    function(result, callback){
-		if(result)
-		    console.log( result );
-		callback(null);
+			if(result)
+				console.log( result );
+			callback(null);
 	    },
 	    queryer.getCountRunningRequests,
 	    function(count, callback) {
-		if(count <= 0)
-		    callback(null);
-		else {
-		    callback(new Error("There is still one request running"));
-		}
+			if(count <= 0)
+				callback(null);
+			else {
+				callback(new Error("There is still one request running"));
+			}
 	    },
 	    app.launchPendingRequests,
 	    function(result, callback){
-		console.log( result );
-		callback(null);
+			console.log( result );
+			callback(null);
 	    },
 	    app.notifyFinishedRequests,
 	    function(count, callback){
-		if(count)
-		    console.log( "Successfully Notified "+count+" requests"  );
-		else
-		    console.log( "No requests to be notified" );
-		callback(null);
+			if(count)
+				console.log( "Successfully Notified "+count+" requests"  );
+			else
+				console.log( "No requests to be notified" );
+			callback(null);
 	    }
 	],
 	function(err){

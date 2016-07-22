@@ -82,6 +82,16 @@ function initializePage() {
     });
     var visibleHelixSize = $("div[name='ribozymeHelixSizes'][style!='display: none;'] :input").serializeArray();
 
+    var objMap = new Object();
+    $.map(visibleHelixSize, function(obj,i){
+      return objMap[obj.name] = obj.value;
+    });
+
+    if(!('left_arm_min' in objMap)) visibleHelixSize.push({name: 'left_arm_min', value: -1});
+    if(!('left_arm_max' in objMap)) visibleHelixSize.push({name: 'left_arm_max', value: -1});
+    if(!('right_arm_min' in objMap)) visibleHelixSize.push({name: 'right_arm_min', value: -1});
+    if(!('right_arm_max' in objMap)) visibleHelixSize.push({name: 'right_arm_max', value: -1});
+
     $.merge(data, visibleHelixSize);
 
     request.extractData(data);

@@ -1,7 +1,7 @@
 module.exports = {
     longSequence : {
 	request : {
-	    sequence : 'AUUGUACGCGUCGCACGAUGCAUGCUC',
+	    sequence : 'GTACGTATGCATCGACTAGTCAGCAGATCGTACTGATGCTAGCTAGCTAGCTAGAGATGAGTACGCCGAGAGTAGGTCGTGCTAGCGCGCGAGAGAGT',
 	    foldShape : 'Basic',
 	    temperature : 37,
 	    naC: 150,

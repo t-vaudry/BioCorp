@@ -1,7 +1,7 @@
 var config = require('../../config/'),
     mongoose = require('mongoose'),
     request = require('../../models/request.js');
-
+console.log("config.dbUrl: " + config.dbUrl);
 var connection = mongoose.connect( config.dbUrl );
 
 var Request = mongoose.model('Request');
@@ -37,7 +37,7 @@ queryer.getRunningRequest = function(callback){
 
 queryer.updateRunningRequestDuration = function(request, callback){
     var duration = request.getRemainingTime('min').remainingDuration;
-    duration = Math.max(duration-15, 0);
+    duration = Math.max(duration-10, 0);
     request.setRemainingTime({ unit: 'min', remainingDuration : duration });
     request.save(function(err, req){
 	if(err)

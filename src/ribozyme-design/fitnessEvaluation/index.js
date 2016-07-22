@@ -237,11 +237,13 @@ function _getContiniousPairsInRegion(structureInfo, start, end) {
     <param name='saltConc'>salt concentration to evaluate melting temperature</param>
     <return>The fitness for the target, for the given region</return>
 */
-function EvaluateTargetFoldsFitness(structureInfoArray, leftArmLength, rightArmLength, cutSiteLocation, prefs) {
+function EvaluateTargetFoldsFitness(structureInfoArray, candidate, prefs) {
+
+    var maxMinIndex = findMaxMinIndexFromCutsiteLoc(candidate.complimentaryPositions, candidate.cutSiteLocation);
 
     var totalFitness = 0;
     for (var ii = 0 ; ii < structureInfoArray.length; ++ii) {
-        var continiousSeqArr = _getContiniousPairsInRegion(structureInfoArray[ii], cutSiteLocation - rightArmLength + 2 , cutSiteLocation +  leftArmLength + 3);
+        var continiousSeqArr = _getContiniousPairsInRegion(structureInfoArray[ii], maxMinIndex.start , maxMinIndex.end);
         var partialFitness = 0;
         //add the melting temperature of continious pairs
         for (var jj = 0; jj < continiousSeqArr.length; ++jj) {   
@@ -253,6 +255,21 @@ function EvaluateTargetFoldsFitness(structureInfoArray, leftArmLength, rightArmL
     return totalFitness;
 }
 
+function findMaxMinIndexFromCutsiteLoc(compPositions, cutSiteLoc) {
+    var maxStart = 0;
+    var maxEnd = 0;
+    for (var ii = 0 ; ii < compPositions.length; ++ii) {
+        var length = (compPositions[ii].end - compPositions[ii].start) + 1;
+        if(compPositions[ii].cutsiteRelativePos == "left"){
+            var left = cutSiteLoc + compPositions[ii].substrDistFromCutsite + length + 3;
+            if(left > maxEnd) maxEnd = left;
+        } else if(compPositions[ii].cutsiteRelativePos == "right"){
+            var right = cutSiteLoc - compPositions[ii].substrDistFromCutsite - length + 2;
+            if(right < maxStart) maxStart = right;
+        }
+    }
+    return {"start": maxStart, "end": maxEnd};
+}
 
 /*
     <summary>
@@ -276,15 +293,16 @@ function EvaluateFitnesses(request) {
             for (var kk = 0; kk < cutsite.Candidates.length ; ++kk) {
                 var candidate = cutsite.Candidates[kk];
                 //Check the cutsite region for annealing Temperature
-                candidate.Fitness_Target = EvaluateTargetFoldsFitness(NormalSFoldShapes, candidate.LeftArmLength , candidate.RightArmLength + 2/*+ 2 accounts for UC*/, candidate.cutSiteLocation, request.Preferences);
+                // candidate.Fitness_Target = EvaluateTargetFoldsFitness(NormalSFoldShapes, candidate.LeftArmLength , candidate.RightArmLength + 2/*+ 2 accounts for UC*/, candidate.cutSiteLocation, request.Preferences);
+                candidate.Fitness_Target = EvaluateTargetFoldsFitness(NormalSFoldShapes, candidate, request.Preferences);
                 //This might be inverted. In the end, the closer it is to zero the better. It will always have one sign or the other.
                 //if it has both, it would mean that it is easier to have a completely open cutsite than a normal cutsite.
                 candidate.Fitness_Target_dG = Math.abs(  request.AverageLowestFreeEnergy - cutsite.AverageLowestFreeEnergy );
                 candidate.MeltingTemperature = Math.round(100*(candidate.MeltingTemperature - 276))/100; //Reconvert to degrees
                 
-                candidate.MeltingTemperatureLeft = Math.round(100*(candidate.MeltingTemperatureLeft - 276))/100; //Reconvert to degrees
-                candidate.MeltingTemperatureRight = Math.round(100*(candidate.MeltingTemperatureRight - 276))/100; //Reconvert to degrees
-                
+                for (var ll = 0; ll < candidate.MeltingTemperatureList.length ; ++ll) {
+                    candidate.MeltingTemperatureList[ll] = Math.round(100*(candidate.MeltingTemperatureList[ll] - 276))/100; //Reconvert to degrees
+                }                
                 
                 candidate.Fitness_Specificity = Math.round(100*cutsite.SpecificityFitness)/100;
                 //Find max and min values for normalization

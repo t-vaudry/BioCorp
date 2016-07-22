@@ -91,13 +91,17 @@
   DecompressRequest(results);
   var container = results.CutsiteTypesCandidateContainer;
   var core  =  results.coreTypeId == 0? "CUGAUGAGGCCGAAAGGCCGAA" : "CUGAUGAGUCGCUGAAAUGCGACGAA";
+
+  var meltingTempHeader = "";
+  for(var ii = 0; ii < container[0].Cutsites[0].Candidates[0].MeltingTemperatureList.length; ii++){
+    meltingTempHeader += "<th><p>Melting Temperature (&deg;C)</p></th> ";
+  }
+
   var html ="<div class='step-contents center'>\
   <table class='table table-hover' id='results'>\
        <thead>\
            <th><p>Cut-site Number</p></th>\
-           <th><p>Sequence</p></th> \
-           <th><p>Melting Temperature (Left) (&deg;C)</p></th> \
-           <th><p>Melting Temperature (Right)(&deg;C)</p></th> \
+           <th><p>Sequence</p></th> " + meltingTempHeader + "\
            <th><p>Accessibility 1</p></th> \
            <th><p>Accessibility 2</p></th> \
            <th><p>Ribozyme Shape Quality</p></th>";
@@ -107,15 +111,18 @@
        container.forEach(function(type, ind1) {
             type.Cutsites.forEach(function(cutsite,ind2) {
                  cutsite.Candidates.forEach(function(candidate,ind3) {
-		 html +="<tr> \
+                   var meltingTemp = "";
+                   for(var ii = 0; ii < candidate.MeltingTemperatureList.length; ii++){
+                     meltingTemp += "<td class='melting_col'>" + candidate.MeltingTemperatureList[ii] + "</td>";
+                   }
+                  html +="<tr> \
                   <td>"+cutsite.ID+"</td> \
                   <td class='sequence_col'>"
-                  + candidate.Sequence.substr (0, candidate.Sequence.indexOf(core))
-                  + "<emp class ='core-highlight'>" + candidate.Sequence.substr (candidate.Sequence.indexOf(core), core.length) + "</emp>"
-                  + candidate.Sequence.substr (candidate.Sequence.indexOf(core) + core.length )
-                  +"</td> \
-                  <td class='melting_col'>"+candidate.MeltingTemperatureLeft+"</td> \
-                  <td class='melting_col'>"+candidate.MeltingTemperatureRight+"</td> \
+                  // + candidate.Sequence.substr (0, candidate.Sequence.indexOf(core))
+                  // + "<emp class ='core-highlight'>" + candidate.Sequence.substr (candidate.Sequence.indexOf(core), core.length) + "</emp>"
+                  // + candidate.Sequence.substr (candidate.Sequence.indexOf(core) + core.length )
+                  + candidate.Sequence
+                  +"</td> " + meltingTemp + "\
                   <td>"+candidate.Fitness_Target+"</td> \
                   <td>"+candidate.Fitness_Target_dG+"</td> \
                   <td>"+candidate.Fitness_Shape+"</td>";

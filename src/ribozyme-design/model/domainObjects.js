@@ -158,7 +158,7 @@ var MeltingTCalcRouter = require('../meltingTemp/').MeltingTCalcRouter;
 
 
     function Candidate(sequence, cataliticCoreStart, Id, coreType, requestID, cutsiteID, cutSiteLocation,
-        meltingTemperature, meltList, armLengthList)
+        meltingTemperature, meltList, complimentaryPositions, armLengthList)
     {
         this.Sequence = sequence;
         this.CataliticCoreStart = cataliticCoreStart;
@@ -177,6 +177,7 @@ var MeltingTCalcRouter = require('../meltingTemp/').MeltingTCalcRouter;
         this.requestID = requestID;
         this.MeltingTemperature = meltingTemperature;
         this.MeltingTemperatureList = meltList;
+        this.complimentaryPositions = complimentaryPositions;
         this.ArmLengthList = armLengthList;
         // this.MeltingTemperatureLeft = meltLeft;
         // this.MeltingTemperatureRight = meltRight;

@@ -169,22 +169,24 @@ function CountCandidatesFromRaw(rawCandidates)
 function VerifyParameters(request)
 {
     var allOk = true;
-    if (request.Preferences.left_arm_min < 1) {
-        request.UpdateState("Left arm minumum is less than 1!");
-        allOk = false;
-    }
-    if (request.Preferences.right_arm_min < 1) {
-        request.UpdateState("Right arm minumum is less than 1!");
-        allOk = false;
-    }
-    if (request.Preferences.left_arm_max > 23) {
-        request.UpdateState("Left arm max is more than 23!");
-        allOk = false;
-    }
-    if (request.Preferences.right_arm_max > 23) {
-        request.UpdateState("Right arm max is more than 23!");
-        allOk = false;
-    }
+    // TODO fix these varifications from XML config 
+
+    // if (request.Preferences.left_arm_min < 1) {
+    //     request.UpdateState("Left arm minumum is less than 1!");
+    //     allOk = false;
+    // }
+    // if (request.Preferences.right_arm_min < 1) {
+    //     request.UpdateState("Right arm minumum is less than 1!");
+    //     allOk = false;
+    // }
+    // if (request.Preferences.left_arm_max > 23) {
+    //     request.UpdateState("Left arm max is more than 23!");
+    //     allOk = false;
+    // }
+    // if (request.Preferences.right_arm_max > 23) {
+    //     request.UpdateState("Right arm max is more than 23!");
+    //     allOk = false;
+    // }
 
     if ((request.Preferences.left_arm_max - request.Preferences.left_arm_min)
         * (request.Preferences.right_arm_max - request.Preferences.right_arm_min) > 100) {
@@ -232,7 +234,9 @@ function EstimateTime(request) {
         count += CandidateGenerationModule.FindCutsites(AlgorithmUtilities.DnaToRna(request.TargetSequence), possibleCutsitesTypes[ii]).length;
     }
     var armL = request.Preferences.left_arm_max - request.Preferences.left_arm_min;
+    if(armL == 0) armL = 1;
     var armR = request.Preferences.right_arm_max - request.Preferences.right_arm_min;
+    if(armR == 0) armR = 1;
     var est = armL * armR * count / 100 * 60
 	return est;
 }
@@ -367,6 +371,7 @@ function _handleRequestPart1(request)
                     rawCandidate.targetLocation,
                     rawCandidate.MeltingTemperature,
                     rawCandidate.MeltingTempList,
+                    rawCandidate.compPositions,
                     AlgorithmUtilities.CalculateArmLength(rawCandidate.compPositions)
                     );
                 candidates.push(newCandidate);

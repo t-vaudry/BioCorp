@@ -41,7 +41,9 @@ var Pair = new Schema({
 mongoose.model('Pair', Pair);
 
 if(process.env.NODE_ENV == 'test'){
+  console.log("DB Url: " + config.ribosoftTestDbUrl);
   mongoose.connect(config.ribosoftTestDbUrl);
 } else{
+  console.log("DB Url: " + config.ribosoftDbUrl);
   mongoose.connect(config.ribosoftDbUrl);
 }

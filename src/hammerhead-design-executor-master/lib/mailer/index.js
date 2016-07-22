@@ -16,34 +16,34 @@ var host = config.host;
 
 mailer.notifyOwnerRequestFailed = function(request, callback){
     if(!request)
-	callback(null, "No owner to notify");
+		callback(null, "No owner to notify");
     else {
-	var link = host + 'results/'+request.uuid;
-	var sendMail = function(request, callback){
-	    var receiver = request.emailUser;
-	    var subject = "Result from Ribosoft for request "+request.uuid;
-	    var message = "Hello,<br/><p>Your request seems to have failed. Please retry at the address "+host+".<br/><br/>When target sequences are more than 3 kb, computing can sometimes be unreasonnably long, try using a portion of the sequence.<br/><br/>Alternatively, by modifying parameters it is possible to increase the number of candidate ribozymes (e.g. longer arm’s lengths will increase the Tm to allow for ribozymes that bind their target well even at higher temperatures).<br/><br/>For a description of the parameters previously used, have a look here: <a href='"+link+"' />"+link+"</a></br/><br/>Regards,<br/>The Ribosoft Team</p>";
+		var link = host + 'results/'+request.uuid;
+		var sendMail = function(request, callback){
+			var receiver = request.emailUser;
+			var subject = "Result from Ribosoft for request "+request.uuid;
+			var message = "Hello,<br/><p>Your request seems to have failed. Please retry at the address "+host+".<br/><br/>When target sequences are more than 3 kb, computing can sometimes be unreasonnably long, try using a portion of the sequence.<br/><br/>Alternatively, by modifying parameters it is possible to increase the number of candidate ribozymes (e.g. longer arm’s lengths will increase the Tm to allow for ribozymes that bind their target well even at higher temperatures).<br/><br/>For a description of the parameters previously used, have a look here: <a href='"+link+"' />"+link+"</a></br/><br/>Regards,<br/>The Ribosoft Team</p>";
 
-	    var mailOptions = {
-		from: "Ribosoft <"+config.user_smtp+">", 
-		to: receiver, 
-		subject: subject,
-		html: message
-	    };
+			var mailOptions = {
+				from: "Ribosoft <"+config.user_smtp+">", 
+				to: receiver, 
+				subject: subject,
+				html: message
+			};
 
-	    smtpTransport.sendMail(mailOptions, function(err){
-		if(err){
-		    callback(err);
-		}
-		else {
-		    request.setStatus(5);
-		    request.save(function(err, req){
-			if(err) callback(err);
-			else
-			    callback(null);
-		    });
-		}
-	    });
+			smtpTransport.sendMail(mailOptions, function(err){
+				if(err){
+					callback(err);
+				}
+				else {
+					request.setStatus(5);
+					request.save(function(err, req){
+					if(err) callback(err);
+					else
+						callback(null);
+					});
+				}
+			});
 	};
 
 	sendMail(request, function(err){

@@ -10,27 +10,28 @@ var AlgoRequest = algorithm.Model.DomainObjects.Request;
 var testID = 'Tes1';
 var pathToDir = process.cwd()+'/'+testID;
 
-beforeEach(function(done){
+// beforeEach(function(done){
     test_utils.rmDirIfExists(pathToDir);
-    done();
-});
+    // done();
+// });
 
-describe('Algorithm library', function(){
-    it('Testing no candidates', function(done){
+// describe('Algorithm library', function(){
+    // it('Testing no candidates', function(done){
         var algoRequest = new AlgoRequest(
-            'ATGCATGC',
+            'GTACGTATGCATCGACTAGTCAGCAGATCGTACTGATGCTAGCTAGCTAGCTAGAGATGAGTACGCCGAGAGTAGGTCGTGCTAGCGCGCGAGAGAGT',
             ' ', //Accesion number
             {
                 'tempEnv' :37,
                 'naEnv' : 150, //mM
                 'mgEnv' : 1, //mM
                 'oligoEnv': 12,
-                'cutsites' : ['GUC','AUC'],
-                'ribozymeSelection' : 'hammerhead-Rz',
-                'left_arm_min': 3,
+                'cutsites' : ['GUC'],
+                // 'ribozymeSelection' : 'hammerHead-Rz',
+                'ribozymeSelection' : 'yl-hhRz',
+                'left_arm_min': -1,
                 'right_arm_min': 3,
-                'left_arm_max':10,
-                'right_arm_max':10,
+                'left_arm_max':-1,
+                'right_arm_max':12,
                 'promoter' : 'TAATACGACTCACTATAGGG'
             },
             testID,
@@ -51,12 +52,12 @@ describe('Algorithm library', function(){
             }
         );
         RequestExecutor.HandleRequestPart1(algoRequest);
-    });
-});
+    // });
+// });
 
 
 // Always keep last
-after(function(done){
+// after(function(done){
     test_utils.rmDirIfExists(pathToDir);
-    done();
-});
+    // done();
+// });
