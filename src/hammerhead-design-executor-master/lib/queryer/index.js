@@ -37,7 +37,8 @@ queryer.getRunningRequest = function(callback){
 
 queryer.updateRunningRequestDuration = function(request, callback){
     var duration = request.getRemainingTime('min').remainingDuration;
-    duration = Math.max(duration-10, 0);
+    duration = Math.max(duration-5, 0);
+	console.log("!!!Duration: is " + duration + "!!!");
     request.setRemainingTime({ unit: 'min', remainingDuration : duration });
     request.save(function(err, req){
 	if(err)
