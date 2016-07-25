@@ -13,10 +13,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'BioCorp' });
 });
 
-router.get('/step0', function(req, res, next){
-  res.render('./designSteps/serviceselect', { title: 'Step 0'});
-});
-
 router.get('/ribozyme', function(req, res, next){
   //Read list of ribozymes from XML configuration file
   var config = new RibozymeConfigXML('../ribozyme-design/config/ribozyme.xml');
@@ -24,8 +20,8 @@ router.get('/ribozyme', function(req, res, next){
   var ribozymeList = config.getRibozymeList();
   var ribozymeHelixSizes = config.getRibozymeHelixSizes();
   res.render('./designSteps/ribozyme',
-    { title: 'Design with Ribozyme', 
-      ribozymeList: ribozymeList, 
+    { title: 'Design with Ribozyme',
+      ribozymeList: ribozymeList,
       ribozymeHelixSizes: ribozymeHelixSizes });
 });
 

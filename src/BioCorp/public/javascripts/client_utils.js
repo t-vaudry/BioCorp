@@ -201,7 +201,7 @@ InputValidation.validateInput= function(input){
     if(badInput)
         return {"ok" : false , "error" :Problems};
 
-    return {"ok" : true, "error" : "All OK!" };
+    return {"ok" : true, "error" : "Sequence Found!" };
 }
 
 
@@ -261,7 +261,7 @@ SequenceInput.prototype.getText = function(){
 
 
 SequenceInput.prototype.emptyText = function(){
-  //  this.el.value = "";
+    this.el.value = "";
 };
 
 

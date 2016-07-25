@@ -36,7 +36,7 @@ function initializePage() {
     if(!validator.getAccessionNumber()){
       return;
     }
-    accessionAlert.setState("Searching");
+    //accessionAlert.setState("Searching");
     submit1.addClass('disabled');
   //  seqAlert.hide();
     validator.validate(function(result){
@@ -69,9 +69,10 @@ function initializePage() {
     console.log(request.sequence);
     var selection = $('#rz-select option:selected').attr('value');
     console.log(selection);
-    request.ribozymeSelection = selection; 
+    request.ribozymeSelection = selection;
     $('div[name="ribozymeHelixSizes"]').hide();
     $('#' + selection).show();
+
   });
 
 
@@ -275,9 +276,16 @@ function initializePage() {
     var promo = $('#promoList option:selected').attr('value');
     if(promo == 'Others'){
       $('#promosequence-display').removeClass('invisible');
+      $('#footer').css('margin-top', function(){
+        return ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
+      });
     } else{
       $('#promosequence-display').addClass('invisible');
+      $('#footer').css('margin-top', function(){
+        return ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
+      });
     }
+
 
     $('#promoList').change(function(){
 
@@ -286,27 +294,27 @@ function initializePage() {
           console.log('T7 Promoter Selected');
           $('#promosequence-display').addClass('invisible');
           $('#footer').css('margin-top', function(){
-            return $('#stepTwoDiv').height();
+            return ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
           });
           break;
         case 'CMV':
           console.log('CMV Promoter Selected');
           $('#promosequence-display').addClass('invisible');
           $('#footer').css('margin-top', function(){
-            return $('#stepTwoDiv').height();
+            return ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
           });
           break;
         case 'Others':
           $('#promosequence-display').removeClass('invisible');
           $('#footer').css('margin-top', function(){
-            return $('#stepTwoDiv').height();
+            return ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
           });
           console.log('Manual Input Activated');
           break;
         default:
           $('#promosequence-display').addClass('invisible');
           $('#footer').css('margin-top', function(){
-            return $('#stepTwoDiv').height();
+            return ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
           });
           break;
       }
@@ -317,8 +325,35 @@ function initializePage() {
 
   $('#not_append_promo').click(function(){
     $('#promosequence-display').addClass('invisible');
+    $('#footer').css('margin-top', function(){
+      return ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
+    });
   });
 
+
+  /*$("input[name=promo]:checked").change(function() {
+
+    switch(this.value){
+      case 'append':
+        if($("#promoList").attr('value') == "Others"){
+          $("#promosequence-display").removeClass('invisible');
+          $('#footer').css('margin-top', function(){
+            return ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
+          });
+        }
+        break;
+      case 'notappend':
+      $("#promosequence-display").addClass('invisible');
+      $('#footer').css('margin-top', function(){
+        return ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
+      });
+      break;
+    }
+  });*/
+  $("#selectFileButton").click(function() {
+    $('#selectFileInput').click();
+  });
+  
   $('#selectFileInput').change(FileLoader.handleFileBrowsed);
 
 }

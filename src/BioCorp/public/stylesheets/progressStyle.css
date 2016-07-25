@@ -24,7 +24,7 @@ body {
 #msform, #oligoForm {
 
 	width: 100%;
-	margin: 10% 5% 5% -5%;
+	margin: 10% 0 5% -2.8%;
 	text-align: center;
 	position: relative;
 }
@@ -38,7 +38,7 @@ body {
 
 	box-sizing: border-box;
 	width: 100%;
-	margin: 0 0 0 0;
+	margin: 0 0;
 
 	/*stacking fieldsets above each other*/
 	position: absolute;
@@ -89,9 +89,9 @@ body {
 }
 /*progressbar*/
 #progressbar, #oligoProgressbar{
-	width: 110%;
+	width: 120%;
 	margin-bottom: 30px;
-	margin-left: -5%;
+	margin-left: -7%;
 	overflow: hidden;
 	/*CSS counters to number the steps*/
 	counter-reset: step;
@@ -138,10 +138,6 @@ body {
 #progressbar li.active:before,  #progressbar li.active:after, #oligoProgressbar li.active:before,  #oligoProgressbar li.active:after{
 	background: #27AE60;
 	color: white;
-}
-
-#ribozymeFooterSpace {
-	margin-top: 37%;
 }
 
 #rzDesign, #oligoOrder{

@@ -34,7 +34,7 @@
       <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
         <div class="span5 tile" id="drop">
           <p class="substep-description">Select a file with your sequence to upload.<br/> (TXT or FASTA format)</p>
-          <button class="btn" id="selectFileButton" onclick="$('#selectFileInput').click()">
+          <button class="btn" id="selectFileButton" >
       Select File
           </button>
           <input type="file" style="visibility:hidden;" id="selectFileInput">
@@ -55,7 +55,7 @@
             <option value="<%= ribozyme['name'] %>-<%= ribozyme['type'] %>"
               <% if (index == 0){ %>
                 selected="selected"
-              <% } %> 
+              <% } %>
             ><%= ribozyme['title'] %></option>
           <% }); %>
         </select>
@@ -196,24 +196,28 @@
       <legend data-toggle="collapse" data-target=".promoOption" align="left"><span class="promoDrop glyphicon glyphicon-arrow-right"></span>  Promoter</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#promoterModal"></i>
       </div>
 
-      <ul class="promoOption collapse divCollapse">
-        <li><input type="radio" name="promo" value="append" required="true" id="append_promo"> Append</li>
-        <li><input type="radio" name="promo" value="notappend" required="true" id="not_append_promo" checked="true"> Not Append </li>
-        <li>
-          <div class="form-group">
-            <select class="form-control" id="promoList" name="promoList" disabled="true">
-            <option value="T7" selected="selected">T7</option>
-            <option value="CMV">CMV</option>
-            <option value="Others">Others</option>
-            </select>
-          </div></li>
+      <div class="promoOption collapse divCollapse">
+        <ul>
+          <li><input type="radio" name="promo" value="append" required="true" id="append_promo"> Append</li>
+          <li><input type="radio" name="promo" value="notappend" required="true" id="not_append_promo" checked="true"> Not Append </li>
+          <li>
+            <div class="form-group">
+              <select class="form-control" id="promoList" name="promoList" disabled="true">
+              <option value="T7" selected="selected">T7</option>
+              <option value="CMV">CMV</option>
+              <option value="Others">Others</option>
+              </select>
+            </div></li>
+        </ul>
 
-      </ul>
-      <div id="promosequence-wrap">
-        <div id="promosequence_alert" class="alert alert-error invisible"></div>
-        <textarea id="promosequence-display" maxlength="3000" class="input-block-level invisible" rows="5" placeholder="Paste your promoter sequence (5' -> 3')" style="width:80%;" ></textarea>
-        <div id="sequence_alert" class="alert invisible"></div>
+        <div id="promosequence-wrap" style="margin-left: -400px;">
+          <div id="promosequence_alert" class="alert alert-error invisible"></div>
+          <textarea id="promosequence-display" maxlength="3000" class="input-block-level invisible" rows="5" placeholder="Paste your promoter sequence (5' -> 3')" style="width:80%;" ></textarea>
+          <div id="sequence_alert" class="alert invisible"></div>
+        </div>
       </div>
+
+
 
 
       <div class="collapse-container">

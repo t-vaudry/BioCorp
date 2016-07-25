@@ -11,7 +11,7 @@ var bodyParser = require('body-parser');
 var $ = require('jquery');
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var designRoute = require('./routes/designsteps');
+
 var mongoose = require('mongoose');
 var api = require('./routes/api');
 
@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/designSteps', designRoute);
+
 app.use('/license', routes);
 
 app.post('/requests/', api.createRequest);
