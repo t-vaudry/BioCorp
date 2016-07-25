@@ -51,7 +51,7 @@
     <seq strand='single'>C</seq>
     <seq strand='double' from='3' to='6'>GGCU</seq>
     <seq strand='single'>AUAAACA</seq>
-    <seq strand='single' lengthFrom='4' lengthTo='4' substrate='complementary' substrDistFromCutsite='2' substrateDirection='5-3'/>
+    <seq strand='single' name='Helix I' id='left_arm' lengthFrom='4' lengthTo='4' substrate='complementary' substrDistFromCutsite='2' substrateDirection='5-3'/>
     <seq strand='single'>UCAGG</seq>
     <seq strand='single' pkFrom='9' pkTo='13'>CCCGA</seq>
     <seq strand='single'>AGCG</seq>
@@ -77,7 +77,7 @@ AAACCAU  GG  GCAUCCG  UUCG  CGGAUGG  CUAAG  GGACCC  UUU  CUAGCUGG
     <seq strand='single' pkFrom='56' pkTo='57'>CC</seq>
     <seq strand='single'>UCGC</seq>
     <seq strand='double' from='37' to='39'>GGU</seq>
-    <seq strand='single' lengthFrom='7' lengthTo='7' substrate='complementary' substrDistFromCutsite='0' substrateDirection='5-3'/>
+    <seq strand='single' name='Helix I' id='right_arm' lengthFrom='7' lengthTo='7' substrate='complementary' substrDistFromCutsite='0' substrateDirection='5-3'/>
     <seq strand='single' pkFrom='41' pkTo='42'>GG</seq>
     <seq strand='double' from='69' to='76'>GCAUCCG</seq>
     <seq strand='single'>UUCG</seq>
