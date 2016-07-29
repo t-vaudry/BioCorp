@@ -96,7 +96,7 @@ router.get('/config', function(req, res) {
     var configXML = appConfigXML.getConfigXML();
     var ribozymeList = appConfigXML.getRibozymeList();
     var seqStruct = appConfigXML.getSeqStruct('', '');
-    var seqTitle = seqStruct['name'] + '-' + seqStruct['type'];
+    var seqTitle = seqStruct['title'];
 
     res.render('configPage/index', {
         configXML: configXML,
@@ -115,7 +115,7 @@ router.get('/config/getSeq', function(req, res) {
     var configXML = appConfigXML.getConfigXML();
     var ribozymeList = appConfigXML.getRibozymeList();
     var seqStruct = appConfigXML.getSeqStruct(query.name, query.type);
-    var seqTitle = query.name + '-' + query.type;
+    var seqTitle = seqStruct['title'];
 
     res.render('configPage/index', {
         configXML: configXML,
@@ -132,7 +132,7 @@ router.post('/config/submitXML', function(req, res) {
     var configXML = appConfigXML.getConfigXML();
     var ribozymeList = appConfigXML.getRibozymeList();
     var seqStruct = appConfigXML.getSeqStruct('', '');
-    var seqTitle = seqStruct['name'] + '-' + seqStruct['type'];
+    var seqTitle = seqStruct['title'];
     var message = null;
     if(errorMsg == null) message = "Configuration Saved!";
 

@@ -26,7 +26,7 @@
                         active
                     <% } %>
                     ">
-                        <h4 class="list-group-item-heading"><%= ribozyme['name'] %> - <%= ribozyme['type'] %></h4>
+                        <h4 class="list-group-item-heading"><%= ribozyme['title'] %> %></h4>
                     </a>
                 <% }); %>
             </div>
@@ -51,12 +51,18 @@
                 <param name="flat" value="false">
                 <param name="background" value="#eeeeee">
             </applet>
-            Troubleshooting (In case the above visualization is not working):
-            <ol>
-                <li><a href="https://java.com/en/download/">Download Java</a></li>
-                <li><a href="http://varna.lri.fr/index.php?lang=en&page=securityfix&css=varna">Enable Java Security Fix</a></li>
-                <li><a href="https://java.com/en/download/help/enable_browser.xml">Add current application URL http://ribozymeconfig.qq3epqijmn.us-west-2.elasticbeanstalk.com/ in the exception site list</a></li>
-            </ol>
+            <div style="word-break: break-all;">
+                <ul>
+                    <li>Sequence: <%= seqStruct['sequence'] %></li>
+                    <li>Structure: <%= seqStruct['structure'] %></li>
+                </ul>
+                Troubleshooting (In case the above visualization is not working):
+                <ol>
+                    <li><a href="https://java.com/en/download/">Download Java</a></li>
+                    <li><a href="http://varna.lri.fr/index.php?lang=en&page=securityfix&css=varna">Enable Java Security Fix</a></li>
+                    <li><a href="https://java.com/en/download/help/enable_browser.xml">Add current application URL http://ribozymeconfig.qq3epqijmn.us-west-2.elasticbeanstalk.com/ in the exception site list</a></li>
+                </ol>
+            </div>
         </div>
         </div>
         </div>
@@ -67,10 +73,10 @@
         </div>
         <div class="panel-body">
             <% if(errorMsg != null) { %>
-                <h4 style="color:red;"><%= errorMsg %></h4>
+                <div style="color:red;"><%= errorMsg %></div>
             <% } %>
             <% if(message != null) { %>
-                <h4 style="color:green;"><%= message %></h4>
+                <div style="color:green;"><%= message %></div>
             <% } %>
             <form action="/config/submitXML" method="post">
                 <div class="form-group">

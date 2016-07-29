@@ -12,6 +12,7 @@ RibozymeConfigXML.prototype.getSeqStruct = function(ribozymeName, ribozymeType){
         result.root.ribozyme.forEach(function(ribozyme) {
             var name = ribozyme.$['name'];
             var type = ribozyme.$['type'];
+            var title = ribozyme.$['title'];
             var structure = ribozyme.$['structure'];
             if(ribozymeName == '' && ribozymeType == ''){
                 ribozymeName = name;
@@ -87,6 +88,7 @@ RibozymeConfigXML.prototype.getSeqStruct = function(ribozymeName, ribozymeType){
                 valuesToReturn['structure'] = structure;
                 valuesToReturn['name'] = ribozymeName;
                 valuesToReturn['type'] = ribozymeType;
+                valuesToReturn['title'] = title;
             }
         });
         console.log('Done');
