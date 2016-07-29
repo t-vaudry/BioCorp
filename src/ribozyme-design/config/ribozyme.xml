@@ -64,7 +64,7 @@ GGG CCAGCUAG  UUU  GAGACAAGAA  GUUU  CA  GGGUCC  ACC U  CC UCGC  GGU
 AAACCAU  GG  GCAUCCG  UUCG  CGGAUGG  CUAAG  GGACCC  UUU  CUAGCUGG
 ......55 .. 58...... 65... 69...... 77.... 82..... 88.. 91......98
 -->
-<ribozyme name='HDV' type='Rz' structure='5-3' title='SOFA HDV'>
+<ribozyme name='SOFA_HDV' type='Rz' structure='5-3' title='SOFA HDV'>
     <seq strand='single'>GGG</seq>
     <seq strand='double' from='91' to='98'>CCAGCUAG</seq>
     <seq strand='single'>UUU</seq>

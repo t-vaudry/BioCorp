@@ -2,7 +2,6 @@ var Log = require('./../log/').Log;
 
 var config = require('../config/config.json');
 var AlgorithmUtilities = require('../AlgorithmUtilities.js');
-var hotknots_path = config.env.hotknots_path;
 var input_file_path = config.env.input_file_path;
 var output_file_path = config.env.output_file_path;
 
