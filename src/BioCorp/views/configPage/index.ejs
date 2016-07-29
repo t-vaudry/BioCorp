@@ -1,0 +1,90 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ./partials/head %>
+</head>
+<body class="container">
+
+    <header>
+        <% include ./partials/header %>
+    </header>
+
+    <main>
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+        <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Ribozyme List</h3>
+        </div>
+        <div class="panel-body">
+            <div class="list-group">
+                <% ribozymeList.forEach(function(ribozyme) { %>
+                    <a href="/config/getSeq?name=<%= ribozyme['name'] %>&type=<%= ribozyme['type'] %>" class="list-group-item
+                    <% if (seqTitle == ribozyme['name'] + '-' + ribozyme['type']){ %>
+                        active
+                    <% } %>
+                    ">
+                        <h4 class="list-group-item-heading"><%= ribozyme['name'] %> - <%= ribozyme['type'] %></h4>
+                    </a>
+                <% }); %>
+            </div>
+        </div>
+        </div>
+        </div>
+    
+        <div class="col-lg-9 col-md-9 col-sm-9">
+        <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Structure</h3>
+        </div>
+        <div class="panel-body">
+            <div style="text-align: center">
+                Visualization powered by <a href="http://varna.lri.fr/">http://varna.lri.fr/</a>
+            </div>
+            <applet id="VA" code="VARNA.class" codebase="http://varna.lri.fr/bin" archive="VARNA.jar" height="400" width="100%">
+                <param name="java_version" value="1.5+">
+                <param name="sequenceDBN"  value="<%= seqStruct['sequence'] %>" />
+                <param name="structureDBN" value="<%= seqStruct['structure'] %>" />
+                <param name="title" value="<%= seqTitle %>" />
+                <param name="flat" value="false">
+                <param name="background" value="#eeeeee">
+            </applet>
+            Troubleshooting (In case the above visualization is not working):
+            <ol>
+                <li><a href="https://java.com/en/download/">Download Java</a></li>
+                <li><a href="http://varna.lri.fr/index.php?lang=en&page=securityfix&css=varna">Enable Java Security Fix</a></li>
+                <li><a href="https://java.com/en/download/help/enable_browser.xml">Add current application URL http://ribozymeconfig.qq3epqijmn.us-west-2.elasticbeanstalk.com/ in the exception site list</a></li>
+            </ol>
+        </div>
+        </div>
+        </div>
+    </div>
+        <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Configuration</h3>
+        </div>
+        <div class="panel-body">
+            <% if(errorMsg != null) { %>
+                <h4 style="color:red;"><%= errorMsg %></h4>
+            <% } %>
+            <% if(message != null) { %>
+                <h4 style="color:green;"><%= message %></h4>
+            <% } %>
+            <form action="/config/submitXML" method="post">
+                <div class="form-group">
+                    <textarea class="form-control" rows="15" name="configXML"><%= configXML %></textarea>
+                </div>
+                <input type="submit" class="btn btn-info" value="Update Configuration">
+            </form>
+        </div>
+        </div>
+    </main>
+
+    <footer>
+        <% include ./partials/footer %>
+    </footer>
+    
+</body>
+</html>

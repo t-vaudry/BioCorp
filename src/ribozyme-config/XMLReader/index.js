@@ -1,1 +1,0 @@
-exports.RibozymeConfigXML = require('./readXML.js').RibozymeConfigXML;

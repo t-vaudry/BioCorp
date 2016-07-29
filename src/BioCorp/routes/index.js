@@ -5,20 +5,19 @@ var config = require('../config/');
 var url = require('url');
 var mongoose = require('mongoose');
 var Request = mongoose.model('Request');
+var config_xml_path = require('../../ribozyme-design/config/config.json').env.config_xml_path;
 var RibozymeConfigXML = require('../../ribozyme-design/XMLReader/').RibozymeConfigXML;
+var appConfigXML = new RibozymeConfigXML(config_xml_path);
 
 /* GET home page. */
-
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'BioCorp' });
 });
 
 router.get('/ribozyme', function(req, res, next){
-  //Read list of ribozymes from XML configuration file
-  var config = new RibozymeConfigXML('../ribozyme-design/config/ribozyme.xml');
-  config.getConfigXML();
-  var ribozymeList = config.getRibozymeList();
-  var ribozymeHelixSizes = config.getRibozymeHelixSizes();
+  appConfigXML.getConfigXML();
+  var ribozymeList = appConfigXML.getRibozymeList();
+  var ribozymeHelixSizes = appConfigXML.getRibozymeHelixSizes();
   res.render('./designSteps/ribozyme',
     { title: 'Design with Ribozyme',
       ribozymeList: ribozymeList,
@@ -90,6 +89,62 @@ router.get('/results/:id', function(req, res, next){
   });
 });
 
+/**
+ * Config routes
+ */
+router.get('/config', function(req, res) {
+    var configXML = appConfigXML.getConfigXML();
+    var ribozymeList = appConfigXML.getRibozymeList();
+    var seqStruct = appConfigXML.getSeqStruct('', '');
+    var seqTitle = seqStruct['name'] + '-' + seqStruct['type'];
+
+    res.render('configPage/index', {
+        configXML: configXML,
+        ribozymeList: ribozymeList,
+        seqStruct: seqStruct,
+        seqTitle: seqTitle,
+        errorMsg: null,
+        message: null
+    });
+});
+
+router.get('/config/getSeq', function(req, res) {
+    var url_parts = url.parse(req.url, true);
+    var query = url_parts.query;
+
+    var configXML = appConfigXML.getConfigXML();
+    var ribozymeList = appConfigXML.getRibozymeList();
+    var seqStruct = appConfigXML.getSeqStruct(query.name, query.type);
+    var seqTitle = query.name + '-' + query.type;
+
+    res.render('configPage/index', {
+        configXML: configXML,
+        ribozymeList: ribozymeList,
+        seqStruct: seqStruct,
+        seqTitle: seqTitle,
+        errorMsg: null,
+        message: null
+    });
+});
+
+router.post('/config/submitXML', function(req, res) {
+    var errorMsg = appConfigXML.writeConfigXML(req.body.configXML);
+    var configXML = appConfigXML.getConfigXML();
+    var ribozymeList = appConfigXML.getRibozymeList();
+    var seqStruct = appConfigXML.getSeqStruct('', '');
+    var seqTitle = seqStruct['name'] + '-' + seqStruct['type'];
+    var message = null;
+    if(errorMsg == null) message = "Configuration Saved!";
+
+    res.render('configPage/index', {
+        configXML: req.body.configXML,
+        ribozymeList: ribozymeList,
+        seqStruct: seqStruct,
+        seqTitle: seqTitle,
+        errorMsg: errorMsg,
+        message: message
+    });
+});
 
 /*
 exports.license = function(req, res){

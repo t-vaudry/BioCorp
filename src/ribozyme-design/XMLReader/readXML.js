@@ -156,7 +156,17 @@ RibozymeConfigXML.prototype.getConfigXML = function(){
 }
 
 RibozymeConfigXML.prototype.writeConfigXML = function(xml){
-    fs.writeFileSync(this.xmlPath, xml)
+    var thisObj = this;
+    var errorMsg = null;
+    this.parser.parseString(xml, function (err, result) {
+        if (err) {
+            console.log("Parse error!");
+            errorMsg = "Parse error: " + err.message;
+        } else {
+            fs.writeFileSync(thisObj.xmlPath, xml)
+        }
+    });
+    return errorMsg;
 }
 
 exports.RibozymeConfigXML = RibozymeConfigXML;
