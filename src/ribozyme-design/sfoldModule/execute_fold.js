@@ -3,7 +3,6 @@ var Log = require('./../log/').Log;
 var config = require('../config/config.json');
 var AlgorithmUtilities = require('../AlgorithmUtilities.js');
 var sfold_path = config.env.sfold_path;
-var unafold_path = config.env.unafold_path;
 
 //This variable holds how many folds are executing at a time, so that no more than BUFFER_MAX execute simultaneously.
 //(any
@@ -11,12 +10,11 @@ var BufferCount = 0;
 var BUFFER_MAX = 2;
 
 var SFOLD_COMMAND = process.platform === 'win32' ? 'sfold.exe' : sfold_path;
-var UNAFOLD_COMMAND = process.platform === 'win32' ? 'sfold.exe' : unafold_path;
 
 function Fold(){}
 
-var SFOLD_CALL_NO_CONSTRAINT = SFOLD_COMMAND+" -o %OUTDIR% %SEQUENCEFILE%";
-var SFOLD_CALL = SFOLD_COMMAND+" -f %CONSTRAINT% -o %OUTDIR% %SEQUENCEFILE%";
+var SFOLD_CALL_NO_CONSTRAINT = SFOLD_COMMAND + " -o %OUTDIR% %SEQUENCEFILE%";
+var SFOLD_CALL = SFOLD_COMMAND + " -f %CONSTRAINT% -o %OUTDIR% %SEQUENCEFILE%";
 var QUEUE = new Array();
 
 Fold.ClearBuffer = function ()

@@ -293,8 +293,10 @@ var MeltingTCalcRouter = require('../meltingTemp/').MeltingTCalcRouter;
         var coreStruct = CATALITIC_CORES[catCoreType];
         for(var ii = 0; ii < pairs.length; ++ii)
         {
-            if(pairs[ii].left==catCoreStartNode)
-            {locOfCatPair = ii;break;}
+            if(pairs[ii].left==catCoreStartNode){
+                locOfCatPair = ii;
+                break;
+            }
         }
         //check if entire core is there
         var pass = true;

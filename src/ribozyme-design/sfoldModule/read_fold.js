@@ -14,11 +14,7 @@ function RemoveAllValuesFromArray(arr,val)
 	}
 }
 
-
-
-
 function ParseUtilities(){}
-
 
 //Parses structurex.out containing GCG connect info of the pairs.
 // File is read as [Node3]	[NodeBase]	[NodeBefore]	[NodeAfter]  [NodeConnectedTo]	[NodeIndex]
@@ -58,7 +54,6 @@ function (filePath,Structs)
 	    reading = false;
 	}
 }
-
 
 // Parses the summary of the structures that contains 
 // minimum free energy and max free energy, and frequency.

@@ -1,9 +1,11 @@
 var CandidateGenerationModule =  require( './candidateGenerationModule/');
-var FoldModule = require ('./sfoldModule/');
+var SfoldModule = require ('./sfoldModule/');
+var FoldModule = require ('./hotKnots/');
 var FoldCandidates = FoldModule.Folding.Fold.FoldCandidates;
-var ExecuteFolding = FoldModule.Folding.Fold.ExecuteFolding;
-var SFold = FoldModule.Folding.Fold.SFold;
-var ParseUtilities = FoldModule.Parsing.ParseUtilities;
+var ExecuteFolding = SfoldModule.Folding.Fold.ExecuteFolding;
+var SFold = SfoldModule.Folding.Fold.SFold;
+var ParseUtilities = SfoldModule.Parsing.ParseUtilities;
+var HotKnotParseUtilities = FoldModule.Parsing.ParseUtilities;
 var Model = require('./model/');
 var MeltingTemp = require('./meltingTemp/');
 var Candidate = Model.DomainObjects.Candidate;
@@ -138,6 +140,7 @@ function SaveRequest(request) {
         for (var jj = 0; jj < cutsiteTypeCutsiteContainer.Cutsites.length ; ++jj) {
             var cutsite = cutsiteTypeCutsiteContainer.Cutsites[jj];
             var fwrite = JSON.stringify(cutsite);
+            AlgorithmUtilities.checkDirectorySync(fs, path.join(request.ID, cutsite.ID));
             fs.writeFileSync(path.join(request.ID, cutsite.ID, 'results.json'), fwrite);
         }
     }
@@ -447,7 +450,7 @@ function _handleRequestPart2(reportObject)
             var cutsiteContainer = cutsiteTypeContainer[jj];
             var parsedCandidates = null;
             try {
-                parsedCandidates = ParseUtilities.ParseSFoldResults(request.ID, cutsiteContainer.ID);
+                parsedCandidates = HotKnotParseUtilities.ParseSFoldResults(request.ID, cutsiteContainer.ID);
             }
             catch (exception) {
                 if (exception.message.indexOf('ENOENT') != -1) {

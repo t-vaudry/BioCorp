@@ -1,3 +1,6 @@
+var glob = require("glob");
+var fs = require("fs");
+
 var start = process.hrtime();
 var elapsed_time = function (note) {
     var precision = 3; // 3 decimal places
@@ -251,6 +254,26 @@ function FindMaxArm(candidates) {
     return {"left": maxLeft, "right": maxRight};
 }
 
+function checkDirectorySync(fs, directory) {  
+    try {
+        fs.statSync(directory);
+    } catch(e) {
+        fs.mkdirSync(directory);
+    }
+}
+
+function deleteFiles(pattern){
+    glob(pattern, function(err,files){
+        if (err) throw err;
+        // Delete files
+        files.forEach(function(item,index,array){
+            fs.unlink(item, function(err){
+                if (err) throw err;
+            });
+        });
+    });
+}
+
 exports.SequenceLength = SequenceLength;
 exports.ReverseComplement = ReverseComplement;
 exports.Reverse = Reverse;
@@ -264,3 +287,5 @@ exports.CompressCandidates = CompressCandidates;
 exports.DeleteFolderRecursive = deleteFolderRecursive;
 exports.CalculateArmLength = CalculateArmLength;
 exports.FindMaxArm = FindMaxArm;
+exports.checkDirectorySync = checkDirectorySync;
+exports.deleteFiles = deleteFiles;

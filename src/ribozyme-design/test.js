@@ -58,8 +58,8 @@ CCTGGAAAAGAAAAATGACAT";
 
 var request = new Request
 (
-    // M73307,
-    short,
+     M73307,
+    //short,
     ' ', //Accesion number (who cares!)
     { //Preferences
         'tempEnv' :37,
@@ -67,13 +67,11 @@ var request = new Request
         'mgEnv' : 1, //mM
         'oligoEnv': 12,
         'cutsites' : ['GUC'],
-        'ribozymeSelection': 'SOFA_HDV-Rz',
-        'left_arm_min': 7,
-        'right_arm_min': -1,
-        // 'left_arm_max':13,
-        // 'right_arm_max':13,
-        'left_arm_max':20,
-        'right_arm_max':-1,
+        'ribozymeSelection': 'hammerHead-Rz',
+        'left_arm_min': 5,
+        'right_arm_min': 5,
+        'left_arm_max':10,
+        'right_arm_max':10,
         'promoter': '',
         'specificity':true
 //        5 TAATACGACTCACTATAGGG

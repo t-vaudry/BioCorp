@@ -20,6 +20,7 @@
   "readmeFilename": "README.md",
   "gitHead": "bd79c03a6a167742b37632a013a7f0da38f6fc74",
   "dependencies": {
-    "rimraf": "~2.2.5"
+    "rimraf": "~2.2.5",
+    "glob": "~7.0.5"
   }
 }

@@ -182,7 +182,7 @@ function CreateCandidates (substrateSeq, cutSites, options)
 					var compPositions = new Array();
 					if(complementary){
 						compPositions.push({"start" : 0,
-						 "end": seq.length, 
+						 "end": seq.length - 1, 
 						 "pk" :pk, 
 						 "cutsiteRelativePos": cutsiteRelativePos,
 						 "substrDistFromCutsite": substrDistFromCutsite
@@ -195,7 +195,7 @@ function CreateCandidates (substrateSeq, cutSites, options)
 						if(complementary){
 							var start = cutsiteCandidates[c].seq.length;
 							compPositions.push({"start" : start,
-							 "end": start + seq.length, 
+							 "end": start + seq.length - 1, 
 							 "pk" :pk,
 							 "cutsiteRelativePos": cutsiteRelativePos,
 							 "substrDistFromCutsite": substrDistFromCutsite
@@ -212,6 +212,25 @@ function CreateCandidates (substrateSeq, cutSites, options)
 		cutsiteCandidates.BaseSequence = substrateSeq.substring(smallestStart, highestEnd);
 		//TODO: Update 2 based on cutsite GUC or others...
 		cutsiteCandidates.BaseCutindex = cutSites[ii] + 2;
+
+		for(var d = 0; d < cutsiteCandidates.length; d++){
+			cutsiteCandidates[d].seq = Reverse(cutsiteCandidates[d].seq);
+			for(var e = 0; e < cutsiteCandidates[d].compPositions.length; e++){
+				var compPosition = cutsiteCandidates[d].compPositions[e];
+				var start = compPosition.start;
+				var end = compPosition.end;
+				var length = cutsiteCandidates[d].seq.length;
+				compPosition.end = length - start - 1;
+				compPosition.start = length - end - 1;
+				if(compPosition.cutsiteRelativePos == "left"){
+					compPosition.cutsiteRelativePos = "right";
+				} else if(compPosition.cutsiteRelativePos == "right"){
+					compPosition.cutsiteRelativePos = "left";
+				}
+			}
+			
+		}
+
 		Candidates.push(cutsiteCandidates);
 	}
 
