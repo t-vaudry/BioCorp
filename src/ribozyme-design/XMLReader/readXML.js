@@ -82,8 +82,6 @@ RibozymeConfigXML.prototype.getSeqStruct = function(ribozymeName, ribozymeType){
                         }
                     }
                 });
-                console.log('sequence : ' + sequence);
-                console.log('structure: ' + structure);
                 valuesToReturn['sequence'] = sequence;
                 valuesToReturn['structure'] = structure;
                 valuesToReturn['name'] = ribozymeName;
@@ -91,7 +89,6 @@ RibozymeConfigXML.prototype.getSeqStruct = function(ribozymeName, ribozymeType){
                 valuesToReturn['title'] = title;
             }
         });
-        console.log('Done');
     });
     return valuesToReturn;
 }
@@ -121,7 +118,6 @@ RibozymeConfigXML.prototype.getRibozymeList = function(){
             valuesToPush['title'] = ribozyme.$['title'];             
             valuesToReturn.push(valuesToPush);
         });
-        console.log('Done');
     });
     return valuesToReturn;
 }
@@ -146,7 +142,6 @@ RibozymeConfigXML.prototype.getRibozymeHelixSizes = function(){
             });
             valuesToReturn.push({"name": rzName, "type": rzType, "helixValues": helixValuesToPush});
         });
-        console.log('Done');
     });
     return valuesToReturn;
 }
@@ -162,7 +157,6 @@ RibozymeConfigXML.prototype.writeConfigXML = function(xml){
     var errorMsg = null;
     this.parser.parseString(xml, function (err, result) {
         if (err) {
-            console.log("Parse error!");
             errorMsg = "Parse error: " + err.message;
         } else {
             fs.writeFileSync(thisObj.xmlPath, xml)

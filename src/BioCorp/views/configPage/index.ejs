@@ -22,7 +22,7 @@
             <div class="list-group">
                 <% ribozymeList.forEach(function(ribozyme) { %>
                     <a href="/config/getSeq?name=<%= ribozyme['name'] %>&type=<%= ribozyme['type'] %>" class="list-group-item
-                    <% if (seqTitle == ribozyme['name'] + '-' + ribozyme['type']){ %>
+                    <% if (seqTitle == ribozyme['title']){ %>
                         active
                     <% } %>
                     ">
