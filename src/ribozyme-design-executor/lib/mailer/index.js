@@ -3,14 +3,23 @@ var config = require('../../config/'),
     async = require('async');
 
 module.exports = exports = mailer = {};
+var smtpTransport = null;
 
-var smtpTransport = nodemailer.createTransport("SMTP",{
-    service: "Gmail",
-    auth: {
-	user: config.user_smtp,
-        pass: config.pass_smtp
-    }
-});
+if(config.environment == "AWS"){
+	smtpTransport = nodemailer.createTransport("SES", {
+		AWSAccessKeyID: config.awsAccessKeyId,
+		AWSSecretKey: config.awsSecretKey,
+		SeviceUrl: config.seviceUrl
+	});
+} else {
+	smtpTransport = nodemailer.createTransport("SMTP",{
+		service: "Gmail",
+		auth: {
+			user: config.user_smtp,
+			pass: config.pass_smtp
+		}
+	});
+}
 
 var host = config.host;
 
@@ -47,7 +56,9 @@ mailer.notifyOwnerRequestFailed = function(request, callback){
 	};
 
 	sendMail(request, function(err){
-	    smtpTransport.close();
+		if(config.environment != "AWS"){
+		    smtpTransport.close();
+		}
 	    if(err)
 		callback(err);
 	    else
@@ -94,7 +105,9 @@ mailer.notifyOwners = function(requests, callback){
 	};
 	
 	async.eachSeries(requests, sendMail, function(err){
-	    smtpTransport.close();
+		if(config.environment != "AWS"){
+	    	smtpTransport.close();
+		}
 	    if(err)
 		callback(err);
 	    else
@@ -124,8 +137,10 @@ mailer.notifyAdmin = function(data, callback){
 		callback(err);
 	    }
 	    else {
-		smtpTransport.close();
-		callback(null, data.length);
+			if(config.environment != "AWS"){
+				smtpTransport.close();
+			}
+			callback(null, data.length);
 	    }
 	});
     }
@@ -139,7 +154,7 @@ mailer.notifyErrors = function(data, callback){
 	var message = "Hello,<br/>An error occured. Here is the stacktrace:<br/>"+data+"<br/><br/>Regards,<br/>The Ribosoft Team</p>";
 
 	var mailOptions = {
-	    from: "Ribosoft <"+config.user_smtp+">",
+	    from: config.user_smtp,
 	    to: config.devContact,
 	    subject: subject,
 	    html: message
@@ -147,11 +162,13 @@ mailer.notifyErrors = function(data, callback){
 
 	smtpTransport.sendMail(mailOptions, function(err){
 	    if(err){
-		callback(err);
+			callback(err);
 	    }
 	    else {
-		smtpTransport.close();
-		callback(null, data.length);
+			if(config.environment != "AWS"){
+				smtpTransport.close();
+			}
+			callback(null, data.length);
 	    }
 	});
     }

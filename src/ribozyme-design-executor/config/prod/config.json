@@ -5,5 +5,9 @@
     "pass_smtp": "ribosoft",
     "host" : "http://localhost:3000/",
     "admin": "kharma@ece.concordia.ca",
-    "devContact" : "ribosoft.contact@gmail.com"
+    "devContact" : "ribosoft.contact@gmail.com",
+    "environment" : "local",
+    "awsAccessKeyId" : "AKIAI2SWVT6U47QD567A",
+    "awsSecretKey": "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",
+    "seviceUrl": "https://email-smtp.us-west-2.amazonaws.com"
 }
