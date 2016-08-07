@@ -141,20 +141,15 @@
       <div class="cutsiteOption collapse divCollapse">
         <div class="form-group" align="center">
 
+          <% cutsiteList.forEach(function(ribozyme, index) { %>
+            <% ribozyme["cutsites"].forEach(function(cutsite, index) { %>
+              <input type="hidden" ribozyme="<%= ribozyme['name'] %>-<%= ribozyme['type'] %>" cutsite="<%= cutsite%>"/>
+            <% }); %>
+          <% }); %>
+
           <!--<label for="cutsites">Preferred Cut-Sites</label>-->
-          <select class="form-control" name="cutsites" multiple="multiple"  style="width:30%;">
+          <select class="form-control" id="rz-cutsites" name="cutsites" multiple="multiple"  style="width:30%;">
             <option selected="selected" value="GUC">GUC</option>
-            <option value="CUC">CUC</option>
- 	          <option value="AUC">AUC</option>
- 	          <option value="UUC">UUC</option>
- 	          <option value="AUA">AUA</option>
- 	          <option value="UUC">UUA</option>
- 	          <option value="GUA">GUA</option>
- 	          <option value="CUA">CUA</option>
- 	          <option value="GUU">GUU</option>
- 	          <option value="CUU">CUU</option>
- 	          <option value="AUU">AUU</option>
- 	          <option value="UUU">UUU</option>
           </select>
 
         </div>

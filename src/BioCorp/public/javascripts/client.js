@@ -70,6 +70,16 @@ function initializePage() {
     var selection = $('#rz-select option:selected').attr('value');
     console.log(selection);
     request.ribozymeSelection = selection;
+
+    $('#rz-cutsites').empty();
+    var index = 0;
+    $("input[ribozyme='" + selection + "']").each(function() {
+      var selected = "";
+      if(index == 0) selected = "selected=\"selected\"";
+      $('#rz-cutsites').append("<option " + selected + " value=" + $(this).attr("cutsite") + ">" + $(this).attr("cutsite") + "</option>");
+      index++;
+    }, this);
+
     $('div[name="ribozymeHelixSizes"]').hide();
     $('#' + selection).show();
 

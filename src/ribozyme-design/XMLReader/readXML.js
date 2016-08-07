@@ -146,6 +146,22 @@ RibozymeConfigXML.prototype.getRibozymeHelixSizes = function(){
     return valuesToReturn;
 }
 
+RibozymeConfigXML.prototype.getCutsiteList = function(){
+    var valuesToReturn = new Array();
+    this.parser.parseString(this.data, function (err, result) {
+        result.root.ribozyme.forEach(function(ribozyme) {
+            var rzName = ribozyme.$['name'];
+            var rzType = ribozyme.$['type'];
+            var cutsiteList = new Array();
+            ribozyme.cutsite[0].seq.forEach(function(sequence){
+                cutsiteList.push(sequence._);
+            });
+            valuesToReturn.push({"name": rzName, "type": rzType, "cutsites": cutsiteList});
+        });
+    });
+    return valuesToReturn;
+}
+
 RibozymeConfigXML.prototype.getConfigXML = function(){
     this.parser = new xml2js.Parser();
     this.data = fs.readFileSync(this.xmlPath, 'utf8');

@@ -1,7 +1,18 @@
 <root>
 <ribozyme name='hammerHead' type='Rz' structure='5-3' title='Hammerhead'>
     <cutsite>
-        <seq strand='single' structure='5-3'>GUC</seq>
+        <seq structure='5-3'>GUC</seq>
+        <seq structure='5-3'>CUC</seq>
+        <seq structure='5-3'>AUC</seq>
+        <seq structure='5-3'>UUC</seq>
+        <seq structure='5-3'>AUA</seq>
+        <seq structure='5-3'>UUA</seq>
+        <seq structure='5-3'>GUA</seq>
+        <seq structure='5-3'>CUA</seq>
+        <seq structure='5-3'>GUU</seq>
+        <seq structure='5-3'>CUU</seq>
+        <seq structure='5-3'>AUU</seq>
+        <seq structure='5-3'>UUU</seq>
     </cutsite>
     <seq strand='single' name='Helix I' id='left_arm' lengthFrom='5' lengthTo='10' substrate='complementary' substrDistFromCutsite='3' substrateDirection='5-3'/>
     <seq strand='single'>CUGAUGA</seq>
@@ -42,6 +53,9 @@
     UCAGG [CCCGA (pseudoknot)] AGCG [length 4-34 complementary to substrate] 3'
 -->
 <ribozyme name='pistol' type='Rz' structure='5-3' title='Pistol'>
+    <cutsite>
+        <seq strand='single' structure='5-3'>GUC</seq>
+    </cutsite>
     <seq strand='single'>GG</seq>
     <!-- Double Strand complementary to itself attached with position 15 to 18 -->
     <seq strand='double' from='15' to='18'>AGCC</seq>
@@ -65,6 +79,9 @@ AAACCAU  GG  GCAUCCG  UUCG  CGGAUGG  CUAAG  GGACCC  UUU  CUAGCUGG
 ......55 .. 58...... 65... 69...... 77.... 82..... 88.. 91......98
 -->
 <ribozyme name='SOFA_HDV' type='Rz' structure='5-3' title='SOFA HDV'>
+    <cutsite>
+        <seq strand='single' structure='5-3'>GUC</seq>
+    </cutsite>
     <seq strand='single'>GGG</seq>
     <seq strand='double' from='91' to='98'>CCAGCUAG</seq>
     <seq strand='single'>UUU</seq>
