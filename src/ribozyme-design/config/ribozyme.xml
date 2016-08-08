@@ -54,7 +54,7 @@
 -->
 <ribozyme name='pistol' type='Rz' structure='5-3' title='Pistol'>
     <cutsite>
-        <seq strand='single' structure='5-3'>GUC</seq>
+        <seq strand='single' structure='5-3'>GU</seq>
     </cutsite>
     <seq strand='single'>GG</seq>
     <!-- Double Strand complementary to itself attached with position 15 to 18 -->

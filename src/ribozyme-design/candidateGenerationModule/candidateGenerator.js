@@ -29,7 +29,7 @@ function FindCutsites(seq, cutSiteType)
 	return loc;
 }
 
-function CreateCandidates (substrateSeq, cutSites, options)
+function CreateCandidates (substrateSeq, cutSiteType, cutSites, options)
 {
 	var Candidates = new Array();
 
@@ -210,8 +210,7 @@ function CreateCandidates (substrateSeq, cutSites, options)
 
 		//Keep track of the longest base sequence for the given cutsite
 		cutsiteCandidates.BaseSequence = substrateSeq.substring(smallestStart, highestEnd);
-		//TODO: Update 2 based on cutsite GUC or others...
-		cutsiteCandidates.BaseCutindex = cutSites[ii] + 2;
+		cutsiteCandidates.BaseCutindex = cutSites[ii] + (cutSiteType.length - 1);
 
 		for(var d = 0; d < cutsiteCandidates.length; d++){
 			cutsiteCandidates[d].seq = Reverse(cutsiteCandidates[d].seq);
@@ -241,7 +240,7 @@ function CreateCandidates (substrateSeq, cutSites, options)
 function GenerateCandidates( sequence, cutSiteType, options )
 {
 	var csites = FindCutsites (sequence, cutSiteType);
-	var candidates = CreateCandidates(sequence, csites, options);
+	var candidates = CreateCandidates(sequence, cutSiteType, csites, options);
 	return candidates;
 }
 
