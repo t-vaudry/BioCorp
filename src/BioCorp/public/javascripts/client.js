@@ -61,6 +61,15 @@ function initializePage() {
     })
   };
   console.log("document loaded!!");
+
+  if($(".progress").length > 0) {
+    updatePage();
+    submit4.click(finishStep4);
+    $("#emailSubmit").click(function(){
+      emailReporter.submit($("#emailInput").val());
+    });
+  }
+
   searchAccession.click(fetchInputAccessionNumber);
   seqInput.emptyText();
   $('#submit1').click(function(){
@@ -255,16 +264,7 @@ function initializePage() {
           alert("Could not access Genbank for UTR info. Error: " + errorThrown + "; Code: "+ textStatus);
           ondone(0);
         }
-    }
-    );
-
-    if($(".progress").length > 0) {
-      updatePage();
-      submit4.click(finishStep4);
-      $("#emailSubmit").click(function(){
-        emailReporter.submit($("#emailInput").val());
-      });
-    }
+    });
 
     if($("#results").length > 0) {
         $("#results").dataTable();
@@ -421,8 +421,8 @@ function initializePage() {
   // Step 4
   function updatePage(){
     var countErrors = 0;
-    var timeoutInterval = 1000 * 60 * 1;
     request.getRequestStatus(function(err, data){
+      var timeoutInterval = 1000 * 5;
       if(err){
         processingAlert.setState({ok: false, error: err});
         countErrors += 1;
@@ -430,8 +430,8 @@ function initializePage() {
           clearTimeout(timeout);
         }
       } else {
-        var remainingMin = data.duration.remainingDuration * 1000 * 60;
-        timeoutInterval = remainingMin / 10;
+        // var remainingMin = data.duration.remainingDuration;
+        // timeoutInterval = remainingMin / 10;
         progressBar.update(data.duration.remainingDuration);
 
         console.log("State of request is " + data.state);

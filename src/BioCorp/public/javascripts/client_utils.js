@@ -432,21 +432,21 @@ function ProgressBar(el, elText, request){
     this.request = request;
 }
 
+var oldValue = 120;
+var firstTime = true;
 ProgressBar.prototype.update = function(duration){
     var newVal = duration;
-    var arr;
-    if(arr = $("#timeLeft").text().match(/(\d)+\sminutes/))
-	var oldValue = Number(arr[1]);
-    else
-	var oldValue = 120;
-
-    this.elText.text(duration + " minutes");
+    if(firstTime && duration < oldValue){
+        oldValue = newVal;
+        firstTime = false;
+    }
     if(duration == 0)
 	var percentage = 99;
     else {
-	var percentage = Math.max(1, (oldValue - newVal)/oldValue);
+	    percentage = Math.max(1, Math.round(((oldValue - newVal)/oldValue)*100));
     }
-    this.el.css('width',(percentage+1)+"%");
+    this.elText.text(duration + " minutes, Progress: " + (percentage+1)+"%");
+    this.el.css('width', (percentage+1)+"%");
 }
 
 function StateReporter(el){

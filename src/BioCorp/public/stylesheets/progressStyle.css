@@ -148,3 +148,8 @@ body {
 	position: relative;
 	margin-top: 5%;
 }
+
+.progress .bar {
+	height: 100%;
+	background-color: skyblue;
+}

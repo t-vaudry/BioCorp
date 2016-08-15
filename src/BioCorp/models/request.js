@@ -149,21 +149,27 @@ Request.methods = {
     getState: function(){
       return this.state;
     },
-
-    getRemainingTime: function(unit){
-      if(this.getDetailedStatus() == "Processed"){
-        return {remainingDuration: 0, unit: 'min'};
-      }
-
+    getRemainingTime : function(unit){
+      if(this.getDetailedStatus() == "Processed")
+          return {remainingDuration: 0, unit: 'min'};
       switch(unit){
-        case 'min':
-        default:
+      case 'min':
+      default:
+          return {remainingDuration: this.remainingDuration, unit: 'min'};
+      case 'h':
+          return {remainingDuration: this.remainingDuration/60, unit: 'h'};
+      }
+    },
+    setRemainingTime : function(duration){
+      switch(duration.unit){
+      case 'min':
+      default:
           this.remainingDuration = duration.remainingDuration;
           break;
-        case 'h':
+      case 'h':
           this.remainingDuration = duration.remainingDuration * 60;
           break;
-      }
+      }	    
     }
 };
 
