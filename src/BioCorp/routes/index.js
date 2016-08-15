@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/ribozyme', function(req, res, next){
   appConfigXML.getConfigXML();
-  var ribozymeList = appConfigXML.getRibozymeList();
+  var ribozymeList = appConfigXML.getRibozymeList('Rz');
   var ribozymeHelixSizes = appConfigXML.getRibozymeHelixSizes();
   var cutsiteList = appConfigXML.getCutsiteList();
   res.render('./designSteps/ribozyme',
@@ -24,6 +24,11 @@ router.get('/ribozyme', function(req, res, next){
       ribozymeList: ribozymeList,
       ribozymeHelixSizes: ribozymeHelixSizes,
       cutsiteList: cutsiteList });
+});
+
+router.get('/crispr', function(req, res, next){
+  res.render('./crispr/crispr',
+    { title: 'Design CRISPR'});
 });
 
 router.get('/index', function(req, res, next){
@@ -39,7 +44,9 @@ router.get('/oligoOrder', function(req, res, next){
 });
 
 router.get('/processing/:id', function(req, res, next){
-  res.render('processing_page', {title: 'Ribozoft - Processing'});
+  res.render('processing_page', 
+    {title: 'Ribozoft - Processing',
+     pageTitle: 'Design In Process'});
 });
 
 router.get('/results/:id', function(req, res, next){
@@ -161,17 +168,6 @@ exports.index = function(req, res){
   });
 };
 
-exports.step0 = function(req, res){
-  res.render('./designSteps/serviceselect', {
-    title: 'Service Selection'
-  });
-};
-
-exports.ribozyme = function(req, res){
-  res.render('./designSteps/ribozyme', {
-    title: 'Design with Ribozyme'
-  });
-};
 */
 
 module.exports = router;

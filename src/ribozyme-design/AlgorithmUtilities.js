@@ -274,6 +274,36 @@ function deleteFiles(pattern){
     });
 }
 
+function multipleNForSeq(seq){
+    var seqArray = new Array();
+    for(var i = 0; i < seq.length; i++){
+        var newSeqArray = new Array();
+        if(seq.charAt(i) == 'N'){
+            if(seqArray.length == 0){
+                ['A', 'T', 'G', 'C'].forEach(function(oligo){
+                    newSeqArray.push(oligo);
+                });
+            } else {
+                ['A', 'T', 'G', 'C'].forEach(function(oligo){
+                    seqArray.forEach(function(element) {
+                        newSeqArray.push(element + oligo);
+                    });
+                });
+            }
+        } else {
+            if(seqArray.length == 0){
+                newSeqArray.push(seq.charAt(i));
+            } else {
+                seqArray.forEach(function(element) {
+                    newSeqArray.push(element + seq.charAt(i));
+                });
+            }
+        }
+        seqArray = newSeqArray;
+    }
+    return seqArray;
+}
+
 exports.SequenceLength = SequenceLength;
 exports.ReverseComplement = ReverseComplement;
 exports.Reverse = Reverse;
@@ -289,3 +319,4 @@ exports.CalculateArmLength = CalculateArmLength;
 exports.FindMaxArm = FindMaxArm;
 exports.checkDirectorySync = checkDirectorySync;
 exports.deleteFiles = deleteFiles;
+exports.multipleNForSeq = multipleNForSeq;

@@ -22,12 +22,35 @@
     <seq strand='single'>GAA</seq>
     <seq strand='single' name='Helix III' id='right_arm' lengthFrom='5' lengthTo='10' substrate='complementary' substrDistFromCutsite='-1' substrateDirection='3-5'/>
 </ribozyme>
+<ribozyme name='hammerHead2' type='Rz' structure='5-3' title='Hammerhead-2'>
+    <cutsite>
+        <seq structure='5-3'>GUC</seq>
+        <seq structure='5-3'>CUC</seq>
+        <seq structure='5-3'>AUC</seq>
+        <seq structure='5-3'>UUC</seq>
+        <seq structure='5-3'>AUA</seq>
+        <seq structure='5-3'>UUA</seq>
+        <seq structure='5-3'>GUA</seq>
+        <seq structure='5-3'>CUA</seq>
+        <seq structure='5-3'>GUU</seq>
+        <seq structure='5-3'>CUU</seq>
+        <seq structure='5-3'>AUU</seq>
+        <seq structure='5-3'>UUU</seq>
+    </cutsite>
+    <seq strand='single' name='Helix I' id='left_arm' lengthFrom='5' lengthTo='10' substrate='complementary' substrDistFromCutsite='3' substrateDirection='5-3'/>
+    <seq strand='single'>CUGAUGA</seq>
+    <seq strand='double' from='25' to='30'>GUCGCU</seq>
+    <seq strand='single'>GAAA</seq>
+    <seq strand='double' from='15' to='20'>TGCGAC</seq>
+    <seq strand='single'>GAA</seq>
+    <seq strand='single' name='Helix III' id='right_arm' lengthFrom='5' lengthTo='10' substrate='complementary' substrDistFromCutsite='-1' substrateDirection='3-5'/>
+</ribozyme>
 <!--
     yl-hhRz Structure:
     5' GGGGG [same as substrate(2)] [Stem I(8) complementary] CUGAUGAGAACAAACCC
     [Pseudoknot(8) complementary] CGUCG [A or AC] [Stem III(3-12) complementary ] 3'
  -->
-<ribozyme name='yl' type='hhRz' structure='5-3' title='yl-Hammerhead'>
+<ribozyme name='yl_hh' type='Rz' structure='5-3' title='yl-Hammerhead'>
     <cutsite>
         <seq strand='single' structure='5-3'>GUC</seq>
     </cutsite>
@@ -103,5 +126,23 @@ AAACCAU  GG  GCAUCCG  UUCG  CGGAUGG  CUAAG  GGACCC  UUU  CUAGCUGG
     <seq strand='double' from='31' to='36'>GGACCC</seq>
     <seq strand='single'>UUU</seq>
     <seq strand='double' from='4' to='11'>CUAGCUGG</seq>
+</ribozyme>
+<ribozyme name='crispr' type='crispr' structure='5-3' title='CRISPR'>
+    <cutsite>
+        <seq strand='single' structure='5-3'>CCN</seq>
+    </cutsite>
+    <seq strand='single' name='Helix I' id='left_arm' lengthFrom='20' lengthTo='25' substrate='complementary' substrDistFromCutsite='3' substrateDirection='5-3'/>
+    <seq strand='double' from='47' to='53'>GUUUUAG</seq>
+    <seq strand='single'>A</seq>
+    <seq strand='double' from='40' to='43'>GCUA</seq>
+    <seq strand='single'>GAAA</seq>
+    <seq strand='double' from='32' to='35'>UAGC</seq>
+    <seq strand='single'>AAG</seq>
+    <seq strand='double' from='24' to='30'>UUAAAAU</seq>
+    <seq strand='single'>AAGGCUAGUCCGUUAUCAACUUGAAAAAGU</seq>
+    <seq strand='double' from='94' to='100'>GGCACCG</seq>
+    <seq strand='single'>AGU</seq>
+    <seq strand='double' from='84' to='90'>CGGUGCU</seq>
+    <seq strand='single'>UUUUUU</seq>
 </ribozyme>
 </root>

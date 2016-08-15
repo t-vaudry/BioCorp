@@ -27,16 +27,17 @@ var pathToDir = process.cwd()+'/'+testID;
                 'oligoEnv': 12,
                 'cutsites' : ['GUC'],
                 // 'ribozymeSelection' : 'hammerHead-Rz',
-                'ribozymeSelection' : 'yl-hhRz',
-                'left_arm_min': -1,
-                'right_arm_min': 3,
-                'left_arm_max':-1,
-                'right_arm_max':12,
-                'promoter' : 'TAATACGACTCACTATAGGG'
+                'ribozymeSelection' : 'crispr',
+                'left_arm_min': 0,
+                'right_arm_min': 0,
+                'left_arm_max':0,
+                'right_arm_max':0,
+                'promoter' : 'TAATACGACTCACTATAGGG',
+                'specificity':true
             },
             testID,
             0,//CoreType
-            'blah',
+            'mouse (taxid:10090)',
             function (request)
             {
                 if(request.Completed){

@@ -18,6 +18,10 @@ var FileSeparator = require('path').sep;
 var AddCore = CandidateGenerationModule.AddCore;
 var FitnessEvaluationModule = require('./fitnessEvaluation/');
 var AlgorithmUtilities = require('./AlgorithmUtilities.js');
+var RibozymeConfigXML = require('./XMLReader/').RibozymeConfigXML;
+var config = require('./config/config.json');
+var config_xml_path = config.env.config_xml_path;
+var Utils = require('./AlgorithmUtilities.js');
 
 
 function ReportObject(request)
@@ -191,10 +195,18 @@ function VerifyParameters(request)
     //     allOk = false;
     // }
 
-    if ((request.Preferences.left_arm_max - request.Preferences.left_arm_min)
-        * (request.Preferences.right_arm_max - request.Preferences.right_arm_min) > 100) {
-        request.UpdateState("The product of the difference of the arm lengths exceeds 100! Too many candidates will be generated. (i.e. (rmax - rmin)*(lmax-lmin) > 100 )");
-        allOk = false;
+    if(request.ribozymeSelection != 'crispr'){
+        if ((request.Preferences.left_arm_max - request.Preferences.left_arm_min)
+            * (request.Preferences.right_arm_max - request.Preferences.right_arm_min) > 100) {
+            request.UpdateState("The product of the difference of the arm lengths exceeds 100! Too many candidates will be generated. (i.e. (rmax - rmin)*(lmax-lmin) > 100 )");
+            allOk = false;
+        }
+
+        if (request.coreTypeId < 0 || request.coreTypeId > 1)
+        {
+            request.UpdateState("ID of core type provided is not recognized");
+            allOk = false;
+        }
     }
 
     if (request.Preferences.naEnv == 0) {
@@ -211,12 +223,6 @@ function VerifyParameters(request)
 
     if (request.Preferences.mgEnv !=null && request.Preferences.mgEnv < 0) {
         request.UpdateState("Negative magnesium concentration is not allowed!");
-        allOk = false;
-    }
-
-    if (request.coreTypeId < 0 || request.coreTypeId > 1)
-    {
-        request.UpdateState("ID of core type provided is not recognized");
         allOk = false;
     }
     
@@ -262,6 +268,19 @@ function HandleRequestPart1(request)
     var startime = AlgorithmUtilities.ElapsedTime('Request '+ request.ID+ ' has begun');
     Log(startime, 'HandleRequestPart1', 0);
     request.UpdateState(startime);
+
+    var config = new RibozymeConfigXML(config_xml_path);
+    config.getConfigXML();
+    if(request.Preferences.ribozymeSelection == 'crispr'){
+        request.Preferences.cutsites = config.getCutsiteListByType('crispr');
+        console.log("cutsites: " + request.Preferences.cutsites);
+        var multipleNArray = new Array();
+        request.Preferences.cutsites.forEach(function(element) {
+            multipleNArray = multipleNArray.concat(Utils.multipleNForSeq(element));
+        });
+        request.Preferences.cutsites = multipleNArray;
+    }
+
     var estimate = EstimateTime(request);
     Log('Estimate is ' + estimate + ' minutes', 'HandleRequestPart1', 0);
     /*WARNING: This execution clears the queue of waiting folds which should be empty UNLESS simulateneous 'requests' were 
@@ -296,8 +315,7 @@ function _handleRequestPart1(request)
     Log("Request started being processed", "HandleRequestPart1", 0);
     request.ResetAndSignalProgress(1);
 
-
-    var possibleCutsitesTypes = request.Preferences.cutsites;
+    var possibleCutsitesTypes = request.Preferences.cutsites.slice();
     var CutsiteTypesCandidateContainer = new Array();
     
 
@@ -313,19 +331,17 @@ function _handleRequestPart1(request)
         request.UpdateState("Generating candidates candidate(s) for cutsite type " + cutsiteTypeCutsiteContainer.Type);
         Log("Generating candidates candidate(s) for cutsite type " + cutsiteTypeCutsiteContainer.Type, "HandleRequestPart1", 0);
 	    //Generate ii cutsites and jj candidates         
-		var rawCandidatesPerCutsite = CandidateGenerationModule.GenerateCandidates 
-			(
-				request.TargetSequence,
-				possibleCutsitesTypes[ii], 
-				{
-                    'ribozymeSelection': request.Preferences.ribozymeSelection,
-				    'left_arm_min': request.Preferences.left_arm_min,
-				    'right_arm_min': request.Preferences.right_arm_min,
-				    'left_arm_max': request.Preferences.left_arm_max,
-				    'right_arm_max': request.Preferences.right_arm_max,
-				    'coreTypeId': request.coreTypeId
-				}
-			);
+		var rawCandidatesPerCutsite = CandidateGenerationModule.GenerateCandidates(
+            request.TargetSequence,
+            possibleCutsitesTypes[ii], 
+            {
+                'ribozymeSelection': request.Preferences.ribozymeSelection,
+                'left_arm_min': request.Preferences.left_arm_min,
+                'right_arm_min': request.Preferences.right_arm_min,
+                'left_arm_max': request.Preferences.left_arm_max,
+                'right_arm_max': request.Preferences.right_arm_max,
+                'coreTypeId': request.coreTypeId
+            });
         //Find the candidate count
 		var candidateCountRaw = CountCandidatesFromRaw(rawCandidatesPerCutsite);
 	    //Log the candidate count
@@ -407,8 +423,13 @@ function _handleRequestPart1(request)
                 ) ; 
             }
 		}
-		cutsiteTypeCutsiteContainer.Cutsites = cutSites;
-		CutsiteTypesCandidateContainer.push(cutsiteTypeCutsiteContainer);
+        if(rawCandidatesPerCutsite.length > 0){
+            cutsiteTypeCutsiteContainer.Cutsites = cutSites;
+            CutsiteTypesCandidateContainer.push(cutsiteTypeCutsiteContainer);
+        } else {
+            var cutsiteIndex = request.Preferences.cutsites.indexOf(possibleCutsitesTypes[ii]);
+            request.Preferences.cutsites.splice(cutsiteIndex, 1);
+        }
 	}
 	request.Callback(request);
 	request.CutsiteTypesCandidateContainer = CutsiteTypesCandidateContainer;

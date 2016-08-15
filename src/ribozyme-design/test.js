@@ -54,42 +54,33 @@ GACTTTACCTAGGAAAGGCAGAAAGAGTCAGCAGCATGCATTCCATTTGGCCAGGGGGATTTTTATTACC\
 ACACAGCCATGTTTGGAGGAACACCCATTCAGGTTCTCAACATCCCCCAGGAGTGCTTTAAAGGAATCCT\
 CCTGGAAAAGAAAAATGACAT";
 
-
-
 var request = new Request
 (
-     M73307,
-    //short,
-    ' ', //Accesion number (who cares!)
+    //  M73307,
+    short,
+    ' ', //Accesion number
     { //Preferences
         'tempEnv' :37,
         'naEnv' : 150, //mM
         'mgEnv' : 1, //mM
         'oligoEnv': 12,
         'cutsites' : ['GUC'],
-        'ribozymeSelection': 'hammerHead-Rz',
-        'left_arm_min': 5,
-        'right_arm_min': 5,
-        'left_arm_max':10,
-        'right_arm_max':10,
+        'ribozymeSelection': 'crispr',
+        'left_arm_min': 0,
+        'right_arm_min': 0,
+        'left_arm_max':0,
+        'right_arm_max':0,
         'promoter': '',
         'specificity':true
-//        5 TAATACGACTCACTATAGGG
-
-//        5 TAATACGACTCACTATAGCG  
-
     },
     'Test', //ID
     0,//CoreType
     'mouse (taxid:10090)', //organism such as = mouse (taxid:10090)
-    function (request) //callback
-    {
-
+    function (request) { //callback 
         console.log('State: ' + request.Part + ';' + request.PartProgress + '%');
         if (request.Part == 8)
             console.log(request.State);
-    }
-    );
+    });
    
 
 //var request = new Request

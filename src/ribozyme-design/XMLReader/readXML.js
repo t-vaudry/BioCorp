@@ -99,15 +99,21 @@ RibozymeConfigXML.prototype.getRzByNameType = function(ribozymeName, ribozymeTyp
     this.data = fs.readFileSync(this.xmlPath, 'utf8');
     this.parser.parseString(this.data, function (err, result) {
         result.root.ribozyme.forEach(function(ribozyme) {
-            if(ribozyme.$['name'] == ribozymeName && ribozyme.$['type'] == ribozymeType){
-                ribozymeToReturn = ribozyme;
+            if(ribozymeType != null){
+                if(ribozyme.$['name'] == ribozymeName && ribozyme.$['type'] == ribozymeType){
+                    ribozymeToReturn = ribozyme;
+                }
+            } else {
+                if(ribozyme.$['name'] == ribozymeName){
+                    ribozymeToReturn = ribozyme;
+                }
             }
         });
     });
     return ribozymeToReturn;
 }
 
-RibozymeConfigXML.prototype.getRibozymeList = function(){
+RibozymeConfigXML.prototype.getRibozymeList = function(type){
     var valuesToReturn = new Array();
     this.parser.parseString(this.data, function (err, result) {
         result.root.ribozyme.forEach(function(ribozyme) {
@@ -115,8 +121,13 @@ RibozymeConfigXML.prototype.getRibozymeList = function(){
             valuesToPush['name'] = ribozyme.$['name'];
             valuesToPush['type'] = ribozyme.$['type'];
             valuesToPush['structure'] = ribozyme.$['structure'];             
-            valuesToPush['title'] = ribozyme.$['title'];             
-            valuesToReturn.push(valuesToPush);
+            valuesToPush['title'] = ribozyme.$['title'];
+            var toPush = true;
+            if(type != null && type.length > 0 && valuesToPush['type'] != type){
+                toPush = false;
+            }
+            if(toPush)
+                valuesToReturn.push(valuesToPush);
         });
     });
     return valuesToReturn;
@@ -157,6 +168,21 @@ RibozymeConfigXML.prototype.getCutsiteList = function(){
                 cutsiteList.push(sequence._);
             });
             valuesToReturn.push({"name": rzName, "type": rzType, "cutsites": cutsiteList});
+        });
+    });
+    return valuesToReturn;
+}
+
+RibozymeConfigXML.prototype.getCutsiteListByType = function(type){
+    var valuesToReturn = new Array();
+    this.parser.parseString(this.data, function (err, result) {
+        result.root.ribozyme.forEach(function(ribozyme) {
+            var rzType = ribozyme.$['type'];
+            if(rzType == type){
+            ribozyme.cutsite[0].seq.forEach(function(sequence){
+               valuesToReturn.push(sequence._);
+            });
+            }
         });
     });
     return valuesToReturn;

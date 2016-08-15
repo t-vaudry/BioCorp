@@ -58,12 +58,12 @@ Request.prototype.submitRequest = function(callback){
         type: "POST",
         url: (urlLocation || url)+"requests/",
         data: data,
-	contentType: "application/json; charset=utf-8",
+	    contentType: "application/json; charset=utf-8",
         success: function(data, status, xhr) {
-	    callback(null, xhr.getResponseHeader("Location"));
+	        callback(null, xhr.getResponseHeader("Location"));
         },
         error: function(jqXHR, textStatus, errorThrown) {
-	    Request.handleError(jqXHR, "Submitting request", callback);
+    	    Request.handleError(jqXHR, "Submitting request", callback);
         }
     });
 };
@@ -75,7 +75,7 @@ Request.prototype.updateRequest = function(callback){
         type: "PUT",
         url: (urlLocation || url),
         data: data,
-	contentType: "application/json; charset=utf-8",
+	    contentType: "application/json; charset=utf-8",
         success: function(data, status, xhr) {
 	    callback(null, data);
         },
@@ -91,7 +91,7 @@ Request.getRequest = function(callback){
         type: "GET",
         url: url,
         data: {},
-	contentType: "application/json; charset=utf-8",
+	    contentType: "application/json; charset=utf-8",
         success: function(data, status, xhr) {
 	    var response = data.request;
 	    var request = new Request(
@@ -131,7 +131,7 @@ Request.prototype.getRequestStatus = function(callback){
 	    callback(null, data);
         },
         dataType : "json",
-	contentType: "application/json; charset=utf-8",
+	    contentType: "application/json; charset=utf-8",
         error : function(jqXHR, textStatus, errorThrown) {
 	    Request.handleError(jqXHR, "Getting request information", callback);
         }
@@ -164,10 +164,10 @@ Request.prototype.extractData = function(obj){
 	delete this.env;
 
 	this.env = new Env(tmp, tmp =="vivo" ? this.envVivo: "");
-	if(this.env.target == "other"){
-	    this.env.target = this.otherEnv;
-	    delete this.otherEnv;
-	}
+        if(this.env.target == "other"){
+            this.env.target = this.otherEnv;
+            delete this.otherEnv;
+        }
     }
     delete this.envVivo;
 };

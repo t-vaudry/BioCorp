@@ -261,7 +261,13 @@ SequenceInput.prototype.getText = function(){
 
 
 SequenceInput.prototype.emptyText = function(){
-    this.el.value = "";
+    if(this.el !== undefined){
+        this.el.value = "";
+    }
+};
+
+SequenceInput.prototype.isEmptyText = function(){
+    return this.el.value.length == 0? true: false;
 };
 
 

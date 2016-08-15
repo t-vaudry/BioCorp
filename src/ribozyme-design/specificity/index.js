@@ -36,7 +36,9 @@ function QueryBlastForRequest(reportObject) {
         for (var jj = 0; jj < cutsiteType.Cutsites.length; ++jj) {
             primers += '>' + jj + '    \n' + RnaToDna(cutsiteType.Cutsites[jj].BaseSeq) + '     \n';
         }
-        QueryBlast(primers, request.InVivoOrganism, new InternalReportObject(request.ID , cutsiteType.Type, primers,reportObject) );
+        if(primers.length > 0){
+            QueryBlast(primers, request.InVivoOrganism, new InternalReportObject(request.ID , cutsiteType.Type, primers,reportObject) );
+        }
     }
 }
 
@@ -62,8 +64,7 @@ function QueryBlast(blastQueryPrimer, organism, reportObject) {
         'PROGRAM': 'blastn',
         'EXPECT': SENSITIVITY,
         'FORMAT_TYPE': 'Text'
-    }
-);
+    });
     var POST_OPTIONS = {
         host: 'www.ncbi.nlm.nih.gov',
         port: '80',
@@ -289,7 +290,7 @@ function parseQueries(query) {
     
     var queryNum = matches.splice(0, 1);
     queryNum = parseInt(queryNum[0].split('\n')[0]);
-    console.log("Query " + JSON.stringify(query));
+    // console.log("Query " + JSON.stringify(query));
     console.log("Entered query with match number:" + matches.length);
     var res = new Array();
     //Extract relevant information for the match

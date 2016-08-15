@@ -9,15 +9,24 @@ module.exports = {
   createRequest : function(req, res, next){
     fetchAccession(req.body.sequence, req.body.accessionNumber,
     function(seq, number){
+      var crispr = false;
+      if(req.body.ribozymeSelection == 'crispr'){
+        crispr = true;
+      }
       if(!seq){
         utils.returnError(400, "No sequence was submitted.", next);
-      } else if (!req.body.cutsites || req.body.cutsites.length > 2) {
+      } else if (!crispr && (!req.body.cutsites || req.body.cutsites.length > 2)) {
         utils.returnError(400, "Submitting too many cutsites. No more than two cutsites can be used.", next);
-      } else if((parseInt(req.body.left_arm_max) > 34) || (parseInt(req.body.right_arm_max)) > 34) {
+      } else if(!crispr && (parseInt(req.body.left_arm_max) > 34 || parseInt(req.body.right_arm_max) > 34)) {
         utils.returnError(400, "Helixes I and III cannot be longer than 34 nucleotides long", next);
       } else {
         var id = utils.generateUID();
-        var vivoEnv = (req.body.env.type === "vivo") ? req.body.env.target: '';
+        var vivoEnv = '';
+        if(!crispr){
+          vivoEnv = (req.body.env.type === "vivo") ? req.body.env.target: '';
+        } else {
+          vivoEnv = req.body.env.target;
+        }
 
         if(req.body.region)
         var region = utils.toTargetRegion(req.body.region);
@@ -26,19 +35,19 @@ module.exports = {
                 seq,
                 number,
                 req.body.foldShape,
-                parseInt(req.body.temperature),
-                parseInt(req.body.naC),
-                parseInt(req.body.mgC),
-                parseInt(req.body.oligoC),
+                parseInt(typeof req.body.temperature === 'undefined'? 0: req.body.temperature),
+                parseInt(typeof req.body.naC === 'undefined'? 0: req.body.naC),
+                parseInt(typeof req.body.mgC === 'undefined'? 0: req.body.mgC),
+                parseInt(typeof req.body.oligoC === 'undefined'? 0: req.body.oligoC),
                 req.body.cutsites,
                 region,
                 (req.body.env.type === "vivo"),
                 vivoEnv,
                 req.body.ribozymeSelection,
-                parseInt(req.body.left_arm_min),
-                parseInt(req.body.right_arm_min),
-                parseInt(req.body.left_arm_max),
-                parseInt(req.body.right_arm_max),
+                parseInt(typeof req.body.left_arm_min === 'undefined'? 0: req.body.left_arm_min),
+                parseInt(typeof req.body.right_arm_min === 'undefined'? 0: req.body.right_arm_min),
+                parseInt(typeof req.body.left_arm_max === 'undefined'? 0: req.body.left_arm_max),
+                parseInt(typeof req.body.right_arm_max === 'undefined'? 0: req.body.right_arm_max),
                 req.body.promoter,
                 req.body.specificity,
                 req.body.emailUser,

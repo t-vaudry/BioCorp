@@ -1,0 +1,127 @@
+<% include ../header %>
+<div class="container" id="rzDesign">
+<form id="msform">
+
+  <!-- Step 1: Sequence Selection -->
+  <fieldset id="fsSeqSel" style="margin-bottom:40px;">
+    <div class="row">
+      <h2 class="fs-title">Select the sequence for CRISPR</h2>
+      <h3 class="fs-subtitle">The sequence you want to cleave</h3>
+    </div>
+
+    <div class="row">
+      <div class="container inline" style="float:left;">
+
+      <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="margin-bottom:15px;">
+        <p class="substep-description">Search for sequence number.<br/>You may also find your sequence <a target="_blank" href="http://www.ncbi.nlm.nih.gov/genbank/">here</a></p>
+        <input id="accession" placeholder="(example: M73307)" value="M73307"/>
+        <button id="submit_ACN" class="btn" type="button">Search</button>
+        <div id="accession_alert" class="alert invisible" style="margin-top:20px;"></div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+          <div class="bar-separator span2"><span class="emp">Or</div>
+      </div>
+      <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+        <div class="span5 tile" id="drop">
+          <p class="substep-description">Select a file with your sequence to upload.<br/> (TXT or FASTA format)</p>
+          <button class="btn" id="selectFileButton" >
+      Select File
+          </button>
+          <input type="file" style="visibility:hidden;" id="selectFileInput">
+        </div>
+      </div>
+
+      </div>
+      <div id="sequence-wrap">
+        <div id="sequence_alert" class="alert alert-error invisible"></div>
+        <textarea id="sequence-display" maxlength="3000" class="input-block-level" rows="10" placeholder="Paste your sequence here..."></textarea>
+        <div id="sequence_alert" class="alert invisible"></div>
+      </div>
+
+      <div class="collapse-container">
+      <legend data-toggle="collapse" data-target=".targetenvOption" align="left"><span class="teDrop glyphicon glyphicon-arrow-right"></span>  Target Environment *</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#targetEnvironmentModal"></i>
+      </div>
+
+      <ul class="collapse in targetenvOption divCollapse">
+        <li><input type="radio" name="env" value="vitro" id="vitroRadio" disabled="true"> In-vitro</li>
+        <li><input type="radio" name="env" value="vivo" id="vivoRadio" checked="true"> In-vivo </li>
+        <li>
+          <div class="form-group">
+            <select class="form-control" id="envVivo" name="envVivo">
+            <option value="mouse (taxid:10090)" selected="selected">Mouse</option>
+            <option value="rat (taxid:10114)">Rat</option>
+            <option value="human (taxid:9606)">Human</option>
+            <option value="daphnia (taxid:6668)">Daphnia</option>
+            <option value="ecoli (taxid:562)">E Coli</option>
+            <option value="yeast (taxid:4932)">Yeast</option>
+          </select>
+          </div></li>
+      </ul>
+
+      <div class="collapse-container">
+      <legend data-toggle="collapse" data-target=".envpropOption" align="left"><span class="epDrop glyphicon glyphicon-arrow-right"></span>  Environment Properties *</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#envPropertyModal"></i>
+      </div>
+
+      <ul class="envpropOption collapse divCollapse">
+        <li>
+          <label for="temperature" style="margin-right:60px;">Temperature *</label>
+          <input type="number" name="temperature" value="37" min="0" step="0.1"  style="width:80px; margin-left:-10px;" required> &#8451
+        </li>
+        <li>
+          <label for="naC" style="margin-right:55px; margin-left:15px;">Na&#8314 Concentration *</label>
+          <input type="number" name="naC" value="150" min="0" step="0.1" style="width:80px; margin-left:-12px;" required> mM
+        </li>
+        <li>
+          <label for="mgC" style="margin-right:10px;">Mg<sup>2</sup>&#8314 Concentration</label>
+          <input type="number" name="mgC" value="1" min="0" step="0.1" style="width:80px;"> mM
+        </li>
+        <li>
+          <label for="oligoC" style="margin-right:15px;">Oligomer Concentration</label>
+          <input type="number" name="oligoC" value="200" min="0" step="0.1" style="width:80px;"> nM
+        </li>
+      </ul>
+
+      <div class="collapse-container">
+      <legend data-toggle="collapse" data-target=".specOption" align="left"><span class="speDrop glyphicon glyphicon-arrow-right"></span>  Specificity</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#specificityModal"></i>
+      </div>
+
+      <ul class="specOption collapse divCollapse">
+        <li style="margin-left:-10%;">
+          <input type="radio" name="specificity" value="cleavage" id="cleavageRadio" required> Cleavage Only
+        </li>
+        <li>
+          <input type="radio" name="specificity" value="hybrid" id="hybridRadio" required> Cleavage and Hybridization
+        </li>
+        <li>
+          <input type="radio" name="specificity" value="notcomputed" id="notcomputedRadio" required> Not Computed
+        </li>
+      </ul>
+
+    </div>
+
+    <div>
+      <div class="organization-input">
+        <h4>User Agreement</h4>
+        <div class="alert alert-error invisible" id="organization-alert"></div>
+
+          <p>
+            We need a bit more information before submitting the request
+          </p>
+          <label for="organization">Organization:</label>
+          <input type="text" name="organization" id="organization"  placeholder="(example: Concordia University)" required>
+
+          <label for="email">Email:</label>
+          <input type="email" name="email" id="email"  placeholder="(example: me@example.org)" required>
+          <p>
+            By clicking on the "Submit" Button, I confirm that I have read and agreed to the terms of the <a target="_blank" href="../license">license.</a>
+          </p>
+
+      </div>
+    </div>
+
+    <input type="button" name="next" class="btn btn-primary btn-large stepNext  disabled action-button" value="Submit" id="crisprSubmit">
+  </fieldset>
+
+</div>
+
+<% include ../footer %>
