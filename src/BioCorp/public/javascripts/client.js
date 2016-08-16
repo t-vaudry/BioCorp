@@ -74,6 +74,7 @@ function initializePage() {
   seqInput.emptyText();
   $('#submit1').click(function(){
     console.log(request);
+    request.sequence = $('#sequence-display').val();
     request.originalSequence = request.sequence;
     console.log(request.sequence);
     var selection = $('#rz-select option:selected').attr('value');
