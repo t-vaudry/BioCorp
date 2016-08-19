@@ -201,12 +201,6 @@ function VerifyParameters(request)
             request.UpdateState("The product of the difference of the arm lengths exceeds 100! Too many candidates will be generated. (i.e. (rmax - rmin)*(lmax-lmin) > 100 )");
             allOk = false;
         }
-
-        if (request.coreTypeId < 0 || request.coreTypeId > 1)
-        {
-            request.UpdateState("ID of core type provided is not recognized");
-            allOk = false;
-        }
     }
 
     if (request.Preferences.naEnv == 0) {
@@ -339,8 +333,7 @@ function _handleRequestPart1(request)
                 'left_arm_min': request.Preferences.left_arm_min,
                 'right_arm_min': request.Preferences.right_arm_min,
                 'left_arm_max': request.Preferences.left_arm_max,
-                'right_arm_max': request.Preferences.right_arm_max,
-                'coreTypeId': request.coreTypeId
+                'right_arm_max': request.Preferences.right_arm_max
             });
         //Find the candidate count
 		var candidateCountRaw = CountCandidatesFromRaw(rawCandidatesPerCutsite);
@@ -377,14 +370,10 @@ function _handleRequestPart1(request)
             for(var kk = 0; kk < cutsiteCandidates.length; ++kk)
             {
                 var rawCandidate = cutsiteCandidates[kk];
-                // var seqWithCore = AddCore(rawCandidate.seq, rawCandidate.cut, Model.DomainObjects.CATALITIC_CORES[request.coreTypeId], request.coreTypeId);
                 var newCandidate  = 
                 new Candidate( 
                     rawCandidate.seq,
-                    0, /*Catalitic core start (3 accounts for TAA)*/
-                    // rawCandidate.cut + (request.coreTypeId == 0 ? 0 : 3), /*Catalitic core start (3 accounts for TAA)*/
-                    /*Generate candidate ID id*/ kk.toString(), 
-                    request.coreTypeId, 
+                    /*Generate candidate ID id*/ kk.toString(),
                     request.ID ,
                     /*Create cutsite ID*/generatedCutsiteId,
                     rawCandidate.targetLocation,
@@ -427,6 +416,7 @@ function _handleRequestPart1(request)
             cutsiteTypeCutsiteContainer.Cutsites = cutSites;
             CutsiteTypesCandidateContainer.push(cutsiteTypeCutsiteContainer);
         } else {
+            // If no candidates then remove cutsite from cutsite list
             var cutsiteIndex = request.Preferences.cutsites.indexOf(possibleCutsitesTypes[ii]);
             request.Preferences.cutsites.splice(cutsiteIndex, 1);
         }
@@ -534,9 +524,7 @@ function _handleRequestPart3(reportObject)
                         'sequence':request.TargetSequence
                     }
                 );
-            //TODO: Get Max arms length
-            var maxArmLength = AlgorithmUtilities.FindMaxArm(cutsite.Candidates);
-            var constraint = { 'left': cutsite.Location - (maxArmLength.left - 1), 'right': (maxArmLength.right + maxArmLength.left + 2) };
+            var constraint = AlgorithmUtilities.FindConstraints(cutsite.Candidates);
             constraint.left = constraint.left > 0 ? constraint.left : 1;
             constraint.right = ((constraint.right + cutsite.Location - 1) < seq.length) ? constraint.right : (seq.length - cutsite.Location);
             constraintsArr.push(constraint);

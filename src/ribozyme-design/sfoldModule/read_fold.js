@@ -77,8 +77,6 @@ function(file)
 	return StructureInfos;
 }
 
-//	var newCandidate = new Candidate( sequence , cataliticCoreStart, Id, coreType)
-
 // Summarizes the sFold results into an array of candidates
 // for a given cutsite.
 ParseUtilities.ParseSFoldResults = function (directory, cutsiteID) {

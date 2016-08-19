@@ -65,16 +65,15 @@ var request = new Request
         'mgEnv' : 1, //mM
         'oligoEnv': 12,
         'cutsites' : ['GUC'],
-        'ribozymeSelection': 'crispr',
-        'left_arm_min': 0,
-        'right_arm_min': 0,
-        'left_arm_max':0,
-        'right_arm_max':0,
+        'ribozymeSelection': 'hammerHead-Rz',
+        'left_arm_min': 5,
+        'right_arm_min': 5,
+        'left_arm_max':6,
+        'right_arm_max':6,
         'promoter': '',
         'specificity':true
     },
     'Test', //ID
-    0,//CoreType
     'mouse (taxid:10090)', //organism such as = mouse (taxid:10090)
     function (request) { //callback 
         console.log('State: ' + request.Part + ';' + request.PartProgress + '%');

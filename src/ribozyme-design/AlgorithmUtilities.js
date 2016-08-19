@@ -213,7 +213,7 @@ function CompressCandidates(candidates) {
         var structuresFold = candidates[ii].StructuresSFold;
         CompressObjectArrayIntoTable(structuresFold, ["EnergyInterval", "Frequency", "LowestFreeEnergy", "ConnectedPairs", "Fitness"]);
     }
-    CompressObjectArrayIntoTable(candidates, ["Sequence", "CataliticCoreStart", "ID", "StructuresSFold", "StructureUnaFold", "Fitness_Shape",  "Fitness_Target", "Fitness_Target_dG", "Fitness_Specificity", "CataliticCoreType", "cutSiteID", "cutSiteLocation", "requestID", "MeltingTemperature","MeltingTemperatureList","ArmLengthList", "rank"]);
+    CompressObjectArrayIntoTable(candidates, ["Sequence", "ID", "StructuresSFold", "Fitness_Shape",  "Fitness_Target", "Fitness_Target_dG", "Fitness_Specificity", "cutSiteID", "cutSiteLocation", "requestID", "MeltingTemperature","MeltingTemperatureList","ArmLengthList", "rank"]);
 }
 
 
@@ -238,20 +238,33 @@ function CalculateArmLength(complementaryPositions) {
         var position = complementaryPositions[ii];
         armsLengthList.push(position.end - position.start + 1);
     }
-    return armsLengthList;
+    return armsLengthList.reverse();
 }
 
-function FindMaxArm(candidates) {
-    var maxLeft = 0;
+function FindConstraints(candidates) {
+    var maxLeft = 99999;
     var maxRight = 0;
     for (var ii = 0; ii < candidates.length ; ++ii) {
-        var left = candidates[ii].ArmLengthList[0];
-        var right = candidates[ii].ArmLengthList[candidates[ii].ArmLengthList.length - 1];
-        if(left > maxLeft) maxLeft = left;
-        if(right > maxRight) maxRight = right;
-        
+        var compPositions = candidates[ii].complimentaryPositions;
+        for (var jj = 0; jj < compPositions.length ; ++jj) {
+            var position = compPositions[jj];
+            if(position.cutsiteRelativePos == "right"){
+                var length = position.end - position.start + 1;
+                var right = candidates[ii].cutSiteLocation 
+                    - position.substrDistFromCutsite
+                    -  length;
+                if(maxLeft > right) maxLeft = right;
+            } else if (position.cutsiteRelativePos == "left"){
+                var length = position.end - position.start + 1;
+                var left = candidates[ii].cutSiteLocation 
+                    + position.substrDistFromCutsite
+                    +  length;
+                if(left > maxRight) maxRight = left;
+            }
+        }
     }
-    return {"left": maxLeft, "right": maxRight};
+
+    return { 'left': maxLeft, 'right': (maxRight - maxLeft + 1) };
 }
 
 function checkDirectorySync(fs, directory) {  
@@ -304,6 +317,32 @@ function multipleNForSeq(seq){
     return seqArray;
 }
 
+function convertSeqStructToIndexStruct(sequence, structure){
+    var connectedPairs = new Array();
+    var bonds = new Array();
+    var pseudoKnots = new Array();
+    for(var i = 0; i < structure.length; i++){
+        var left = i + 1;
+        var right = -1;
+        var type = sequence[i];
+
+        if(structure[i] == '('){
+            bonds.push(left);
+        } else if(structure[i] == ')'){
+            right = bonds.pop();
+            connectedPairs[right - 1].right = left;
+        }
+        if(structure[i] == '['){
+            pseudoKnots.push(left);
+        } else if(structure[i] == ']'){
+            right = pseudoKnots.pop();
+            connectedPairs[right - 1].right = left;
+        }
+        connectedPairs.push({'left':left,'right':right,'type':type});
+    }
+    return connectedPairs;
+}
+
 exports.SequenceLength = SequenceLength;
 exports.ReverseComplement = ReverseComplement;
 exports.Reverse = Reverse;
@@ -316,7 +355,8 @@ exports.CompressObjectArrayIntoTable = CompressObjectArrayIntoTable;
 exports.CompressCandidates = CompressCandidates;
 exports.DeleteFolderRecursive = deleteFolderRecursive;
 exports.CalculateArmLength = CalculateArmLength;
-exports.FindMaxArm = FindMaxArm;
+exports.FindConstraints = FindConstraints;
 exports.checkDirectorySync = checkDirectorySync;
 exports.deleteFiles = deleteFiles;
 exports.multipleNForSeq = multipleNForSeq;
+exports.convertSeqStructToIndexStruct = convertSeqStructToIndexStruct;

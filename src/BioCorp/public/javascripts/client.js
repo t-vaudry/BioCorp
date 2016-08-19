@@ -43,7 +43,7 @@ function initializePage() {
       var input = result.toString();
       var validation = InputValidation.isInputValid(input);
       request.sequence = InputValidation.cleanInput(input);
-      seqInput.setText(input);
+      seqInput.setText(request.sequence);
       seqAlert.setState(validation);
       if(validation.ok){
         submit1.removeClass('disabled');

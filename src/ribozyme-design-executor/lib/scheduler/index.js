@@ -40,7 +40,6 @@ scheduler.startProcessingRequest = function(req, callback){
 	    req.accessionNumber,
 	    preferences,
 	    req.uuid,
-	    (req.foldShape == "Wishbone") ? 1 : 0,
 	    env.target,
 	    function(request){
 		req.state = request.State;

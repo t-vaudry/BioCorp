@@ -81,7 +81,8 @@ function CreateCandidates (substrateSeq, cutSiteType, cutSites, options)
 							var start = cutSites[ii] + substrDistFromCutsite;
 							if ( substrateSeq.length < (start + length - 1) ) continue;
 							if(start < smallestStart ) smallestStart = start;
-							if((start + length - 1) > highestEnd) highestEnd = start + length - 1;
+							// if((start + length - 1) > highestEnd) highestEnd = start + length - 1;
+							if((start + length) > highestEnd) highestEnd = start + length;
 
 							if(substrate == 'complementary'){
 								candidateSeqs.push({"seq" : Complement(substrateSeq.substr(start,length)),
@@ -100,7 +101,8 @@ function CreateCandidates (substrateSeq, cutSiteType, cutSites, options)
 							var start = cutSites[ii] - substrDistFromCutsite - (length - 1);
 							if(start < 0) continue;
 							if(start < smallestStart ) smallestStart = start;
-							if((start + length - 1) > highestEnd) highestEnd = start + length - 1;
+							// if((start + length - 1) > highestEnd) highestEnd = start + length - 1;
+							if((start + length) > highestEnd) highestEnd = start + length;
 
 							if(substrate == 'complementary'){
 								candidateSeqs.push({"seq" : Complement(substrateSeq.substr(start,length)),
@@ -124,7 +126,8 @@ function CreateCandidates (substrateSeq, cutSiteType, cutSites, options)
 					if(substrateDirection == '5-3'){
 						var start = cutSites[ii] + substrDistFromCutsite;
 						if(start < smallestStart ) smallestStart = start;
-						if((start + length - 1) > highestEnd) highestEnd = start + length - 1;
+						// if((start + length - 1) > highestEnd) highestEnd = start + length - 1;
+						if((start + length) > highestEnd) highestEnd = start + length;
 
 						if(substrate == 'complementary'){
 							var strand = substrateSeq.substr(start,length);
@@ -142,7 +145,8 @@ function CreateCandidates (substrateSeq, cutSiteType, cutSites, options)
 					} else if(substrateDirection == '3-5'){
 						var start = cutSites[ii] - substrDistFromCutsite - (length - 1);
 						if(start < smallestStart ) smallestStart = start;
-						if((start + length - 1) > highestEnd) highestEnd = start + length - 1;
+						// if((start + length - 1) > highestEnd) highestEnd = start + length - 1;
+						if((start + length) > highestEnd) highestEnd = start + length;
 
 						if(substrate == 'complementary'){
 							candidateSeqs.push({"seq" : Complement(substrateSeq.substr(start,length)),
@@ -191,7 +195,8 @@ function CreateCandidates (substrateSeq, cutSiteType, cutSites, options)
 					newCandidates.push({"seq" : seq, "targetLocation" :cutSites[ii], "compPositions" : compPositions });
 				} else {
 					for(var c = 0; c < cutsiteCandidates.length; c++){
-						var compPositions = cutsiteCandidates[c].compPositions.slice();
+						var compPositions = JSON.parse(JSON.stringify(cutsiteCandidates[c].compPositions));
+						// var compPositions = cutsiteCandidates[c].compPositions.slice();
 						if(complementary){
 							var start = cutsiteCandidates[c].seq.length;
 							compPositions.push({"start" : start,
@@ -214,20 +219,19 @@ function CreateCandidates (substrateSeq, cutSiteType, cutSites, options)
 
 		for(var d = 0; d < cutsiteCandidates.length; d++){
 			cutsiteCandidates[d].seq = Reverse(cutsiteCandidates[d].seq);
+			var length = cutsiteCandidates[d].seq.length;
 			for(var e = 0; e < cutsiteCandidates[d].compPositions.length; e++){
 				var compPosition = cutsiteCandidates[d].compPositions[e];
 				var start = compPosition.start;
 				var end = compPosition.end;
-				var length = cutsiteCandidates[d].seq.length;
-				compPosition.end = length - start - 1;
-				compPosition.start = length - end - 1;
+				cutsiteCandidates[d].compPositions[e].end = length - start - 1;
+				cutsiteCandidates[d].compPositions[e].start = length - end - 1;
 				if(compPosition.cutsiteRelativePos == "left"){
-					compPosition.cutsiteRelativePos = "right";
+					cutsiteCandidates[d].compPositions[e].cutsiteRelativePos = "right";
 				} else if(compPosition.cutsiteRelativePos == "right"){
-					compPosition.cutsiteRelativePos = "left";
+					cutsiteCandidates[d].compPositions[e].cutsiteRelativePos = "left";
 				}
 			}
-			
 		}
 
 		Candidates.push(cutsiteCandidates);

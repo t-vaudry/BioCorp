@@ -169,13 +169,16 @@ function CaculateCandidateFoldingFitness(request) {
             var cutsite = cutsiteTypeCutsiteContainer[jj];
             for (var kk = 0; kk < cutsite.Candidates.length ; ++kk) {
                 var candidate = cutsite.Candidates[kk];
-                var folds = candidate.StructuresSFold;
-                var totalFitness = 0;
-                for (var ll = 0; ll < folds.length; ++ll) {
-                    folds[ll].Evaluate(candidate.CataliticCoreStart, candidate.CataliticCoreType, request.Preferences);
-                    totalFitness += folds[ll].Fitness * folds[ll].Frequency;
-                }
-                candidate.Fitness_Shape = totalFitness;
+                // var folds = candidate.StructuresSFold;
+                // var totalFitness = 0;
+                // for (var ll = 0; ll < folds.length; ++ll) {
+                    // folds[ll].EvaluateHotknot(request.Preferences);
+                    // totalFitness += folds[ll].Fitness * folds[ll].Frequency;
+                // }
+                // candidate.Fitness_Shape = totalFitness;
+
+                candidate.StructuresSFold[0].EvaluateHotknot(request.Preferences, candidate);
+                candidate.Fitness_Shape = candidate.StructuresSFold[0].Fitness;
             }
         }
     }
@@ -255,8 +258,9 @@ function EvaluateTargetFoldsFitness(structureInfoArray, candidate, prefs) {
     return totalFitness;
 }
 
+//TODO update left and right
 function findMaxMinIndexFromCutsiteLoc(compPositions, cutSiteLoc) {
-    var maxStart = 0;
+    var maxStart = 99999;
     var maxEnd = 0;
     for (var ii = 0 ; ii < compPositions.length; ++ii) {
         var length = (compPositions[ii].end - compPositions[ii].start) + 1;
