@@ -9,6 +9,9 @@ function RibozymeConfigXML(xmlPath){
 RibozymeConfigXML.prototype.getSeqStruct = function(ribozymeName, ribozymeType, armList){
     var valuesToReturn = new Object();
     var armListCount = 0;
+    if(ribozymeType === undefined || ribozymeType == null){
+        ribozymeType = ribozymeName;
+    }
     this.parser.parseString(this.data, function (err, result) {
         result.root.ribozyme.forEach(function(ribozyme) {
             var name = ribozyme.$['name'];

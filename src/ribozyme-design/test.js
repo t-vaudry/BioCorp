@@ -69,7 +69,7 @@ var request = new Request
         'mgEnv' : 1, //mM
         'oligoEnv': 12,
         'cutsites' : ['GUC'],
-        'ribozymeSelection': 'SOFA_HDV-Rz',
+        'ribozymeSelection': 'crispr',
         'left_arm_min': 7,
         'right_arm_min': 7,
         'left_arm_max':20,
