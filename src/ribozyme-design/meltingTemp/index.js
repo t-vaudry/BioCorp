@@ -46,13 +46,16 @@ function CleanseCandidates(rawCandidatesPerCutsite,prefs)
                 //left, right, all arms are computed individually
                 var seqToCompute = candidate.seq.substr(position.start, position.end) ;                
                 var meltingT = MeltingTCalcRouter(seqToCompute, prefs);
+                console.log(meltingT);
+                console.log("Range: " + (prefs.tempEnv - MELTING_LOWERBOUND) + " : " + (prefs.tempEnv + MELTING_UPPERBOUND));
                 meltingTempList.push(meltingT);
                 totalMeltingT += meltingT;
                 if (meltingT >= (prefs.tempEnv - MELTING_LOWERBOUND) && meltingT <= (prefs.tempEnv + MELTING_UPPERBOUND)){
                     candidateIsClean = true;
+                    console.log("candidateIsClean");
                 } else {
                     candidateIsClean = false;
-                    break;
+                    console.log("candidateIs NOT Clean");
                 }
             }
             if(candidateIsClean){

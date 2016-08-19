@@ -258,21 +258,30 @@ function EvaluateTargetFoldsFitness(structureInfoArray, candidate, prefs) {
     return totalFitness;
 }
 
-//TODO update left and right
 function findMaxMinIndexFromCutsiteLoc(compPositions, cutSiteLoc) {
-    var maxStart = 99999;
-    var maxEnd = 0;
-    for (var ii = 0 ; ii < compPositions.length; ++ii) {
-        var length = (compPositions[ii].end - compPositions[ii].start) + 1;
-        if(compPositions[ii].cutsiteRelativePos == "left"){
-            var left = cutSiteLoc + compPositions[ii].substrDistFromCutsite + length + 3;
-            if(left > maxEnd) maxEnd = left;
-        } else if(compPositions[ii].cutsiteRelativePos == "right"){
-            var right = cutSiteLoc - compPositions[ii].substrDistFromCutsite - length + 2;
-            if(right < maxStart) maxStart = right;
+    var maxLeft = 99999;
+    var maxRight = 0;
+    for (var jj = 0; jj < compPositions.length ; ++jj) {
+        var position = compPositions[jj];
+        if(position.cutsiteRelativePos == "right"){
+            var length = position.end - position.start + 1;
+            var right = cutSiteLoc
+                - position.substrDistFromCutsite
+                -  length;
+            if(maxLeft > right) maxLeft = right;
+            if((right + length) > maxRight) maxRight = right + length;
+        } else if (position.cutsiteRelativePos == "left"){
+            var length = position.end - position.start + 1;
+            var left = cutSiteLoc 
+                + position.substrDistFromCutsite
+                +  length;
+            if(left > maxRight) maxRight = left;
+            if(maxLeft > (left - length)) maxLeft = left - length;
         }
     }
-    return {"start": maxStart, "end": maxEnd};
+
+
+    return {"start": maxLeft, "end": maxRight};
 }
 
 /*

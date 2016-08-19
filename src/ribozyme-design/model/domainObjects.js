@@ -55,7 +55,7 @@ var AlgorithmUtilities = require('../AlgorithmUtilities.js');
 
 
     function Candidate(sequence, Id, requestID, cutsiteID, cutSiteLocation,
-        meltingTemperature, meltList, complimentaryPositions, armLengthList)
+        meltingTemperature, meltList, complimentaryPositions, samePositions, armLengthList)
     {
         this.Sequence = sequence;
         this.ID = Id;
@@ -72,6 +72,7 @@ var AlgorithmUtilities = require('../AlgorithmUtilities.js');
         this.MeltingTemperature = meltingTemperature;
         this.MeltingTemperatureList = meltList;
         this.complimentaryPositions = complimentaryPositions;
+        this.samePositions = samePositions;
         this.ArmLengthList = armLengthList;
     }
 
@@ -115,44 +116,12 @@ var AlgorithmUtilities = require('../AlgorithmUtilities.js');
         var rzType = rzNameType[1];
         var config = new RibozymeConfigXML(config_xml_path);
         config.getConfigXML();
-        var seqStruct = config.getSeqStruct(rzName, rzType);
 
-        var positionsToReplace = new Array();
-        var firstPos = 0;
-        var lastPos = 0;
-        var nStarts = false;
-        for(var j = 0; j < seqStruct.sequence.length; j++){
-            if(!nStarts && seqStruct.sequence[j] == 'N'){
-                firstPos = j;
-                nStarts = true;
-            }
-            if(nStarts && seqStruct.sequence[j] != 'N'){
-                lastPos = j - 1;
-                nStarts = false;
-                positionsToReplace.push({start: firstPos, end: lastPos});
-            }
-        }
-        if(nStarts){
-            lastPos = seqStruct.sequence.length - 1;
-            positionsToReplace.push({start: firstPos, end: lastPos});
-        }
+        var positionList = candidate.complimentaryPositions.slice();
+        positionList = positionList.concat(candidate.samePositions);
+        armLengthList = AlgorithmUtilities.CalculateArmLength(positionList);
 
-        var seqArr = seqStruct.sequence.split('');
-        var structArr = seqStruct.structure.split('');
-        for(var i = candidate.ArmLengthList.length - 1; i >= 0; i--) {
-            var armLength = candidate.ArmLengthList[i];
-            var Ns  = '';
-            var dots  = '';
-            for(var j = 0; j < armLength; j ++) Ns += 'N';
-            for(var j = 0; j < armLength; j ++) dots += '.';
-            var start = positionsToReplace[i].start;
-            var end = positionsToReplace[i].end;
-            seqArr.splice(start, end - start + 1, Ns);
-            structArr.splice(start, end - start + 1, dots);
-        }
-
-        seqStruct.sequence = seqArr.join('');
-        seqStruct.structure = structArr.join('');
+        var seqStruct = config.getSeqStruct(rzName, rzType, armLengthList);
 
         var connectedPairsTemplate = AlgorithmUtilities.convertSeqStructToIndexStruct(
             seqStruct.sequence, seqStruct.structure);
@@ -170,7 +139,6 @@ var AlgorithmUtilities = require('../AlgorithmUtilities.js');
             }
         }
         this.Fitness += MeltingTCalcRouter(excludedPairs, prefs);
-
     }
 
 

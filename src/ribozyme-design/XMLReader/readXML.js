@@ -6,8 +6,9 @@ function RibozymeConfigXML(xmlPath){
     this.xmlPath = xmlPath;
 }
 
-RibozymeConfigXML.prototype.getSeqStruct = function(ribozymeName, ribozymeType){
+RibozymeConfigXML.prototype.getSeqStruct = function(ribozymeName, ribozymeType, armList){
     var valuesToReturn = new Object();
+    var armListCount = 0;
     this.parser.parseString(this.data, function (err, result) {
         result.root.ribozyme.forEach(function(ribozyme) {
             var name = ribozyme.$['name'];
@@ -20,6 +21,7 @@ RibozymeConfigXML.prototype.getSeqStruct = function(ribozymeName, ribozymeType){
             }
             if(name == ribozymeName && type == ribozymeType){
                 var position = 0;
+                var templatePosition = 0
                 var sequence = '';
                 var structure = '';
                 ribozyme.seq.forEach(function(seq) {
@@ -36,13 +38,20 @@ RibozymeConfigXML.prototype.getSeqStruct = function(ribozymeName, ribozymeType){
                             if(typeof pkFrom === 'undefined'){
                                 for(var i = 0; i < seq._.length; i ++){
                                     structure += '.';
-                                    position++; 
+                                    position++;
+                                    templatePosition++;
                                 }
                             }
                         }
 
                         if(typeof lengthFrom !== 'undefined'){
-                            length = Math.round((parseInt(lengthFrom) + parseInt(lengthTo))/2);
+                            var avgLength = Math.round((parseInt(lengthFrom) + parseInt(lengthTo))/2);;
+                            if(armList === undefined){
+                                length = avgLength;
+                            } else {
+                                length = armList[armListCount++];
+                            }
+                            templatePosition += avgLength;
                             for(var i = 0; i < length; i ++){
                                 sequence += 'N'; 
                                 structure += '.';
@@ -52,19 +61,25 @@ RibozymeConfigXML.prototype.getSeqStruct = function(ribozymeName, ribozymeType){
                             if (typeof seq._ !== 'undefined') {
                                 length = parseInt(pkTo) - parseInt(pkFrom) + 1;
                                 for(var i = 0; i < length; i++){
-                                    if(position < pkFrom){
+                                    if(templatePosition < pkFrom){
                                         structure += '[';
                                     } else {
                                         structure += ']';
                                     }
                                     position++;
+                                    templatePosition++;
                                 }
                             } else {
-                                length = parseInt(pkTo) - parseInt(pkFrom) + 1;
+                                if(armList === undefined){
+                                    length = parseInt(pkTo) - parseInt(pkFrom) + 1;
+                                } else {
+                                    length = armList[armListCount++];
+                                }
                                 for(var i = 0; i < length; i ++){
                                     sequence += 'N'; 
                                     structure += '.';
                                     position++;
+                                    templatePosition++;
                                 }
                             }
                         }
@@ -73,12 +88,13 @@ RibozymeConfigXML.prototype.getSeqStruct = function(ribozymeName, ribozymeType){
                         var from = parseInt(seq.$['from']);
                         var to = parseInt(seq.$['to']);
                         for(var i = 0; i < seq._.length; i ++){
-                            if(position < from){
+                            if(templatePosition < from){
                                 structure += '(';
                             } else {
                                 structure += ')';
                             }
-                            position++; 
+                            position++;
+                            templatePosition++;
                         }
                     }
                 });

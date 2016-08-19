@@ -380,6 +380,7 @@ function _handleRequestPart1(request)
                     rawCandidate.MeltingTemperature,
                     rawCandidate.MeltingTempList,
                     rawCandidate.compPositions,
+                    rawCandidate.samePositions,
                     AlgorithmUtilities.CalculateArmLength(rawCandidate.compPositions)
                     );
                 candidates.push(newCandidate);

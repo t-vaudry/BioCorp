@@ -54,10 +54,14 @@ GACTTTACCTAGGAAAGGCAGAAAGAGTCAGCAGCATGCATTCCATTTGGCCAGGGGGATTTTTATTACC\
 ACACAGCCATGTTTGGAGGAACACCCATTCAGGTTCTCAACATCCCCCAGGAGTGCTTTAAAGGAATCCT\
 CCTGGAAAAGAAAAATGACAT";
 
+var testSeq = 
+"TTAAATTCTAATTAGAGATGCAGGAATCAATGATAGGGAGGTTGGACAGCTCAGTTCCCCAGTGCCAGCCCAATAGACGGATGAGTTATTGTCATGTAAAAAGCGCCAGCAATAAGACCAACCGCTTTGCTATTGTCCAAGTGGAAAGAGCCAAGTTTATTATGAGGACTATATGCTCTAGAGACCTCAGACAAGGCATCTCATAGGAGGCTTTTTCATAAAACTAGGCTCTGCTGGTAGTAAGGAGGCCAGTTTGGAGGCAGGCGTTGAGCTGTGCACATCTCCCCACTCCAGCCACCTTCTCCATATCCATCTTTTATTTCATTTTTCCACTTGGCTGAGCCATCCAGAACCTTTTCAATGTATAAAATGGAATATTCTTACCTCAATTCCTCTGCCTACGA";
+
+
 var request = new Request
 (
-    //  M73307,
-    short,
+     M73307,
+    // testSeq,
     ' ', //Accesion number
     { //Preferences
         'tempEnv' :37,
@@ -65,11 +69,11 @@ var request = new Request
         'mgEnv' : 1, //mM
         'oligoEnv': 12,
         'cutsites' : ['GUC'],
-        'ribozymeSelection': 'hammerHead-Rz',
-        'left_arm_min': 5,
-        'right_arm_min': 5,
-        'left_arm_max':6,
-        'right_arm_max':6,
+        'ribozymeSelection': 'SOFA_HDV-Rz',
+        'left_arm_min': 7,
+        'right_arm_min': 7,
+        'left_arm_max':20,
+        'right_arm_max':7,
         'promoter': '',
         'specificity':true
     },

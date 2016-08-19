@@ -233,12 +233,15 @@ var deleteFolderRecursive = function (path) {
 };
 
 function CalculateArmLength(complementaryPositions) {
+    complementaryPositions.sort(function(pos1, pos2) {
+        return pos1.start - pos2.start;
+    });
     var armsLengthList = new Array();
     for (var ii = 0; ii < complementaryPositions.length ; ++ii) {
         var position = complementaryPositions[ii];
         armsLengthList.push(position.end - position.start + 1);
     }
-    return armsLengthList.reverse();
+    return armsLengthList;
 }
 
 function FindConstraints(candidates) {
@@ -254,12 +257,14 @@ function FindConstraints(candidates) {
                     - position.substrDistFromCutsite
                     -  length;
                 if(maxLeft > right) maxLeft = right;
+                if((right + length) > maxRight) maxRight = right + length;
             } else if (position.cutsiteRelativePos == "left"){
                 var length = position.end - position.start + 1;
                 var left = candidates[ii].cutSiteLocation 
                     + position.substrDistFromCutsite
                     +  length;
                 if(left > maxRight) maxRight = left;
+                if(maxLeft > (left - length)) maxLeft = left - length;
             }
         }
     }
