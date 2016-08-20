@@ -11,7 +11,7 @@ var appConfigXML = new RibozymeConfigXML(config_xml_path);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'BioCorp' });
+  res.render('index', { title: 'bioCorp' });
 });
 
 router.get('/ribozyme', function(req, res, next){
@@ -20,7 +20,7 @@ router.get('/ribozyme', function(req, res, next){
   var ribozymeHelixSizes = appConfigXML.getRibozymeHelixSizes();
   var cutsiteList = appConfigXML.getCutsiteList();
   res.render('./designSteps/ribozyme',
-    { title: 'Design with Ribozyme',
+    { title: 'design_with_ribozyme',
       ribozymeList: ribozymeList,
       ribozymeHelixSizes: ribozymeHelixSizes,
       cutsiteList: cutsiteList });
@@ -28,25 +28,25 @@ router.get('/ribozyme', function(req, res, next){
 
 router.get('/crispr', function(req, res, next){
   res.render('./crispr/crispr',
-    { title: 'Design CRISPR'});
+    { title: 'design_crispr'});
 });
 
 router.get('/index', function(req, res, next){
-  res.render('index', {title: 'BioCorp'});
+  res.render('index', {title: 'bioCorp'});
 });
 
 router.get('/license', function(req, res, next){
-  res.render('license', {title: 'License'});
+  res.render('license', {title: 'license'});
 });
 
 router.get('/oligoOrder', function(req, res, next){
-  res.render('./designSteps/oligoOrder', { title: 'Order Your Oligoo'});
+  res.render('./designSteps/oligoOrder', { title: 'order_your_oligoo'});
 });
 
 router.get('/processing/:id', function(req, res, next){
   res.render('processing_page', 
-    {title: 'Ribozoft - Processing',
-     pageTitle: 'Design In Process'});
+    {title: 'ribozoft_processing',
+     pageTitle: 'design_in_process'});
 });
 
 router.get('/results/:id', function(req, res, next){
@@ -56,13 +56,13 @@ router.get('/results/:id', function(req, res, next){
   try {
     json_output = require(path);
   } catch(error){
-    resultMessage = 'No candidates that meet the Annealing Temperature constraints could be generated. This is generally addressed by adjusting the arm lengths edges to be longer.';
+    resultMessage = 'no_candidates';
   }
 
   Request.findOne({uuid: req.params.id}, function(err, request){
     var obj = {
-      title: 'Ribozoft - Results',
-      stepTitle: 'Ribozyme Design Results',
+      title: 'ribozoft_results',
+      stepTitle: 'ribozyme_design_results',
       results: json_output,
       resultMessage: resultMessage,
       input: {}

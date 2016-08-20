@@ -5,37 +5,37 @@
 <form id="msform">
   <!-- progressbar -->
   <ul id="progressbar">
-    <li class="active">Sequence Selection</li>
-    <li>Design Options</li>
-    <li>Design Review</li>
-    <li>Design In Progress</li>
+    <li class="active"><%=texts.sequence_selection%></li>
+    <li><%=texts.design_options%></li>
+    <li><%=texts.design_review%></li>
+    <li><%=texts.design_in_progress%></li>
   </ul>
 
 
   <!-- Step 1: Sequence Selection -->
   <fieldset id="fsSeqSel" style="margin-bottom:40px;">
     <div class="row">
-      <h2 class="fs-title">Select the sequence</h2>
-      <h3 class="fs-subtitle">The sequence you want to cleave</h3>
+      <h2 class="fs-title"><%=texts.select_the_sequence%></h2>
+      <h3 class="fs-subtitle"><%=texts.sequence_to_cleave%></h3>
     </div>
 
     <div class="row">
       <div class="container inline" style="float:left;">
 
       <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="margin-bottom:15px;">
-        <p class="substep-description">Search for sequence number.<br/>You may also find your sequence <a target="_blank" href="http://www.ncbi.nlm.nih.gov/genbank/">here</a></p>
-        <input id="accession" placeholder="(example: M73307)"/>
-        <button id="submit_ACN" class="btn" type="button">Search</button>
+        <p class="substep-description"><%=texts.search_sequence_number%><br/><%=texts.find_your_sequence%> <a target="_blank" href="http://www.ncbi.nlm.nih.gov/genbank/"><%=texts.here%></a></p>
+        <input id="accession" placeholder="(<%=texts.example%>: M73307)"/>
+        <button id="submit_ACN" class="btn" type="button"><%=texts.search%></button>
         <div id="accession_alert" class="alert invisible" style="margin-top:20px;"></div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-          <div class="bar-separator span2"><span class="emp">Or</div>
+          <div class="bar-separator span2"><span class="emp"><%=texts.or%></div>
       </div>
       <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
         <div class="span5 tile" id="drop">
-          <p class="substep-description">Select a file with your sequence to upload.<br/> (TXT or FASTA format)</p>
+          <p class="substep-description"><%=texts.select_file_seq%></p>
           <button class="btn" id="selectFileButton" >
-      Select File
+          <%=texts.select_file%>
           </button>
           <input type="file" style="visibility:hidden;" id="selectFileInput">
         </div>
@@ -44,12 +44,12 @@
       </div>
       <div id="sequence-wrap">
         <div id="sequence_alert" class="alert alert-error invisible"></div>
-        <textarea id="sequence-display" maxlength="3000" class="input-block-level" rows="10" placeholder="Paste your sequence here..."></textarea>
+        <textarea id="sequence-display" maxlength="3000" class="input-block-level" rows="10" placeholder="<%=texts.paste_sequence%>..."></textarea>
         <div id="sequence_alert" class="alert invisible"></div>
       </div>
 
       <div class="form-group">
-        <label for="rz-select">Select Ribozyme</label>
+        <label for="rz-select"><%=texts.select_ribozyme%></label>
         <select class="form-control" id="rz-select">
           <% ribozymeList.forEach(function(ribozyme, index) { %>
             <option value="<%= ribozyme['name'] %>-<%= ribozyme['type'] %>"
@@ -62,26 +62,26 @@
       </div>
 
     </div>
-    <input type="button" name="next" class="btn btn-primary btn-large stepNext  disabled action-button" value="Next" id="submit1">
+    <input type="button" name="next" class="btn btn-primary btn-large stepNext  disabled action-button" value="<%=texts.next%>" id="submit1">
   </fieldset>
 
 
   <!-- Step 2: Design Options -->
 
   <fieldset id="fsDesignOption" style="margin-bottom:40px;">
-    <h2 class="fs-title">Design Options</h2>
-    <h3 class="fs-subtitle">Please select the options that will be applied during the design of the ribozyme</h3>
+    <h2 class="fs-title"><%=texts.design_options%></h2>
+    <h3 class="fs-subtitle"><%=texts.please_select_option%></h3>
     <div class="container" id="stepTwoDiv">
       <div id="designAlert" class="alert alert-danger invisible"></div>
 
       <div class="collapse-container">
-      <legend data-toggle="collapse" data-target=".regionOption" align="left"><span class="rtdDrop glyphicon glyphicon-arrow-right"></span>  Regions for Target Design </legend>
+      <legend data-toggle="collapse" data-target=".regionOption" align="left"><span class="rtdDrop glyphicon glyphicon-arrow-right"></span><%=texts.target_design%>  </legend>
       <i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#regionTargetModal"></i>
       </div>
 
       <ul class="collapse regionOption divCollapse">
           <li><input type="checkbox" name="region" value="5"> 5'UTR</li>
-          <li><input type="checkbox" name="region" value="ORF" checked="true"> Open Reading Frame (ORF)</li>
+          <li><input type="checkbox" name="region" value="ORF" checked="true"> <%=texts.open_reading%></li>
           <li><input type="checkbox" name="region" value="3"> 3'UTR</li>
       </ul>
 
@@ -89,44 +89,44 @@
 
       <div class="collapse-container">
 
-      <legend data-toggle="collapse" data-target=".targetenvOption" align="left"><span class="teDrop glyphicon glyphicon-arrow-right"></span>  Target Environment *</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#targetEnvironmentModal"></i>
+      <legend data-toggle="collapse" data-target=".targetenvOption" align="left"><span class="teDrop glyphicon glyphicon-arrow-right"></span> <%=texts.target_environment%> *</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#targetEnvironmentModal"></i>
       </div>
 
       <ul class="collapse in targetenvOption divCollapse">
-        <li><input type="radio" name="env" value="vitro" id="vitroRadio"> In-vitro</li>
-        <li><input type="radio" name="env" value="vivo" id="vivoRadio"> In-vivo </li>
+        <li><input type="radio" name="env" value="vitro" id="vitroRadio"><%=texts.in_vitro%></li>
+        <li><input type="radio" name="env" value="vivo" id="vivoRadio"><%=texts.in_vivo%> </li>
         <li>
           <div class="form-group">
             <select class="form-control" id="envVivo" name="envVivo" disabled="true">
-            <option value="mouse (taxid:10090)" selected="selected">Mouse</option>
-            <option value="rat (taxid:10114)">Rat</option>
-            <option value="human (taxid:9606)">Human</option>
-            <option value="daphnia (taxid:6668)">Daphnia</option>
-            <option value="ecoli (taxid:562)">E Coli</option>
-            <option value="yeast (taxid:4932)">Yeast</option>
+            <option value="mouse (taxid:10090)" selected="selected"><%=texts.mouse%></option>
+            <option value="rat (taxid:10114)"><%=texts.rat%></option>
+            <option value="human (taxid:9606)"><%=texts.human%></option>
+            <option value="daphnia (taxid:6668)"><%=texts.daphnia%></option>
+            <option value="ecoli (taxid:562)"><%=texts.ecoli%></option>
+            <option value="yeast (taxid:4932)"><%=texts.yeast%></option>
           </select>
           </div></li>
       </ul>
 
       <div class="collapse-container">
-      <legend data-toggle="collapse" data-target=".envpropOption" align="left"><span class="epDrop glyphicon glyphicon-arrow-right"></span>  Environment Properties *</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#envPropertyModal"></i>
+      <legend data-toggle="collapse" data-target=".envpropOption" align="left"><span class="epDrop glyphicon glyphicon-arrow-right"></span> <%=texts.environment_properties%>  *</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#envPropertyModal"></i>
       </div>
 
       <ul class="envpropOption collapse divCollapse">
         <li>
-          <label for="temperature" style="margin-right:60px;">Temperature *</label>
+          <label for="temperature" style="margin-right:60px;"><%=texts.temperature%> *</label>
           <input type="number" name="temperature" value="37" min="0" step="0.1"  style="width:80px; margin-left:-10px;" required> &#8451
         </li>
         <li>
-          <label for="naC" style="margin-right:55px; margin-left:15px;">Na&#8314 Concentration *</label>
+          <label for="naC" style="margin-right:55px; margin-left:15px;">Na&#8314 <%=texts.concentration%> *</label>
           <input type="number" name="naC" value="150" min="0" step="0.1" style="width:80px; margin-left:-12px;" required> mM
         </li>
         <li>
-          <label for="mgC" style="margin-right:10px;">Mg<sup>2</sup>&#8314 Concentration</label>
+          <label for="mgC" style="margin-right:10px;">Mg<sup>2</sup>&#8314 <%=texts.concentration%></label>
           <input type="number" name="mgC" value="1" min="0" step="0.1" style="width:80px;"> mM
         </li>
         <li>
-          <label for="oligoC" style="margin-right:15px;">Oligomer Concentration</label>
+          <label for="oligoC" style="margin-right:15px;">Oligomer <%=texts.concentration%></label>
           <input type="number" name="oligoC" value="200" min="0" step="0.1" style="width:80px;"> nM
         </li>
       </ul>
@@ -135,7 +135,7 @@
       <!-- Option cannot be implemented as Dr.Kharma requested. -->
       <!-- has to find a way in the future -->
       <div class="collapse-container">
-      <legend data-toggle="collapse" data-target=".cutsiteOption" align="left"><span class="pcDrop glyphicon glyphicon-arrow-right"></span>  Potential Cut-sites</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#potentialCutSitesModal"></i>
+      <legend data-toggle="collapse" data-target=".cutsiteOption" align="left"><span class="pcDrop glyphicon glyphicon-arrow-right"></span> <%=texts.potential_cut_sites%></legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#potentialCutSitesModal"></i>
       </div>
 
       <div class="cutsiteOption collapse divCollapse">
@@ -156,15 +156,15 @@
       </div>
 
       <div class="collapse-container">
-      <legend data-toggle="collapse" data-target=".shapeOption" align="left"><span class="rsDrop glyphicon glyphicon-arrow-right"></span>  Ribozyme Shape</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#rzShapeModal"></i>
+      <legend data-toggle="collapse" data-target=".shapeOption" align="left"><span class="rsDrop glyphicon glyphicon-arrow-right"></span> <%=texts.ribozyme_shape%></legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#rzShapeModal"></i>
       </div>
       <ul class="shapeOption collapse divCollapse">
-        <li><input type="radio" name="foldShape" value="Basic" required="true" checked="checked">Minimal (before 2003)</li>
-        <li><input type="radio" name="foldShape" value="Wishbone" required="true">Wishbone (discovered in 2003)</li>
+        <li><input type="radio" name="foldShape" value="Basic" required="true" checked="checked"><%=texts.minimal%></li>
+        <li><input type="radio" name="foldShape" value="Wishbone" required="true"><%=texts.wishbone%></li>
       </ul>
 
       <div class="collapse-container">
-      <legend data-toggle="collapse" data-target=".armsOption" align="left"><span class="alDrop glyphicon glyphicon-arrow-right"></span>  Advanced Options - Arms Length</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#armsLengthModal"></i>
+      <legend data-toggle="collapse" data-target=".armsOption" align="left"><span class="alDrop glyphicon glyphicon-arrow-right"></span><%=texts.arms_length%> </legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#armsLengthModal"></i>
       </div>
 
       <% ribozymeHelixSizes.forEach(function(ribozymeHelixSize, index) { %>
@@ -200,14 +200,14 @@
               <select class="form-control" id="promoList" name="promoList" disabled="true">
               <option value="T7" selected="selected">T7</option>
               <option value="CMV">CMV</option>
-              <option value="Others">Others</option>
+              <option value="Others"><%=texts.others%></option>
               </select>
             </div></li>
         </ul>
 
         <div id="promosequence-wrap" style="margin-left: -400px;">
           <div id="promosequence_alert" class="alert alert-error invisible"></div>
-          <textarea id="promosequence-display" maxlength="3000" class="input-block-level invisible" rows="5" placeholder="Paste your promoter sequence (5' -> 3')" style="width:80%;" ></textarea>
+          <textarea id="promosequence-display" maxlength="3000" class="input-block-level invisible" rows="5" placeholder="<%=texts.paste_promoter%>" style="width:80%;" ></textarea>
           <div id="sequence_alert" class="alert invisible"></div>
         </div>
       </div>
@@ -216,119 +216,119 @@
 
 
       <div class="collapse-container">
-      <legend data-toggle="collapse" data-target=".specOption" align="left"><span class="speDrop glyphicon glyphicon-arrow-right"></span>  Specificity</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#specificityModal"></i>
+      <legend data-toggle="collapse" data-target=".specOption" align="left"><span class="speDrop glyphicon glyphicon-arrow-right"></span> <%=texts.specificity%> </legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#specificityModal"></i>
       </div>
 
       <ul class="specOption collapse divCollapse">
         <li style="margin-left:-10%;">
-          <input type="radio" name="specificity" value="cleavage" id="cleavageRadio" required> Cleavage Only
+          <input type="radio" name="specificity" value="cleavage" id="cleavageRadio" required><%=texts.cleavage_only%>
         </li>
         <li>
-          <input type="radio" name="specificity" value="hybrid" id="hybridRadio" required> Cleavage and Hybridization
+          <input type="radio" name="specificity" value="hybrid" id="hybridRadio" required><%=texts.cleavage_hybridization%>
         </li>
         <li>
-          <input type="radio" name="specificity" value="notcomputed" id="notcomputedRadio" required> Not Computed
+          <input type="radio" name="specificity" value="notcomputed" id="notcomputedRadio" required><%=texts.not_computed%>
         </li>
       </ul>
     </div>
 
     <div id="designAlert2" class="alert alert-danger invisible"></div>
 
-    <input type="button" name="previous" class="previous action-button" value="Previous" />
-    <input type="button" name="next" class="stepNext action-button disabled" value="Next" id="stepTwoFinish"/>
+    <input type="button" name="previous" class="previous action-button" value="<%=texts.previous%>" />
+    <input type="button" name="next" class="stepNext action-button disabled" value="<%=texts.next%>" id="stepTwoFinish"/>
   </fieldset>
 
   <!-- Setp 3: Design Review -->
   <fieldset id="fsDesignReview">
-    <h2 class="fs-title">Design Review</h2>
-    <h3 class="fs-subtitle">Here are the design options that will be applied to the sequence.</h3>
+    <h2 class="fs-title"><%=texts.design_review%></h2>
+    <h3 class="fs-subtitle"><%=texts.here_design_options%></h3>
 
     <div class="container summary">
       <div id="submitAlert" class="alert alert-danger invisible"></div>
       <div>
         <table class="table table-hover table-condensed">
           <thead>
-            <th>Design Option</th>
-            <th>Value</th>
+            <th><%=texts.design_options%></th>
+            <th><%=texts.value%></th>
           </thead>
           <tbody>
             <tr class="invisible" id="accessionNumberRow">
-              <td>Accession Number</td>
+              <td><%=texts.accession_number%></td>
               <td id="accessionNumber"></td>
             </tr>
 
             <tr>
-              <td>Sequence Length</td>
+              <td><%=texts.sequence_length%></td>
               <td id="seqLength"></td>
             </tr>
 
             <tr id="targetRegionRow">
-              <td>Target Region</td>
+              <td><%=texts.target_region%></td>
               <td id="targetRegion"></td>
             </tr>
 
             <tr>
-              <td>Target Environment</td>
+              <td><%=texts.target_environment%></td>
               <td id="targetEnv"></td>
             </tr>
 
             <tr id="vivoEnvRow" class="invisible">
-              <td>In-vivo Environment</td>
+              <td><%=texts.in_vivo_environment%></td>
               <td id="vivoEnv"></td>
             </tr>
 
             <tr>
-              <td>Temperature</td>
+              <td><%=texts.temperature%></td>
               <td id="tempEnv"></td>
             </tr>
 
             <tr>
-              <td>Na&#8314; Concentration</td>
+              <td>Na&#8314; <%=texts.concentration%></td>
               <td id="naEnv"></td>
             </tr>
 
             <tr>
-              <td>Mg<sup>2</sup>&#8314; Concentration</td>
+              <td>Mg<sup>2</sup>&#8314; <%=texts.concentration%></td>
               <td id="mgEnv"></td>
             </tr>
 
             <tr>
-              <td>Oligomer Concentration</td>
+              <td>Oligomer <%=texts.concentration%></td>
               <td id="oligoEnv"></td>
             </tr>
 
             <tr>
-              <td>Cut-sites</td>
+              <td><%=texts.cut_sites%></td>
               <td id="cutsites"></td>
             </tr>
 
             <tr>
-              <td>Fold Shape</td>
+              <td><%=texts.fold_shape%></td>
               <td id="foldShape"></td>
             </tr>
 
             <tr>
-              <td>Ribyzome Type</td>
+              <td><%=texts.ribyzome_type%></td>
               <td id="ribozymeType"></td>
             </tr>
 
             <tr>
-              <td>Helix I Length</td>
+              <td><%=texts.helix_I_length%></td>
               <td id="leftArm"></td>
             </tr>
 
             <tr>
-              <td>Helix III Length</td>
+              <td><%=texts.helix_III_length%></td>
               <td id="rightArm"></td>
             </tr>
 
             <tr>
-              <td>Use Promoter</td>
+              <td><%=texts.use_promoter%></td>
               <td id="promoter"></td>
             </tr>
 
             <tr>
-              <td>Specificity</td>
+              <td><%=texts.specificity%></td>
               <td id="specificity"></td>
             </tr>
 
@@ -340,34 +340,34 @@
 
     <div>
       <div class="organization-input">
-        <h4>User Agreement</h4>
+        <h4><%=texts.user_agreement%></h4>
         <div class="alert alert-error invisible" id="organization-alert"></div>
 
           <p>
-            We need a bit more information before submitting the request
+            <%=texts.bit_more_information%>
           </p>
-          <label for="organization">Organization:</label>
-          <input type="text" name="organization" id="organization"  placeholder="(example: Concordia University)" required>
+          <label for="organization"><%=texts.organization%>:</label>
+          <input type="text" name="organization" id="organization"  placeholder="(<%=texts.example%>: <%=texts.concordia%>)" required>
 
-          <label for="email">Email:</label>
-          <input type="email" name="email" id="email"  placeholder="(example: me@example.org)" required>
+          <label for="email"><%=texts.email%>:</label>
+          <input type="email" name="email" id="email"  placeholder="(<%=texts.example%>: me@example.org)" required>
           <p>
-            By clicking on the "Submit" Button, I confirm that I have read and agreed to the terms of the <a target="_blank" href="../license">license.</a>
+            <%=texts.by_clicking%> <a target="_blank" href="../license">license.</a>
           </p>
 
       </div>
     </div>
 
-    <input type="button" name="previous" class="previous action-button" value="Previous" />
-    <input type="button" name="next" class="stepNext action-button" value="Submit" id="stepThreeFinish"/>
+    <input type="button" name="previous" class="previous action-button" value="<%=texts.previous%>" />
+    <input type="button" name="next" class="stepNext action-button" value="<%=texts.submit%>" id="stepThreeFinish"/>
   </fieldset>
 
   <!-- Step 4: In Process -->
   <fieldset id="fsProcessing">
-    <h2 class="fs-title">Processing</h2>
-    <h3 class="fs-subtitle">Your request has been submitted. You can wait for the design process to finish, or enter your email and we will send you a link once it is completed.</h3>
+    <h2 class="fs-title"><%=texts.processing%></h2>
+    <h3 class="fs-subtitle"><%=texts.your_request%></h3>
 
-    <input type="submit" name="submit" class="submit action-button" value="Close" />
+    <input type="submit" name="submit" class="submit action-button" value="<%=texts.close%>" />
   </fieldset>
 </form>
 

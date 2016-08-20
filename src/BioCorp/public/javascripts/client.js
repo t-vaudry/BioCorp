@@ -75,6 +75,7 @@ function initializePage() {
   $('#submit1').click(function(){
     console.log(request);
     request.sequence = $('#sequence-display').val();
+    request.sequence = request.sequence.toUpperCase();
     request.originalSequence = request.sequence;
     console.log(request.sequence);
     var selection = $('#rz-select option:selected').attr('value');

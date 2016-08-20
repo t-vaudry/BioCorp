@@ -243,7 +243,6 @@ function _getContiniousPairsInRegion(structureInfo, start, end) {
 function EvaluateTargetFoldsFitness(structureInfoArray, candidate, prefs) {
 
     var maxMinIndex = findMaxMinIndexFromCutsiteLoc(candidate.complimentaryPositions, candidate.cutSiteLocation);
-
     var totalFitness = 0;
     for (var ii = 0 ; ii < structureInfoArray.length; ++ii) {
         var continiousSeqArr = _getContiniousPairsInRegion(structureInfoArray[ii], maxMinIndex.start , maxMinIndex.end);
@@ -280,7 +279,7 @@ function findMaxMinIndexFromCutsiteLoc(compPositions, cutSiteLoc) {
         }
     }
 
-
+    maxLeft = maxLeft >= 0 ? maxLeft : 0;
     return {"start": maxLeft, "end": maxRight};
 }
 

@@ -4,33 +4,33 @@
 <form id="oligoForm">
   <!-- progressbar -->
   <ul id="oligoProgressbar">
-    <li class="active">Order Information</li>
-    <li>Personal Information</li>
-    <li>Order Review</li>
-    <li>Order In Progress</li>
+    <li class="active"><%=texts.order_information%></li>
+    <li><%=texts.personal_information%></li>
+    <li><%=texts.order_review%></li>
+    <li><%=texts.order_progress%></li>
   </ul>
 
 
   <!-- Step 1: Order Information -->
   <fieldset id="fsOligoOrder" style="margin-bottom:40px;">
     <div class="row">
-      <h2 class="fs-title">Order DNA/RNA Oligo</h2>
-      <h3 class="fs-subtitle">If you are a new customer, please fill out the <a href="#"> Customer Registration Form</a>.</h3>
+      <h2 class="fs-title"><%=texts.order_oligo%></h2>
+      <h3 class="fs-subtitle"><%=texts.new_customer%> <a href="#"> <%=texts.registration%> </a>.</h3>
     </div>
 
     <div class="row">
       <div class="container">
 
-      <legend data-toggle="collapse" data-target=".regionOption" align="left"><span class=" glyphicon glyphicon-arrow-right"></span> Oligo Sequence </legend>
+      <legend data-toggle="collapse" data-target=".regionOption" align="left"><span class=" glyphicon glyphicon-arrow-right"></span> <%=texts.oligo_sequence%> </legend>
       <i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#oligoSequenceModal"></i>
 
       <ul class="modification">
           <li>
-            <label for="modification5">5' Modification </label>
+            <label for="modification5">5' <%=texts.modification%> </label>
             <div class="form-group">
 
               <select class="form-control" id="promoList" name="modif5" style="width:100%;">
-              <option value="none" selected="selected">None</option>
+              <option value="none" selected="selected"><%=texts.none%></option>
               <option value="Aminolink">Aminolink</option>
               <option value="Biotin">Biotin</option>
               <option value="Fluorescein-6Fam">Fluorescein-6Fam</option>
@@ -38,17 +38,17 @@
               <option value="Fluorescein-Tet">Fluorescein-Tet</option>
               <option value="Phosphorylated">Phosphorylated</option>
               <option value="Tamra">Tamra</option>
-              <option value="Others">Others</option>
+              <option value="Others"><%=texts.others%></option>
               </select>
             </div></li>
             <li>
 
             </li>
             <li>
-              <label for="modification3" style="display:inline-block;">3' Modification </label>
+              <label for="modification3" style="display:inline-block;">3' <%=texts.modification%> </label>
               <div class="form-group">
                 <select class="form-control" id="promoList" name="modif3" style="width:100%;">
-                  <option value="none" selected="selected">None</option>
+                  <option value="none" selected="selected"><%=texts.none%></option>
                   <option value="Aminolink">Aminolink</option>
                   <option value="Biotin">Biotin</option>
                   <option value="Fluorescein-6Fam">Fluorescein-6Fam</option>
@@ -56,33 +56,33 @@
                   <option value="Fluorescein-Tet">Fluorescein-Tet</option>
                   <option value="Phosphorylated">Phosphorylated</option>
                   <option value="Tamra">Tamra</option>
-                  <option value="Others">Others</option>
+                  <option value="Others"><%=texts.others%></option>
                 </select>
               </div></li>
         </ul>
 
         <div id="sequence-wrap">
           <div id="sequence_alert" class="alert alert-error invisible"></div>
-          <textarea id="sequence-display" maxlength="3000" class="input-block-level" rows="5" placeholder="Paste your sequence here..." style="width:80%;"></textarea>
+          <textarea id="sequence-display" maxlength="3000" class="input-block-level" rows="5" placeholder="<%=texts.paste_sequence%>..." style="width:80%;"></textarea>
           <div id="sequence_alert" class="alert invisible"></div>
         </div>
 
 
-        <legend data-toggle="collapse" align="left"><span class=" glyphicon glyphicon-arrow-right"></span> Purity </legend>
+        <legend data-toggle="collapse" align="left"><span class=" glyphicon glyphicon-arrow-right"></span> <%=texts.purity%> </legend>
         <i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#oligoPurityModal"></i>
 
           <div class="form-group purity" align="center">
             <!--<label for="cutsites">Preferred Cut-Sites</label>-->
             <select class="form-control" name="purity" style="width:40%;">
-              <option value="Standard" selected="selected" >Standard</option>
+              <option value="Standard" selected="selected" ><%=texts.standard%></option>
               <option value="OPC">OPC</option>
    	          <option value="HPLC">HPLC</option>
    	          <option value="Gel">Gel</option>
-   	          <option value="Mixed">Mixed</option>
+   	          <option value="Mixed"><%=texts.mixed%></option>
             </select>
           </div>
 
-          <legend data-toggle="collapse" align="left"><span class=" glyphicon glyphicon-arrow-right"></span> Scale </legend>
+          <legend data-toggle="collapse" align="left"><span class=" glyphicon glyphicon-arrow-right"></span> <%=texts.scale%> </legend>
           <i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#oligoScaleModal"></i>
 
             <div class="form-group scale" align="center">
@@ -96,25 +96,25 @@
               </select>
             </div>
 
-            <legend align="left"><span class=" glyphicon glyphicon-arrow-right"></span> Date Requirement </legend>
+            <legend align="left"><span class=" glyphicon glyphicon-arrow-right"></span> <%=texts.date_requirement%> </legend>
 
               <div class="form-group scale" align="center">
                 <!--<label for="cutsites">Preferred Cut-Sites</label>-->
                 <select class="form-control" name="datereq" style="width:40%;">
-                  <option value="rush" selected="selected" >Rush!</option>
-                  <option value="1or2">1 ~ 2 day</option>
-                  <option value="lessWeek"> < 1 week</option>
+                  <option value="rush" selected="selected" ><%=texts.rush%>!</option>
+                  <option value="1or2">1 ~ 2 <%=texts.day%></option>
+                  <option value="lessWeek"> < 1 <%=texts.week%></option>
                 </select>
               </div>
 
-            <legend align="left"><span class=" glyphicon glyphicon-arrow-right"></span> Optional </legend>
+            <legend align="left"><span class=" glyphicon glyphicon-arrow-right"></span> <%=texts.optional%> </legend>
 
             <ul id="optional">
               <li>
-                <input type="checkbox" name="optional" value="plates">In 96 well plates
+                <input type="checkbox" name="optional" value="plates"><%=texts.well_plates%>
               </li>
               <li>
-                <input type="checkbox" name="optional" value="resuspended" onchange="handleResuspend(this)">Resuspended at
+                <input type="checkbox" name="optional" value="resuspended" onchange="handleResuspend(this)"><%=texts.resuspended%>
               </li>
               <li>
                 <select class="form-control" name="resuspend" disabled id="resuspendList">
@@ -129,7 +129,7 @@
       </div>
 
     </div>
-    <input type="button" name="next" class="btn btn-primary btn-large stepNext action-button" value="Next" id="submit1">
+    <input type="button" name="next" class="btn btn-primary btn-large stepNext action-button" value="<%=texts.next%>" id="submit1">
   </fieldset>
 
 
@@ -138,37 +138,37 @@
   <fieldset id="fsOligoPersonal" style="margin-bottom:40px;">
 
     <div class="container" id="oligoStepTwo" style="margin-bottom:20px;">
-      <legend align="center"> Personal Information </legend>
+      <legend align="center"> <%=texts.personal_information%> </legend>
       <div class="personalInfo">
         <li>
-        <label for="firstname">First Name: </label>
+        <label for="firstname"><%=texts.first_name%>: </label>
         <input type="text" name="firstname" required="required" style="margin-left:15px;" id="firstname">
         </li>
         <li>
-        <label for="lastname">Last Name: </label>
+        <label for="lastname"><%=texts.last_name%>: </label>
         <input type="text" name="lastname" required="required" style="margin-left:15px;" id="lastname">
         </li>
         <li>
-        <label for="emailaddr">Email Address</label>
+        <label for="emailaddr"><%=texts.email_address%></label>
         <input type="email" name="emailaddr" style="margin-left:15px;" id="emailaddr">
         </li>
         <li>
-        <label for="accHolder">Account Holder</label>
+        <label for="accHolder"><%=texts.account_holder%></label>
         <input type="text" name="accHolder" style="margin-left:15px;" id="accHolder">
         </li>
         <li>
-        <label for="institution">Institution</label>
+        <label for="institution"><%=texts.institution%></label>
         <input type="text" name="institution" style="margin-left:15px;" id="institution">
         </li>
         <li>
-        <label for="ponumber">P.O. Number</label>
+        <label for="ponumber"><%=texts.P_O_umber%></label>
         <input type="text" name="ponumber" style=" margin-left:15px;" id="ponumber">
         </li>
         <li>
-        <label for="invoice">Invoice by</label>
+        <label for="invoice"><%=texts.invoice_by%></label>
         <select class="form-control" name="invoice" style="margin-left:1.3%;">
-          <option value="creditcard">My Credit Card (on File)</option>
-          <option value="blanketorder">Blanket Order (on File)</option>
+          <option value="creditcard"><%=texts.credit_card%></option>
+          <option value="blanketorder"><%=texts.blanket_order%></option>
         </select>
         </li>
 
@@ -176,95 +176,95 @@
 
     </div>
 
-    <input type="button" name="previous" class="previous action-button" value="Previous" />
-    <input type="button" name="next" class="stepNext action-button" value="Next" id="stepTwoFinish"/>
+    <input type="button" name="previous" class="previous action-button" value="<%=texts.previous%>" />
+    <input type="button" name="next" class="stepNext action-button" value="<%=texts.next%>" id="stepTwoFinish"/>
   </fieldset>
 
   <!-- Setp 3: Design Review -->
   <fieldset id="fsOligoReview">
-    <h2 class="fs-title">Oligo Order Review</h2>
+    <h2 class="fs-title"><%=texts.oligo_order_review%></h2>
 
     <div class="container summary">
       <div>
         <table class="table table-hover table-condensed">
           <thead >
-            <th>Order Criteria</th>
-            <th>Value</th>
+            <th><%=texts.order_criteria%></th>
+            <th><%=texts.value%></th>
           </thead>
           <tbody>
 
             <tr>
-              <td>Oligo Sequence</td>
-              <td id="seqOligo">Test Value</td>
+              <td><%=texts.oligo_sequence%></td>
+              <td id="seqOligo"><%=texts.test_value%></td>
             </tr>
 
             <tr>
-              <td>Purity</td>
+              <td><%=texts.purity%></td>
               <td id="oligoPurity"></td>
             </tr>
 
             <tr>
-              <td>Scale</td>
+              <td><%=texts.scale%></td>
               <td id="oligoScale"></td>
             </tr>
 
             <tr>
-              <td>Date Requirement</td>
+              <td><%=texts.date_requirement%></td>
               <td id="oligoDate"></td>
             </tr>
 
             <tr>
-              <td>Plates (Optional)</td>
+              <td><%=texts.plates%></td>
               <td id="oligoPlates"></td>
             </tr>
 
             <tr>
-              <td>Resuspend</td>
+              <td><%=texts.resuspend%></td>
               <td id="oligoResuspended"></td>
             </tr>
 
             <tr>
-              <td>5' Modification</td>
+              <td>5' <%=texts.modification%></td>
               <td id="oligoModification5"></td>
             </tr>
 
             <tr>
-              <td>3' Modification</td>
+              <td>3' <%=texts.modification%></td>
               <td id="oligoModification3"></td>
             </tr>
 
             <tr>
-              <td>First Name</td>
+              <td><%=texts.first_name%></td>
               <td id="orderFirstname"></td>
             </tr>
 
             <tr>
-              <td>Last Name</td>
+              <td><%=texts.last_name%></td>
               <td id="orderLastname"></td>
             </tr>
 
             <tr>
-              <td>Email Address</td>
+              <td><%=texts.email_address%></td>
               <td id="orderEmail"></td>
             </tr>
 
             <tr>
-              <td>Account Holder</td>
+              <td><%=texts.account_holder%></td>
               <td id="orderAccountHolder"></td>
             </tr>
 
             <tr>
-              <td>Institution</td>
+              <td><%=texts.institution%></td>
               <td id="orderInstitution"></td>
             </tr>
 
             <tr>
-              <td>Invoice By</td>
+              <td><%=texts.invoice_by%></td>
               <td id="orderInvoice"></td>
             </tr>
 
             <tr>
-              <td>P.O. Number</td>
+              <td><%=texts.P_O_umber%></td>
               <td id="orderPONumber"></td>
             </tr>
 
@@ -278,16 +278,16 @@
 
 
 
-    <input type="button" name="previous" class="previous action-button" value="Previous" />
-    <input type="button" name="next" class="stepNext action-button" value="Submit" />
+    <input type="button" name="previous" class="previous action-button" value="<%=texts.previous%>" />
+    <input type="button" name="next" class="stepNext action-button" value="<%=texts.submit%>" />
   </fieldset>
 
   <!-- Step 4: In Process -->
   <fieldset id="fsProcessing">
-    <h2 class="fs-title">Processing</h2>
-    <h3 class="fs-subtitle">Your request has been submitted. You can wait for the design process to finish, or enter your email and we will send you a link once it is completed.</h3>
+    <h2 class="fs-title"><%=texts.processing%></h2>
+    <h3 class="fs-subtitle"><%=texts.your_request%></h3>
 
-    <input type="submit" name="submit" class="submit action-button" value="Close" />
+    <input type="submit" name="submit" class="submit action-button" value="<%=texts.close%>" />
   </fieldset>
 </form>
 

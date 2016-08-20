@@ -14,6 +14,7 @@ var users = require('./routes/users');
 
 var mongoose = require('mongoose');
 var api = require('./routes/api');
+var i18n = require("i18n-express");
 
 
 
@@ -30,6 +31,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(i18n({
+  translationsPath: path.join(__dirname, 'i18n'), 
+  siteLangs: ["en","fr"]
+}));
 
 app.use('/', routes);
 app.use('/users', users);

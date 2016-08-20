@@ -1,5 +1,5 @@
 <root>
-<ribozyme name='hammerHead' type='Rz' structure='5-3' title='Hammerhead'>
+<ribozyme name='hammerHead' type='Rz' structure='5-3' title='Hammerhead (Minimal, before 2003)'>
     <cutsite>
         <seq structure='5-3'>GUC</seq>
         <seq structure='5-3'>CUC</seq>
@@ -22,7 +22,7 @@
     <seq strand='single'>GAA</seq>
     <seq strand='single' name='Helix III' id='right_arm' lengthFrom='5' lengthTo='10' substrate='complementary' substrDistFromCutsite='-1' substrateDirection='3-5'/>
 </ribozyme>
-<ribozyme name='hammerHead2' type='Rz' structure='5-3' title='Hammerhead-2'>
+<ribozyme name='hammerHead2' type='Rz' structure='5-3' title='Hammerhead (Wishbone, discovered in 2003'>
     <cutsite>
         <seq structure='5-3'>GUC</seq>
         <seq structure='5-3'>CUC</seq>

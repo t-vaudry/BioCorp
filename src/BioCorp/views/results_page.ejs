@@ -2,90 +2,90 @@
 <div class="result_container">
 <div class="row-fluid step-header span12">
       <div class="step-container">
-        <h3 class="step-title"><%= stepTitle %></h3>
-<h4>Design Summary</h4><br/>
+        <h3 class="step-title"><%= texts[stepTitle] %></h3>
+<h4><%=texts.design_summary%></h4><br/>
 <div>
       <table class="table table-hover table-condensed">
       <thead>
         <tr>
-          <th>Design Option</th>
-          <th>Value</th>
+          <th><%=texts.design_options%></th>
+          <th><%=texts.value%></th>
         </tr>
       </thead>
       <tbody>
 	<% if(input.accessionNumber) { %>
 	<tr class="invisible" id="accessionNumberRow">
-          <td>Accession number</td>
+          <td><%=texts.accession_number%></td>
           <td id="accessionNumber"><%= input.accessionNumber %></td>
         </tr>
 	<% } %>
         <tr>
-          <td>Sequence Length</td>
+          <td><%=texts.sequence_length%></td>
           <td id="seqLength"><%= input.sequence.length %></td>
         </tr>
         <tr id="targetRegionRow">
-          <td>Target Region</td>
+          <td><%=texts.target_region%></td>
           <td id="targetRegion"><%= input.targetRegion %></td>
         </tr>
         <tr>
-          <td>Target Environment</td>
+          <td><%=texts.target_environment%></td>
           <td id="targetEnv"><%= input.targetEnv %></td>
         </tr>
 	<% if(input.vivoEnv) { %>
         <tr id="vivoEnvRow" class="invisible">
-          <td>In-vivo Environment</td>
+          <td><%=texts.in_vivo_environment%></td>
           <td id="vivoEnv"><%= input.vivoEnv %></td>
         </tr>
 	<% } %>
         <tr>
-          <td>Temperature</td>
+          <td><%=texts.temperature%></td>
           <td id="tempEnv"><%= input.tempEnv %> &deg;C</td>
         </tr>
         <tr>
-          <td>Na&#8314; Concentration</td>
+          <td>Na&#8314; <%=texts.concentration%></td>
           <td id="naEnv"><%= input.naEnv %> mM</td>
         </tr>
         <tr>
-          <td>Mg<sup>2</sup>&#8314; Concentration</td>
+          <td>Mg<sup>2</sup>&#8314; <%=texts.concentration%></td>
           <td id="mgEnv"><%= input.mgEnv %> mM</td>
         </tr>
         <tr>
-          <td>Oligomer Concentration</td>
+          <td>Oligomer <%=texts.concentration%></td>
           <td id="oligoEnv"><%= input.oligoEnv %> mM</td>
         </tr>
         <tr>
-          <td>Cut-sites</td>
+          <td><%=texts.cut_sites%></td>
           <td id="cutsites"><%= input.cutsites %></td>
         </tr>
         <tr>
-          <td>Fold Shape</td>
+          <td><%=texts.fold_shape%></td>
           <td id="foldShape"><%= input.foldShape %></td>
         </tr>
 	      <tr>
-          <td>Ribozyme Type</td>
+          <td><%=texts.ribyzome_type%></td>
           <td><%= input.ribozymeSelection %></td>
         </tr>
 	      <tr>
-          <td>Helix I Length</td>
+          <td><%=texts.helix_I_length%></td>
           <td id="leftArm">[<%= input.left_arm_min %>, <%= input.left_arm_max %>]</td>
         </tr>
 	      <tr>
-          <td>Helix III Length</td>
+          <td><%=texts.helix_III_length%></td>
           <td id="rightArm">[<%= input.right_arm_min %>, <%= input.right_arm_max %>]</td>
         </tr>
 	      <tr>
-          <td>T7 promoter used?</td>
+          <td><%=texts.T7_promoter_used%>?</td>
           <td id="promoter"><%= input.promoter %></td>
         </tr>
 	<tr>
-          <td>Specificity</td>
+          <td><%=texts.specificity%></td>
           <td id="specificity"><%= input.specificity %></td>
         </tr>
       </tbody>
     </table>
 </div>
-<h4>Design Results</h4>
-<% if(resultMessage) { %><p class="step-description"><%= resultMessage %></p><% } %>
+<h4><%=texts.design_results%></h4>
+<% if(resultMessage) { %><p class="step-description"><%= texts[resultMessage] %></p><% } %>
 <% if(results) { %>
   <script>
   var results = <%- JSON.stringify(results) %>;
@@ -95,20 +95,20 @@
 
   var meltingTempHeader = "";
   for(var ii = 0; ii < container[0].Cutsites[0].Candidates[0].MeltingTemperatureList.length; ii++){
-    meltingTempHeader += "<th><p>Melting Temperature (&deg;C)</p></th> ";
+    meltingTempHeader += "<th><p><%=texts.melting_temperature%> (&deg;C)</p></th> ";
   }
 
   var html ="<div class='step-contents center'>\
   <table class='table table-hover' id='results'>\
        <thead>\
-           <th><p>Cut-site Number</p></th>\
-           <th><p>Sequence</p></th> " + meltingTempHeader + "\
-           <th><p>Accessibility 1</p></th> \
-           <th><p>Accessibility 2</p></th> \
-           <th><p>Ribozyme Shape Quality</p></th>";
+           <th><p><%=texts.cut_site_number%></p></th>\
+           <th><p><%=texts.sequence%></p></th> " + meltingTempHeader + "\
+           <th><p><%=texts.accessibility%> 1</p></th> \
+           <th><p><%=texts.accessibility%> 2</p></th> \
+           <th><p><%=texts.ribozyme_shape_quality%></p></th>";
 
-           html += "<th id='specificity-col'><p>Weighted off-target hits</p></th>";
-           html += "<th id='rank-col'><p>Overall Rank</p></th></thead>";
+           html += "<th id='specificity-col'><p><%=texts.off_target_hits%></p></th>";
+           html += "<th id='rank-col'><p><%=texts.overall_rank%></p></th></thead>";
        container.forEach(function(type, ind1) {
             type.Cutsites.forEach(function(cutsite,ind2) {
                  cutsite.Candidates.forEach(function(candidate,ind3) {
@@ -143,7 +143,7 @@
       <div class="modal-content">
 	<div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Candidate description</h4>
+          <h4 class="modal-title"><%=texts.candidate_description%></h4>
 	</div>
 	<div class="modal-body" id="modal-body">
 	  <div class="candidate-details">
@@ -151,8 +151,8 @@
 	  </div>
 	</div>
 	<div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <a id="download-link" class="btn btn-primary" download="sequence.txt" href="data:text/plain">Download Sequence</a>
+          <button type="button" class="btn btn-default" data-dismiss="modal"><%=texts.close%></button>
+          <a id="download-link" class="btn btn-primary" download="sequence.txt" href="data:text/plain"><%=texts.download_sequence%></a>
 	</div>
       </div>
     </div>
@@ -163,7 +163,7 @@
       <div class="modal-content">
 	<div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title" id="myModalLabel">Off-target hits</h4>
+          <h4 class="modal-title" id="myModalLabel"><%=texts.off_target%></h4>
 	</div>
 	<div class="modal-body" id="modal-body">
 	  <div>
@@ -171,7 +171,7 @@
 	  </div>
 	</div>
 	<div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal"><%=texts.close%></button>
 	</div>
       </div>
     </div>

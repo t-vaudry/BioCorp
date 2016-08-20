@@ -21,7 +21,9 @@
     "request": "^2.72.0",
     "rimraf": "^2.5.3",
     "serve-favicon": "~2.3.0",
-    "webworker": "^0.8.4"
+    "webworker": "^0.8.4",
+    "node-google-translate-skidz": "~0.1.1",
+    "i18n-express": "~1.0.3"
   },
   "devDependencies": {
     "mocha": "^2.5.3",
