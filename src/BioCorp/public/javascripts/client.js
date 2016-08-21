@@ -42,7 +42,7 @@ function initializePage() {
     validator.validate(function(result){
       var input = result.toString();
       var validation = InputValidation.isInputValid(input);
-      request.sequence = InputValidation.cleanInput(input);
+      request.sequence = input;
       seqInput.setText(request.sequence);
       seqAlert.setState(validation);
       if(validation.ok){
@@ -74,7 +74,7 @@ function initializePage() {
   seqInput.emptyText();
   $('#submit1').click(function(){
     console.log(request);
-    request.sequence = $('#sequence-display').val();
+    request.sequence = InputValidation.cleanInput($('#sequence-display').val());
     request.sequence = request.sequence.toUpperCase();
     request.originalSequence = request.sequence;
     console.log(request.sequence);

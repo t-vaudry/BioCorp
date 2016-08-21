@@ -294,6 +294,9 @@ function HandleRequestPart1(request)
     }
 
     var estimate = EstimateTime(request);
+    if(request.Preferences.ribozymeSelection == 'crispr'){
+        estimate = estimate * 2;
+    }
     Log('Estimate is ' + estimate + ' minutes', 'HandleRequestPart1', 0);
     /*WARNING: This execution clears the queue of waiting folds which should be empty UNLESS simulateneous 'requests' were 
     to be supported. If in the future should the code be modified to support such, this must be taken into account.
