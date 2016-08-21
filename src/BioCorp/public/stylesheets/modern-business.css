@@ -90,8 +90,8 @@ td {
 
 #footer {
   clear: both;
-
-  /*height: 12em;*/
+  margin-top: 20px;
+  margin-bottom: 20px;
   position: relative;
 }
 

@@ -89,9 +89,8 @@ body {
 }
 /*progressbar*/
 #progressbar, #oligoProgressbar{
-	width: 120%;
+	width: 100%;
 	margin-bottom: 30px;
-	margin-left: -7%;
 	overflow: hidden;
 	/*CSS counters to number the steps*/
 	counter-reset: step;
