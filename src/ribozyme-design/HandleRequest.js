@@ -273,6 +273,24 @@ function HandleRequestPart1(request)
             multipleNArray = multipleNArray.concat(Utils.multipleNForSeq(element));
         });
         request.Preferences.cutsites = multipleNArray;
+
+        var helixSizes = config.getRibozymeHelixSizes();
+        
+        for(var index in helixSizes){
+            var helixSize = helixSizes[index];
+            if(helixSize.name == 'crispr'){
+                for(var helixValueIndex in helixSize.helixValues){
+                    var helixValue = helixSize.helixValues[helixValueIndex];
+                    if(helixValue['helixId'] == 'left_arm'){
+                        request.Preferences.left_arm_min = helixValue['lengthFrom']; 
+                        request.Preferences.left_arm_max = helixValue['lengthTo']; 
+                    } else if(helixValue['helixId'] == 'right_arm'){
+                        request.Preferences.right_arm_min = helixValue['lengthFrom']; 
+                        request.Preferences.right_arm_max = helixValue['lengthTo']; 
+                    }
+                } 
+            }
+        }
     }
 
     var estimate = EstimateTime(request);

@@ -3,7 +3,7 @@ var english = require('./i18n/en.json');
 var fs = require('fs');
 
 var french = new Object();
-
+ 
 for(prop in english){
   translate({
     french: french,
