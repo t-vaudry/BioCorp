@@ -129,8 +129,10 @@ var executeScript = function(){
 };
 
 process.on('uncaughtException', function(err) {
-    if(config.reporter)
-	mailer.notifyErrors(err.stack,function(){});
+    if(config.reporter){
+		console.log(err.stack);
+		mailer.notifyErrors(err.stack,function(){});
+	}
 });
 
 
