@@ -19,7 +19,7 @@ window.onload = function() {
 	if($('#fsOligoOrder').length > 0){
 		console.log($('#fsOligoOrder').height());
 		$('#footer').css('margin-top', function(){
-			return ($('#fsoligoOrder').height() + $('#navbar-first').height() + $('#navbar-second').height());
+			return ($('#fsOligoOrder').height() + $('#navbar-first').height() + $('#navbar-second').height());
 		});
 	};
 

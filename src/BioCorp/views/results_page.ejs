@@ -53,18 +53,17 @@
           <td>Oligomer <%=texts.concentration%></td>
           <td id="oligoEnv"><%= input.oligoEnv %> mM</td>
         </tr>
+	<% if(input.ribozymeSelection != 'crispr') { %>
         <tr>
           <td><%=texts.cut_sites%></td>
           <td id="cutsites"><%= input.cutsites %></td>
         </tr>
-        <tr>
-          <td><%=texts.fold_shape%></td>
-          <td id="foldShape"><%= input.foldShape %></td>
-        </tr>
+	<% } %>
 	      <tr>
           <td><%=texts.ribyzome_type%></td>
           <td><%= input.ribozymeSelection %></td>
         </tr>
+	<% if(input.ribozymeSelection != 'crispr') { %>
 	      <tr>
           <td><%=texts.helix_I_length%></td>
           <td id="leftArm">[<%= input.left_arm_min %>, <%= input.left_arm_max %>]</td>
@@ -77,7 +76,8 @@
           <td><%=texts.T7_promoter_used%>?</td>
           <td id="promoter"><%= input.promoter %></td>
         </tr>
-	<tr>
+	<% } %>
+        <tr>
           <td><%=texts.specificity%></td>
           <td id="specificity"><%= input.specificity %></td>
         </tr>
