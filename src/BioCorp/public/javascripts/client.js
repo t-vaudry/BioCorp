@@ -102,6 +102,7 @@ function initializePage() {
     console.log(request);
     console.log(data);
     summary.setTableData(request);
+    request.sequence = InputValidation.cleanInput(request.sequence);
     console.log(request.sequence);
     request.ribozymeSelection = "crispr";
 
