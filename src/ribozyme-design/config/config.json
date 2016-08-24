@@ -4,7 +4,8 @@
 	"sfold_path": "~/PhdResearch/Ribosoft/sfold-2.2/bin/sfold",
     "hotknots_path": "/home/mohiul/git/Biocorp/src/ribozyme-design-executor",
     "input_file_path": "/home/mohiul/git/Biocorp/src/ribozyme-design-executor/input_files",
-    "output_file_path": "/home/mohiul/git/Biocorp/src/ribozyme-design-executor/output"
+    "output_file_path": "/home/mohiul/git/Biocorp/src/ribozyme-design-executor/output",
+    "current_dir": "/home/mohiul/git/Biocorp/src/ribozyme-design-executor"
     },
     "log_level": 0
 }

@@ -3,6 +3,7 @@ var Log = require('./../log/').Log;
 var config = require('../config/config.json');
 var AlgorithmUtilities = require('../AlgorithmUtilities.js');
 var sfold_path = config.env.sfold_path;
+var current_dir = config.env.current_dir;
 
 //This variable holds how many folds are executing at a time, so that no more than BUFFER_MAX execute simultaneously.
 //(any
@@ -133,9 +134,9 @@ Fold.ExecuteFolding = function(candidate, constraints, reportObj, target )
     {
         Log('Executing fold of candidate ' + candidate.cutsiteID + ':' + candidate.ID, 'Fold.ExecuteFolding', 6);
         var fs = require('fs');
-        var seqFile = candidate.requestID + '/' + candidate.cutsiteID + '/' + candidate.ID + '.seq';
+        var seqFile = current_dir + '/' + candidate.requestID + '/' + candidate.cutsiteID + '/' + candidate.ID + '.seq';
         fs.writeFileSync(seqFile, '> File for  ' + candidate.ID + '\n' + candidate.sequence);
-        var newDir = candidate.requestID + '/' + candidate.cutsiteID + '/' + candidate.ID;
+        var newDir = current_dir + '/' + candidate.requestID + '/' + candidate.cutsiteID + '/' + candidate.ID;
 
         AlgorithmUtilities.DeleteFolderRecursive(newDir);
         fs.mkdirSync(newDir);
@@ -146,11 +147,11 @@ Fold.ExecuteFolding = function(candidate, constraints, reportObj, target )
     {
         Log('Executing fold of target with open cusite ' + candidate.cutsiteID , 'Fold.ExecuteFolding', 6);
         var fs = require('fs');
-        var seqFile = candidate.requestID + '/' + candidate.cutsiteID + '/' + candidate.ID + '.seq';
-        var constraintFile = candidate.requestID + '/' + candidate.cutsiteID + '/' + candidate.ID + '_constraint.seq';
+        var seqFile = current_dir + '/' + candidate.requestID + '/' + candidate.cutsiteID + '/' + candidate.ID + '.seq';
+        var constraintFile = current_dir + '/' + candidate.requestID + '/' + candidate.cutsiteID + '/' + candidate.ID + '_constraint.seq';
         fs.writeFileSync(seqFile, '> File for  ' + candidate.ID + '\n' + candidate.sequence);
         fs.writeFileSync(constraintFile, 'P ' + constraints.left + ' 0 ' + constraints.right);
-        var newDir = candidate.requestID + '/' + candidate.cutsiteID + '/' + candidate.ID;
+        var newDir = current_dir + '/' + candidate.requestID + '/' + candidate.cutsiteID + '/' + candidate.ID;
         AlgorithmUtilities.DeleteFolderRecursive(newDir);
         fs.mkdirSync(newDir);
         Fold.SFold(seqFile, newDir, reportObj, constraintFile,3);
@@ -170,7 +171,7 @@ Fold.FoldCandidates = function ( cutSite , candidateArray, reportObj)
 {
 	Log('Folding request being sent for candidates for cutSite ' + cutSite.ID, 'Fold.FoldCandidates',5);
     var fs = require('fs');
-    var newDir = cutSite.requestID + '/' + cutSite.ID;
+    var newDir = current_dir + '/' + cutSite.requestID + '/' + cutSite.ID;
     AlgorithmUtilities.DeleteFolderRecursive(newDir);
 
 	fs.mkdirSync(newDir)

@@ -21,6 +21,7 @@ var AlgorithmUtilities = require('./AlgorithmUtilities.js');
 var RibozymeConfigXML = require('./XMLReader/').RibozymeConfigXML;
 var config = require('./config/config.json');
 var config_xml_path = config.env.config_xml_path;
+var current_dir = config.env.current_dir;
 var Utils = require('./AlgorithmUtilities.js');
 
 
@@ -137,15 +138,15 @@ function SaveRequest(request) {
 
     var str = JSON.stringify(request);
     var fs = require('fs');
-    fs.writeFileSync(path.join(request.ID, 'requestState.json'), str);
+    fs.writeFileSync(path.join(current_dir, request.ID, 'requestState.json'), str);
     var cutsiteTypesLength = request.CutsiteTypesCandidateContainer.length;
     for (var ii = 0; ii < cutsiteTypesLength; ++ii) {
         var cutsiteTypeCutsiteContainer = request.CutsiteTypesCandidateContainer[ii];
         for (var jj = 0; jj < cutsiteTypeCutsiteContainer.Cutsites.length ; ++jj) {
             var cutsite = cutsiteTypeCutsiteContainer.Cutsites[jj];
             var fwrite = JSON.stringify(cutsite);
-            AlgorithmUtilities.checkDirectorySync(fs, path.join(request.ID, cutsite.ID));
-            fs.writeFileSync(path.join(request.ID, cutsite.ID, 'results.json'), fwrite);
+            AlgorithmUtilities.checkDirectorySync(fs, path.join(current_dir, request.ID, cutsite.ID));
+            fs.writeFileSync(path.join(current_dir, request.ID, cutsite.ID, 'results.json'), fwrite);
         }
     }
 }
@@ -322,7 +323,7 @@ function _handleRequestPart1(request)
 
     //Make directory for request
     var fs = require('fs');
-    AlgorithmUtilities.DeleteFolderRecursive(request.ID);
+    AlgorithmUtilities.DeleteFolderRecursive(current_dir + '/' + request.ID);
     fs.mkdirSync(request.ID);
 
 
@@ -670,8 +671,8 @@ function _handleRequestPart5(reportObj) {
     var request = reportObj.Request;
     var fs = require('fs');
     var targetSeqFile = request.ID + '/Target.seq';
-    fs.writeFileSync(targetSeqFile, '> File for target sequence\n' + request.TargetSequence);
-    var resultDir = request.ID + '/Target';
+    fs.writeFileSync(path.join(current_dir, targetSeqFile), '> File for target sequence\n' + request.TargetSequence);
+    var resultDir = current_dir + '/' + request.ID + '/Target';
     AlgorithmUtilities.DeleteFolderRecursive(resultDir);
 
     fs.mkdirSync(resultDir);
@@ -817,7 +818,7 @@ function HandleRequestPart8(reportObj)
     //Writing uncompressed data
     var str = JSON.stringify(request);
     var fs = require('fs');
-    fs.writeFileSync(path.join(process.cwd(), request.ID, 'requestStateUncompressed.json'), str);
+    fs.writeFileSync(path.join(current_dir, request.ID, 'requestStateUncompressed.json'), str);
 
     reportObj.Request.UpdateState('Compressing results');
     for (var ii = 0; ii < request.CutsiteTypesCandidateContainer.length; ++ii)
