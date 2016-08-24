@@ -4,6 +4,7 @@ var config = require('../config/config.json');
 var AlgorithmUtilities = require('../AlgorithmUtilities.js');
 var input_file_path = config.env.input_file_path;
 var output_file_path = config.env.output_file_path;
+var hotknots_path = config.env.hotknots_path;
 
 //This variable holds how many folds are executing at a time, so that no more than BUFFER_MAX execute simultaneously.
 var BufferCount = 0;
@@ -11,8 +12,8 @@ var BUFFER_MAX = 2;
 
 function Fold(){}
 
-var HOTKNOTS_CALL_NO_CONSTRAINT = "./HotKnots -noPS -I %SEQUENCEFILE%";
-var HOTKNOTS_CALL = "./HotKnots -noPS -c -I %SEQUENCEFILE%";
+var HOTKNOTS_CALL_NO_CONSTRAINT = "cd " + hotknots_path + " && " + hotknots_path + "/HotKnots -noPS -I %SEQUENCEFILE%";
+var HOTKNOTS_CALL = "cd " + hotknots_path + " && " + hotknots_path + "/HotKnots -noPS -c -I %SEQUENCEFILE%";
 var QUEUE = new Array();
 
 Fold.ClearBuffer = function ()
