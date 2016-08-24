@@ -595,7 +595,7 @@ function _handleRequestPart4(reportObj) {
             //Set execution count for completion of part 4
             reportObj.AddToExecutionCount(1); //1 per cutsite in the cutsite type
             //Construct file paths
-            var file_pattern_begin = request.ID + FileSeparator + cutsiteTypeContainer[jj].ID + FileSeparator;
+            var file_pattern_begin = current_dir + FileSeparator + request.ID + FileSeparator + cutsiteTypeContainer[jj].ID + FileSeparator;
             var file_pattern_end = FileSeparator;//'\\structures\\';
             var file_pattern = file_pattern_begin + 'Target' + file_pattern_end;
             var fileSummary = file_pattern + '10structure_2.out';
@@ -704,7 +704,7 @@ function HandleRequestPart5(reportObj) {
 /* ******************************************************************************************************************* */
 function _handleRequestPart6(reportObj) {
     var request = reportObj.Request;
-    var resultDir = request.ID + '/Target';
+    var resultDir = current_dir + FileSeparator + request.ID + '/Target';
     var summaryFile = resultDir + '/' + '10structure_2.out';
     var structureFile = resultDir + '/' + '10structure.out';
     //Parse structures
