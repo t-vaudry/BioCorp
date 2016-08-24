@@ -16,7 +16,7 @@
       <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="margin-bottom:15px;">
         <p class="substep-description"><%=texts.search_sequence_number%><br/><%=texts.find_your_sequence%> <a target="_blank" href="http://www.ncbi.nlm.nih.gov/genbank/"><%=texts.here%></a></p>
         <input id="accession" name="accessionNumber" placeholder="(<%=texts.example%>: M73307)"/>
-        <button id="submit_ACN" class="btn" type="button"><%=texts.search%></button>
+        <button id="submit_ACN" class="btn btn-primary" type="button"><%=texts.search%></button>
         <div id="accession_alert" class="alert invisible" style="margin-top:20px;"></div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
@@ -25,7 +25,7 @@
       <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
         <div class="span5 tile" id="drop">
           <p class="substep-description"><%=texts.select_file_seq%><br/><%=texts.fasta_format%></p>
-          <button class="btn" id="selectFileButton" >
+          <button class="btn  btn-info" id="selectFileButton" >
           <%=texts.select_file%>
           </button>
           <input type="file" style="visibility:hidden;" id="selectFileInput">
@@ -119,7 +119,7 @@
       </div>
     </div>
 
-    <input type="button" name="next" class="btn btn-primary btn-large stepNext  disabled action-button" value="<%=texts.submit%>" id="crisprSubmit">
+    <input type="button" name="next" class="btn btn-success btn-large stepNext disabled action-button" value="<%=texts.submit%>" id="crisprSubmit">
   </fieldset>
 
 </div>

@@ -168,5 +168,9 @@
     "contact_us":"Contact Us",
     "how_order":"How to Order",
     "copyright":"Copyright 2016 BioCorp DNA",
-    "concordia":"Concordia University"
+    "concordia":"Concordia University",
+    "select_file_oligos": "Select file for Oligo input",
+    "order_summary": "Order Summary",
+    "add_cart":"Add to Cart",
+    "upload_oligo_file":"Upload Oligo File"
 }

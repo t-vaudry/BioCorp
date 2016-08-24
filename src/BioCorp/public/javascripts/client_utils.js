@@ -20,6 +20,7 @@ FileLoader.readFile = function(fileToRead) {
           }, 3000);
         }
        request.accessionNumber = '';
+       $('#accession').text('');
     };
 }
 
@@ -28,7 +29,42 @@ FileLoader.handleFileBrowsed  = function(evt) {
     FileLoader.readFile(file);
 }
 
+FileLoader.handleOligoFile  = function(evt) {
+    file = $('#selectFileOligoInput')[0].files[0];
+    FileLoader.readOligoFile(file);
+}
 
+FileLoader.readOligoFile = function(fileToRead) {
+
+    var reader = new FileReader();
+    reader.readAsText(fileToRead);
+    reader.onload = function() {
+        var input = reader.result;
+        var csvArray = $.csv.toObjects(input, {separator: ';'});
+        var tableStr = "<thead><tr>";
+        for(var prop in csvArray[0]){
+            tableStr += "<th>" + prop + "</th>";            
+        }
+        tableStr += "</tr></thead>";        
+        tableStr += "<tbody>";        
+        for(var index in csvArray){
+            var row = csvArray[index];
+            tableStr += "<tr id='oligoUploadTableRow" + index + "'>";        
+            for(var prop in row){
+                tableStr += "<td>" + row[prop] + "</td>";            
+            }
+            tableStr += "<td><a row-index='" + index + "' class='removeOligo'>Remove</a></td></tr>";        
+        }
+        tableStr += "</tbody>";
+        $('#oligoUploadTable').empty();
+        $('#oligoUploadTable').append(tableStr);
+        $('.removeOligo').click(function(){
+            var row_index = $(this).attr('row-index');
+            $('#oligoUploadTableRow' + row_index).remove();
+        })
+        $('#oligoFileUploadModal').modal();
+    };
+}
 
 String.prototype.endsWith = function(substr){
     return this.substring(this.indexOf(substr)) == substr;

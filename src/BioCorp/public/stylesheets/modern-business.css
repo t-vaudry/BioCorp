@@ -290,6 +290,7 @@ legend[data-toggle=collapse]{
 i[data-toggle=modal]{
   float: left;
   font-size: 1.5em;
+  cursor: pointer;
 }
 
 .collapse-container {

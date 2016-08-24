@@ -408,6 +408,12 @@ function initializePage() {
   
   $('#selectFileInput').change(FileLoader.handleFileBrowsed);
 
+  $("#selectFileOligoButton").click(function() {
+    $('#selectFileOligoInput').click();
+  });
+  
+  $('#selectFileOligoInput').change(FileLoader.handleOligoFile);
+
 }
 
   function handleResuspend(checkbox){

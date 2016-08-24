@@ -27,7 +27,7 @@ router.get('/ribozyme', function(req, res, next){
 });
 
 router.get('/crispr', function(req, res, next){
-  res.render('./crispr/crispr',
+  res.render('./designSteps/crispr',
     { title: 'design_crispr'});
 });
 
