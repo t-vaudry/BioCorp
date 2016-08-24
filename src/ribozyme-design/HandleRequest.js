@@ -138,6 +138,7 @@ function SaveRequest(request) {
 
     var str = JSON.stringify(request);
     var fs = require('fs');
+    AlgorithmUtilities.checkDirectorySync(fs, path.join(current_dir, request.ID));
     fs.writeFileSync(path.join(current_dir, request.ID, 'requestState.json'), str);
     var cutsiteTypesLength = request.CutsiteTypesCandidateContainer.length;
     for (var ii = 0; ii < cutsiteTypesLength; ++ii) {
