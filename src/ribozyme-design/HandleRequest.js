@@ -672,7 +672,8 @@ function _handleRequestPart5(reportObj) {
     var request = reportObj.Request;
     var fs = require('fs');
     var targetSeqFile = request.ID + '/Target.seq';
-    fs.writeFileSync(path.join(current_dir, targetSeqFile), '> File for target sequence\n' + request.TargetSequence);
+    targetSeqFile = path.join(current_dir, targetSeqFile);
+    fs.writeFileSync(targetSeqFile, '> File for target sequence\n' + request.TargetSequence);
     var resultDir = current_dir + '/' + request.ID + '/Target';
     AlgorithmUtilities.DeleteFolderRecursive(resultDir);
 
