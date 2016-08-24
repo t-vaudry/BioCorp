@@ -3,7 +3,9 @@ var FileSeparator = require('path').sep;
 var Model = require('../model/');
 var Candidate = Model.DomainObjects.Candidate;
 var StructureInfo = Model.DomainObjects.StructureInfo;
-var Log = require('./../log/').Log
+var Log = require('./../log/').Log;
+var config = require('../config/config.json');
+var current_dir = config.env.current_dir;
 function RemoveAllValuesFromArray(arr,val)
 {
 	var index = arr.indexOf(val);
@@ -89,7 +91,7 @@ ParseUtilities.ParseSFoldResults = function (directory, cutsiteID) {
 
     //Pattern is location\\ID\\structures\\10structure.out (and 10structure_2.out)
     //TODO: Find ID
-    var file_pattern_begin = directory + cutsiteID + FileSeparator;
+    var file_pattern_begin = current_dir + FileSeparator + directory + cutsiteID + FileSeparator;
     var file_pattern_end = FileSeparator;//'\\structures\\';
     fs = require('fs');
     var Candidates = new Array();
