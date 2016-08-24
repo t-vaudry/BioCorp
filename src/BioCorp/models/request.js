@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
-    path = require('path');
+    path = require('path'),
+    config = require('../config/');
 var Schema = mongoose.Schema;
 
 /*    Request Schema     */
@@ -83,7 +84,7 @@ Request.statics = {
                       targetEnv: targetEnv,
                       vivoEnv: vivoEnv,
                       specificity: specificity,
-                      resultPath: path.join(process.cwd(), id, 'requestStateUncompressed.json'),
+                      resultPath: path.join(config.home_folder, id, 'requestStateUncompressed.json'),
                       emailUser: emailUser,
                       organization: organization
                     });

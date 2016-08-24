@@ -2,7 +2,8 @@ var algorithm = require('../../../ribozyme-design'),
   //  heapdump = require('heapdump'),
     rimraf = require('rimraf'),
     path = require('path'),
-    fs = require('fs');
+    fs = require('fs'),
+	config = require('../../config/');
 
 var Executor = algorithm.HandleRequest;
 var AlgoRequest = algorithm.Model.DomainObjects.Request;
@@ -77,7 +78,7 @@ scheduler.startProcessingRequest = function(req, callback){
 
 function cleanUp(requestId){
     //Delete all folders, except json files
-    var pathToDirs = path.join(process.cwd(), requestId);
+    var pathToDirs = path.join(config.home_folder, requestId);
     fs.readdir(pathToDirs, function(err, files){
 	if(!err){
 	    files.forEach(function(file){
