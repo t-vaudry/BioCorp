@@ -222,7 +222,7 @@ function VerifyParameters(request)
         allOk = false;
     }
     
-    if (request.TargetSequence.length > 2000 )
+    if (request.TargetSequence.length > 10000 )
     {
       request.UpdateState("The sequence is too long. For the purposes of fair use of the software, please keep sequences under 2000 nucleotides.");
       allOk = false;

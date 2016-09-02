@@ -16,7 +16,7 @@ var Request = new Schema({
   // 5 : Notified
   status: { type: Number, min: 1, max: 5, default: 1},
   state: {type: String, default: '\n'},
-  sequence: {type: String, trim: true},
+  sequence: {type: String, maxlength: 20000 },
   accessionNumber: {type: String, default: '', trim: true},
   foldShape: String,
   emailUser: {type: String, default: '', trim: true},
