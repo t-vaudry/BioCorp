@@ -42,7 +42,7 @@ function initializePage() {
     validator.validate(function(result){
       var input = result.toString();
       var validation = InputValidation.isInputValid(input);
-      request.sequence = input;
+      request.sequence = InputValidation.cleanInput(input);
       seqInput.setText(request.sequence);
       seqAlert.setState(validation);
       if(validation.ok){
@@ -177,18 +177,6 @@ function initializePage() {
       request.sequence = request.OriginalSequence;
       if(!request.accessionNumber || regionCount == 3){
         designAlert.hide();
-      // } else{
-      //   FindUTRBoundaries(
-      //     function findingDone(e){
-      //       if(e == 1){
-      //         $('#stepTwoFinish').removeClass('disabled');
-      //       } else if(e === 0){
-      //         designAlert.setState({ok:false, error: "NCBI is not responding or is temporily down." + "Please try again in a minute or select the whole gene. " + "(Multiple searches in a small window of time may " + "cause this)"});
-      //       } else{
-      //         designAlert.setState({ok:false, error:"The region of the RNA you have selected is more than 2000 nucleotides." + "To permit fair use of the software among users, the sequence must be less than 2000 nucleotides. " + "Please select a smaller region or manually trim the sequence in the first step to respect this condition"});
-      //       }
-      //       designAlert.hide();
-      //     }, request);
       }
     }
 
