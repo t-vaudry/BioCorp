@@ -530,7 +530,6 @@ function HandleRequestPart2(reportObj)
 function _handleRequestPart3(reportObject)
 {
     var request = reportObject.Request;
-    var seq = request.TargetSequence;
     var constraintsArr = new Array();
     var virtualCandidates = new Array();
     for (var ii = 0; ii < request.CutsiteTypesCandidateContainer.length; ++ii)
@@ -539,18 +538,21 @@ function _handleRequestPart3(reportObject)
         for (var jj = 0; jj < cutsiteType.Cutsites.length; ++jj)
         {
             var cutsite = cutsiteType.Cutsites[jj];
+            var seqPos = AlgorithmUtilities.extractSeqAroundCutsite(request.TargetSequence, cutsite.Location, cutsiteType.Type, 150);
+            var seq = seqPos.sequence;
+            var cutsiteLocation = seqPos.position;
             virtualCandidates.push
                 (
                     {
                         'requestID':request.ID,
                         'cutsiteID': cutsite.ID,
                         'ID': 'Target',
-                        'sequence':request.TargetSequence
+                        'sequence':seq
                     }
                 );
-            var constraint = AlgorithmUtilities.FindConstraints(cutsite.Candidates);
+            var constraint = AlgorithmUtilities.FindConstraints(cutsite.Candidates, cutsiteLocation);
             constraint.left = constraint.left > 0 ? constraint.left : 1;
-            constraint.right = ((constraint.right + cutsite.Location - 1) < seq.length) ? constraint.right : (seq.length - cutsite.Location);
+            constraint.right = ((constraint.right + cutsiteLocation - 1) < seq.length) ? constraint.right : (seq.length - cutsiteLocation);
             constraintsArr.push(constraint);
         }
     }

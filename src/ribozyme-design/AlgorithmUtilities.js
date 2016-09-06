@@ -244,7 +244,7 @@ function CalculateArmLength(complementaryPositions) {
     return armsLengthList;
 }
 
-function FindConstraints(candidates) {
+function FindConstraints(candidates, cutsiteLocation) {
     var maxLeft = 99999;
     var maxRight = 0;
     for (var ii = 0; ii < candidates.length ; ++ii) {
@@ -253,14 +253,14 @@ function FindConstraints(candidates) {
             var position = compPositions[jj];
             if(position.cutsiteRelativePos == "right"){
                 var length = position.end - position.start + 1;
-                var right = candidates[ii].cutSiteLocation 
+                var right = cutsiteLocation
                     - position.substrDistFromCutsite
                     -  length;
                 if(maxLeft > right) maxLeft = right;
                 if((right + length) > maxRight) maxRight = right + length;
             } else if (position.cutsiteRelativePos == "left"){
                 var length = position.end - position.start + 1;
-                var left = candidates[ii].cutSiteLocation 
+                var left = cutsiteLocation 
                     + position.substrDistFromCutsite
                     +  length;
                 if(left > maxRight) maxRight = left;
@@ -348,6 +348,19 @@ function convertSeqStructToIndexStruct(sequence, structure){
     return connectedPairs;
 }
 
+function extractSeqAroundCutsite(sequence, cutsitePosition, cutsiteType, extractionLen){
+    var fromPos = cutsitePosition - extractionLen;
+    var newPos = cutsitePosition;
+    if(fromPos < 0){
+        fromPos = 0;
+    } else {
+        newPos = extractionLen;
+    }
+    var toPos = cutsitePosition + cutsiteType.length + extractionLen;
+    if(toPos > sequence.length) toPos =  sequence.length;
+    return {"sequence": sequence.substring(fromPos, toPos), "position": newPos};
+}
+
 exports.SequenceLength = SequenceLength;
 exports.ReverseComplement = ReverseComplement;
 exports.Reverse = Reverse;
@@ -365,3 +378,4 @@ exports.checkDirectorySync = checkDirectorySync;
 exports.deleteFiles = deleteFiles;
 exports.multipleNForSeq = multipleNForSeq;
 exports.convertSeqStructToIndexStruct = convertSeqStructToIndexStruct;
+exports.extractSeqAroundCutsite = extractSeqAroundCutsite;
