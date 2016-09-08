@@ -94,7 +94,20 @@
   var core  =  results.coreTypeId == 0? "CUGAUGAGGCCGAAAGGCCGAA" : "CUGAUGAGUCGCUGAAAUGCGACGAA";
 
   var meltingTempHeader = "";
-  for(var ii = 0; ii < container[0].Cutsites[0].Candidates[0].MeltingTemperatureList.length; ii++){
+  var meltingTempList = null;
+  for(var i = 0; i < container.length; i++){
+    for(var j = 0; j < container[i].Cutsites.length; j++){
+      for(var k = 0; k < container[i].Cutsites[j].Candidates.length; k++){
+        if(container[i].Cutsites[j].Candidates[k].MeltingTemperatureList.length > 0){
+          meltingTempList = container[i].Cutsites[j].Candidates[k].MeltingTemperatureList;
+          break;
+        }
+      }
+      if(meltingTempList != null && meltingTempList.length > 0) break;
+    }
+    if(meltingTempList != null && meltingTempList.length > 0) break;
+  }
+  for(var ii = 0; ii < meltingTempList.length; ii++){
     meltingTempHeader += "<th><p><%=texts.melting_temperature%> (&deg;C)</p></th> ";
   }
 

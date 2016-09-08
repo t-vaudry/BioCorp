@@ -56,6 +56,7 @@ scheduler.startProcessingRequest = function(req, callback){
 	    });
 
 	try{
+		Log( "Calling HandleRequestPart1 " + request.ID, 'Executor');
 	    var remaining = Executor.HandleRequestPart1(algoRequest);
 	    req.status = 3;
 	    req.remainingDuration = Math.ceil(remaining);
