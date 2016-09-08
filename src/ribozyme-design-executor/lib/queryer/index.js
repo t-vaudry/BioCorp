@@ -1,9 +1,9 @@
 var config = require('../../config/'),
     mongoose = require('mongoose'),
     request = require('../../models/request.js'),
-	Log = require('../ribozyme-design/log/');
+	Log = require('../../../ribozyme-design/log/').Log;
 
-Log("config.dbUrl: " + config.dbUrl);
+Log("config.dbUrl: " + config.dbUrl, 'Executor');
 
 var connection = mongoose.connect( config.dbUrl );
 
@@ -41,7 +41,7 @@ queryer.getRunningRequest = function(callback){
 queryer.updateRunningRequestDuration = function(request, callback){
     var duration = request.getRemainingTime('min').remainingDuration;
     duration = Math.max(duration-1, 0);
-	Log("!!!Duration: is " + duration + "!!!");
+	Log("!!!Duration: is " + duration + "!!!", 'Executor');
     request.setRemainingTime({ unit: 'min', remainingDuration : duration });
     request.save(function(err, req){
 	if(err)

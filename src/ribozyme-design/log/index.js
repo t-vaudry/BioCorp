@@ -36,9 +36,9 @@ if(process.env.NODE_ENV === 'test'){
                                         
 function Log(message, module, level)
 {
-    if(level < LOG_LEVEL){
+    // if(level < LOG_LEVEL){
         logger.info(module + ": " + message);
-    }
+    // }
 }
 
 function setLogLevel(newLevel)

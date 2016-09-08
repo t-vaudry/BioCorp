@@ -4,7 +4,7 @@ var scheduler = require('./lib/scheduler/'),
     mailer = require('./lib/mailer/'),
     config = require('./config/'),
     util = require('util'),
-	Log = require('../ribozyme-design/log/');
+	Log = require('../ribozyme-design/log/').Log;
 
 var intervalTimeout = 1 * 1000 * 60; //Every 15 mins
 var tryTime = 1;

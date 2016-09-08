@@ -3,7 +3,7 @@ var algorithm = require('../../../ribozyme-design'),
     path = require('path'),
     fs = require('fs'),
 	config = require('../../config/'),
-	Log = require('../ribozyme-design/log/');
+	Log = require('../../../ribozyme-design/log/').Log;
 
 var Executor = algorithm.HandleRequest;
 var AlgoRequest = algorithm.Model.DomainObjects.Request;
@@ -40,18 +40,18 @@ scheduler.startProcessingRequest = function(req, callback){
 	    function(request){
 		req.state = request.State;
 		if(request.ErrorContainer.length > 0 || !request.Completed) {
-		    Log( "Request could not complete" );
+		    Log( "Request could not complete", 'Executor' );
 		    req.state += request.ErrorContainer.join("\n");
 		} 
 		else {
-		    Log( "Request completed successfully" );
+		    Log( "Request completed successfully", 'Executor' );
 		    req.status = 4;
-			Log( "Cleaning up " + request.ID);
+			Log( "Cleaning up " + request.ID, 'Executor');
 		    cleanUp(request.ID);
 		}
 		req.save(function(err, res){
 		    if(err)
-			Log( "Error "+err+" while updating status of request" );
+			Log( "Error " + err + " while updating status of request", 'Executor' );
 		});
 	    });
 
