@@ -193,7 +193,7 @@ var test = false;
 if(test) //obsolete test
 {
 	Fold.FoldCandidates ( {'ID' : 'cutSite'+0, 'requestID':'test'}, ['UUA CUG GAA CUG AUG AGU CCG UGA GGA CGA A AC AUC UGG AGA'], {'FileCount':0}  ); 
-	console.log('ex');
+	Log('ex');
 }
 
 exports.Fold = Fold;

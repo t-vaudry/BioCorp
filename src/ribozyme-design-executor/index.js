@@ -3,7 +3,8 @@ var scheduler = require('./lib/scheduler/'),
     async = require('async'),
     mailer = require('./lib/mailer/'),
     config = require('./config/'),
-    util = require('util');
+    util = require('util'),
+	Log = require('../ribozyme-design/log/');
 
 var intervalTimeout = 1 * 1000 * 60; //Every 15 mins
 var tryTime = 1;
@@ -66,7 +67,7 @@ app.collectAnalytics = function(callback){
 	if(err){
 	    callback(err);
 	} else {
-	    console.log( "List of "+result+" organization names was sent" );
+	    Log( "List of "+result+" organization names was sent" );
 	    if(callback) {
 	    	callback(null, result);
 	    }
@@ -75,7 +76,7 @@ app.collectAnalytics = function(callback){
 }
 
 function collectMemoryUsage(){
-    console.log( "Memory Usage", util.inspect(process.memoryUsage()) );
+    Log( "Memory Usage", util.inspect(process.memoryUsage()) );
 };
 
 
@@ -95,7 +96,7 @@ var executeScript = function(){
 	    app.handleRunningRequests,
 	    function(result, callback){
 			if(result)
-				console.log( result );
+				Log( result );
 			callback(null);
 	    },
 	    queryer.getCountRunningRequests,
@@ -108,29 +109,29 @@ var executeScript = function(){
 	    },
 	    app.launchPendingRequests,
 	    function(result, callback){
-			console.log( result );
+			Log( result );
 			callback(null);
 	    },
 	    app.notifyFinishedRequests,
 	    function(count, callback){
 			if(count)
-				console.log( "Successfully Notified "+count+" requests"  );
+				Log( "Successfully Notified "+count+" requests"  );
 			else
-				console.log( "No requests to be notified" );
+				Log( "No requests to be notified" );
 			callback(null);
 	    }
 	],
 	function(err){
 	    if(err)
-		console.log( "Process failed because of "+err );
-	    console.log( "Executor finished. Rescheduling in "+(intervalTimeout/(60 * 1000))+" minutes " + " Tried: " + (tryTime++) );
+		Log( "Process failed because of "+err );
+	    Log( "Executor finished. Rescheduling in "+(intervalTimeout/(60 * 1000))+" minutes " + " Tried: " + (tryTime++) );
 	    setTimeout(executeScript, intervalTimeout);
 	});
 };
 
 process.on('uncaughtException', function(err) {
     if(config.reporter){
-		console.log(err.stack);
+		Log(err.stack);
 		mailer.notifyErrors(err.stack,function(){});
 	}
 });

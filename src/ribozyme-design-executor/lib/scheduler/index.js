@@ -1,18 +1,13 @@
 var algorithm = require('../../../ribozyme-design'),
-  //  heapdump = require('heapdump'),
     rimraf = require('rimraf'),
     path = require('path'),
     fs = require('fs'),
-	config = require('../../config/');
+	config = require('../../config/'),
+	Log = require('../ribozyme-design/log/');
 
 var Executor = algorithm.HandleRequest;
 var AlgoRequest = algorithm.Model.DomainObjects.Request;
-
 var scheduler = exports = module.exports = {};
-
-//var generateHeapDump = function(filename){
-//    heapdump.writeSnapshot('./'+filename+'.heapsnapshot');
-//}
 
 scheduler.startProcessingRequest = function(req, callback){
     if(!req){
@@ -45,17 +40,18 @@ scheduler.startProcessingRequest = function(req, callback){
 	    function(request){
 		req.state = request.State;
 		if(request.ErrorContainer.length > 0 || !request.Completed) {
-		    console.log( "Request could not complete" );
+		    Log( "Request could not complete" );
 		    req.state += request.ErrorContainer.join("\n");
 		} 
 		else {
-		    console.log( "Request completed successfully" );
+		    Log( "Request completed successfully" );
 		    req.status = 4;
+			Log( "Cleaning up " + request.ID);
 		    cleanUp(request.ID);
 		}
 		req.save(function(err, res){
 		    if(err)
-			console.log( "Error "+err+" while updating status of request" );
+			Log( "Error "+err+" while updating status of request" );
 		});
 	    });
 

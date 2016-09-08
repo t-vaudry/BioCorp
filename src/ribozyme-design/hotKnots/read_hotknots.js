@@ -1,7 +1,7 @@
 var Model = require('../model/');
 var Candidate = Model.DomainObjects.Candidate;
 var StructureInfo = Model.DomainObjects.StructureInfo;
-var Log = require('./../log/').Log
+var Log = require('./../log/').Log;
 var config = require('../config/config.json');
 var input_file_path = config.env.input_file_path;
 var output_file_path = config.env.output_file_path;
@@ -73,7 +73,7 @@ ParseUtilities.ParseSFoldResults = function (requestId, cutsiteID) {
     for (var struct_num = 0; struct_num < 200; struct_num++) 
     {
 
-        console.log("Parsing " + cutsiteID + ':'+ struct_num + "th candidate ");
+        Log("Parsing " + cutsiteID + ':'+ struct_num + "th candidate ");
         var file = file_pattern_begin + (struct_num).toString() + "_DP.ct";
         if (!fs.existsSync(file)) {
             Log("No more files for cutsite type " + cutsiteID + ", request " + requestId, "ParseUtilities.ParseSFoldResults", 1);

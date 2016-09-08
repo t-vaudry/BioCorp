@@ -180,15 +180,6 @@ function CreateCandidates (substrateSeq, cutSiteType, cutSites, options)
 		if(avoidCutsite) 
 			continue;
 
-		// for(var a = arrayOfCandidateSeqs.length - 1; a >= 0; a--){
-		// 	var candidateSeqs = arrayOfCandidateSeqs[a];
-		// 	console.log("a: " + a);
-		// 	for(var b = 0; b < candidateSeqs.length; b++){
-		// 		var seq = candidateSeqs[b].seq;
-		// 		console.log(seq);
-		// 	}
-		// }
-
 	    var cutsiteCandidates = new Array();
 		for(var a = arrayOfCandidateSeqs.length - 1; a >= 0; a--){
 			var candidateSeqs = arrayOfCandidateSeqs[a];

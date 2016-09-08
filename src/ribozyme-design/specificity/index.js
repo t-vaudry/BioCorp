@@ -190,10 +190,10 @@ function CheckResults(args) {
                 reportObject.chunk = '';
                 setTimeout(CheckResults, TIMEOUT_BETWEEN_CHECKS, [reportObject]);
                 Log("Request not ready for "  + reportObject.ID + ":" + reportObject.blastRequestId+":"+chunk, "CheckResults", 10);
-                console.log(chunk);
+                Log(chunk);
             }
             else {
-                console.log(chunk);
+                Log(chunk);
                 Log("Request ready for " + reportObject.ID + ":" + reportObject.blastRequestId + ":" + chunk, "CheckResults", 6);
                 ParseBlastResults(reportObject);
             }
@@ -235,7 +235,7 @@ function ParseBlastResults(reportObject)
 
     //Parse individual queries
     for (var ii = 0; ii < queries.length; ++ii) {
-        console.log('query ' + ii);
+        Log('query ' + ii);
         var MatchArray = parseQueries(queries[ii]);
         var cutsite = cutsites[MatchArray.index];//If the index of Query is not there then it has no matches
         cutsite.SpecificityFitness = 0;
@@ -291,7 +291,7 @@ function parseQueries(query) {
     var queryNum = matches.splice(0, 1);
     queryNum = parseInt(queryNum[0].split('\n')[0].split(' ')[2]);
     // console.log("Query " + JSON.stringify(query));
-    console.log("Entered query with match number:" + matches.length);
+    Log("Entered query with match number:" + matches.length);
     var res = new Array();
     //Extract relevant information for the match
     for (var ii = 0; ii < matches.length; ++ii) {

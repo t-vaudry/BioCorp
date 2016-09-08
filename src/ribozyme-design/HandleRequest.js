@@ -269,7 +269,7 @@ function HandleRequestPart1(request)
     config.getConfigXML();
     if(request.Preferences.ribozymeSelection == 'crispr'){
         request.Preferences.cutsites = config.getCutsiteListByType('crispr');
-        console.log("cutsites: " + request.Preferences.cutsites);
+        Log("cutsites: " + request.Preferences.cutsites);
         var multipleNArray = new Array();
         request.Preferences.cutsites.forEach(function(element) {
             multipleNArray = multipleNArray.concat(Utils.multipleNForSeq(element));
@@ -813,12 +813,12 @@ function HandleRequestPart8(reportObj)
             
             for (var kk = 0; kk < cutsite.Candidates.length; ++kk) {
                 var cand = cutsite.Candidates[kk];
-                console.log(cand.rank);
+                Log(cand.rank);
             }
         }
 
     }
-    console.log("done");
+    Log("done");
     //Writing uncompressed data
     var str = JSON.stringify(request);
     var fs = require('fs');

@@ -1,3 +1,5 @@
+var Log = require('../log/').Log;
+
 function substr_count (str, substr)
 {
 	return str.split(substr).length - 1;
@@ -58,7 +60,7 @@ function tm_Salt_Adjusted(str, conc_salt)
 //Params: Primer string, concentration of primer in nM, concentration of salt in mM (Na + K ), concentration of Mg in mM
 function tm_Base_Stacking($c,$conc_primer,$conc_salt,$conc_mg){
 
-        if (CountATCG($c)!= $c.length){console.log( "The oligonucleotide is not valid");return;}
+        if (CountATCG($c)!= $c.length){Log( "The oligonucleotide is not valid");return;}
         $h=$s=0;
 		var $array_h = new Object();
         // enthalpy values
@@ -128,11 +130,11 @@ function Mol_wt($primer)
 	$lower_mwt=molwt($primer,"DNA","lowerlimit");
 	if ($upper_mwt==$lower_mwt)
 	{
-		console.log( "Molecular weight: "+$upper_mwt);
+		Log( "Molecular weight: "+$upper_mwt);
 	}
 	else
 	{
-		console.log( "Upper Molecular weight:  " + $upper_mwt +"\nLower Molecular weight:  "+$lower_mwt);
+		Log( "Upper Molecular weight:  " + $upper_mwt +"\nLower Molecular weight:  "+$lower_mwt);
 	}
 }
 function CountCG($c){

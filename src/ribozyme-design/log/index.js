@@ -1,3 +1,28 @@
+var winston = require('winston');
+
+winston.emitErrs = true;
+var logger = new winston.Logger({
+    transports: [
+        new winston.transports.File({
+            level: 'info',
+            filename: './appLog.log',
+            handleExceptions: true,
+            //json: true,
+            maxsize: 5242880, //5MB
+            maxFiles: 5,
+            colorize: false
+        }),
+        new winston.transports.Console({
+            level: 'debug',
+            handleExceptions: true,
+            json: false,
+            colorize: true
+        })
+    ],
+    exitOnError: false
+});
+
+
 var SHOW_ALL = 30;
 var HIDE_ALL = 0;
 
@@ -11,8 +36,9 @@ if(process.env.NODE_ENV === 'test'){
                                         
 function Log(message, module, level)
 {
-    if(level < LOG_LEVEL)
-            console.log(module+": "+ message);
+    if(level < LOG_LEVEL){
+        logger.info(module + ": " + message);
+    }
 }
 
 function setLogLevel(newLevel)

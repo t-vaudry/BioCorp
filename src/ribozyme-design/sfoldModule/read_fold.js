@@ -98,7 +98,7 @@ ParseUtilities.ParseSFoldResults = function (directory, cutsiteID) {
     for (var struct_num = 0; struct_num < 200; struct_num++) 
     {
 
-        console.log("Parsing " + cutsiteID + ':'+ struct_num + "th candidate ");
+        Log("Parsing " + cutsiteID + ':'+ struct_num + "th candidate ");
 
         var file_pattern = file_pattern_begin + (struct_num).toString() + file_pattern_end;
         var file = file_pattern + '10structure_2.out';
