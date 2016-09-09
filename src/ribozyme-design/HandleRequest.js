@@ -324,8 +324,9 @@ function _handleRequestPart1(request)
 
     //Make directory for request
     var fs = require('fs');
-    AlgorithmUtilities.DeleteFolderRecursive(current_dir + '/' + request.ID);
-    fs.mkdirSync(current_dir + '/' + request.ID);
+    var directoryToCreate = path.join(current_dir, request.ID);
+    AlgorithmUtilities.DeleteFolderRecursive(directoryToCreate);
+    fs.mkdirSync(directoryToCreate);
 
 
     request.UpdateState("Request being processed");

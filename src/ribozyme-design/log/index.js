@@ -1,11 +1,14 @@
 var winston = require('winston');
+var config = require('../config/config.json');
+var current_dir = config.env.current_dir;
 
+var logFile = current_dir + '/appLog.log';
 winston.emitErrs = true;
 var logger = new winston.Logger({
     transports: [
         new winston.transports.File({
             level: 'info',
-            filename: './appLog.log',
+            filename: logFile,
             handleExceptions: true,
             //json: true,
             maxsize: 5242880, //5MB
