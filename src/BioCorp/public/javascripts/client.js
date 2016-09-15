@@ -402,6 +402,11 @@ function initializePage() {
   
   $('#selectFileOligoInput').change(FileLoader.handleOligoFile);
 
+  $("#signInButton").click(function() {
+    console.log("Sign in");
+    $('#signInModal').modal();
+  });
+
 }
 
   function handleResuspend(checkbox){

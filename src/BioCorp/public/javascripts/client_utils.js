@@ -37,18 +37,25 @@ FileLoader.handleOligoFile  = function(evt) {
 FileLoader.readOligoFile = function(fileToRead) {
 
     var reader = new FileReader();
-    reader.readAsText(fileToRead);
+    reader.readAsBinaryString(fileToRead);
     reader.onload = function() {
         var input = reader.result;
-        var csvArray = $.csv.toObjects(input, {separator: ';'});
-        var tableStr = "<thead><tr>";
-        for(var prop in csvArray[0]){
-            tableStr += "<th>" + prop + "</th>";            
-        }
-        tableStr += "</tr></thead>";        
+        var workbook = XLSX.read(input, {type : 'binary'});
+        var XL_row_object = null;
+        workbook.SheetNames.forEach(function(sheetName){
+            // Here is your object
+            XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+        })
+
+        var tableStr = "";
+        // tableStr += "<thead><tr>";
+        // for(var prop in csvArray[0]){
+        //     tableStr += "<th>" + prop + "</th>";            
+        // }
+        // tableStr += "</tr></thead>";        
         tableStr += "<tbody>";        
-        for(var index in csvArray){
-            var row = csvArray[index];
+        for(var index in XL_row_object){
+            var row = XL_row_object[index];
             tableStr += "<tr id='oligoUploadTableRow" + index + "'>";        
             for(var prop in row){
                 tableStr += "<td>" + row[prop] + "</td>";            

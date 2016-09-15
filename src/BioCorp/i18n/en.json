@@ -133,7 +133,7 @@
     "invoice_by":"Invoice by",
     "credit_card":"My Credit Card (on File)",
     "blanket_order":"Blanket Order (on File)",
-    "previous":"Previous",
+    "previous":"Go Back",
     "oligo_order_review":"Oligo Order Review",
     "order_criteria":"Order Criteria",
     "test_value":"Test Value",
@@ -172,5 +172,8 @@
     "select_file_oligos": "Select file for Oligo input",
     "order_summary": "Order Summary",
     "add_cart":"Add to Cart",
-    "upload_oligo_file":"Upload Oligo File"
+    "upload_oligo_file":"Upload Oligo File",
+    "sign_in": "Sign in",
+    "username": "Username",
+    "password": "Password"
 }

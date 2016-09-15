@@ -16,7 +16,8 @@
     <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-3.1.0.js" type="text/javascript"></script>
 
     <script src="../javascripts/client_algo.js"></script>
-    <script src="../javascripts/jquery.csv.js"></script>
+    <script src="../javascripts/jszip.js"></script>
+    <script src="../javascripts/xlsx.js"></script>
     <script type="text/javascript" charset="utf8" src="../javascripts/jquery.dataTables.js"></script>
     <link rel="stylesheet" type="text/css" href="../stylesheets/jquery.dataTables.css">
 
@@ -55,9 +56,9 @@
                 <span><a href="?clang=en">English</a></span>
               <% } %>
             </div>
-            <!-- Get Help -->
+            <!-- Sign in -->
             <div class="col-xs-12 col-sm-3 col-md-5 col-lg-2" style="margin-top:5px;float:right;">
-                <button type="button" class="headerBtn btn btn-default btn-sm btn-block"><%=texts.need_help%>?</button>
+                <button type="button" id="signInButton" class="headerBtn btn btn-default btn-sm btn-block"><%=texts.sign_in%>?</button>
             </div>
             <!-- Shopping Cart -->
             <!-- For shopping cart, use Knockoutjs -->
@@ -70,6 +71,10 @@
                   </button>
                 </div>
               </div>
+            </div>
+            <!-- Get Help -->
+            <div class="col-xs-12 col-sm-3 col-md-5 col-lg-2" style="margin-top:5px;float:right;">
+                <button type="button" class="headerBtn btn btn-default btn-sm btn-block"><%=texts.need_help%>?</button>
             </div>
           </div>
         </div>
