@@ -3,6 +3,7 @@ require("./models/request");
 require("./models/db");
 
 var express = require('express');
+var session = require('express-session');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -16,8 +17,6 @@ var mongoose = require('mongoose');
 var api = require('./routes/api');
 var i18n = require("i18n-express");
 
-
-
 var app = express();
 
 // view engine setup
@@ -30,6 +29,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}))
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(i18n({

@@ -4,15 +4,196 @@ var utils = require('./route_utils');
 var config = require('../config/');
 var url = require('url');
 var mongoose = require('mongoose');
-var Request = mongoose.model('Request');
 var config_xml_path = require('../../ribozyme-design/config/config.json').env.config_xml_path;
 var RibozymeConfigXML = require('../../ribozyme-design/XMLReader/').RibozymeConfigXML;
 var appConfigXML = new RibozymeConfigXML(config_xml_path);
+var hash = require('./pass').hash;
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'bioCorp' });
+/* Home page routes. */
+var getUserName = function(req) {
+  var username = "";
+  if (req.session.user) {
+      username = req.session.user.username;
+  }
+  return username;
+}
+
+var getUser = function(req) {
+  var user = null;
+  if (req.session.user) {
+      user = req.session.user;
+  }
+  return user;
+}
+
+var indexPageHandler = function(req, res, next) {
+  res.render('index', { title: 'bioCorp',
+                        username: getUserName(req) });
+}
+
+router.get('/', indexPageHandler);
+router.get('/index', indexPageHandler);
+
+/* Login/Signup routes */
+router.get("/signup", function (req, res) {
+    if (req.session.user) {
+        res.redirect("/");
+    } else {
+        res.render("./registration", { title: 'registration',
+                        username: getUserName(req),
+                        user: null });
+    }
 });
+
+var User = mongoose.model('User');
+
+function authenticate(name, pass, fn) {
+    if (!module.parent) console.log('authenticating %s:%s', name, pass);
+
+    User.findOne({
+        username: name
+    },
+
+    function (err, user) {
+        if (user) {
+            if (err) return fn(new Error('cannot find user'));
+            hash(pass, user.salt, function (err, hash) {
+                if (err) return fn(err);
+                if (hash == user.hash) return fn(null, user);
+                fn(new Error('invalid password'));
+            });
+        } else {
+            return fn(new Error('cannot find user'));
+        }
+    });
+
+}
+
+function requiredAuthentication(req, res, next) {
+    if (req.session.user) {
+        next();
+    } else {
+        req.session.error = 'Access denied!';
+        res.redirect('/');
+    }
+}
+
+function userExist(req, res, next) {
+    if (req.session.user){
+        var user = req.session.user;
+        var password = req.body.password;
+        var dataToUpdate = { password: req.body.password,
+                            username: req.body.emailaddr,
+                            firstName: req.body.firstname,
+                            lastName: req.body.lastname,
+                            accountHolder: req.body.accHolder,
+                            institution: req.body.institution,
+                            poNumber: req.body.ponumber,
+                            invoiceBy: req.body.invoice};
+
+        hash(password, function (err, salt, hash) {
+            if (err) throw err;
+            User.update({_id: user._id}, dataToUpdate, function (err) {
+                if (err) throw err;
+                authenticate(user.username, password, function(err, user){
+                    if(user){
+                        req.session.regenerate(function(){
+                            req.session.user = user;
+                            req.session.success = 'Authenticated as ' + user.username + ' click to <a href="/logout">logout</a>. ' + ' You may now access <a href="/restricted">/restricted</a>.';
+                            res.redirect('/');
+                        });
+                    }
+                });
+            });
+        });
+    } else {
+        User.count({
+            username: req.body.emailaddr
+        }, function (err, count) {
+            if (count === 0) {
+                next();
+            } else {
+                req.session.error = "User Exist"
+                res.redirect("/signup");
+            }
+        });
+    }
+}
+
+router.post("/signup", userExist, function (req, res) {
+    var password = req.body.password;
+    var username = req.body.emailaddr;
+    var firstName = req.body.firstname;
+    var lastName = req.body.lastname;
+    var accountHolder = req.body.accHolder;
+    var institution = req.body.institution;
+    var poNumber = req.body.ponumber;
+    var invoiceBy = req.body.invoice;
+
+    hash(password, function (err, salt, hash) {
+        if (err) throw err;
+        var user = new User({
+            username: username,
+            salt: salt,
+            hash: hash,
+            firstName: firstName,
+            lastName: lastName,
+            accountHolder: accountHolder,
+            institution: institution,
+            poNumber: poNumber,
+            invoiceBy: invoiceBy
+        }).save(function (err, newUser) {
+            if (err) throw err;
+            authenticate(newUser.username, password, function(err, user){
+                if(user){
+                    req.session.regenerate(function(){
+                        req.session.user = user;
+                        req.session.success = 'Authenticated as ' + user.username + ' click to <a href="/logout">logout</a>. ' + ' You may now access <a href="/restricted">/restricted</a>.';
+                        res.redirect('/');
+                    });
+                }
+            });
+        });
+    });
+});
+
+router.post("/login", function (req, res) {
+    authenticate(req.body.username, req.body.password, function (err, user) {
+        if (user) {
+
+            req.session.regenerate(function () {
+
+                req.session.user = user;
+                req.session.success = 'Authenticated as ' + user.username + ' click to <a href="/logout">logout</a>. ' + ' You may now access <a href="/restricted">/restricted</a>.';
+                res.redirect('/');
+            });
+        } else {
+            req.session.error = 'Authentication failed, please check your ' + ' username and password.';
+            res.redirect('/');
+        }
+    });
+});
+
+router.get('/logout', function (req, res) {
+    req.session.destroy(function () {
+        res.redirect('/');
+    });
+});
+
+
+router.get('/profile', requiredAuthentication, function (req, res) {
+  if (req.session.user) {
+    res.render("./registration",
+        { title: 'registration',
+          username: getUserName(req),
+          user: req.session.user });
+  } else {
+    res.redirect('/');      
+  }
+});
+
+
+/* Ribozyme routes */
 
 router.get('/ribozyme', function(req, res, next){
   appConfigXML.getConfigXML();
@@ -23,30 +204,32 @@ router.get('/ribozyme', function(req, res, next){
     { title: 'design_with_ribozyme',
       ribozymeList: ribozymeList,
       ribozymeHelixSizes: ribozymeHelixSizes,
-      cutsiteList: cutsiteList });
+      cutsiteList: cutsiteList,
+      username: getUserName(req)});
 });
 
 router.get('/crispr', function(req, res, next){
   res.render('./designSteps/crispr',
-    { title: 'design_crispr'});
-});
-
-router.get('/index', function(req, res, next){
-  res.render('index', {title: 'bioCorp'});
+    { title: 'design_crispr',
+      username: getUserName(req)});
 });
 
 router.get('/license', function(req, res, next){
-  res.render('license', {title: 'license'});
+  res.render('license', {title: 'license',
+                        username: getUserName(req)});
 });
 
 router.get('/oligoOrder', function(req, res, next){
-  res.render('./designSteps/oligoOrder', { title: 'order_your_oligoo'});
+  res.render('./designSteps/oligoOrder', { title: 'order_your_oligoo',
+                                        username: getUserName(req),
+                                        user:  getUser(req)});
 });
 
 router.get('/processing/:id', function(req, res, next){
   res.render('processing_page', 
     {title: 'ribozoft_processing',
-     pageTitle: 'design_in_process'});
+     pageTitle: 'design_in_process',
+     username: getUserName(req)});
 });
 
 router.get('/results/:id', function(req, res, next){
@@ -59,6 +242,7 @@ router.get('/results/:id', function(req, res, next){
     resultMessage = 'no_candidates';
   }
 
+  var Request = mongoose.model('Request');
   Request.findOne({uuid: req.params.id}, function(err, request){
     var obj = {
       title: 'ribozoft_results',
@@ -154,20 +338,5 @@ router.post('/config/submitXML', function(req, res) {
         message: message
     });
 });
-
-/*
-exports.license = function(req, res){
-  res.render('license', {
-    title: 'License'
-  });
-};
-
-exports.index = function(req, res){
-  res.render('index', {
-    title: 'BioCorp'
-  });
-};
-
-*/
 
 module.exports = router;

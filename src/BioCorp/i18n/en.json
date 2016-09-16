@@ -1,6 +1,7 @@
 {
     "bioCorp": "BioCorp",
-    "welcome": "Welcome to BioCorp",
+    "welcome": "Welcome",
+    "to_biocorp": " to BioCorp",
     "oligo_synthesis" : "Oligo Synthesis",
     "sequence_you_want" : "Have the sequence you want, We build it for you.",
     "design_own_oligo": "Design my own Oligo",
@@ -89,6 +90,8 @@
     "processing":"Processing",
     "your_request":"Your request has been submitted. You can wait for the design process to finish, or enter your email and we will send you a link once it is completed.",
     "submit": "Submit",
+    "cancel": "Cancel",
+    "reset": "Reset",
     "close": "Close",
     "regions_target_design":"Regions for Target Design",
     "select_what_part":"Select what part of the RNA you will be targeting. No cut-sites (NUH) outside the selected areas will be considered.",
@@ -109,6 +112,7 @@
     "order_oligo":"Order DNA/RNA Oligo",
     "new_customer":"If you are a new customer, please fill out the",
     "registration":"Customer Registration Form",
+    "not_registered":"Not registered? Please sign in:",
     "oligo_sequence": "Oligo Sequence",
     "modification":"Modification",
     "none":"None",
@@ -174,6 +178,7 @@
     "add_cart":"Add to Cart",
     "upload_oligo_file":"Upload Oligo File",
     "sign_in": "Sign in",
+    "sign_out": "Sign out",
     "username": "Username",
     "password": "Password"
 }

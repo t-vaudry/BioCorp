@@ -48,33 +48,34 @@
                 <img style="max-height:50px;" src="../../images/logo_biocorp.png"/>
               </a>
             </div>
+            <div style="margin-top:5px;float:right;">
+                <!-- Sign in -->
+                <% if(username.length > 0){ %>
+                  <button type="button" id="signOutButton" class="btn btn-default" title="<%=texts.sign_out + " " + username%>"><%=texts.sign_out%></button>
+                <% } else {%>
+                  <button type="button" id="signInButton" class="btn btn-default"><%=texts.sign_in%>?</button>
+                <% } %>
+                <!-- Shopping Cart -->
+                <button type="button" class="btn btn-default">
+                  <span class="glyphicon glyphicon-shopping-cart"></span>
+                  <span data-bind="#">0 <%=texts.items%> $0.00</span>
+                </button>
+                <!-- Get Help -->
+                <button type="button" class="btn btn-default"><%=texts.need_help%>?</button>
+            </div>
+            <!-- Profile -->
+            <% if(username.length > 0){ %>
+              <div style="margin-right:10px;margin-top:13px;float:right;">
+                <span><a href="/profile"><%=username%></a></span>
+              </div>
+            <% } %>
             <!-- Language Selection -->
-            <div class="col-xs-12 col-sm-3 col-md-5 col-lg-1" style="margin-top:13px;">
+            <div class="col-xs-12 col-sm-3 col-md-5 col-lg-1" style="margin-top:13px;float:right;">
               <% if(lang=="en"){ %>
                 <span><a href="?clang=fr">Francais</a></span>
               <% } else if(lang=="fr") {%>
                 <span><a href="?clang=en">English</a></span>
               <% } %>
-            </div>
-            <!-- Sign in -->
-            <div class="col-xs-12 col-sm-3 col-md-5 col-lg-2" style="margin-top:5px;float:right;">
-                <button type="button" id="signInButton" class="headerBtn btn btn-default btn-sm btn-block"><%=texts.sign_in%>?</button>
-            </div>
-            <!-- Shopping Cart -->
-            <!-- For shopping cart, use Knockoutjs -->
-            <div class="col-xs-12 col-sm-3 col-md-5 col-lg-2" style="margin-top:5px;float:right;">
-              <div id="shopping-cart">
-                <div id="view-cart" data-bind="visible: !Reload()">
-                  <button type="button" class="headerBtn btn btn-default btn-sm btn-block">
-                    <span class="glyphicon glyphicon-shopping-cart"></span>
-                    <span data-bind="#">0 <%=texts.items%> $0.00</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <!-- Get Help -->
-            <div class="col-xs-12 col-sm-3 col-md-5 col-lg-2" style="margin-top:5px;float:right;">
-                <button type="button" class="headerBtn btn btn-default btn-sm btn-block"><%=texts.need_help%>?</button>
             </div>
           </div>
         </div>
@@ -121,3 +122,4 @@
 
          </div>
       </nav>
+<% include homepage_modals %>

@@ -40,6 +40,21 @@ var Pair = new Schema({
 
 mongoose.model('Pair', Pair);
 
+var UserSchema = new mongoose.Schema({
+    username: String,
+    password: String,
+    salt: String,
+    hash: String,
+    firstName: String,
+    lastName: String,
+    accountHolder: String,
+    institution: String,
+    poNumber: String,
+    invoiceBy: String
+});
+
+mongoose.model('User', UserSchema);
+
 if(process.env.NODE_ENV == 'test'){
   console.log("DB Url: " + config.ribosoftTestDbUrl);
   mongoose.connect(config.ribosoftTestDbUrl);

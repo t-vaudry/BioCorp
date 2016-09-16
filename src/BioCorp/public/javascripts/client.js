@@ -403,8 +403,11 @@ function initializePage() {
   $('#selectFileOligoInput').change(FileLoader.handleOligoFile);
 
   $("#signInButton").click(function() {
-    console.log("Sign in");
     $('#signInModal').modal();
+  });
+
+  $("#signOutButton").click(function() {
+    $(location).attr('href', '/logout');
   });
 
 }
