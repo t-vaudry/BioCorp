@@ -10,26 +10,26 @@ window.onload = function() {
 	var stepNextBtn = $('.stepNext');
 
 	if($('#fsSeqSel:visible').length > 0){
-		console.log($('#fsSeqSel').height());
 		$('#footer').css('margin-top', function(){
 			return ($('#fsSeqSel').height() + $('#navbar-first').height() + $('#navbar-second').height());
 		});
 	};
 
 	if($('#fsOligoOrder:visible').length > 0){
-		console.log($('#fsOligoOrder').height());
 		$('#footer').css('margin-top', function(){
-			var fsOligoOrder = $('#fsOligoOrder').height();
-			var navbar_first = $('#navbar-first').height();
-			var navbar_second = $('#navbar-second').height();
 			return ($('#fsOligoOrder').height() + $('#navbar-first').height() + $('#navbar-second').height());
 		});
 	};
 
 	if($('#fsOligoPersonal:visible').length > 0){
-		console.log($('#fsOligoPersonal').height());
 		$('#footer').css('margin-top', function(){
 			return ($('#fsOligoPersonal').height() + $('#navbar-first').height() + $('#navbar-second').height());
+		});
+	};
+
+	if($('#fsOrderReview:visible').length > 0){
+		$('#footer').css('margin-top', function(){
+			return ($('#fsOrderReview').height() + $('#navbar-first').height() + $('#navbar-second').height());
 		});
 	};
 
@@ -50,32 +50,27 @@ window.onload = function() {
 		console.log(temp);
 
 		switch(temp){
-			case "fsSeqSel":
-				current_fs = $("#fsSeqSel");
-				next_fs = $("#fsDesignOption");
-				break;
-			case "fsDesignOption":
-				current_fs = $("#fsDesignOption");
-				next_fs = $("#fsDesignReview");
-				break;
-			case "fsDesignReview":
-				current_fs = $("#fsDesignReview");
-				next_fs = $("#fsProcessing");
-				break;
-			case "fsOligoOrder":
-				current_fs = $("#fsOligoOrder");
+			case "fsOrderReview":
+				current_fs = $("#fsOrderReview");
 				next_fs = $("#fsOligoPersonal");
 				break;
 			case "fsOligoPersonal":
 				current_fs = $("#fsOligoPersonal");
-				next_fs = $("#fsOligoReview");
+				next_fs = $("#fsOrderSummary");
+				$("#fsOrderSummary").find(".removeItemForm").remove();
+				var personalArray = $('#fsOligoPersonal').serializeArray();
+				$(personalArray).each(function(index, obj){
+					$("#fsOrderSummary").find("#" + obj.name).text(obj.value);
+				});
+				break;
+			case "fsOrderSummary":
+				current_fs = $("#fsOrderSummary");
+				next_fs = $("#fsOrderConfirmation");
 				break;
 		}
 		console.log(next_fs.attr('id'));
 		console.log(current_fs.height());
 		console.log(next_fs.height());
-
-
 
 		//current_fs = $("#fsSeqSel");
 		//next_fs = $("#fsDesignOption");
@@ -188,8 +183,7 @@ window.onload = function() {
   });
 
 	$('.divCollapse').on('hidden.bs.collapse', function() {
-    $(this).prev().find("span").addClass('glyphicon-arrow-right').removeClass('glyphicon-arrow-down');
-
+    	$(this).prev().find("span").addClass('glyphicon-arrow-right').removeClass('glyphicon-arrow-down');
 		if($(this).prev().find("span").hasClass('promoDrop')){
 			$("#promosequence-display").addClass('invisible');
 		}
@@ -197,7 +191,7 @@ window.onload = function() {
 		$('#footer').css('margin-top', function(){
 			return  ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
 		});
-  });
+	});
 
 	$('#vivoRadio').click(function(){
 		$('#envVivo').prop('disabled', false);

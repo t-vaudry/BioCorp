@@ -1,28 +1,19 @@
 <% include ../header %>
 <% include ./oligomodals %>
 <div class="container" id="oligoOrder">
-<form id="oligoForm">
-  <!-- progressbar -->
-  <ul id="oligoProgressbar">
-    <li class="active"><%=texts.order_information%></li>
-    <li><%=texts.personal_information%></li>
-    <li><%=texts.order_review%></li>
-    <li><%=texts.order_progress%></li>
-  </ul>
-
-
+<form id="oligoForm" method="POST" action="/oligoAddToCart">
   <!-- Step 1: Order Information -->
   <fieldset id="fsOligoOrder" style="margin-bottom:40px;">
     <div class="row">
       <h2 class="fs-title"><%=texts.order_oligo%></h2>
-      <h3 class="fs-subtitle"><%=texts.new_customer%> <a href="#"> <%=texts.registration%> </a>.</h3>
+      <% if(username.length == 0){ %>
+        <h3 class="fs-subtitle"><%=texts.new_customer%> <a href="/signup"> <%=texts.registration%> </a>.</h3>
+      <% }%>
     </div>
 
     <div class="row">
       <h5><%=texts.select_file_oligos%>
-      <button class="btn btn-info" id="selectFileOligoButton" >
-      <%=texts.select_file%>
-      </button>
+      <button type="button" class="btn btn-info" id="selectFileOligoButton"><%=texts.select_file%></button>
       <input type="file" style="display:none;" id="selectFileOligoInput">
       </h5>
     </div>
@@ -72,7 +63,7 @@
 
         <div id="sequence-wrap">
           <div id="sequence_alert" class="alert alert-error invisible"></div>
-          <textarea id="sequence-display" maxlength="3000" class="input-block-level" rows="5" placeholder="<%=texts.paste_sequence%>..." style="width:80%;"></textarea>
+          <textarea id="sequence-display" name="sequence" maxlength="3000" class="input-block-level" rows="5" placeholder="<%=texts.paste_sequence%>..." style="width:80%;"></textarea>
           <div id="sequence_alert" class="alert invisible"></div>
         </div>
 
@@ -134,126 +125,11 @@
                 </select>
               </li>
             </ul>
-
       </div>
-
     </div>
-    <input type="button" name="next" class="btn btn-primary btn-large stepNext action-button" value="<%=texts.next%>" id="submit1">
-  </fieldset>
-
-  <% include ./personalInfo %>
-
-  <!-- Setp 3: Design Review -->
-  <fieldset id="fsOligoReview">
-    <h2 class="fs-title"><%=texts.oligo_order_review%></h2>
-
-    <div class="container summary">
-      <div>
-        <table class="table table-hover table-condensed">
-          <thead >
-            <th><%=texts.order_criteria%></th>
-            <th><%=texts.value%></th>
-          </thead>
-          <tbody>
-
-            <tr>
-              <td><%=texts.oligo_sequence%></td>
-              <td id="seqOligo"><%=texts.test_value%></td>
-            </tr>
-
-            <tr>
-              <td><%=texts.purity%></td>
-              <td id="oligoPurity"></td>
-            </tr>
-
-            <tr>
-              <td><%=texts.scale%></td>
-              <td id="oligoScale"></td>
-            </tr>
-
-            <tr>
-              <td><%=texts.date_requirement%></td>
-              <td id="oligoDate"></td>
-            </tr>
-
-            <tr>
-              <td><%=texts.plates%></td>
-              <td id="oligoPlates"></td>
-            </tr>
-
-            <tr>
-              <td><%=texts.resuspend%></td>
-              <td id="oligoResuspended"></td>
-            </tr>
-
-            <tr>
-              <td>5' <%=texts.modification%></td>
-              <td id="oligoModification5"></td>
-            </tr>
-
-            <tr>
-              <td>3' <%=texts.modification%></td>
-              <td id="oligoModification3"></td>
-            </tr>
-
-            <tr>
-              <td><%=texts.first_name%></td>
-              <td id="orderFirstname"></td>
-            </tr>
-
-            <tr>
-              <td><%=texts.last_name%></td>
-              <td id="orderLastname"></td>
-            </tr>
-
-            <tr>
-              <td><%=texts.email_address%></td>
-              <td id="orderEmail"></td>
-            </tr>
-
-            <tr>
-              <td><%=texts.account_holder%></td>
-              <td id="orderAccountHolder"></td>
-            </tr>
-
-            <tr>
-              <td><%=texts.institution%></td>
-              <td id="orderInstitution"></td>
-            </tr>
-
-            <tr>
-              <td><%=texts.invoice_by%></td>
-              <td id="orderInvoice"></td>
-            </tr>
-
-            <tr>
-              <td><%=texts.P_O_umber%></td>
-              <td id="orderPONumber"></td>
-            </tr>
-
-          </tbody>
-        </table>
-      </div>
-      <div id="submitAlert2" class="alert alert-danger invisible"></div>
-    </div>
-
-  
-
-
-
-    <input type="button" name="previous" class="previous action-button" value="<%=texts.previous%>" />
-    <input type="button" name="next" class="stepNext action-button" value="<%=texts.submit%>" />
-  </fieldset>
-
-  <!-- Step 4: In Process -->
-  <fieldset id="fsProcessing">
-    <h2 class="fs-title"><%=texts.processing%></h2>
-    <h3 class="fs-subtitle"><%=texts.your_request%></h3>
-
-    <input type="submit" name="submit" class="submit action-button" value="<%=texts.close%>" />
+    <input type="submit" class="btn btn-primary btn-large action-button" value="<%=texts.add_to_cart%>" id="addToCart">
   </fieldset>
 </form>
-
 </div>
 
 <% include ../footer %>

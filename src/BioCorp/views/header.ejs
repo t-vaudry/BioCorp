@@ -56,9 +56,9 @@
                   <button type="button" id="signInButton" class="btn btn-default"><%=texts.sign_in%>?</button>
                 <% } %>
                 <!-- Shopping Cart -->
-                <button type="button" class="btn btn-default">
+                <button type="button" id="shoppingCartButton" class="btn btn-default">
                   <span class="glyphicon glyphicon-shopping-cart"></span>
-                  <span data-bind="#">0 <%=texts.items%> $0.00</span>
+                  <span data-bind="#"><%=orderCount%> <%=texts.items%> $<%=orderCount*10.0%></span>
                 </button>
                 <!-- Get Help -->
                 <button type="button" class="btn btn-default"><%=texts.need_help%>?</button>

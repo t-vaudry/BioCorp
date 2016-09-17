@@ -1,0 +1,53 @@
+<% for (var i = 0; i < order.length; i++){ %>
+    <div class="container summary">
+    <div style="text-align: right;">
+    <form class="removeItemForm" method="POST" action="/removeOrderItem">
+    <input type="hidden" name="removeOrderItem" value="<%=i%>"/>
+    <button type="submit" class="btn btn-info btn-xs" id="removeOrderItem"><%=texts.remove%></button>
+    </form>
+    <% if(order[i].orderType == "oligo"){ %>
+    <table class="table table-hover table-condensed">
+        <thead>
+        <th>5' <%=texts.modification%></th>
+        <th>3' <%=texts.modification%></th>
+        <th><%=texts.purity%></th>
+        <th><%=texts.scale%></th>
+        <th><%=texts.date_requirement%></th>
+        <th><%=texts.optional%></th>
+        </thead>
+        <tbody>
+        <tr>
+            <td><%=order[i].modif5%></td>
+            <td><%=order[i].modif3%></td>
+            <td><%=order[i].purity%></td>
+            <td><%=order[i].scale%></td>
+            <td><%=texts[order[i].datereq]%></td>
+            <td><%=texts[order[i].optional] + " " + order[i].resuspend%></td>
+        </tr>
+        <tr>
+            <th><%=texts.sequence%></th>
+            <td colspan="5"><%=order[i].sequence%></td>
+        </tr>
+        </tbody>
+    </table>
+<% } else if(order[i].orderType == "bulkOligo"){ %>
+    <table class="table table-hover table-condensed">
+        <thead>
+        <% for (key in order[i].orderList[0]){ %>
+        <th><%=key%></th>
+        <% } %>
+        </thead>
+        <tbody>
+        <% for (var j = 0; j < order[i].orderList.length; j++){ %>
+        <tr>
+            <% for (key in order[i].orderList[j]){ %>
+            <td><%=order[i].orderList[j][key]%></td>
+            <% } %>
+        </tr>
+        <% } %>
+        </tbody>
+    </table>
+<% } %>
+</div>
+</div>
+<% } %>

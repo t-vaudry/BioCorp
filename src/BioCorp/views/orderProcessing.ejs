@@ -1,0 +1,80 @@
+<% include header %>
+<div class="container" id="oligoOrder">
+<div id="oligoForm">
+
+  <!-- progressbar -->
+  <ul id="oligoProgressbar">
+    <li class="active"><%=texts.order_review%></li>
+    <li><%=texts.personal_information%></li>
+    <li><%=texts.order_summary%></li>
+    <li><%=texts.order_confirmation%></li>
+  </ul>
+
+  <!-- Setp 3: Order Review -->
+  <fieldset id="fsOrderReview">
+    <h2 class="fs-title"><%=texts.order_review%></h2>
+    <% if(order.length == 0) {%>
+      <div class="container summary">
+      <div>
+        <h3 class="fs-subtitle"><%=texts.cart_empty%></h3>
+      </div>
+      </div>
+    <% } %>
+    <% include orderSummary %>
+    <input type="button" name="next" class="stepNext action-button" value="<%=texts.next%>" />
+  </fieldset>
+
+  <% include ./designSteps/personalInfo %>
+
+  <!-- Step 4: Summary -->
+  <fieldset id="fsOrderSummary">
+    <h2 class="fs-title"><%=texts.order_summary%></h2>
+
+    <table class="table table-hover table-condensed">
+        <tbody>
+        <tr>
+            <th><%=texts.first_name%></th>
+            <td id="firstname"></td>
+        </tr>
+        <tr>
+            <th><%=texts.last_name%></th>
+            <td id="lastname"></td>
+        </tr>
+        <tr>
+            <th><%=texts.email_address%></th>
+            <td id="emailaddr"></td>
+        </tr>
+        <tr>
+            <th><%=texts.account_holder%></th>
+            <td id="accHolder"></td>
+        </tr>
+        <tr>
+            <th><%=texts.institution%></th>
+            <td id="institution"></td>
+        </tr>
+        <tr>
+            <th><%=texts.P_O_umber%></th>
+            <td id="ponumber"></td>
+        </tr>
+        <tr>
+            <th><%=texts.invoice_by%></th>
+            <td id="invoice"></td>
+        </tr>
+        </tbody>
+    </table>
+    <% include orderSummary %>
+    <input type="button" name="previous" class="previous action-button" value="<%=texts.previous%>" />
+    <input type="button" name="next" class="stepNext action-button" value="<%=texts.confirm%>" />
+  </fieldset>
+
+  <!-- Step 4: Confirmation -->
+  <fieldset id="fsOrderConfirmation">
+    <h2 class="fs-title"><%=texts.order_confirmation%></h2>
+    <h3 class="fs-subtitle"><%=texts.your_request%></h3>
+
+    <input type="submit" name="submit" class="submit action-button" value="<%=texts.close%>" />
+  </fieldset>
+</div>
+</div>
+
+<% include footer %>

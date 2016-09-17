@@ -9,11 +9,31 @@ var RibozymeConfigXML = require('../../ribozyme-design/XMLReader/').RibozymeConf
 var appConfigXML = new RibozymeConfigXML(config_xml_path);
 var hash = require('./pass').hash;
 
+var cookie_name = "biocorp_order_cookie";
+
+var getOrderArray = function(req) {
+    var orderInfo = null;
+    if(req.cookies.hasOwnProperty(cookie_name)){
+        orderInfo = JSON.parse(req.cookies[cookie_name]);
+    } else {
+        orderInfo = new Array();
+    }
+    return orderInfo;
+}
+
+var getOrderCount = function(req) {
+    var count = 0;
+    if(req.cookies.hasOwnProperty(cookie_name)){
+        count = JSON.parse(req.cookies[cookie_name]).length;
+    }
+    return count;
+}
+
 /* Home page routes. */
 var getUserName = function(req) {
   var username = "";
   if (req.session.user) {
-      username = req.session.user.username;
+      username = req.session.user.firstName + " " + req.session.user.lastName;
   }
   return username;
 }
@@ -28,6 +48,7 @@ var getUser = function(req) {
 
 var indexPageHandler = function(req, res, next) {
   res.render('index', { title: 'bioCorp',
+                        orderCount: getOrderCount(req),
                         username: getUserName(req) });
 }
 
@@ -40,6 +61,7 @@ router.get("/signup", function (req, res) {
         res.redirect("/");
     } else {
         res.render("./registration", { title: 'registration',
+                        orderCount: getOrderCount(req),
                         username: getUserName(req),
                         user: null });
     }
@@ -185,6 +207,7 @@ router.get('/profile', requiredAuthentication, function (req, res) {
   if (req.session.user) {
     res.render("./registration",
         { title: 'registration',
+          orderCount: getOrderCount(req),
           username: getUserName(req),
           user: req.session.user });
   } else {
@@ -192,6 +215,47 @@ router.get('/profile', requiredAuthentication, function (req, res) {
   }
 });
 
+/* Order Processing*/
+
+router.post("/oligoAddToCart", function (req, res) {
+    var orderInfo = getOrderArray(req);
+    var oligoOrder = JSON.parse(JSON.stringify(req.body));
+    oligoOrder.orderType = "oligo";
+    orderInfo.push(JSON.stringify(oligoOrder));
+    res.cookie(cookie_name , JSON.stringify(orderInfo));
+    res.redirect('/orderProcessing');
+});
+
+router.post("/bulkOligoAddToCart", function (req, res) {
+    var orderInfo = getOrderArray(req);
+    var oligoOrderArray = JSON.parse(req.body.bulkOligo);
+    var oligoOrder = new Object();
+    oligoOrder.orderType = "bulkOligo";
+    oligoOrder.orderList = oligoOrderArray;
+    orderInfo.push(JSON.stringify(oligoOrder));
+    res.cookie(cookie_name , JSON.stringify(orderInfo));
+    res.redirect('/orderProcessing');
+});
+
+router.post("/removeOrderItem", function (req, res) {
+    var orderInfo = getOrderArray(req);
+    orderInfo.splice(req.body.removeOrderItem, 1);
+    res.cookie(cookie_name , JSON.stringify(orderInfo));
+    res.redirect('/orderProcessing');
+});
+
+router.get('/orderProcessing', function(req, res, next){
+    var order = getOrderArray(req);
+    var newOrderArray = new Array();
+    for(var i = 0; i < order.length; i++) {
+        newOrderArray.push(JSON.parse(order[i]));
+    }
+    res.render('orderProcessing', { title: 'order_summary',
+                                    order: newOrderArray,
+                                    orderCount: order.length,
+                                    username: getUserName(req),
+                                    user:  getUser(req)});
+});
 
 /* Ribozyme routes */
 
@@ -202,6 +266,7 @@ router.get('/ribozyme', function(req, res, next){
   var cutsiteList = appConfigXML.getCutsiteList();
   res.render('./designSteps/ribozyme',
     { title: 'design_with_ribozyme',
+      orderCount: getOrderCount(req),
       ribozymeList: ribozymeList,
       ribozymeHelixSizes: ribozymeHelixSizes,
       cutsiteList: cutsiteList,
@@ -211,6 +276,7 @@ router.get('/ribozyme', function(req, res, next){
 router.get('/crispr', function(req, res, next){
   res.render('./designSteps/crispr',
     { title: 'design_crispr',
+      orderCount: getOrderCount(req),
       username: getUserName(req)});
 });
 
@@ -221,8 +287,8 @@ router.get('/license', function(req, res, next){
 
 router.get('/oligoOrder', function(req, res, next){
   res.render('./designSteps/oligoOrder', { title: 'order_your_oligoo',
-                                        username: getUserName(req),
-                                        user:  getUser(req)});
+                                        orderCount: getOrderCount(req),
+                                        username: getUserName(req)});
 });
 
 router.get('/processing/:id', function(req, res, next){

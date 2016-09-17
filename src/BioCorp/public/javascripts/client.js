@@ -410,6 +410,23 @@ function initializePage() {
     $(location).attr('href', '/logout');
   });
 
+  $("#shoppingCartButton").click(function() {
+    window.location.href = '/orderProcessing';
+  });
+
+  $("#bulkOligoAddToCart").click(function() {
+    var myRows = new Array;
+    var $th = $('table#oligoUploadTable th');
+    $('table#oligoUploadTable tbody tr').each(function(i, tr){
+        var obj = {}, $tds = $(tr).find('td');
+        $th.each(function(index, th){
+            obj[$(th).text()] = $tds.eq(index).text();
+        });
+        myRows.push(obj);
+    });
+    $('#bulkOligo').attr('value', JSON.stringify(myRows));
+  }); 
+
 }
 
   function handleResuspend(checkbox){

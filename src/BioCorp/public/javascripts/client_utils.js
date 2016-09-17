@@ -48,11 +48,16 @@ FileLoader.readOligoFile = function(fileToRead) {
         })
 
         var tableStr = "";
-        // tableStr += "<thead><tr>";
+        tableStr += "<thead><tr>";
+        tableStr += "<th>Sequence No</th>";            
+        tableStr += "<th>Oligo Name</th>";            
+        tableStr += "<th>Sequence</th>";            
+        tableStr += "<th>Amount</th>";            
+        tableStr += "<th>Modification</th>";            
         // for(var prop in csvArray[0]){
         //     tableStr += "<th>" + prop + "</th>";            
         // }
-        // tableStr += "</tr></thead>";        
+        tableStr += "</tr></thead>";        
         tableStr += "<tbody>";        
         for(var index in XL_row_object){
             var row = XL_row_object[index];

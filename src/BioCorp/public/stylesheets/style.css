@@ -7,6 +7,6 @@
   word-wrap: break-word;
 }
 
-.removeOligo {
+.removeOligo .removeOrder  {
   cursor: pointer;
 }
