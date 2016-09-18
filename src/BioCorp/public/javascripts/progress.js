@@ -66,6 +66,24 @@ window.onload = function() {
 			case "fsOrderSummary":
 				current_fs = $("#fsOrderSummary");
 				next_fs = $("#fsOrderConfirmation");
+
+				var personalArray = $('#fsOligoPersonal').serializeArray();
+				var personalData = { };
+				$(personalArray).each(function(index, obj){
+					personalData[obj.name] = obj.value;
+				});
+				$.ajax({
+					type: "POST",
+					url: "/confirmation",
+					data: JSON.stringify(personalData),
+					contentType: "application/json; charset=utf-8",
+					success: function() {
+						console.log("Email sent");
+					},
+					error: function() {
+						console.log("Email failed!");
+					}
+				});
 				break;
 		}
 		console.log(next_fs.attr('id'));

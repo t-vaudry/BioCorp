@@ -8,6 +8,7 @@ var config_xml_path = require('../../ribozyme-design/config/config.json').env.co
 var RibozymeConfigXML = require('../../ribozyme-design/XMLReader/').RibozymeConfigXML;
 var appConfigXML = new RibozymeConfigXML(config_xml_path);
 var hash = require('./pass').hash;
+var mailer = require('../mailer.js');
 
 var cookie_name = "biocorp_order_cookie";
 
@@ -255,6 +256,17 @@ router.get('/orderProcessing', function(req, res, next){
                                     orderCount: order.length,
                                     username: getUserName(req),
                                     user:  getUser(req)});
+});
+
+router.post('/confirmation', function(req, res, next){
+    var mailContent = JSON.parse(JSON.stringify(req.body));
+    var order = getOrderArray(req);
+    var newOrderArray = new Array();
+    for(var i = 0; i < order.length; i++) {
+        newOrderArray.push(JSON.parse(order[i]));
+    }
+    mailContent.order = newOrderArray
+    mailer.notifyCustomer(mailContent);
 });
 
 /* Ribozyme routes */
