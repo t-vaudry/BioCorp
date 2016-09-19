@@ -259,14 +259,24 @@ router.get('/orderProcessing', function(req, res, next){
 });
 
 router.post('/confirmation', function(req, res, next){
-    var mailContent = JSON.parse(JSON.stringify(req.body));
+    var mailContent = JSON.parse(req.body.personalData);
     var order = getOrderArray(req);
     var newOrderArray = new Array();
     for(var i = 0; i < order.length; i++) {
         newOrderArray.push(JSON.parse(order[i]));
     }
     mailContent.order = newOrderArray
-    mailer.notifyCustomer(mailContent);
+    mailer.notifyCustomer(mailContent, function(success){
+        if(success){
+            var emptyJSON = JSON.stringify(new Array());
+            req.cookies[cookie_name] = emptyJSON;
+            res.cookie(cookie_name , emptyJSON);
+            res.render('orderConfirmation', { title: 'order_confirmation',
+                                            orderCount: getOrderCount(req),
+                                            username: getUserName(req),
+                                            user:  getUser(req)});
+        }
+    });
 });
 
 /* Ribozyme routes */

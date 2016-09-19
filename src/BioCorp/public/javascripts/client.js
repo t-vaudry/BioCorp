@@ -425,8 +425,20 @@ function initializePage() {
         myRows.push(obj);
     });
     $('#bulkOligo').attr('value', JSON.stringify(myRows));
-  }); 
+  });
 
+  $("#orderConfirmation").click(function() {
+      var personalArray = $('#fsOligoPersonal').serializeArray();
+      var personalData = { };
+      $(personalArray).each(function(index, obj){
+        personalData[obj.name] = obj.value;
+      });
+      $("#personalData").attr("value", JSON.stringify(personalData));
+  });
+
+  $("#closeConfirmation").click(function() {
+    window.location.href = '/';
+  });
 }
 
   function handleResuspend(checkbox){

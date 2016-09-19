@@ -22,7 +22,7 @@ if(config.environment == "AWS"){
 
 var host = config.host;
 
-mailer.notifyCustomer = function(content){
+mailer.notifyCustomer = function(content, callback){
 	var receiver = content.emailaddr;
 	var subject = "Order confirmation from Ribosoft";
 	var message = "Hello,<br/><p>Your following order is now confirmed.</br/><br/>Regards,<br/>The Ribosoft Team</p>";
@@ -50,7 +50,7 @@ mailer.notifyCustomer = function(content){
             <td>" + content.invoice + "</td>\
         </tr>\
         </tbody>\
-    </table>";
+    </table><br/>";
 	var order = content.order;
 	for (var i = 0; i < order.length; i++){
 		if(order[i].orderType == "oligo"){
@@ -73,7 +73,7 @@ mailer.notifyCustomer = function(content){
 				<td>" + order[i].optional + " " + order[i].resuspend + "</td>\
 			</tr>\
 			<tr>\
-				<th><%=texts.sequence%></th>\
+				<th>Sequence</th>\
 				<td colspan=\"5\">" + order[i].sequence + "</td>\
 			</tr>\
 			</tbody>\
@@ -108,9 +108,10 @@ mailer.notifyCustomer = function(content){
 	smtpTransport.sendMail(mailOptions, function(err){
 		if(err){
 			console.log(err);
-		}
-		else if(config.environment != "AWS"){
+		} else {
+			callback(true);
+			if(config.environment != "AWS")
 				smtpTransport.close();
-			}
+		}
 	});
 }
