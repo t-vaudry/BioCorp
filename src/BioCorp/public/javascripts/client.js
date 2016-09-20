@@ -6,7 +6,7 @@ $(document).on("page:load", initializePage);
   var seqInput = new SequenceInput($('#sequence-display')[0]);
 
   var seqAlert = new SequenceAlert($('#sequence_alert'), $('#sequence_alert'));
-  var submit1 = $('#submit1, #crisprSubmit');
+  var submit1 = $('#submit1');
   var searchAccession = new Button($('#submit_ACN'));
   var accessionAlert = new AccessionAlert($('#accession_alert'));
   var request = new Request();
@@ -78,56 +78,27 @@ function initializePage() {
     request.sequence = request.sequence.toUpperCase();
     request.OriginalSequence = request.sequence;
     console.log(request.sequence);
-    var selection = $('#rz-select option:selected').attr('value');
-    console.log(selection);
-    request.ribozymeSelection = selection;
-
-    $('#rz-cutsites').empty();
-    var index = 0;
-    $("input[ribozyme='" + selection + "']").each(function() {
-      var selected = "";
-      if(index == 0) selected = "selected=\"selected\"";
-      $('#rz-cutsites').append("<option " + selected + " value=" + $(this).attr("cutsite") + ">" + $(this).attr("cutsite") + "</option>");
-      index++;
-    }, this);
-
-    $('div[name="ribozymeHelixSizes"]').hide();
-    $('#' + selection).show();
-
-  });
-
-  $('#crisprSubmit').click(function(){
-    var data = $("#msform").serializeArray();
-    request.extractData(data);
-    console.log(request);
-    console.log(data);
-    summary.setTableData(request);
-    request.sequence = InputValidation.cleanInput(request.sequence);
-    console.log(request.sequence);
-    request.ribozymeSelection = "crispr";
-
-    userInfoAlert.hide();
-    submissionAlert.hide();
-    request.organization = $('#organization').val();
-    request.emailUser = $('#email').val();
-    console.log(request);
-    console.log(window.location);
-    if(!request.organization && !request.emailUser){
-      userInfoAlert.setState({ok: false, error: "You must enter the name of your organization and your email address in order to submit a request"});
-    } else if(!request.organization){
-      userInfoAlert.setState({ok: false, error: "You must enter the name of your organization in order to submit a request"});
-    } else if(!request.emailUser){
-      userInfoAlert.setState({ok: false, error: "Your must enter your email address in order to submit a request"});
-    } else{
-      request.submitRequest(function(err, location){
-        if(err){
-          submissionAlert.setState({ok:false, error: "" + err});
-          submissionAlert.show();
-        } else{
-          window.location.replace(location.replace('requests', 'processing'));
-        }
-      });
+    if(window.location.href.indexOf("crispr") != -1){
+      request.ribozymeSelection = "crispr";
     }
+    if(request.ribozymeSelection != "crispr"){
+      var selection = $('#rz-select option:selected').attr('value');
+      console.log(selection);
+      request.ribozymeSelection = selection;
+
+      $('#rz-cutsites').empty();
+      var index = 0;
+      $("input[ribozyme='" + selection + "']").each(function() {
+        var selected = "";
+        if(index == 0) selected = "selected=\"selected\"";
+        $('#rz-cutsites').append("<option " + selected + " value=" + $(this).attr("cutsite") + ">" + $(this).attr("cutsite") + "</option>");
+        index++;
+      }, this);
+
+      $('div[name="ribozymeHelixSizes"]').hide();
+      $('#' + selection).show();
+    }
+
   });
 
   $('#sequence-display').on('keyup change mouseout', function(){

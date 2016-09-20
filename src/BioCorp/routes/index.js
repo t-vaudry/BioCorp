@@ -288,6 +288,7 @@ router.get('/ribozyme', function(req, res, next){
   var cutsiteList = appConfigXML.getCutsiteList();
   res.render('./designSteps/ribozyme',
     { title: 'design_with_ribozyme',
+      seqtitle: 'select_the_sequence',
       orderCount: getOrderCount(req),
       ribozymeList: ribozymeList,
       ribozymeHelixSizes: ribozymeHelixSizes,
@@ -296,8 +297,9 @@ router.get('/ribozyme', function(req, res, next){
 });
 
 router.get('/crispr', function(req, res, next){
-  res.render('./designSteps/crispr',
+  res.render('./designSteps/ribozyme',
     { title: 'design_crispr',
+      seqtitle: 'select_sequence_crispr',
       orderCount: getOrderCount(req),
       username: getUserName(req)});
 });

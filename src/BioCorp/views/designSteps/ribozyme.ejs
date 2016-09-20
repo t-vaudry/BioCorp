@@ -15,7 +15,7 @@
   <!-- Step 1: Sequence Selection -->
   <fieldset id="fsSeqSel" style="margin-bottom:40px;">
     <div class="row">
-      <h2 class="fs-title"><%=texts.select_the_sequence%></h2>
+      <h2 class="fs-title"><%=texts[seqtitle]%></h2>
       <h3 class="fs-subtitle"><%=texts.sequence_to_cleave%></h3>
     </div>
 
@@ -47,7 +47,7 @@
         <textarea id="sequence-display" maxlength="3000" class="input-block-level" rows="10" placeholder="<%=texts.paste_sequence%>..."></textarea>
         <div id="sequence_alert" class="alert invisible"></div>
       </div>
-
+      <%if (title != "design_crispr") { %>
       <div class="form-group">
         <label for="rz-select"><%=texts.select_ribozyme%></label>
         <select class="form-control" id="rz-select">
@@ -60,7 +60,7 @@
           <% }); %>
         </select>
       </div>
-
+      <% } %>
     </div>
     <input type="button" name="next" class="btn btn-primary btn-large stepNext  disabled action-button" value="<%=texts.next%>" id="submit1">
   </fieldset>
@@ -131,6 +131,7 @@
         </li>
       </ul>
 
+      <%if (title != "design_crispr") { %>
 
       <!-- Option cannot be implemented as Dr.Kharma requested. -->
       <!-- has to find a way in the future -->
@@ -154,6 +155,9 @@
 
         </div>
       </div>
+      <% } %>
+
+      <%if (title != "design_crispr") { %>
 
       <div class="collapse-container">
       <legend data-toggle="collapse" data-target=".shapeOption" align="left"><span class="rsDrop glyphicon glyphicon-arrow-right"></span> <%=texts.ribozyme_shape%></legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#rzShapeModal"></i>
@@ -186,6 +190,8 @@
           </ul>
         </div>
       <% }); %>
+
+      <% } %>
 
       <div class="collapse-container">
       <legend data-toggle="collapse" data-target=".promoOption" align="left"><span class="promoDrop glyphicon glyphicon-arrow-right"></span>  Promoter</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#promoterModal"></i>
@@ -294,6 +300,7 @@
               <td id="oligoEnv"></td>
             </tr>
 
+            <%if (title != "design_crispr") { %>
             <tr>
               <td><%=texts.cut_sites%></td>
               <td id="cutsites"></td>
@@ -303,11 +310,13 @@
               <td><%=texts.fold_shape%></td>
               <td id="foldShape"></td>
             </tr>
-
+            <% } %>
             <tr>
               <td><%=texts.ribyzome_type%></td>
               <td id="ribozymeType"></td>
             </tr>
+
+            <%if (title != "design_crispr") { %>
 
             <tr>
               <td><%=texts.helix_I_length%></td>
@@ -319,6 +328,8 @@
               <td id="rightArm"></td>
             </tr>
 
+            <% } %>
+            
             <tr>
               <td><%=texts.use_promoter%></td>
               <td id="promoter"></td>
