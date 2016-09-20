@@ -14,7 +14,7 @@ var cookie_name = "biocorp_order_cookie";
 
 var getOrderArray = function(req) {
     var orderInfo = null;
-    if(req.hasOwnProperty('cookies') && req.cookies.hasOwnProperty(cookie_name)){
+    if(Object.prototype.hasOwnProperty.call(req, cookie_name)){
         orderInfo = JSON.parse(req.cookies[cookie_name]);
     } else {
         orderInfo = new Array();
@@ -24,7 +24,7 @@ var getOrderArray = function(req) {
 
 var getOrderCount = function(req) {
     var count = 0;
-    if(req.hasOwnProperty('cookies') && req.cookies.hasOwnProperty(cookie_name)){
+    if(Object.prototype.hasOwnProperty.call(req, cookie_name)){
         count = JSON.parse(req.cookies[cookie_name]).length;
     }
     return count;
