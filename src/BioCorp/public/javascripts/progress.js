@@ -50,7 +50,7 @@ window.onload = function() {
 		animating = true;
 
 		current_fs = $(this).parent();
-//		next_fs = $(this).parent().next();
+		next_fs = $(this).parent().next();
 		temp = current_fs.attr('id');
 
 		console.log(temp);

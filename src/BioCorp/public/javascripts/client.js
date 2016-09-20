@@ -301,13 +301,11 @@ function initializePage() {
   $('#vitroRadio').click(function(){
     $('#cleavageRadio').prop('checked', false);
     $('#hybridRadio').prop('checked', false);
-    $('#notcomputedRadio').prop('checked', true);
   });
 
   $('#vivoRadio').click(function(){
     $('#cleavageRadio').prop('checked', true);
     $('#hybridRadio').prop('checked', false);
-    $('#notcomputedRadio').prop('checked', false);
   });
 
 

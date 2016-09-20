@@ -316,8 +316,9 @@ router.get('/oligoOrder', function(req, res, next){
 router.get('/processing/:id', function(req, res, next){
   res.render('processing_page', 
     {title: 'ribozoft_processing',
-     pageTitle: 'design_in_process',
-     username: getUserName(req)});
+    pageTitle: 'design_in_process',
+    orderCount: getOrderCount(req),
+    username: getUserName(req)});
 });
 
 router.get('/results/:id', function(req, res, next){
@@ -333,11 +334,13 @@ router.get('/results/:id', function(req, res, next){
   var Request = mongoose.model('Request');
   Request.findOne({uuid: req.params.id}, function(err, request){
     var obj = {
-      title: 'ribozoft_results',
-      stepTitle: 'ribozyme_design_results',
-      results: json_output,
-      resultMessage: resultMessage,
-      input: {}
+        title: 'ribozoft_results',
+        stepTitle: 'ribozyme_design_results',
+        orderCount: getOrderCount(req),
+        username: getUserName(req),
+        results: json_output,
+        resultMessage: resultMessage,
+        input: {}
     };
 
     if(err){

@@ -24,7 +24,7 @@
 
       <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="margin-bottom:15px;">
         <p class="substep-description"><%=texts.search_sequence_number%><br/><%=texts.find_your_sequence%> <a target="_blank" href="http://www.ncbi.nlm.nih.gov/genbank/"><%=texts.here%></a></p>
-        <input id="accession" placeholder="(<%=texts.example%>: M73307)"/>
+        <input id="accession" name="accessionNumber" placeholder="(<%=texts.example%>: M73307)"/>
         <button id="submit_ACN" class="btn btn-primary" type="button"><%=texts.search%></button>
         <div id="accession_alert" class="alert invisible" style="margin-top:20px;"></div>
       </div>
@@ -122,7 +122,7 @@
           <input type="number" name="naC" value="150" min="0" step="0.1" style="width:80px; margin-left:-12px;" required> mM
         </li>
         <li>
-          <label for="mgC" style="margin-right:10px;">Mg<sup>2</sup>&#8314 <%=texts.concentration%></label>
+          <label for="mgC" style="margin-right:10px;">Mg<sup>&#8314;2</sup> <%=texts.concentration%></label>
           <input type="number" name="mgC" value="1" min="0" step="0.1" style="width:80px;"> mM
         </li>
         <li>
@@ -226,9 +226,6 @@
         <li>
           <input type="radio" name="specificity" value="hybrid" id="hybridRadio" required><%=texts.cleavage_hybridization%>
         </li>
-        <li>
-          <input type="radio" name="specificity" value="notcomputed" id="notcomputedRadio" required><%=texts.not_computed%>
-        </li>
       </ul>
     </div>
 
@@ -288,7 +285,7 @@
             </tr>
 
             <tr>
-              <td>Mg<sup>2</sup>&#8314; <%=texts.concentration%></td>
+              <td>Mg<sup>&#8314;2</sup> <%=texts.concentration%></td>
               <td id="mgEnv"></td>
             </tr>
 
