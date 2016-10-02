@@ -144,6 +144,7 @@ AccNumberValidator.prototype.validate = function(successCallback, errorCallback)
         $.ajax({
         type: "GET",
         url: "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi",
+        crossDomain: true,
         data: {
             db: 'nuccore',
             'id': this.accessionNumber,
