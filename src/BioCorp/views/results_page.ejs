@@ -61,7 +61,10 @@
 	<% } %>
 	      <tr>
           <td><%=texts.ribyzome_type%></td>
-          <td><%= input.ribozymeSelection %></td>
+          <% ribozymeList.forEach(function(ribozyme, index) { %>
+          <% if(input.ribozymeSelection == ribozyme['name'] + '-' + ribozyme['type']) { %>
+            <td><%= ribozyme['title'] %></td>
+          <% }}); %>
         </tr>
 	<% if(input.ribozymeSelection != 'crispr') { %>
 	      <tr>

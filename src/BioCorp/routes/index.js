@@ -64,11 +64,14 @@ router.get('/index', indexPageHandler);
 
 /* Login/Signup routes */
 router.get("/signup", function (req, res) {
+    appConfigXML.getConfigXML();
+    var ribozymeList = appConfigXML.getRibozymeList('Rz');
     if (req.session.user) {
         res.redirect("/");
     } else {
         res.render("./registration", { title: 'registration',
                         orderCount: getOrderCount(req),
+                        ribozymeList: ribozymeList,
                         username: getUserName(req),
                         user: null });
     }
@@ -211,10 +214,13 @@ router.get('/logout', function (req, res) {
 
 
 router.get('/profile', requiredAuthentication, function (req, res) {
+    appConfigXML.getConfigXML();
+    var ribozymeList = appConfigXML.getRibozymeList('Rz');
   if (req.session.user) {
     res.render("./registration",
         { title: 'registration',
           orderCount: getOrderCount(req),
+          ribozymeList: ribozymeList,
           username: getUserName(req),
           user: req.session.user });
   } else {
@@ -252,6 +258,8 @@ router.post("/removeOrderItem", function (req, res) {
 });
 
 router.get('/orderProcessing', function(req, res, next){
+    appConfigXML.getConfigXML();
+    var ribozymeList = appConfigXML.getRibozymeList('Rz');
     var order = getOrderArray(req);
     var newOrderArray = new Array();
     for(var i = 0; i < order.length; i++) {
@@ -260,11 +268,14 @@ router.get('/orderProcessing', function(req, res, next){
     res.render('orderProcessing', { title: 'order_summary',
                                     order: newOrderArray,
                                     orderCount: order.length,
+                                    ribozymeList: ribozymeList,
                                     username: getUserName(req),
                                     user:  getUser(req)});
 });
 
 router.post('/confirmation', function(req, res, next){
+    appConfigXML.getConfigXML();
+    var ribozymeList = appConfigXML.getRibozymeList('Rz');
     var mailContent = JSON.parse(req.body.personalData);
     var order = getOrderArray(req);
     var newOrderArray = new Array();
@@ -279,6 +290,7 @@ router.post('/confirmation', function(req, res, next){
             res.cookie(cookie_name , emptyJSON);
             res.render('orderConfirmation', { title: 'order_confirmation',
                                             orderCount: getOrderCount(req),
+                                            ribozymeList: ribozymeList,
                                             username: getUserName(req),
                                             user:  getUser(req)});
         }
@@ -303,10 +315,13 @@ router.get('/ribozyme', function(req, res, next){
 });
 
 router.get('/crispr', function(req, res, next){
+    appConfigXML.getConfigXML();
+    var ribozymeList = appConfigXML.getRibozymeList('Rz');
   res.render('./designSteps/ribozyme',
     { title: 'design_crispr',
       seqtitle: 'select_sequence_crispr',
       orderCount: getOrderCount(req),
+      ribozymeList: ribozymeList,
       username: getUserName(req)});
 });
 
@@ -316,20 +331,30 @@ router.get('/license', function(req, res, next){
 });
 
 router.get('/oligoOrder', function(req, res, next){
+    appConfigXML.getConfigXML();
+    var ribozymeList = appConfigXML.getRibozymeList('Rz');
   res.render('./designSteps/oligoOrder', { title: 'order_your_oligoo',
                                         orderCount: getOrderCount(req),
+                                        ribozymeList: ribozymeList,
                                         username: getUserName(req)});
 });
 
 router.get('/processing/:id', function(req, res, next){
+    appConfigXML.getConfigXML();
+    var ribozymeList = appConfigXML.getRibozymeList('Rz');
   res.render('processing_page', 
     {title: 'ribozoft_processing',
     pageTitle: 'design_in_process',
     orderCount: getOrderCount(req),
+    ribozymeList: ribozymeList,
     username: getUserName(req)});
 });
 
 router.get('/results/:id', function(req, res, next){
+
+    appConfigXML.getConfigXML();
+    var ribozymeList = appConfigXML.getRibozymeList('Rz');
+
   var path = require('path').join(config.home_folder, req.params.id, '/requestState.json');
 
   var json_output = '', resultMessage = '';
@@ -345,6 +370,7 @@ router.get('/results/:id', function(req, res, next){
         title: 'ribozoft_results',
         stepTitle: 'ribozyme_design_results',
         orderCount: getOrderCount(req),
+        ribozymeList: ribozymeList,
         username: getUserName(req),
         results: json_output,
         resultMessage: resultMessage,
@@ -359,7 +385,6 @@ router.get('/results/:id', function(req, res, next){
       obj.input = {
         sequence: request.sequence,
         accessionNumber: request.accessionNumber,
-        foldShape: request.foldShape,
         tempEnv: request.tempEnv,
         naEnv: request.naEnv,
         mgEnv: request.mgEnv,

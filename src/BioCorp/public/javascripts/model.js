@@ -14,7 +14,6 @@ function Env(type, target){
 function Request(
     seq,
     accessionNumber,
-    foldShape,
     tempEnv,
     naEnv,
     mgEnv,
@@ -33,7 +32,6 @@ function Request(
     this.id = '';
     this.sequence = seq;
     this.accessionNumber = accessionNumber;
-    this.foldShape = foldShape;
     this.temperature = tempEnv;
     this.naC = naEnv;
     this.mgC = mgEnv;
@@ -97,7 +95,6 @@ Request.getRequest = function(callback){
 	    var request = new Request(
 		response.sequence,
 		response.accessionNumber,
-		response.foldShape,
 		response.temperature,
 		response.naC,
 		response.mgC,

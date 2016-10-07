@@ -1,6 +1,9 @@
 var config = require('../../config/'), 
     nodemailer = require('nodemailer'),
-    async = require('async');
+    async = require('async'),
+	config_xml_path = require('../../../ribozyme-design/config/config.json').env.config_xml_path,
+	RibozymeConfigXML = require('../../../ribozyme-design/XMLReader/').RibozymeConfigXML,
+	appConfigXML = new RibozymeConfigXML(config_xml_path);
 
 module.exports = exports = mailer = {};
 var smtpTransport = null;
@@ -175,6 +178,15 @@ mailer.notifyErrors = function(data, callback){
 };
 
 var outputRequestInfo = function(request){
+
+	appConfigXML.getConfigXML();
+	var ribozymeList = appConfigXML.getRibozymeList('Rz');
+	var ribozymeText = request.ribozymeSelection;
+	for(var ribozyme in ribozymeList){
+		if(ribozyme.name + "-" + ribozyme.type == request.ribozymeSelection){
+			ribozymeText = ribozyme.title;
+		}
+	}
     var output = "<html> \
         <table width='600' style='border:1px solid #333'> \
       <thead> \
@@ -232,12 +244,8 @@ var outputRequestInfo = function(request){
           <td id='cutsites'>"+request.cutsites.join(", ")+"</td> \
         </tr> \
         <tr> \
-          <td>Fold Shape</td> \
-          <td id='foldShape'>"+request.foldShape+"</td> \
-        </tr> \
-        <tr> \
           <td>Ribozyme Type</td> \
-          <td id='ribozymeSelection'>"+request.ribozymeSelection+"</td> \
+          <td id='ribozymeSelection'>"+ribozymeText+"</td> \
         </tr> \
 	<tr> \
           <td>Helix I Length</td> \
