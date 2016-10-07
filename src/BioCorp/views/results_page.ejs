@@ -21,7 +21,7 @@
 	<% } %>
         <tr>
           <td><%=texts.sequence_length%></td>
-          <td id="seqLength"><%= input.sequence.length %></td>
+          <td id="seqLength"><%= input.sequence.length %> nucleotides</td>
         </tr>
         <tr id="targetRegionRow">
           <td><%=texts.target_region%></td>
@@ -74,10 +74,6 @@
 	      <tr>
           <td><%=texts.helix_III_length%></td>
           <td id="rightArm">[<%= input.right_arm_min %>, <%= input.right_arm_max %>]</td>
-        </tr>
-	      <tr>
-          <td><%=texts.T7_promoter_used%>?</td>
-          <td id="promoter"><%= input.promoter %></td>
         </tr>
 	<% } %>
         <tr>

@@ -233,6 +233,7 @@ function initializePage() {
     } else if(!request.emailUser){
       userInfoAlert.setState({ok: false, error: "Your must enter your email address in order to submit a request"});
     } else{
+      $('#stepTwoFinish').removeClass('disabled');
       request.submitRequest(function(err, location){
         if(err){
           submissionAlert.setState({ok:false, error: "" + err});
