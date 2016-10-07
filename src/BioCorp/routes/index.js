@@ -50,9 +50,13 @@ var getUser = function(req) {
 }
 
 var indexPageHandler = function(req, res, next) {
+  appConfigXML.getConfigXML();
+  var ribozymeList = appConfigXML.getRibozymeList('Rz');
+
   res.render('index', { title: 'bioCorp',
                         orderCount: getOrderCount(req),
-                        username: getUserName(req) });
+                        username: getUserName(req),
+                        ribozymeList: ribozymeList });
 }
 
 router.get('/', indexPageHandler);

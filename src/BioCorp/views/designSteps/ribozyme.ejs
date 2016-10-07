@@ -47,20 +47,6 @@
         <textarea id="sequence-display" maxlength="3000" class="input-block-level" rows="10" placeholder="<%=texts.paste_sequence%>..."></textarea>
         <div id="sequence_alert" class="alert invisible"></div>
       </div>
-      <%if (title != "design_crispr") { %>
-      <div class="form-group">
-        <label for="rz-select"><%=texts.select_ribozyme%></label>
-        <select class="form-control" id="rz-select">
-          <% ribozymeList.forEach(function(ribozyme, index) { %>
-            <option value="<%= ribozyme['name'] %>-<%= ribozyme['type'] %>"
-              <% if (index == 0){ %>
-                selected="selected"
-              <% } %>
-            ><%= ribozyme['title'] %></option>
-          <% }); %>
-        </select>
-      </div>
-      <% } %>
     </div>
     <input type="button" name="next" class="btn btn-primary btn-large stepNext  disabled action-button" value="<%=texts.next%>" id="submit1">
   </fieldset>
