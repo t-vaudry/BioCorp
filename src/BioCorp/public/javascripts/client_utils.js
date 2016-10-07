@@ -454,9 +454,14 @@ SummaryTable.prototype.setTableData = function(data){
     $("#mgEnv").text(data.mgC);
     $("#oligoEnv").text(data.oligoC);
     $("#cutsites").text(data.cutsites.join(", "));
-    $("#foldShape").text(data.foldShape);
     $("#promoter").text(data.promoter ? "Yes" : "No");
-    $("#ribozymeType").text(data.ribozymeSelection);
+    var ribozymeText = data.ribozymeSelection;
+    $(".ribozymeNameList").each(function(){
+        if($(this).attr('value') == data.ribozymeSelection){
+            ribozymeText = $(this).attr('title');
+        }
+    });
+    $("#ribozymeType").text(ribozymeText);
     if(typeof data.left_arm_min !== 'undefined' && typeof data.left_arm_max !== 'undefined'
         && data.left_arm_min > 0 && data.left_arm_max > 0){
         $("#leftArm").text("Between "+ data.left_arm_min + " and "+data.left_arm_max);

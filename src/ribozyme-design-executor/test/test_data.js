@@ -2,7 +2,6 @@ module.exports = {
     longSequence : {
 	request : {
 	    sequence : 'GTACGTATGCATCGACTAGTCAGCAGATCGTACTGATGCTAGCTAGCTAGCTAGAGATGAGTACGCCGAGAGTAGGTCGTGCTAGCGCGCGAGAGAGT',
-	    foldShape : 'Basic',
 	    temperature : 37,
 	    naC: 150,
 	    mgC: 0,
@@ -28,7 +27,6 @@ module.exports = {
     multipleRequests : {
 	request1 : {
 	    sequence : 'AUUGUACGCGUCGCACGAUGCAUGCUC',
-	    foldShape : 'Basic',
 	    temperature : 37,
 	    naC: 150,
 	    mgC: 0,
@@ -51,7 +49,6 @@ module.exports = {
 	},
 	request2 : {
 	    sequence : 'AUUGUACGCGUCGCACGAUGCAUGCUC',
-	    foldShape : 'Basic',
 	    temperature : 37,
 	    naC: 150,
 	    mgC: 0,

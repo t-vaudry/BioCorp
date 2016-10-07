@@ -45,7 +45,6 @@ utils.createRequest = function(id, test_data, callback){
     var req = Request.createRequest(id,
 				    test_data.sequence,
 				    '',
-				    test_data.foldShape,
 				    test_data.temperature,
 				    test_data.naC,
 				    test_data.mgC,

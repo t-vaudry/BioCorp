@@ -34,7 +34,6 @@ module.exports = {
         Request.createRequest(id,
                 seq,
                 number,
-                req.body.foldShape,
                 parseInt(typeof req.body.temperature === 'undefined'? 0: req.body.temperature),
                 parseInt(typeof req.body.naC === 'undefined'? 0: req.body.naC),
                 parseInt(typeof req.body.mgC === 'undefined'? 0: req.body.mgC),
@@ -216,7 +215,6 @@ module.exports = {
                             var region = utils.toTargetRegion(req.body.region);
                             result.sequence = seq;
                             result.accessionNumber = number;
-                            result.foldShape = req.body.foldShape;
                             result.tempEnv = parseInt(req.body.temperature);
                             result.naEnv = parseInt(req.body.naC);
                             result.mgEnv = parseInt(req.body.mgC);
@@ -281,7 +279,6 @@ function sendRequestResponse(res, result){
   var response = {
     id: result.uuid,
     sequence: result.sequence,
-    foldShape: result.foldShape,
     temperature: result.tempEnv,
     naC: result.naEnv,
     mgC: result.mgEnv,

@@ -111,9 +111,12 @@
                       <li>
                         <a id="crispr" href="/crispr"><%=texts.crispr_cas9%></a>
                       </li>
+                      <% ribozymeList.forEach(function(ribozyme, index) { %>
                       <li>
-                        <a href="/ribozyme"><%=texts.ribozyme%></a>
+                        <a href="/ribozyme?selection=<%= ribozyme['name'] %>-<%= ribozyme['type'] %>"><%= ribozyme['title'] %></a>
+                        <input type="hidden" class="ribozymeNameList" value="<%= ribozyme['name'] %>-<%= ribozyme['type'] %>" title="<%= ribozyme['title'] %>"/>
                       </li>
+                      <% }); %>
                     </ul>
                   </li>
                 </ul>
