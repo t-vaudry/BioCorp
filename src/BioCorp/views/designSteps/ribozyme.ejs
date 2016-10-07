@@ -74,6 +74,7 @@
     <div class="container" id="stepTwoDiv">
       <div id="designAlert" class="alert alert-danger invisible"></div>
 
+      <div id="target-region">
       <div class="collapse-container">
       <legend data-toggle="collapse" data-target=".regionOption" align="left"><span class="rtdDrop glyphicon glyphicon-arrow-right"></span><%=texts.target_design%>  </legend>
       <i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#regionTargetModal"></i>
@@ -84,8 +85,7 @@
           <li><input type="checkbox" name="region" value="ORF" checked="true"> <%=texts.open_reading%></li>
           <li><input type="checkbox" name="region" value="3"> 3'UTR</li>
       </ul>
-
-
+      </div>
 
       <div class="collapse-container">
 
@@ -178,12 +178,12 @@
           <% ribozymeHelixSize['helixValues'].forEach(function(helixValue, index) { %>
             <li>
             <label for="<%= helixValue['helixId']%>_min"><%= helixValue['helixName']%> minimum Length</label>
-            <input type="number" name="<%= helixValue['helixId']%>_min" value="<%= helixValue['lengthFrom']%>" style="width:80px; margin-left:15px;"> nucleotides
+            <input type="number" name="<%= helixValue['helixId']%>_min" value="<%= helixValue['lengthFrom']%>" min="<%= helixValue['lengthFrom']%>"  max="<%= helixValue['lengthTo']%>" style="width:80px; margin-left:15px;"> nucleotides
             </li>
 
             <li>
             <label for="<%= helixValue['helixId']%>_max"><%= helixValue['helixName']%> maximum Length</label>
-            <input type="number" name="<%= helixValue['helixId']%>_max" value="<%= helixValue['lengthTo']%>" style="width:80px; margin-left:15px;"> nucleotides
+            <input type="number" name="<%= helixValue['helixId']%>_max" value="<%= helixValue['lengthTo']%>" min="<%= helixValue['lengthFrom']%>"  max="<%= helixValue['lengthTo']%>" style="width:80px; margin-left:15px;"> nucleotides
             </li>
           <% }); %>
 
@@ -192,7 +192,7 @@
       <% }); %>
 
       <% } %>
-
+      <!--
       <div class="collapse-container">
       <legend data-toggle="collapse" data-target=".promoOption" align="left"><span class="promoDrop glyphicon glyphicon-arrow-right"></span>  Promoter</legend><i class="glyphicon glyphicon-question-sign pull-right" data-toggle="modal" data-target="#promoterModal"></i>
       </div>
@@ -218,7 +218,7 @@
         </div>
       </div>
 
-
+      -->
 
 
       <div class="collapse-container">

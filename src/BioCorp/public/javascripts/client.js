@@ -98,7 +98,11 @@ function initializePage() {
       $('div[name="ribozymeHelixSizes"]').hide();
       $('#' + selection).show();
     }
-
+    if($('#accession').val() == '') {
+      $('#target-region').hide();
+    } else {
+      $('#target-region').show();
+    }
   });
 
   $('#sequence-display').on('keyup change mouseout', function(){
@@ -139,95 +143,54 @@ function initializePage() {
       return;
     }
 
+    $('#stepTwoFinish').addClass('disabled');
     if(validator.validate(request)){
       designAlert.hide();
       designAlert.setState({ok:true, error:"Searching for UTR..."});
-      summary.setTableData(request);`1`
-      $('#stepTwoFinish').removeClass('disabled');
+      summary.setTableData(request);
+      $("body").css("cursor","wait");
 
       request.sequence = request.OriginalSequence;
       if(!request.accessionNumber || regionCount == 3){
         designAlert.hide();
+        $('#stepTwoFinish').removeClass('disabled');
+      }
+      else
+      {
+        FindUTRBoundaries( 
+          function findingDone(e) 
+           {
+             if (e == 1)
+             {
+                designAlert.hide();
+                $('#stepTwoFinish').removeClass('disabled');
+                var param = new Object();
+                param.data = $('#stepTwoFinish');
+                param.boundaryChecked = true;
+                Progress.stepNext(param);
+             }
+             else if(e == 0)
+             {
+                designAlert.setState({ok:false, error:"NCBI is not responding or is temporarily down." +
+                                                "Please try again in a minute or select the whole gene. "+
+                                                "(Multiple searches in a small window of time may "+
+                                                "cause this)"});
+             }
+             else 
+             {
+                designAlert.setState({ok:false, error:"The region of the RNA you have selected is more than 2000 nucleotides." +
+                                                "To permit fair use of the software among users, the sequence must be less than 2000 nucleotides. "+
+                                                "Please select a smaller region or manually trim the sequence in the first step to respect this condition." });
+             
+             }
+             $("body").removeAttr("style");
+             designAlert.hide();
+           }
+         );
       }
     }
 
   });
-
-  function FindUTRBoundaries(ondone)
-  {
-    $.ajax(
-    {
-      type: "GET",
-      url: "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi",
-      data: {
-        db: 'nuccore',
-        'id': request.accessionNumber,
-        retmode: 'text'
-        },
-      success: function(d) {
-          //alert(d);
-          clack = d;
-          var ThreeUTRInfo = clack.indexOf("3'UTR");
-          var FiveUTRInfo = clack.indexOf("5'UTR");
-          var ORFInfo = clack.indexOf("cdregion");
-          var clock = 0;
-          var cluck = 0;
-          request.OriginalSequence = request.sequence;
-          if( request.region[0] == "3'" && (ThreeUTRInfo != -1 ) )
-          {
-
-            //This monster grabs the "from x,    to y" right after the tag found
-            var cleck =  clack.substr(clack.indexOf("from",ThreeUTRInfo), clack.indexOf ( "," ,clack.indexOf( "to" ,ThreeUTRInfo) ) -clack.indexOf("from",ThreeUTRInfo)) ;
-            var click = cleck.split(","); //This small thing splits it into "from" and "to"
-            clock = parseInt(click[0].substr(4)) ;// trim from
-            cluck = parseInt(click[1].trim().substr(2) ) ; // get to
-            request.sequence = request.OriginalSequence.substr(clock, cluck - clock +1 );
-
-          }
-          else if ( ORFInfo != -1)
-          {
-            //This monster grabs the "from x,    to y" right after the tag found
-            var cleck =  clack.substr(clack.indexOf("from",ORFInfo), clack.indexOf ( "," ,clack.indexOf( "to" ,ORFInfo) ) - clack.indexOf("from",ORFInfo)) ;
-            var click = cleck.split(","); //This small thing splits it into "from" and "to"
-            clock = parseInt(click[0].substr(4));// trim from
-            cluck = parseInt(click[1].trim().substr(2) ) ; // get to
-
-            var ORF =
-               request.OriginalSequence.substr(clock, cluck - clock +1);
-            var ARF =
-               request.OriginalSequence.substr(cluck);
-            var URF =
-               request.OriginalSequence.substr(0,clock);
-
-            if( request.region.length == 1)
-            {
-              if(request.region[0] = "3'")
-                request.sequence = URF;
-              else if( request.region[0] = "5'" )
-                request.sequence = ARF;
-              else
-                request.sequence = ORF;
-            }
-            else
-            {
-              if(request.region[0] = "3'")
-                request.sequence = ARF + ORF;
-              else
-                request.sequence = ORF + URF;
-            }
-          }
-          if( request.sequence.length <= 2000 )
-            ondone(1);
-          else
-            ondone(2);
-        },
-        error: function(jqXHR, textStatus, errorThrown)
-        {
-          alert("Could not access Genbank for UTR info. Error: " + errorThrown + "; Code: "+ textStatus);
-          ondone(0);
-        }
-    });
-  }
 
   if($("#results").length > 0) {
       $("#results").dataTable();

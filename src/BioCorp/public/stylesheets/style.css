@@ -10,3 +10,7 @@
 .removeOligo .removeOrder  {
   cursor: pointer;
 }
+
+legend[data-toggle="collapse"] {
+  cursor: pointer;
+}

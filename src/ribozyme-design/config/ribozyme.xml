@@ -88,7 +88,7 @@
     <seq strand='single'>C</seq>
     <seq strand='double' from='3' to='6'>GGCU</seq>
     <seq strand='single'>AUAAACA</seq>
-    <seq strand='single' name='Helix I' id='left_arm' lengthFrom='4' lengthTo='4' substrate='complementary' substrDistFromCutsite='2' substrateDirection='5-3'/>
+    <seq strand='single' name='Helix II' id='left_arm' lengthFrom='4' lengthTo='4' substrate='complementary' substrDistFromCutsite='2' substrateDirection='5-3'/>
     <seq strand='single'>UCAGG</seq>
     <seq strand='single' pkFrom='9' pkTo='13'>CCCGA</seq>
     <seq strand='single'>AGCG</seq>

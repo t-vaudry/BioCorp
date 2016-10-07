@@ -5,6 +5,8 @@ var left, opacity, scale; //fieldset properties which we will animate
 var animating; //flag to prevent quick multi-click glitches
 var nextStep;
 
+function Progress(){}
+
 //$(document).ready(function() {
 window.onload = function() {
 	var stepNextBtn = $('.stepNext');
@@ -39,18 +41,25 @@ window.onload = function() {
 		});
 	};
 
-	$('.stepNext').click(function(){
-
-		if($(this).hasClass('disabled')){
+	Progress.stepNext = function (event){
+		var thisElement = this;
+		if(event.hasOwnProperty("boundaryChecked")){
+			thisElement = event.data;
+		}
+		if($(thisElement).hasClass('disabled')){
 			console.log("Submit1 is disabled!!!");
+
+			$('#footer').css('margin-top', function(){
+				return  ($('fieldset:visible').height() + $('#navbar-first').height() + $('#navbar-second').height());
+			});
 			return;
 		}
 
 		if(animating) return false;
 		animating = true;
 
-		current_fs = $(this).parent();
-		next_fs = $(this).parent().next();
+		current_fs = $(thisElement).parent();
+		next_fs = $(thisElement).parent().next();
 		temp = current_fs.attr('id');
 
 		console.log(temp);
@@ -111,7 +120,9 @@ window.onload = function() {
 		$('#footer').css('margin-top', function(){
 			return (next_fs.height() + $('#navbar-first').height() + $('#navbar-second').height());
 		});
-	});
+	};
+	$('.stepNext').click(Progress.stepNext);
+
 //};
 	$(".previous").click(function(){
 		if(animating) return false;
