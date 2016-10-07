@@ -31,6 +31,14 @@ $(document).on("page:load", initializePage);
   var validator = new DesignParamsValidator(designAlert);
 function initializePage() {
 
+  $("#rz-select").change(function() {
+      var selection = $('#rz-select option:selected').attr('value');
+      if(selection != ''){
+        window.location.href = '/ribozyme?selection=' + selection;
+      }
+
+  });
+
   function fetchInputAccessionNumber(){
     var validator = new AccNumberValidator($('#accession').val());
     if(!validator.getAccessionNumber()){
@@ -82,10 +90,9 @@ function initializePage() {
       request.ribozymeSelection = "crispr";
     }
     if(request.ribozymeSelection != "crispr"){
-      var selection = $('#rz-select option:selected').attr('value');
+      var selection = getUrlVars().selection;
       console.log(selection);
       request.ribozymeSelection = selection;
-
       $('#rz-cutsites').empty();
       var index = 0;
       $("input[ribozyme='" + selection + "']").each(function() {
@@ -149,11 +156,14 @@ function initializePage() {
       designAlert.setState({ok:true, error:"Searching for UTR..."});
       summary.setTableData(request);
       $("body").css("cursor","wait");
+      $("#stepTwoFinish").css("cursor","wait");
 
       request.sequence = request.OriginalSequence;
       if(!request.accessionNumber || regionCount == 3){
         designAlert.hide();
         $('#stepTwoFinish').removeClass('disabled');
+        $("body").css("cursor","");
+        $("#stepTwoFinish").css("cursor","");
       }
       else
       {
@@ -164,6 +174,8 @@ function initializePage() {
              {
                 designAlert.hide();
                 $('#stepTwoFinish').removeClass('disabled');
+                $("body").css("cursor","");
+                $("#stepTwoFinish").css("cursor","");
                 var param = new Object();
                 param.data = $('#stepTwoFinish');
                 param.boundaryChecked = true;

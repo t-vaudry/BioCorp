@@ -21,7 +21,12 @@
       <p>
         <%=texts.ribozyme%> <%=texts.will_help_you%>
       </p><br>
-      <a href="/ribozyme" class="btn btn-default pull-right" id="gene_silencing"><%=texts.gene_silencing%> >></a>
+      <select class="form-control" id="rz-select">
+        <option value="">--<%=texts.select_ribozyme%>--</option>
+        <% ribozymeList.forEach(function(ribozyme, index) { %>
+          <option value="<%= ribozyme['name'] %>-<%= ribozyme['type'] %>"><%= ribozyme['title'] %></option>
+        <% }); %>
+      </select>
     </div>
   </div>
 </div>
