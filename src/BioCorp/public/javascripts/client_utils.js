@@ -449,10 +449,10 @@ SummaryTable.prototype.setTableData = function(data){
     $("#targetRegion").text(data.region);
     $("#targetEnv").text("In-"+data.env.type);
     $("#vivoEnv").text(data.env.target);
-    $("#tempEnv").text(data.temperature);
-    $("#naEnv").text(data.naC);
-    $("#mgEnv").text(data.mgC);
-    $("#oligoEnv").text(data.oligoC);
+    $("#tempEnv").html(data.temperature + ' &#8451');
+    $("#naEnv").text(data.naC + ' mM');
+    $("#mgEnv").text(data.mgC + ' mM');
+    $("#oligoEnv").text(data.oligoC + ' nM');
     $("#cutsites").text(data.cutsites.join(", "));
     $("#promoter").text(data.promoter ? "Yes" : "No");
     var ribozymeText = data.ribozymeSelection;
