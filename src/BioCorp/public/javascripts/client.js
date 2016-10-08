@@ -384,6 +384,26 @@ function initializePage() {
   $("#closeConfirmation").click(function() {
     window.location.href = '/';
   });
+
+  var orderProcessPerInfoAlert = new SequenceAlert($('#orderProcessPerInfoAlert'), $('#orderProcessPerInfoAlert2'));
+
+  $("#orderProcessPerInfo").click(function() {
+    orderProcessPerInfoAlert.hide();
+    var firstname = $('#firstname').val();
+    var lastname = $('#lastname').val();
+    var emailaddr = $('#emailaddr').val();
+    
+    if(!firstname){
+      orderProcessPerInfoAlert.setState({ok: false, error: "You must enter First Name"});
+    } else if(!lastname){
+      orderProcessPerInfoAlert.setState({ok: false, error: "You must enter Last Name"});
+    } else if(!emailaddr){
+      orderProcessPerInfoAlert.setState({ok: false, error: "You must enter Email Address"});
+    } else{
+      $('#orderProcessPerInfo').removeClass('disabled');
+    }
+  });
+
 }
 
   function handleResuspend(checkbox){

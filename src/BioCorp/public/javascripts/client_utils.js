@@ -454,7 +454,7 @@ SummaryTable.prototype.setTableData = function(data){
     $("#mgEnv").text(data.mgC + ' mM');
     $("#oligoEnv").text(data.oligoC + ' nM');
     $("#cutsites").text(data.cutsites.join(", "));
-    $("#promoter").text(data.promoter ? "Yes" : "No");
+    // $("#promoter").text(data.promoter ? "Yes" : "No");
     var ribozymeText = data.ribozymeSelection;
     $(".ribozymeNameList").each(function(){
         if($(this).attr('value') == data.ribozymeSelection){

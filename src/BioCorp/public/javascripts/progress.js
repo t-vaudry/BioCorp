@@ -128,8 +128,8 @@ window.onload = function() {
 		if(animating) return false;
 		animating = true;
 
-		current_fs = $(this).parent();
-		previous_fs = $(this).parent().prev();
+		current_fs = $(this).closest('fieldset');
+		previous_fs = $(this).closest('fieldset').prev();
 
 		console.log(current_fs.attr('id'));
 		console.log(previous_fs.attr('id'));

@@ -73,7 +73,8 @@ router.get("/signup", function (req, res) {
                         orderCount: getOrderCount(req),
                         ribozymeList: ribozymeList,
                         username: getUserName(req),
-                        user: null });
+                        user: null,
+                        error: "" });
     }
 });
 
@@ -270,7 +271,8 @@ router.get('/orderProcessing', function(req, res, next){
                                     orderCount: order.length,
                                     ribozymeList: ribozymeList,
                                     username: getUserName(req),
-                                    user:  getUser(req)});
+                                    user:  getUser(req),
+                                    error: ""});
 });
 
 router.post('/confirmation', function(req, res, next){
