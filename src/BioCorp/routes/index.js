@@ -354,8 +354,9 @@ router.get('/processing/:id', function(req, res, next){
 
 router.get('/results/:id', function(req, res, next){
 
-    appConfigXML.getConfigXML();
-    var ribozymeList = appConfigXML.getRibozymeList('Rz');
+  appConfigXML.getConfigXML();
+  var ribozymeList = appConfigXML.getRibozymeList('Rz');
+  var enzymeList = appConfigXML.getEnzymeList();
 
   var path = require('path').join(config.home_folder, req.params.id, '/requestState.json');
 
@@ -373,6 +374,7 @@ router.get('/results/:id', function(req, res, next){
         stepTitle: 'ribozyme_design_results',
         orderCount: getOrderCount(req),
         ribozymeList: ribozymeList,
+        enzymeList: enzymeList,
         username: getUserName(req),
         results: json_output,
         resultMessage: resultMessage,
@@ -380,7 +382,7 @@ router.get('/results/:id', function(req, res, next){
     };
 
     if(err){
-      res.render('results_page', obj);
+      res.render('results_processing', obj);
     } else if(!request){
       res.redirect('/error');
     } else{
@@ -403,7 +405,7 @@ router.get('/results/:id', function(req, res, next){
         vivoEnv: request.getEnv().target,
         specificity: (request.specificity == "cleavage")? "Cleavage only" : "Cleavage and Hybridization"
       };
-      res.render('results_page', obj);
+      res.render('results_processing', obj);
     };
   });
 });

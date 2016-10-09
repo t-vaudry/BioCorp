@@ -152,6 +152,19 @@ RibozymeConfigXML.prototype.getRibozymeList = function(type){
     return valuesToReturn;
 }
 
+RibozymeConfigXML.prototype.getEnzymeList = function(){
+    var valuesToReturn = new Array();
+    this.parser.parseString(this.data, function (err, result) {
+        result.root.enzyme[0].seq.forEach(function(enzyme) {
+            var valuesToPush = new Object();
+            valuesToPush['name'] = enzyme.$['name'];
+            valuesToPush['seq'] = enzyme._;
+            valuesToReturn.push(valuesToPush);
+        });
+    });
+    return valuesToReturn;
+}
+
 RibozymeConfigXML.prototype.getRibozymeHelixSizes = function(){
     var valuesToReturn = new Array();
     this.parser.parseString(this.data, function (err, result) {

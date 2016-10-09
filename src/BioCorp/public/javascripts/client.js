@@ -404,6 +404,40 @@ function initializePage() {
     }
   });
 
+  var selectDesignAlert = new SequenceAlert($('#selectDesignAlert'),$('#selectDesignAlert2'));
+
+  $("#selectDesignSeq").click(function() {
+    selectDesignAlert.hide();
+    if($( ".candidateSelection:checked" ).length == 0){
+      selectDesignAlert.setState({ok: false, error: "Please select at least one design sequence"});
+    } else {
+      $('#selectDesignSeq').removeClass('disabled');
+      $('.newlyAdded').remove();
+      var row = $("#selectedDesignRow0").clone();
+      $( ".candidateSelection:checked" ).each(function(index) {
+        var currentRow = null;
+        if(index > 0){
+          var num = parseInt( row.prop("id").match(/\d+/g), 10 ) +1;
+          var clone = row.clone().prop('id', 'selectedDesignRow'+num ).prop('class', 'newlyAdded');
+          $("#selectedDesignContainer").append(clone);
+          currentRow = clone;
+        } else {
+          currentRow = $("#selectedDesignRow0");
+        }
+        var selectedItemIndex = $(this).val();
+        var itemRow = $('#resultRow' + selectedItemIndex);
+        currentRow.find(".designTableBody").append(itemRow).find(".checkBoxRow").remove();
+        currentRow.find(".melting_col").each(function(){
+          var t = $(this);
+          var n = t.next();
+          t.html(t.html() + ", " + n.html());
+          n.remove();
+        })
+      });
+      console.log("container: " + container);
+    }
+  });
+
 }
 
   function handleResuspend(checkbox){

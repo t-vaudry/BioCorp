@@ -41,6 +41,12 @@ window.onload = function() {
 		});
 	};
 
+	if($('#fsDesignResults:visible').length > 0){
+		$('#footer').css('margin-top', function(){
+			return ($('#fsDesignResults').height() + $('#navbar-first').height() + $('#navbar-second').height());
+		});
+	};
+
 	Progress.stepNext = function (event){
 		var thisElement = this;
 		if(event.hasOwnProperty("boundaryChecked")){

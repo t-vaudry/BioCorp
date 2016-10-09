@@ -1,10 +1,7 @@
-<% include header %>
-<div class="result_container">
-<div class="row-fluid step-header span12">
-      <div class="step-container">
-        <h3 class="step-title"><%= texts[stepTitle] %></h3>
-<h4><%=texts.design_summary%></h4><br/>
-<div>
+  <div class="step-container container">
+    <h3 class="step-title"><%= texts[stepTitle] %></h3>
+    <h4><%=texts.design_summary%></h4><br/>
+    <div>
       <table class="table table-hover table-condensed">
       <thead>
         <tr>
@@ -14,7 +11,7 @@
       </thead>
       <tbody>
 	<% if(input.accessionNumber) { %>
-	<tr class="invisible" id="accessionNumberRow">
+	      <tr class="invisible" id="accessionNumberRow">
           <td><%=texts.accession_number%></td>
           <td id="accessionNumber"><%= input.accessionNumber %></td>
         </tr>
@@ -90,7 +87,6 @@
   var results = <%- JSON.stringify(results) %>;
   DecompressRequest(results);
   var container = results.CutsiteTypesCandidateContainer;
-  var core  =  results.coreTypeId == 0? "CUGAUGAGGCCGAAAGGCCGAA" : "CUGAUGAGUCGCUGAAAUGCGACGAA";
 
   var meltingTempHeader = "";
   var meltingTempList = null;
@@ -107,91 +103,49 @@
     if(meltingTempList != null && meltingTempList.length > 0) break;
   }
   for(var ii = 0; ii < meltingTempList.length; ii++){
-    meltingTempHeader += "<th><p><%=texts.melting_temperature%> (&deg;C)</p></th> ";
+    meltingTempHeader += "<th><%=texts.melting%><br/><%=texts.temperature%> (&deg;C)</th> ";
   }
 
   var html ="<div class='step-contents center'>\
+  <div id='selectDesignAlert' class='alert alert-danger invisible'></div>\
   <table class='table table-hover' id='results'>\
-       <thead>\
-           <th><p><%=texts.cut_site_number%></p></th>\
-           <th><p><%=texts.sequence%></p></th> " + meltingTempHeader + "\
-           <th><p><%=texts.accessibility%> 1</p></th> \
-           <th><p><%=texts.accessibility%> 2</p></th> \
-           <th><p><%=texts.ribozyme_shape_quality%></p></th>";
+       <thead><th></th>\
+           <th><%=texts.cut_site_number%><br/>( <%=texts.position%> )</th> " + meltingTempHeader + "\
+           <th><%=texts.accessibility%> 1</th> \
+           <th><%=texts.accessibility%> 2</th> \
+           <th><%=texts.ribozyme%><br/><%=texts.shape_quality%></th>";
 
-           html += "<th id='specificity-col'><p><%=texts.off_target_hits%></p></th>";
-           html += "<th id='rank-col'><p><%=texts.overall_rank%></p></th></thead>";
+           html += "<th id='specificity-col'><%=texts.weighted%><br/><%=texts.off_target_hits%></th>";
+//           html += "<th id='rank-col'><p><%=texts.overall_rank%></p></th>";
+           html += "</thead>";
        container.forEach(function(type, ind1) {
             type.Cutsites.forEach(function(cutsite,ind2) {
                  cutsite.Candidates.forEach(function(candidate,ind3) {
-                   var meltingTemp = "";
-                   for(var ii = 0; ii < candidate.MeltingTemperatureList.length; ii++){
-                     meltingTemp += "<td class='melting_col'>" + candidate.MeltingTemperatureList[ii] + "</td>";
-                   }
-                  html +="<tr> \
-                  <td>"+cutsite.ID+"</td> \
-                  <td class='sequence_col'>"
-                  // + candidate.Sequence.substr (0, candidate.Sequence.indexOf(core))
-                  // + "<emp class ='core-highlight'>" + candidate.Sequence.substr (candidate.Sequence.indexOf(core), core.length) + "</emp>"
-                  // + candidate.Sequence.substr (candidate.Sequence.indexOf(core) + core.length )
-                  + candidate.Sequence
-                  +"</td> " + meltingTemp + "\
-                  <td>"+candidate.Fitness_Target+"</td> \
-                  <td>"+candidate.Fitness_Target_dG+"</td> \
-                  <td>"+candidate.Fitness_Shape+"</td>";
-                  if(results.InVivoOrganism)
-                    html+= "<td info='"+ind1+","+ind2+","+ind3+"' class='specificity-entry'>"+candidate.Fitness_Specificity+"</td>";
-                  else
-                    html+= "<td info='"+ind1+","+ind2+","+ind3+"' class='specificity-entry'>"+"N/A"+"</td>";
-                  html+= "<td>"+(candidate.rank+1).toString()+" </td></tr>";
+                  if(candidate.rank == 0) {
+                    var meltingTemp = "";
+                    for(var ii = 0; ii < candidate.MeltingTemperatureList.length; ii++){
+                      meltingTemp += "<td class='melting_col'>" + candidate.MeltingTemperatureList[ii] + "</td>";
+                    }
+                    html +="<tr id='resultRow" + ind3 + "'> \
+                    <td class='checkBoxRow'><input type='checkbox' class='candidateSelection' value='" + ind3 + "'></td>\
+                    <td>" + cutsite.ID + " (" + cutsite.Location + ")</td>"
+                    + meltingTemp + "\
+                    <td>"+candidate.Fitness_Target+"</td> \
+                    <td>"+candidate.Fitness_Target_dG+"</td> \
+                    <td>"+candidate.Fitness_Shape+"</td>";
+                    if(results.InVivoOrganism)
+                      html+= "<td info='"+ind1+","+ind2+","+ind3+"' class='specificity-entry'>"+candidate.Fitness_Specificity+"</td>";
+                    else
+                      html+= "<td info='"+ind1+","+ind2+","+ind3+"' class='specificity-entry'>"+"N/A"+"</td>";
+//                    html+= "<td>"+(candidate.rank+1).toString()+" </td>";
+                    html+= "</tr>";
+                  }
                 })
             })
        })
     html += "</table>";
     $('.step-container').append(html);
   </script>
-  <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-	<div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title"><%=texts.candidate_description%></h4>
-	</div>
-	<div class="modal-body" id="modal-body">
-	  <div class="candidate-details">
-	    <h5>Sequence</h5><p id="sequence"></p>
-	  </div>
-	</div>
-	<div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal"><%=texts.close%></button>
-          <a id="download-link" class="btn btn-primary" download="sequence.txt" href="data:text/plain"><%=texts.download_sequence%></a>
-	</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="offtargetModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-	<div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title" id="myModalLabel"><%=texts.off_target%></h4>
-	</div>
-	<div class="modal-body" id="modal-body">
-	  <div>
-	    <p id="print"></p>
-	  </div>
-	</div>
-	<div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal"><%=texts.close%></button>
-	</div>
-      </div>
-    </div>
-  </div>
 </div>
+<div id='selectDesignAlert2' class='alert alert-danger invisible'></div>
 <% } %>
-
-      </div>
-</div>
-</div>
-<% include footer %>
