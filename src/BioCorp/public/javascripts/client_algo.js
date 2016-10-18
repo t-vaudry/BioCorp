@@ -175,7 +175,7 @@ function FindUTRBoundaries(ondone)
   $.ajax(
   {
     type: "GET",
-    url: "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi",
+    url: "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi",
     data: {
       db: 'nuccore',
       'id': request.accessionNumber,

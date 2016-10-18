@@ -246,7 +246,7 @@ module.exports = {
 
 function fetchAccessionAjax(accession, successCallback, errorCallback){
   request({
-    uri: "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id="+accession+"&rettype=fasta&retmode=text",
+    uri: "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id="+accession+"&rettype=fasta&retmode=text",
     method: "GET",
     followRedirect : false
   }, function(err, res, body){
