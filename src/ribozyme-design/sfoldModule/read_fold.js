@@ -71,9 +71,9 @@ function(file)
 	//console.log("Data lines:"+splited.length);
 	for(var ii = 0; ii < (splited.length - 1); ++ii)//-1 due to empty line at eof
 	{
-		var struct = splited[ii].split(' ');
+		var struct = splited[ii].replace(/[()\{\}\[\]]/gi, '').split(/[ ,]+/);
 		RemoveAllValuesFromArray(struct,'');
-		StructureInfos.push(new StructureInfo(parseFloat(struct[1]),parseFloat(struct[2]),parseFloat(struct[3]),parseFloat(struct[4])) );
+		StructureInfos.push(new StructureInfo(parseFloat(struct[0]),parseFloat(struct[1]),parseFloat(struct[2]),parseFloat(struct[3])) );
 		//console.log(struct.join(','));
 	}
 	return StructureInfos;
