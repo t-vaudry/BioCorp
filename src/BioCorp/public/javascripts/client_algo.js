@@ -218,16 +218,16 @@ function FindUTRBoundaries(ondone)
 
           if( request.region.length == 1)
           {
-            if(request.region[0] = "3'")
+            if(request.region[0] == "3'")
               request.sequence = URF;
-            else if( request.region[0] = "5'" )
+            else if( request.region[0] == "5'" )
               request.sequence = ARF;
             else
               request.sequence = ORF;
           }
           else
           {
-            if(request.region[0] = "3'")
+            if(request.region[0] == "3'")
               request.sequence = ARF + ORF;
             else
               request.sequence = ORF + URF;

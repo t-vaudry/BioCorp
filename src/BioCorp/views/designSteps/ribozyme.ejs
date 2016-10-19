@@ -26,7 +26,7 @@
         <p class="substep-description"><%=texts.search_sequence_number%><br/><%=texts.find_your_sequence%> <a target="_blank" href="http://www.ncbi.nlm.nih.gov/genbank/"><%=texts.here%></a></p>
         <input id="accession" name="accessionNumber" placeholder="(<%=texts.example%>: M73307)"/>
         <button id="submit_ACN" class="btn btn-primary" type="button"><%=texts.search%></button>
-        <div id="accession_alert" class="alert invisible" style="margin-top:20px;"></div>
+        <div id="accession_alert" class="alert alert-success invisible" style="margin-top:20px;"></div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
           <div class="bar-separator span2"><span class="emp"><%=texts.or%></div>
@@ -46,7 +46,7 @@
     <div class="row">
       <div id="sequence-wrap">
         <div id="sequence_alert" class="alert alert-danger invisible"></div>
-        <textarea id="sequence-display" maxlength="3000" class="input-block-level" rows="10" placeholder="<%=texts.paste_sequence%>..."></textarea>
+        <textarea id="sequence-display" maxlength="10000" class="input-block-level" rows="10" placeholder="<%=texts.paste_sequence%>..."></textarea>
         <div id="sequence_alert1" class="alert alert-danger invisible"></div>
       </div>
     </div>
