@@ -441,7 +441,8 @@ SummaryTable.prototype.setTableData = function(data){
 	$("#vivoEnvRow").removeClass("invisible");
     }
     if(data.accessionNumber){
-	$("#accessionNumberRow").removeClass("invisible");
+    	$("#accessionNumberRow").removeClass("invisible");
+	    $("#targetRegionRow").removeClass("invisible");
     }
     $("#accessionNumber").text(data.accessionNumber);
     $("#seqLength").text(data.sequence.length + " nucleotides");

@@ -20,10 +20,12 @@
           <td><%=texts.sequence_length%></td>
           <td id="seqLength"><%= input.sequence.length %> nucleotides</td>
         </tr>
+	<% if(input.accessionNumber) { %>
         <tr id="targetRegionRow">
           <td><%=texts.target_region%></td>
           <td id="targetRegion"><%= input.targetRegion %></td>
         </tr>
+	<% } %>
         <tr>
           <td><%=texts.target_environment%></td>
           <td id="targetEnv"><%= input.targetEnv %></td>
