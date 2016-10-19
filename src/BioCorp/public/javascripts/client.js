@@ -5,7 +5,7 @@ $(document).on("page:load", initializePage);
   /***** Sequence Selection *****/
   var seqInput = new SequenceInput($('#sequence-display')[0]);
 
-  var seqAlert = new SequenceAlert($('#sequence_alert'), $('#sequence_alert'));
+  var seqAlert = new SequenceAlert($('#sequence_alert'), $('#sequence_alert1'));
   var submit1 = $('#submit1');
   var searchAccession = new Button($('#submit_ACN'));
   var accessionAlert = new AccessionAlert($('#accession_alert'));
@@ -44,15 +44,13 @@ function initializePage() {
     if(!validator.getAccessionNumber()){
       return;
     }
-    //accessionAlert.setState("Searching");
+    accessionAlert.setState("Searching");
     submit1.addClass('disabled');
-  //  seqAlert.hide();
     validator.validate(function(result){
       var input = result.toString();
       var validation = InputValidation.isInputValid(input);
       request.sequence = InputValidation.cleanInput(input);
       seqInput.setText(request.sequence);
-      seqAlert.setState(validation);
       if(validation.ok){
         submit1.removeClass('disabled');
       }
@@ -113,7 +111,13 @@ function initializePage() {
   });
 
   $('#sequence-display').on('keyup change mouseout', function(){
-    if(!seqInput.isEmptyText()){
+    var validation = InputValidation.isInputValid(seqInput.getText());
+    if(!seqInput.isEmptyText() && !validation.ok) {
+      seqAlert.setState(validation);
+    } else {
+      seqAlert.hide();
+    }
+    if(!seqInput.isEmptyText() && validation.ok){
       submit1.removeClass('disabled');
     } else {
       submit1.addClass('disabled');
