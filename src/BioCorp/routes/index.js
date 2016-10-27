@@ -229,6 +229,19 @@ router.get('/profile', requiredAuthentication, function (req, res) {
   }
 });
 
+router.post("/ribozymeDesignAddToCart", function (req, res) {
+    var orderInfo = getOrderArray(req);
+    var oligoOrderArray = JSON.parse(req.body.ribozymeDesignOligos);
+    for(var i = 0; i < oligoOrderArray.length; i++){
+        var oligoOrder = new Object();
+        oligoOrder.orderType = "ribozymeDesignOligo";
+        oligoOrder.orderItem = oligoOrderArray[i];
+        orderInfo.push(JSON.stringify(oligoOrder));
+    }
+    res.cookie(cookie_name , JSON.stringify(orderInfo));
+    res.redirect('/orderProcessing');
+});
+
 /* Order Processing*/
 
 router.post("/oligoAddToCart", function (req, res) {

@@ -429,8 +429,8 @@ function initializePage() {
           currentRow = $("#selectedDesignRow0");
         }
         var selectedItemIndex = $(this).val();
-        var itemRow = $('#resultRow' + selectedItemIndex);
-        currentRow.find(".designTableBody").append(itemRow).find(".checkBoxRow").remove();
+        var itemRow = $('#resultRow' + selectedItemIndex).clone();
+        currentRow.find(".designTableBody").empty().append(itemRow).find(".checkBoxRow").remove();
         currentRow.find(".melting_col").each(function(){
           var t = $(this);
           var n = t.next();
@@ -438,8 +438,104 @@ function initializePage() {
           n.remove();
         })
       });
-      console.log("container: " + container);
+
+      $(".5primeEnzyme").on('select change', function() {
+        var seq = $(this).find(':selected').attr("sequence");
+        checkRestrictionEnzyme(this, seq, "5' Restriction Enzyme exists in the Ribozyme DNA sequence");
+        checkPrimer($(this).parents("div[id^=selectedDesignRow]").find('.primer'));
+      });
+
+      $(".3primeEnzyme").on('select change', function() {
+        var seq = $(this).find(':selected').attr("sequence");
+        checkRestrictionEnzyme(this, seq, "3' Restriction Enzyme exists in the Ribozyme DNA sequence");
+        checkPrimer($(this).parents("div[id^=selectedDesignRow]").find('.primer'));
+      });
+
+      $(".primer").on('keyup change mouseout', function(){
+        checkPrimer(this);
+      });
     }
+  });
+
+  function checkPrimer(element) {
+    var selectRePrimerAlert = new SequenceAlert($(element).parents("div[id^=selectedDesignRow]").find('#selectRePrimerAlert1'), 
+      $(element).parents("div[id^=selectedDesignRow]").find('#selectRePrimerAlert1'));
+    selectRePrimerAlert.hide();
+
+    var enzyme3Prime = $(element).parents("div[id^=selectedDesignRow]").find('.3primeEnzyme').find(':selected').attr("sequence");
+    if(enzyme3Prime !== undefined){
+      var elaboratedRestrictionEnzymes = elaborateSingleLetterCode(enzyme3Prime);
+      if(checkSequenceExist($(element).val(), elaboratedRestrictionEnzymes)){
+        selectRePrimerAlert.setState({ok:false, error: "3' Restriction Enzyme exists in the Primer"});
+      }
+    }
+
+    var enzyme5Prime = $(element).parents("div[id^=selectedDesignRow]").find('.5primeEnzyme').find(':selected').attr("sequence");
+    if(enzyme5Prime !== undefined){
+      var elaboratedRestrictionEnzymes = elaborateSingleLetterCode(enzyme5Prime);
+      if(checkSequenceExist($(element).val(), elaboratedRestrictionEnzymes)){
+        selectRePrimerAlert.setState({ok:false, error: "5' Restriction Enzyme exists in the Primer"});
+      }
+    }
+  }
+
+  function checkRestrictionEnzyme(element, sequence, message) {
+    var selectRePrimerAlert = new SequenceAlert($(element).parents("div[id^=selectedDesignRow]").find('#selectRePrimerAlert1'), 
+      $(element).parents("div[id^=selectedDesignRow]").find('#selectRePrimerAlert1'));
+    selectRePrimerAlert.hide();
+    var closestIndices = $(element).parents("div[id^=selectedDesignRow]").find(".specificity-entry");
+    var indexes = closestIndices.attr('info').split(',').map(function(el){
+          return parseInt(el);
+    });
+
+    var candidate = results.CutsiteTypesCandidateContainer[indexes[0]].Cutsites[indexes[1]].Candidates[indexes[2]];
+    var dnaSeq = RnaToDna(candidate.Sequence);
+    var elaboratedRestrictionEnzymes = elaborateSingleLetterCode(sequence);
+    var exist = checkSequenceExist(dnaSeq, elaboratedRestrictionEnzymes);
+    if(exist){
+      selectRePrimerAlert.setState({ok:false, error: message});
+    }
+  }
+
+  $("#ribozymeDesignAddToCart").submit(function() {
+    var items = new Array();
+    $("div[id^=selectedDesignRow]").each( function() {
+      var indexes = $(this).find('.specificity-entry').attr('info').split(',').map(function(el){
+        return parseInt(el);
+      });
+      var cutsite = results.CutsiteTypesCandidateContainer[indexes[0]].Cutsites[indexes[1]];
+      var candidate = results.CutsiteTypesCandidateContainer[indexes[0]].Cutsites[indexes[1]].Candidates[indexes[2]];
+      var newCandidate = new Object();
+
+      newCandidate.Sequence = candidate.Sequence;
+      newCandidate.cutsiteID = cutsite.ID;
+      newCandidate.cutsiteLocation = cutsite.Location;
+      newCandidate.MeltingTemperatureList = candidate.MeltingTemperatureList;
+      newCandidate.Fitness_Target = candidate.Fitness_Target;
+      newCandidate.Fitness_Target_dG = candidate.Fitness_Target_dG;
+      newCandidate.Fitness_Shape = candidate.Fitness_Shape;
+      if(results.InVivoOrganism) {
+        newCandidate.Fitness_Specificity = candidate.Fitness_Specificity;
+      } else {
+        newCandidate.Fitness_Specificity = "N/A";
+      }
+
+      newCandidate.DNASequence = RnaToDna(newCandidate.Sequence);
+      var prime3Enzyme = new Object();
+      prime3Enzyme['name'] = $(this).find('.3primeEnzyme').find(':selected').text();
+      prime3Enzyme['seq'] = $(this).find('.3primeEnzyme').find(':selected').attr("sequence");
+      newCandidate.prime3Enzyme = prime3Enzyme;
+
+      var prime5Enzyme = new Object();
+      prime5Enzyme['name'] = $(this).find('.5primeEnzyme').find(':selected').text();
+      prime5Enzyme['seq'] = $(this).find('.5primeEnzyme').find(':selected').attr("sequence");
+      newCandidate.prime5Enzyme = prime5Enzyme;
+
+      newCandidate.primer = $(this).find('.primer').val();
+      items.push(newCandidate);
+    });
+
+    $('#ribozymeDesignOligos').attr('value', JSON.stringify(items));
   });
 
 }

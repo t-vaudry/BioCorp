@@ -284,3 +284,86 @@ function AppendPromoter(candidateDna,promoter, depth)
   candidate += promAdded.substr(matchBegin);
   return candidate;
 }
+
+function elaborateSingleLetterCode(sequence) {
+  var elaboratedSeqArr = [""];
+  for(var i = 0; i < sequence.length; i++){
+    var base = sequence[i];
+    switch(base){
+      case 'A':
+      case 'T':
+      case 'G':
+      case 'C':
+        for(var j = 0; j < elaboratedSeqArr.length; j++){
+          elaboratedSeqArr[j] += base; 
+        }
+        break;
+    // B = C or G or T 
+    // D = A or G or T 
+    // H = A or C or T 
+    // K = G or T 
+    // M = A or C 
+    // N = A or C or G or T 
+    // R = A or G 
+    // S = C or G 
+    // V = A or C or G 
+    // W = A or T 
+    // Y = C or T
+      case 'B':
+        elaboratedSeqArr = addSequences(elaboratedSeqArr, ['C', 'G', 'T']);
+        break;
+      case 'D':
+        elaboratedSeqArr = addSequences(elaboratedSeqArr, ['A', 'G', 'T']);
+        break;
+      case 'H':
+        elaboratedSeqArr = addSequences(elaboratedSeqArr, ['A', 'C', 'T']);
+        break;
+      case 'K':
+        elaboratedSeqArr = addSequences(elaboratedSeqArr, ['G', 'T']);
+        break;
+      case 'M':
+        elaboratedSeqArr = addSequences(elaboratedSeqArr, ['A', 'C']);
+        break;
+      case 'N':
+        elaboratedSeqArr = addSequences(elaboratedSeqArr, ['A', 'C', 'G', 'T']);
+        break;
+      case 'R':
+        elaboratedSeqArr = addSequences(elaboratedSeqArr, ['A', 'G']);
+        break;
+      case 'S':
+        elaboratedSeqArr = addSequences(elaboratedSeqArr, ['C', 'G']);
+        break;
+      case 'V':
+        elaboratedSeqArr = addSequences(elaboratedSeqArr, ['A', 'C', 'G']);
+        break;
+      case 'W':
+        elaboratedSeqArr = addSequences(elaboratedSeqArr, ['A', 'T']);
+        break;
+      case 'Y':
+        elaboratedSeqArr = addSequences(elaboratedSeqArr, ['C', 'T']);
+        break;
+      default:
+        console.log("Base character not allowed " + base);
+    }
+  }
+  return elaboratedSeqArr;
+}
+
+function addSequences(elaboratedSeqArr, bases) {
+  var newElaboratedSeqArr = new Array();
+  for(var j = 0; j < elaboratedSeqArr.length; j++){
+    for(var k = 0; k < bases.length; k++){
+      newElaboratedSeqArr.push(elaboratedSeqArr[j] + bases[k]); 
+    }
+  }
+  return newElaboratedSeqArr;
+}
+
+function checkSequenceExist(seq, seqArray) {
+  var exist = false;
+  for(var i = 0; i < seqArray.length; i++){
+    exist = seq.includes(seqArray[i]);
+    if(exist) break;
+  }
+  return exist;
+}
