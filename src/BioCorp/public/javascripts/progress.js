@@ -11,42 +11,6 @@ function Progress(){}
 window.onload = function() {
 	var stepNextBtn = $('.stepNext');
 
-	if($('#fsSeqSel:visible').length > 0){
-		$('#footer').css('margin-top', function(){
-			return ($('#fsSeqSel').height() + $('#navbar-first').height() + $('#navbar-second').height());
-		});
-	};
-
-	if($('#fsOligoOrder:visible').length > 0){
-		$('#footer').css('margin-top', function(){
-			return ($('#fsOligoOrder').height() + $('#navbar-first').height() + $('#navbar-second').height());
-		});
-	};
-
-	if($('#fsOligoPersonal:visible').length > 0){
-		$('#footer').css('margin-top', function(){
-			return ($('#fsOligoPersonal').height() + $('#navbar-first').height() + $('#navbar-second').height());
-		});
-	};
-
-	if($('#fsOrderReview:visible').length > 0){
-		$('#footer').css('margin-top', function(){
-			return ($('#fsOrderReview').height() + $('#navbar-first').height() + $('#navbar-second').height());
-		});
-	};
-
-	if($('#fsOrderConfirmation:visible').length > 0){
-		$('#footer').css('margin-top', function(){
-			return ($('#fsOrderConfirmation').height() + $('#navbar-first').height() + $('#navbar-second').height());
-		});
-	};
-
-	if($('#fsDesignResults:visible').length > 0){
-		$('#footer').css('margin-top', function(){
-			return ($('#fsDesignResults').height() + $('#navbar-first').height() + $('#navbar-second').height());
-		});
-	};
-
 	Progress.stepNext = function (event){
 		var thisElement = this;
 		if(event.hasOwnProperty("boundaryChecked")){
@@ -54,10 +18,6 @@ window.onload = function() {
 		}
 		if($(thisElement).hasClass('disabled')){
 			console.log("Submit1 is disabled!!!");
-
-			$('#footer').css('margin-top', function(){
-				return  ($('fieldset:visible').height() + $('#navbar-first').height() + $('#navbar-second').height());
-			});
 			return;
 		}
 
@@ -115,16 +75,13 @@ window.onload = function() {
 				current_fs.css({'transform': 'scale('+scale+')'});
 				next_fs.css({'left': left, 'opacity': opacity});
 			},
-			duration: 800,
+			duration: 200,
 			complete: function(){
 				current_fs.hide();
 				animating = false;
 			},
 			//this comes from the custom easing plugin
 			easing: 'easeInOutBack'
-		});
-		$('#footer').css('margin-top', function(){
-			return (next_fs.height() + $('#navbar-first').height() + $('#navbar-second').height());
 		});
 	};
 	$('.stepNext').click(Progress.stepNext);
@@ -159,17 +116,13 @@ window.onload = function() {
 				current_fs.css({'left': left});
 				previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
 			},
-			duration: 400,
+			duration: 200,
 			complete: function(){
 				current_fs.hide();
 				animating = false;
 			},
 			//this comes from the custom easing plugin
 			easing: 'easeInOutBack'
-		});
-
-		$('#footer').css('margin-top', function(){
-			return (previous_fs.height() + $('#navbar-first').height() + $('#navbar-second').height());
 		});
 
 	});
@@ -187,21 +140,10 @@ window.onload = function() {
 		if(promo == 'append'){
 			if(promo_others == 'Others'){
 				$('#promosequence-display').removeClass('invisible');
-				$('#footer').css('margin-top', function(){
-					return ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
-				});
 			} else{
 				$('#promosequence-display').addClass('invisible');
-				$('#footer').css('margin-top', function(){
-					return ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
-				});
 			}
 		}
-
-		console.log($('#fsDesignOption').height());
-		$('#footer').css('margin-top', function(){
-			return  ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
-		});
   });
 
 	$('.divCollapse').on('hidden.bs.collapse', function() {
@@ -209,10 +151,6 @@ window.onload = function() {
 		if($(this).prev().find("span").hasClass('promoDrop')){
 			$("#promosequence-display").addClass('invisible');
 		}
-		console.log($('#fsDesignOption').height());
-		$('#footer').css('margin-top', function(){
-			return  ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
-		});
 	});
 
 	$('#vivoRadio').click(function(){

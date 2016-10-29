@@ -265,14 +265,8 @@ function initializePage() {
     var promo = $('#promoList option:selected').attr('value');
     if(promo == 'Others'){
       $('#promosequence-display').removeClass('invisible');
-      $('#footer').css('margin-top', function(){
-        return ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
-      });
     } else{
       $('#promosequence-display').addClass('invisible');
-      $('#footer').css('margin-top', function(){
-        return ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
-      });
     }
 
 
@@ -282,29 +276,17 @@ function initializePage() {
         case 'T7':
           console.log('T7 Promoter Selected');
           $('#promosequence-display').addClass('invisible');
-          $('#footer').css('margin-top', function(){
-            return ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
-          });
           break;
         case 'CMV':
           console.log('CMV Promoter Selected');
           $('#promosequence-display').addClass('invisible');
-          $('#footer').css('margin-top', function(){
-            return ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
-          });
           break;
         case 'Others':
           $('#promosequence-display').removeClass('invisible');
-          $('#footer').css('margin-top', function(){
-            return ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
-          });
           console.log('Manual Input Activated');
           break;
         default:
           $('#promosequence-display').addClass('invisible');
-          $('#footer').css('margin-top', function(){
-            return ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
-          });
           break;
       }
     });
@@ -314,9 +296,6 @@ function initializePage() {
 
   $('#not_append_promo').click(function(){
     $('#promosequence-display').addClass('invisible');
-    $('#footer').css('margin-top', function(){
-      return ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
-    });
   });
 
 
@@ -326,16 +305,10 @@ function initializePage() {
       case 'append':
         if($("#promoList").attr('value') == "Others"){
           $("#promosequence-display").removeClass('invisible');
-          $('#footer').css('margin-top', function(){
-            return ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
-          });
         }
         break;
       case 'notappend':
       $("#promosequence-display").addClass('invisible');
-      $('#footer').css('margin-top', function(){
-        return ($('#fsDesignOption').height() + $('#navbar-first').height() + $('#navbar-second').height());
-      });
       break;
     }
   });*/

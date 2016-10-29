@@ -40,7 +40,7 @@ body {
 	margin: 0 0;
 
 	/*stacking fieldsets above each other*/
-	position: absolute;
+	/*position: absolute;*/
 }
 /*Hide all except first fieldset*/
 #msform fieldset:not(:first-of-type), #oligoForm fieldset:not(:first-of-type) {
