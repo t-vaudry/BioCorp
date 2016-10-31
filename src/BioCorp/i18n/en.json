@@ -192,5 +192,6 @@
     "primer": "Primer Sequence",
     "design_item": "Design Item",
     "ribozyme_order":"Ribozyme Order",
-    "selection": "Selection"
+    "selection": "Selection",
+    "your_order":"Your order has been submitted. Please check your email for a list of items."
 }
