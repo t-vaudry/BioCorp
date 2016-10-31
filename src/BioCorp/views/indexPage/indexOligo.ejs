@@ -3,27 +3,8 @@
   <!-- Item Demonstration Section -->
   <div class="row">
     <div class="col-lg-12">
-      <h1 id="landing-welcome" class="page-header"><%=texts.welcome%>      
-      <% if(username.length > 0){ %>
-        <%=username%>
-      <% } else {%>
-        <%=texts.to_biocorp%>
-      <% } %>
-      </h1>
+      <h1 id="landing-welcome" class="page-header"><%=texts.welcome%> <%=texts.to_biocorp%></h1>
     </div>
 
 <!-- Oligo Synthesis -->
 <div id="service-block">
-<div class="col-lg-4">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4><i class="glyphicon glyphicon-cog"></i><%=texts.oligo_synthesis%></h4>
-    </div>
-    <div class="panel-body">
-      <p>
-        <%=texts.sequence_you_want%>
-      </p>
-      <a href="/oligoOrder" class="btn btn-default pull-right"><%=texts.design_own_oligo%> >></a>
-    </div>
-  </div>
-</div>

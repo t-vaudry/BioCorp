@@ -111,26 +111,26 @@
   var html ="<div class='step-contents center'>\
   <div id='selectDesignAlert' class='alert alert-danger invisible'></div>\
   <table class='table table-hover' id='results'>\
-       <thead><th></th>\
+       <thead>\
            <th><%=texts.cut_site_number%><br/>( <%=texts.position%> )</th> " + meltingTempHeader + "\
+           <th><%=texts.sequence%></th>\
            <th><%=texts.accessibility%> 1</th> \
            <th><%=texts.accessibility%> 2</th> \
            <th><%=texts.ribozyme%><br/><%=texts.shape_quality%></th>";
 
            html += "<th id='specificity-col'><%=texts.weighted%><br/><%=texts.off_target_hits%></th>";
-//           html += "<th id='rank-col'><p><%=texts.overall_rank%></p></th>";
+           html += "<th id='rank-col'><p><%=texts.overall_rank%></p></th>";
            html += "</thead>";
        container.forEach(function(type, ind1) {
             type.Cutsites.forEach(function(cutsite,ind2) {
                  cutsite.Candidates.forEach(function(candidate,ind3) {
-                  if(candidate.rank == 0) {
                     var meltingTemp = "";
                     for(var ii = 0; ii < candidate.MeltingTemperatureList.length; ii++){
                       meltingTemp += "<td class='melting_col'>" + candidate.MeltingTemperatureList[ii] + "</td>";
                     }
                     html +="<tr id='resultRow" + ind3 + "'> \
-                    <td class='checkBoxRow'><input type='checkbox' class='candidateSelection' value='" + ind3 + "'></td>\
-                    <td>" + cutsite.ID + " (" + cutsite.Location + ")</td>"
+                    <td>" + cutsite.ID + " (" + cutsite.Location + ")</td>\
+                    <td style='max-width:150px; overflow: hidden;text-overflow: ellipsis;' title='" + candidate.Sequence + "'>" + candidate.Sequence + "</td>"
                     + meltingTemp + "\
                     <td>"+candidate.Fitness_Target+"</td> \
                     <td>"+candidate.Fitness_Target_dG+"</td> \
@@ -139,9 +139,8 @@
                       html+= "<td info='"+ind1+","+ind2+","+ind3+"' class='specificity-entry'>"+candidate.Fitness_Specificity+"</td>";
                     else
                       html+= "<td info='"+ind1+","+ind2+","+ind3+"' class='specificity-entry'>"+"N/A"+"</td>";
-//                    html+= "<td>"+(candidate.rank+1).toString()+" </td>";
+                    html+= "<td>"+(candidate.rank+1).toString()+" </td>";
                     html+= "</tr>";
-                  }
                 })
             })
        })

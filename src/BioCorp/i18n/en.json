@@ -1,7 +1,7 @@
 {
     "bioCorp": "BioCorp",
     "welcome": "Welcome",
-    "to_biocorp": " to BioCorp",
+    "to_biocorp": " to Ribosoft",
     "oligo_synthesis" : "Oligo Synthesis",
     "sequence_you_want" : "Have the sequence you want, We build it for you.",
     "design_own_oligo": "Oligo Input",
@@ -174,7 +174,7 @@
     "about_us":"About Us",
     "contact_us":"Contact Us",
     "how_order":"How to Order",
-    "copyright":"Copyright 2016 BioCorp DNA",
+    "copyright":"Copyright 2016 Ribosoft",
     "concordia":"Concordia University",
     "select_file_oligos": "Select file for Oligo input",
     "add_cart":"Add to Cart",

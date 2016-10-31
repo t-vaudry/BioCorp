@@ -42,33 +42,12 @@
       <div class="container">
         <div class="biocorp-header">
           <div  id="lang-cart-container">
-            <!-- BioCorp Logo -->
-            <div class="col-xs-12 col-sm-3 col-md-5 col-lg-5">
-              <a href="../index">
-                <img style="max-height:50px;" src="../../images/logo_biocorp.png"/>
-              </a>
-            </div>
-            <div style="margin-top:5px;float:right;">
-                <!-- Sign in -->
-                <% if(username.length > 0){ %>
-                  <button type="button" id="signOutButton" class="btn btn-default" title="<%=texts.sign_out + " " + username%>"><%=texts.sign_out%></button>
-                <% } else {%>
-                  <button type="button" id="signInButton" class="btn btn-default"><%=texts.sign_in%>?</button>
-                <% } %>
-                <!-- Shopping Cart -->
-                <button type="button" id="shoppingCartButton" class="btn btn-default">
-                  <span class="glyphicon glyphicon-shopping-cart"></span>
-                  <span id="shoppingCartSpan" data-bind="#"><%=orderCount%> <%=texts.items%> $<%=orderCount*10.0%></span>
-                </button>
-                <!-- Get Help -->
-                <button type="button" class="btn btn-default"><%=texts.need_help%>?</button>
-            </div>
-            <!-- Profile -->
-            <% if(username.length > 0){ %>
-              <div style="margin-right:10px;margin-top:13px;float:right;">
-                <span><a href="/profile"><%=username%></a></span>
-              </div>
-            <% } %>
+          <!-- BioCorp Logo -->
+          <div class="col-xs-12 col-sm-3 col-md-5 col-lg-5">
+            <a href="../index">
+              <img style="max-height:50px;padding-bottom: 5px;" src="../../images/icon.png"/>
+            </a>
+          </div>
             <!-- Language Selection -->
             <div class="col-xs-12 col-sm-3 col-md-5 col-lg-1" style="margin-top:13px;float:right;">
               <% if(lang=="en"){ %>
@@ -98,31 +77,21 @@
         <div class="collapse navbar-collapse" id="bc-navbar-collapse">
           <ul class="nav navbar-nav navbar-left">
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=texts.products_and_services%> <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <a href="/oligoOrder"><%=texts.oligo_synthesis%></a>
-                  </li>
-                </ul>
-                  </li>
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=texts.design_tools%><b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <a id="crispr" href="/crispr"><%=texts.crispr_cas9%></a>
-                      </li>
-                      <% ribozymeList.forEach(function(ribozyme, index) { %>
-                      <li>
-                        <a href="/ribozyme?selection=<%= ribozyme['name'] %>-<%= ribozyme['type'] %>"><%= ribozyme['title'] %></a>
-                        <input type="hidden" class="ribozymeNameList" value="<%= ribozyme['name'] %>-<%= ribozyme['type'] %>" title="<%= ribozyme['title'] %>"/>
-                      </li>
-                      <% }); %>
-                    </ul>
-                  </li>
-                </ul>
-
-              </div>
-
-         </div>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=texts.design_tools%><b class="caret"></b></a>
+              <ul class="dropdown-menu" style="right:auto;">
+                <li>
+                  <a id="crispr" href="/crispr"><%=texts.crispr_cas9%></a>
+                </li>
+                <% ribozymeList.forEach(function(ribozyme, index) { %>
+                <li>
+                  <a href="/ribozyme?selection=<%= ribozyme['name'] %>-<%= ribozyme['type'] %>"><%= ribozyme['title'] %></a>
+                  <input type="hidden" class="ribozymeNameList" value="<%= ribozyme['name'] %>-<%= ribozyme['type'] %>" title="<%= ribozyme['title'] %>"/>
+                </li>
+                <% }); %>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
       </nav>
 <% include homepage_modals %>
