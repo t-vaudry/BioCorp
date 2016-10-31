@@ -98,7 +98,7 @@ mailer.notifyCustomer = function(content, callback){
 		} else if(order[i].orderType == "ribozymeDesignOligo"){
 		message += "<table class='table table-hover table-condensed'>\
 			<thead>\
-			<th>Cut-site Number<br/>( Position )</th>\
+			<th>Sequence</th>\
 			<th>Melting<br/>Temperature (&deg;C)</th>\
 			<th>Accessibility 1</th>\
 			<th>Accessibility 2</th>\
@@ -106,7 +106,7 @@ mailer.notifyCustomer = function(content, callback){
 			<th>Weighted<br/>off-target hits</th>\
 			</thead>\
 			<tbody>\
-				<td>" + order[i].orderItem.cutsiteID + "( " + order[i].orderItem.cutsiteLocation + " )</td>\
+				<td>" + order[i].orderItem.Sequence + "</td>\
 				<td>" + order[i].orderItem.MeltingTemperatureList + "</td>\
 				<td>" + order[i].orderItem.Fitness_Target + "</td>\
 				<td>" + order[i].orderItem.Fitness_Target_dG + "</td>\

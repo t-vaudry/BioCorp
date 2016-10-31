@@ -128,8 +128,8 @@
                     for(var ii = 0; ii < candidate.MeltingTemperatureList.length; ii++){
                       meltingTemp += "<td class='melting_col'>" + candidate.MeltingTemperatureList[ii] + "</td>";
                     }
-                    html +="<tr id='resultRow" + ind3 + "'> \
-                    <td class='checkBoxRow'><input type='checkbox' class='candidateSelection' value='" + ind3 + "'></td>\
+                    html +="<tr id='resultRow"+ind1+"-"+ind2+"-"+ind3+"'> \
+                    <td class='checkBoxRow'><input type='checkbox' class='candidateSelection' value='"+ind1+"-"+ind2+"-"+ind3+"'></td>\
                     <td>" + cutsite.ID + " (" + cutsite.Location + ")</td>"
                     + meltingTemp + "\
                     <td>"+candidate.Fitness_Target+"</td> \
