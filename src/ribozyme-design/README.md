@@ -1,7 +1,7 @@
 node-hammerhead-design
 ======================
 
-Set of tools to design Hammerhead Ribozymes. These were developed as part of the Ribosoft project, a webservice and HTTP API for designing hammerhead ribozymes.
+Set of tools to design Hammerhead Ribozymes. These were developed as part of the Biocorp project, a webservice and HTTP API for designing hammerhead ribozymes.
 
 ##How it works##
 More details soon.

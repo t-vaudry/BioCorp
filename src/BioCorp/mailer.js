@@ -24,8 +24,8 @@ var host = config.host;
 
 mailer.notifyCustomer = function(content, callback){
 	var receiver = content.emailaddr;
-	var subject = "Order confirmation from Ribosoft";
-	var message = "Hello,<br/><p>Your following order is now confirmed.</br/><br/>Regards,<br/>The Ribosoft Team</p>";
+	var subject = "Order confirmation from Biocorp";
+	var message = "Hello,<br/><p>Your following order is now confirmed.</br/><br/>Regards,<br/>The Biocorp Team</p>";
 
     message += "<table>\
         <tbody>\
@@ -139,7 +139,7 @@ mailer.notifyCustomer = function(content, callback){
 	}
 
 	var mailOptions = {
-		from: "Ribosoft <"+config.user_smtp+">", 
+		from: "Biocorp <"+config.user_smtp+">", 
 		to: receiver, 
 		subject: subject,
 		html: message

@@ -33,11 +33,11 @@ mailer.notifyOwnerRequestFailed = function(request, callback){
 		var link = host + 'results/'+request.uuid;
 		var sendMail = function(request, callback){
 			var receiver = request.emailUser;
-			var subject = "Result from Ribosoft for request "+request.uuid;
-			var message = "Hello,<br/><p>Your request seems to have failed. Please retry at the address "+host+".<br/><br/>When target sequences are more than 3 kb, computing can sometimes be unreasonnably long, try using a portion of the sequence.<br/><br/>Alternatively, by modifying parameters it is possible to increase the number of candidate ribozymes (e.g. longer arm’s lengths will increase the Tm to allow for ribozymes that bind their target well even at higher temperatures).<br/><br/>For a description of the parameters previously used, have a look here: <a href='"+link+"' />"+link+"</a></br/><br/>Regards,<br/>The Ribosoft Team</p>";
+			var subject = "Result from Biocorp for request "+request.uuid;
+			var message = "Hello,<br/><p>Your request seems to have failed. Please retry at the address "+host+".<br/><br/>When target sequences are more than 3 kb, computing can sometimes be unreasonnably long, try using a portion of the sequence.<br/><br/>Alternatively, by modifying parameters it is possible to increase the number of candidate ribozymes (e.g. longer arm’s lengths will increase the Tm to allow for ribozymes that bind their target well even at higher temperatures).<br/><br/>For a description of the parameters previously used, have a look here: <a href='"+link+"' />"+link+"</a></br/><br/>Regards,<br/>The Biocorp Team</p>";
 
 			var mailOptions = {
-				from: "Ribosoft <"+config.user_smtp+">", 
+				from: "Biocorp <"+config.user_smtp+">", 
 				to: receiver, 
 				subject: subject,
 				html: message
@@ -82,11 +82,11 @@ mailer.notifyOwners = function(requests, callback){
 	var sendMail = function(request, callback){
 	    var receiver = request.emailUser;
 	    var link = host + 'results/'+request.uuid;
-	    var subject = "Result from Ribosoft for request "+request.uuid;
-	    var message = "Hello,<br/><p>Your request has now been completed. You can view the results at the address: <a href='"+link+"' />"+link+"</a>.<br/><br/>Regards,<br/>The Ribosoft Team</p>";
+	    var subject = "Result from Biocorp for request "+request.uuid;
+	    var message = "Hello,<br/><p>Your request has now been completed. You can view the results at the address: <a href='"+link+"' />"+link+"</a>.<br/><br/>Regards,<br/>The Biocorp Team</p>";
 
 	    var mailOptions = {
-		from: "Ribosoft <"+config.user_smtp+">", 
+		from: "Biocorp <"+config.user_smtp+">", 
 		to: receiver, 
 		subject: subject,
 		html: message
@@ -125,11 +125,11 @@ mailer.notifyAdmin = function(data, callback){
 	callback(null, 0);
     else {
 	var receiver = config.admin;
-	var subject = "List of organizations - Ribosoft";
-	var message = "Hello,<br/><p>List of organizations:<br/>"+data.join("<br/>")+"</p><br/><br/>Regards,<br/>The Ribosoft Team</p>";
+	var subject = "List of organizations - Biocorp";
+	var message = "Hello,<br/><p>List of organizations:<br/>"+data.join("<br/>")+"</p><br/><br/>Regards,<br/>The Biocorp Team</p>";
 
 	var mailOptions = {
-	    from: "Ribosoft <"+config.user_smtp+">", 
+	    from: "Biocorp <"+config.user_smtp+">", 
 	    to: receiver, 
 	    subject: subject,
 	    html: message
@@ -153,11 +153,11 @@ mailer.notifyErrors = function(data, callback){
     if(data.length == 0)
 	callback(null, 0);
     else {
-	var subject = "Ribosoft - Error caught";
-	var message = "Hello,<br/>An error occured. Here is the stacktrace:<br/>"+data+"<br/><br/>Regards,<br/>The Ribosoft Team</p>";
+	var subject = "Biocorp - Error caught";
+	var message = "Hello,<br/>An error occured. Here is the stacktrace:<br/>"+data+"<br/><br/>Regards,<br/>The Biocorp Team</p>";
 
 	var mailOptions = {
-	    from: config.user_smtp,
+	    from: "Biocorp <"+config.user_smtp+">",
 	    to: config.devContact,
 	    subject: subject,
 	    html: message
