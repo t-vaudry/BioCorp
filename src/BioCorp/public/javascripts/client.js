@@ -412,16 +412,27 @@ function initializePage() {
         })
       });
 
-      $(".5primeEnzyme").on('select change', function() {
-        var seq = $(this).find(':selected').attr("sequence");
-        checkRestrictionEnzyme(this, seq, "5' Restriction Enzyme exists in the Ribozyme DNA sequence");
-        checkPrimer($(this).parents("div[id^=selectedDesignRow]").find('.primer'));
+      var selectRePrimerAlert = new SequenceAlert($('.selectRePrimerAlert'), $('.selectRePrimerAlert'));
+      selectRePrimerAlert.hide();
+
+      $(".5primeEnzyme").each(function() {
+        prime5EnzymeCheck(this);
       });
 
-      $(".3primeEnzyme").on('select change', function() {
-        var seq = $(this).find(':selected').attr("sequence");
-        checkRestrictionEnzyme(this, seq, "3' Restriction Enzyme exists in the Ribozyme DNA sequence");
-        checkPrimer($(this).parents("div[id^=selectedDesignRow]").find('.primer'));
+      $(".3primeEnzyme").each(function() {
+        prime3EnzymeCheck(this);
+      });
+
+      $(".primer").each(function() {
+        checkPrimer(this);
+      });
+
+      $(".5primeEnzyme").on('select change', function(){
+        prime5EnzymeCheck(this);
+      });
+
+      $(".3primeEnzyme").on('select change', function(){
+        prime3EnzymeCheck(this);
       });
 
       $(".primer").on('keyup change mouseout', function(){
@@ -430,9 +441,25 @@ function initializePage() {
     }
   });
 
+  function prime5EnzymeCheck(element) {
+    var seq = $(element).find(':selected').attr("sequence");
+    if(seq !== undefined && seq.length > 0){
+      checkRestrictionEnzyme(element, seq, "5' Restriction Enzyme exists in the Ribozyme DNA sequence");
+      checkPrimer($(element).parents("div[id^=selectedDesignRow]").find('.primer'));
+    }
+  }
+
+  function prime3EnzymeCheck(element) {
+    var seq = $(element).find(':selected').attr("sequence");
+    if(seq !== undefined && seq.length){
+      checkRestrictionEnzyme(element, seq, "3' Restriction Enzyme exists in the Ribozyme DNA sequence");
+      checkPrimer($(element).parents("div[id^=selectedDesignRow]").find('.primer'));
+    }
+  }
+
   function checkPrimer(element) {
-    var selectRePrimerAlert = new SequenceAlert($(element).parents("div[id^=selectedDesignRow]").find('#selectRePrimerAlert1'), 
-      $(element).parents("div[id^=selectedDesignRow]").find('#selectRePrimerAlert1'));
+    var selectRePrimerAlert = new SequenceAlert($(element).parents("div[id^=selectedDesignRow]").find('.selectRePrimerAlert'), 
+      $(element).parents("div[id^=selectedDesignRow]").find('.selectRePrimerAlert'));
     selectRePrimerAlert.hide();
 
     var enzyme3Prime = $(element).parents("div[id^=selectedDesignRow]").find('.3primeEnzyme').find(':selected').attr("sequence");
@@ -453,8 +480,8 @@ function initializePage() {
   }
 
   function checkRestrictionEnzyme(element, sequence, message) {
-    var selectRePrimerAlert = new SequenceAlert($(element).parents("div[id^=selectedDesignRow]").find('#selectRePrimerAlert1'), 
-      $(element).parents("div[id^=selectedDesignRow]").find('#selectRePrimerAlert1'));
+    var selectRePrimerAlert = new SequenceAlert($(element).parents("div[id^=selectedDesignRow]").find('.selectRePrimerAlert'), 
+      $(element).parents("div[id^=selectedDesignRow]").find('.selectRePrimerAlert'));
     selectRePrimerAlert.hide();
     var closestIndices = $(element).parents("div[id^=selectedDesignRow]").find(".specificity-entry");
     var indexes = closestIndices.attr('info').split(',').map(function(el){
@@ -495,12 +522,12 @@ function initializePage() {
 
       newCandidate.DNASequence = RnaToDna(newCandidate.Sequence);
       var prime3Enzyme = new Object();
-      prime3Enzyme['name'] = $(this).find('.3primeEnzyme').find(':selected').text();
+      prime3Enzyme['name'] = $(this).find('.3primeEnzyme').find(':selected').val();
       prime3Enzyme['seq'] = $(this).find('.3primeEnzyme').find(':selected').attr("sequence");
       newCandidate.prime3Enzyme = prime3Enzyme;
 
       var prime5Enzyme = new Object();
-      prime5Enzyme['name'] = $(this).find('.5primeEnzyme').find(':selected').text();
+      prime5Enzyme['name'] = $(this).find('.5primeEnzyme').find(':selected').val();
       prime5Enzyme['seq'] = $(this).find('.5primeEnzyme').find(':selected').attr("sequence");
       newCandidate.prime5Enzyme = prime5Enzyme;
 

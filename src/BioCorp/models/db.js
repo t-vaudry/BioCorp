@@ -55,6 +55,12 @@ var UserSchema = new mongoose.Schema({
 
 mongoose.model('User', UserSchema);
 
+var ItemSchema = new mongoose.Schema({
+    json: String
+});
+
+mongoose.model('Item', ItemSchema);
+
 if(process.env.NODE_ENV == 'test'){
   console.log("DB Url: " + config.ribosoftTestDbUrl);
   mongoose.connect(config.ribosoftTestDbUrl);

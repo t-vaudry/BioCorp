@@ -86,7 +86,6 @@ function authenticate(name, pass, fn) {
     User.findOne({
         username: name
     },
-
     function (err, user) {
         if (user) {
             if (err) return fn(new Error('cannot find user'));
@@ -229,28 +228,50 @@ router.get('/profile', requiredAuthentication, function (req, res) {
   }
 });
 
+/* Order Processing*/
+var Item = mongoose.model('Item');
+
 router.post("/ribozymeDesignAddToCart", function (req, res) {
     var orderInfo = getOrderArray(req);
     var oligoOrderArray = JSON.parse(req.body.ribozymeDesignOligos);
-    for(var i = 0; i < oligoOrderArray.length; i++){
-        var oligoOrder = new Object();
-        oligoOrder.orderType = "ribozymeDesignOligo";
-        oligoOrder.orderItem = oligoOrderArray[i];
-        orderInfo.push(JSON.stringify(oligoOrder));
-    }
-    res.cookie(cookie_name , JSON.stringify(orderInfo));
-    res.redirect('/orderProcessing');
-});
 
-/* Order Processing*/
+    var index = 0;
+    function saveOrder(){
+        if(index < oligoOrderArray.length){
+            var oligoOrder = new Object();
+            oligoOrder.orderType = "ribozymeDesignOligo";
+            oligoOrder.orderItem = oligoOrderArray[index++];
+            var item = new Item({
+                json: JSON.stringify(oligoOrder)
+            }).save(function (err, newItem) {
+                if (err) throw err;
+                orderInfo.push(newItem._id);
+                console.log( "index: " + index + " !Saved item id: " + newItem._id);
+                if(index == oligoOrderArray.length){
+                    console.log("JSON.stringify(orderInfo): " + JSON.stringify(orderInfo));
+                    res.cookie(cookie_name , JSON.stringify(orderInfo));
+                    res.redirect('/orderProcessing');            
+                } else {
+                    saveOrder();
+                }
+            });
+        }
+    }
+    saveOrder();
+});
 
 router.post("/oligoAddToCart", function (req, res) {
     var orderInfo = getOrderArray(req);
     var oligoOrder = JSON.parse(JSON.stringify(req.body));
     oligoOrder.orderType = "oligo";
-    orderInfo.push(JSON.stringify(oligoOrder));
-    res.cookie(cookie_name , JSON.stringify(orderInfo));
-    res.redirect('/orderProcessing');
+    var item = new Item({
+        json: JSON.stringify(oligoOrder)
+    }).save(function (err, newItem) {
+        if (err) throw err;
+        orderInfo.push(newItem._id);
+        res.cookie(cookie_name , JSON.stringify(orderInfo));
+        res.redirect('/orderProcessing');
+    });
 });
 
 router.post("/bulkOligoAddToCart", function (req, res) {
@@ -259,16 +280,30 @@ router.post("/bulkOligoAddToCart", function (req, res) {
     var oligoOrder = new Object();
     oligoOrder.orderType = "bulkOligo";
     oligoOrder.orderList = oligoOrderArray;
-    orderInfo.push(JSON.stringify(oligoOrder));
-    res.cookie(cookie_name , JSON.stringify(orderInfo));
-    res.redirect('/orderProcessing');
+    var item = new Item({
+        json: JSON.stringify(oligoOrder)
+    }).save(function (err, newItem) {
+        if (err) throw err;
+        orderInfo.push(newItem._id);
+        res.cookie(cookie_name , JSON.stringify(orderInfo));
+        res.redirect('/orderProcessing');
+    });
 });
 
 router.post("/removeOrderItem", function (req, res) {
     var orderInfo = getOrderArray(req);
-    orderInfo.splice(req.body.removeOrderItem, 1);
-    res.cookie(cookie_name , JSON.stringify(orderInfo));
-    res.redirect('/orderProcessing');
+    Item.remove({
+        _id: orderInfo[req.body.removeOrderItem]
+    },
+    function (err) {
+        if (err){
+            console.log('cannot find item');
+        } else {
+            orderInfo.splice(req.body.removeOrderItem, 1);
+            res.cookie(cookie_name , JSON.stringify(orderInfo));
+            res.redirect('/orderProcessing');
+        }
+    });
 });
 
 router.get('/orderProcessing', function(req, res, next){
@@ -276,16 +311,42 @@ router.get('/orderProcessing', function(req, res, next){
     var ribozymeList = appConfigXML.getRibozymeList('Rz');
     var order = getOrderArray(req);
     var newOrderArray = new Array();
-    for(var i = 0; i < order.length; i++) {
-        newOrderArray.push(JSON.parse(order[i]));
+    if(order.length == 0) {
+        res.render('orderProcessing', { title: 'order_summary',
+                                        order: newOrderArray,
+                                        orderCount: order.length,
+                                        ribozymeList: ribozymeList,
+                                        username: getUserName(req),
+                                        user:  getUser(req),
+                                        error: ""});
+    } else {
+        var index = 0;
+        function findItems(){
+            Item.findOne({
+                _id: order[index++]
+            },
+            function (err, item) {
+                if (item) {
+                    if (err) console.log('cannot find item');
+                    newOrderArray.push(JSON.parse(item.json));
+                    if(index == order.length){
+                        res.render('orderProcessing', { title: 'order_summary',
+                                                        order: newOrderArray,
+                                                        orderCount: order.length,
+                                                        ribozymeList: ribozymeList,
+                                                        username: getUserName(req),
+                                                        user:  getUser(req),
+                                                        error: ""});
+                    } else {
+                        findItems();
+                    }
+                } else {
+                    console.log('cannot find item');
+                }
+            });
+        }
+        findItems();
     }
-    res.render('orderProcessing', { title: 'order_summary',
-                                    order: newOrderArray,
-                                    orderCount: order.length,
-                                    ribozymeList: ribozymeList,
-                                    username: getUserName(req),
-                                    user:  getUser(req),
-                                    error: ""});
 });
 
 router.post('/confirmation', function(req, res, next){
