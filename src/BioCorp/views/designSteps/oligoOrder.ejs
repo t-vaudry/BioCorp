@@ -62,9 +62,9 @@
         </ul>
 
         <div id="sequence-wrap">
-          <div id="sequence_alert" class="alert alert-error invisible"></div>
-          <textarea id="sequence-display" name="sequence" maxlength="3000" class="input-block-level" rows="5" placeholder="<%=texts.paste_sequence%>..." style="width:80%;"></textarea>
-          <div id="sequence_alert" class="alert invisible"></div>
+          <div id="sequence_alert" class="alert alert-danger invisible"></div>
+          <textarea id="sequence-display" name="sequence" maxlength="3000" class="input-block-level" rows="5" placeholder="<%=texts.paste_sequence%>..." style="width:80%;" required></textarea>
+          <div id="sequence_alert1" class="alert alert-danger invisible"></div>
         </div>
 
 
@@ -75,7 +75,6 @@
             <!--<label for="cutsites">Preferred Cut-Sites</label>-->
             <select class="form-control" name="purity" style="width:40%;">
               <option value="Standard" selected="selected" ><%=texts.standard%></option>
-              <option value="OPC">OPC</option>
    	          <option value="HPLC">HPLC</option>
    	          <option value="Gel">Gel</option>
    	          <option value="Mixed"><%=texts.mixed%></option>
@@ -88,11 +87,13 @@
             <div class="form-group scale" align="center">
               <!--<label for="cutsites">Preferred Cut-Sites</label>-->
               <select class="form-control" name="scale" style="width:40%;">
-                <option value="50nM" selected="selected" >50 nM</option>
-                <option value="2000nM">2000nM</option>
-                <option value="1micro">1 &#181M</option>
-                <option value="10micro">10 &#181M</option>
-                <option value="Mixed">Mixed</option>
+                <option value="25 nM" selected="selected" >25 nM</option>
+                <option value="50 nM">50 nM</option>
+                <option value="100 nM">100 nM</option>
+                <option value="200 nM">200 nM</option>
+                <option value="500 nM">500 nM</option>
+                <option value="1 micro">1 &#181M</option>
+                <option value="10 micro">10 &#181M</option>
               </select>
             </div>
 
@@ -118,10 +119,8 @@
               </li>
               <li>
                 <select class="form-control" name="resuspend" disabled id="resuspendList">
-                  <option value="50pM" selected="selected">50 pM/&#181L</option>
-                  <option value="100pM">100 pM/&#181L</option>
-                  <option value="1micro">1 &#181M/&#181L</option>
-                  <option value="other">Other</option>
+                  <option value="50pm" selected="selected">50 p mole/&#181L</option>
+                  <option value="100pm">100 p mole/&#181L</option>
                 </select>
               </li>
             </ul>

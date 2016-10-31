@@ -1,0 +1,79 @@
+<% include header %>
+<div class="container" id="oligoOrder">
+<div id="oligoForm">
+
+  <!-- progressbar -->
+  <ul id="oligoProgressbar">
+    <li class="active" style="width:33%"><%=texts.design_results%></li>
+    <li style="width:33%"><%=texts.re_primer%></li>
+    <li style="width:33%"><%=texts.add_cart%></li>
+  </ul>
+
+  <!-- Setp 3: Order Review -->
+  <fieldset id="fsDesignResults">
+    <% include result_container %>
+    <input type="button" name="next" class="stepNext action-button disabled" value="<%=texts.next%>" id="selectDesignSeq"/>
+  </fieldset>
+
+  <fieldset id="fsRePrimer">
+    <h2 class="fs-title"><%=texts.ribozyme_order%> - <%=texts.re_primer%> <%=texts.selection%></h2>
+    <div id="selectedDesignContainer" class="container">
+    <div id="selectedDesignRow0">
+    <div class="container">
+      <table class="table table-hover table-condensed">
+          <thead>
+          <th><%=texts.cut_site_number%><br/>( <%=texts.position%> )</th>
+          <th><%=texts.melting%><br/><%=texts.temperature%> (&deg;C)</th>
+          <th><%=texts.accessibility%> 1</th>
+          <th><%=texts.accessibility%> 2</th>
+          <th><%=texts.ribozyme%><br/><%=texts.shape_quality%></th>
+          <th><%=texts.weighted%><br/><%=texts.off_target_hits%></th>
+          </thead>
+          <tbody class="designTableBody">
+          </tbody>
+      </table>
+      <div class='alert alert-warning invisible selectRePrimerAlert'></div>
+      <ul class="modification" style="margin-left:10%;">
+          <li>
+            <label for="5primeEnzyme">5' <%=texts.restriction_enzyme%></label>
+            <div class="form-group">
+              <select class="form-control 5primeEnzyme">
+                <option value="" selected="true">--<%=texts.select_enzyme%>--</option>
+                <% enzymeList.forEach(function(enzyme, index) { %>
+                  <option value="<%= enzyme['name'] %>" sequence="<%= enzyme['seq'] %>"><%= enzyme['name'] %></option>
+                <% }); %>
+              </select>
+            </div>
+            </li>
+            <li></li>
+            <li>
+            <label for="3primeEnzyme">3' <%=texts.restriction_enzyme%></label>
+            <div class="form-group">
+              <select class="form-control 3primeEnzyme">
+                <option value="" selected="true">--<%=texts.select_enzyme%>--</option>
+                <% enzymeList.forEach(function(enzyme, index) { %>
+                  <option value="<%= enzyme['name'] %>" sequence="<%= enzyme['seq'] %>"><%= enzyme['name'] %></option>
+                <% }); %>
+              </select>
+            </div>
+            </li>
+        </ul>
+      </div>
+      <div class="row">
+        <label for="primer"><%=texts.primer%></label>
+        <div class="container">
+          <textarea maxlength="3000" class="input-block-level primer" rows="1" placeholder="Paste your sequence here..." style="width:80%;"></textarea>
+        </div>
+      </div>
+    </div>
+    </div>
+    <form id="ribozymeDesignAddToCart" method="POST" action="/ribozymeDesignAddToCart">
+      <input type="button" name="previous" class="previous action-button" value="<%=texts.previous%>" />
+      <input type="hidden" id="ribozymeDesignOligos" name="ribozymeDesignOligos" value="" />
+      <input type="submit" class="btn btn-primary btn-large action-button" value="<%=texts.add_to_cart%>">
+    </form>
+  </fieldset>
+</div>
+</div>
+
+<% include footer %>

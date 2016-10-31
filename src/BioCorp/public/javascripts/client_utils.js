@@ -143,8 +143,7 @@ AccNumberValidator.prototype.validate = function(successCallback, errorCallback)
     var self = this;
         $.ajax({
         type: "GET",
-        url: "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi",
-        crossDomain: true,
+        url: "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi",
         data: {
             db: 'nuccore',
             'id': this.accessionNumber,
@@ -442,7 +441,8 @@ SummaryTable.prototype.setTableData = function(data){
 	$("#vivoEnvRow").removeClass("invisible");
     }
     if(data.accessionNumber){
-	$("#accessionNumberRow").removeClass("invisible");
+    	$("#accessionNumberRow").removeClass("invisible");
+	    $("#targetRegionRow").removeClass("invisible");
     }
     $("#accessionNumber").text(data.accessionNumber);
     $("#seqLength").text(data.sequence.length + " nucleotides");
@@ -454,7 +454,7 @@ SummaryTable.prototype.setTableData = function(data){
     $("#mgEnv").text(data.mgC + ' mM');
     $("#oligoEnv").text(data.oligoC + ' nM');
     $("#cutsites").text(data.cutsites.join(", "));
-    $("#promoter").text(data.promoter ? "Yes" : "No");
+    // $("#promoter").text(data.promoter ? "Yes" : "No");
     var ribozymeText = data.ribozymeSelection;
     $(".ribozymeNameList").each(function(){
         if($(this).attr('value') == data.ribozymeSelection){

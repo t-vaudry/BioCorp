@@ -9,22 +9,23 @@
             <legend align="center"> <%=texts.personal_information%> </legend>
         <% } %>
         <div class="personalInfo">
+        <div id="orderProcessPerInfoAlert" class="alert alert-danger invisible"><%=error%></div>
         <li>
         <label for="firstname"><%=texts.first_name%>: </label>
-        <input type="text" name="firstname" required="required" style="margin-left:15px;" id="firstname" value="<%=user?user.firstName:"" %>">
+        <input type="text" name="firstname" required style="margin-left:15px;" id="firstname" value="<%=user?user.firstName:"" %>">
         </li>
         <li>
         <label for="lastname"><%=texts.last_name%>: </label>
-        <input type="text" name="lastname" required="required" style="margin-left:15px;" id="lastname" value="<%=user?user.lastName:"" %>">
+        <input type="text" name="lastname" required style="margin-left:15px;" id="lastname" value="<%=user?user.lastName:"" %>">
         </li>
         <li>
         <label for="emailaddr"><%=texts.email_address%></label>
-        <input type="email" name="emailaddr" required="required" style="margin-left:15px;" id="emailaddr" value="<%=user?user.username:"" %>">
+        <input type="email" name="emailaddr" required style="margin-left:15px;" id="emailaddr" value="<%=user?user.username:"" %>">
         </li>
         <% if(title == "registration"){ %>
             <li>
             <label for="password"><%=texts.password%></label>
-            <input type="password" name="password" required="required" style="margin-left:15px;" id="password" value="<%=user?user.password:"" %>">
+            <input type="password" name="password" required style="margin-left:15px;" id="password" value="<%=user?user.password:"" %>">
             </li>
         <% } %>
         <li>
@@ -56,12 +57,12 @@
         </li>
         </div>
     </div>
-
+    <div id="orderProcessPerInfoAlert2" class="alert alert-danger invisible"><%=error%></div>
     <% if(title == "registration"){ %>
-        <input type="submit" name="submit" class="stepNext action-button" value="<%=texts.submit%>" />
+        <input type="submit" name="submit" class="action-button" value="<%=texts.submit%>" />
     <% } else { %>
         <input type="button" name="previous" class="previous action-button" value="<%=texts.previous%>" />
-        <input type="button" name="next" class="stepNext action-button" value="<%=texts.next%>" id="stepTwoFinish"/>
+        <input type="button" name="next" class="stepNext action-button disabled" value="<%=texts.next%>" id="orderProcessPerInfo"/>
     <% } %>
 
 </fieldset>

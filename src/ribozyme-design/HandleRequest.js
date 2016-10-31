@@ -243,6 +243,9 @@ function EstimateTime(request) {
     var armR = request.Preferences.right_arm_max - request.Preferences.right_arm_min;
     if(armR == 0) armR = 1;
     var est = armL * armR * count / 100 * 60
+    if(request.TargetSequence.length > 500){
+        est *= request.TargetSequence.length/100;
+    }
 	return est;
 }
 

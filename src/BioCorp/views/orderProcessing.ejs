@@ -21,7 +21,7 @@
       </div>
     <% } %>
     <% include orderSummary %>
-    <input type="button" name="next" class="stepNext action-button" value="<%=texts.next%>" />
+    <input type="button" name="next" class="stepNext action-button <% if(order.length == 0) {%>disabled<% } %>" value="<%=texts.next%>" />
   </fieldset>
 
   <% include ./designSteps/personalInfo %>

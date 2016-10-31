@@ -88,13 +88,6 @@ td {
 
 }
 
-#footer {
-  clear: both;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  position: relative;
-}
-
 .invisible{
   display: none;
 }
@@ -155,7 +148,7 @@ header.carousel .fill {
 
 footer {
     left: 0;
-    bottom: -150px;
+    /*bottom: -150px;*/
     height: 50px;
     width: 100%;
 

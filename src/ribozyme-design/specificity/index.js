@@ -289,7 +289,7 @@ function parseQueries(query) {
     }
     
     var queryNum = matches.splice(0, 1);
-    queryNum = parseInt(queryNum[0].split('\n')[0].split(' ')[2]);
+    queryNum = parseInt(queryNum[0].split('\n')[0].split(' ')[1]);
     // console.log("Query " + JSON.stringify(query));
     Log("Entered query with match number:" + matches.length);
     var res = new Array();

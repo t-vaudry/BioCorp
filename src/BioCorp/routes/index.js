@@ -73,7 +73,8 @@ router.get("/signup", function (req, res) {
                         orderCount: getOrderCount(req),
                         ribozymeList: ribozymeList,
                         username: getUserName(req),
-                        user: null });
+                        user: null,
+                        error: "" });
     }
 });
 
@@ -85,7 +86,6 @@ function authenticate(name, pass, fn) {
     User.findOne({
         username: name
     },
-
     function (err, user) {
         if (user) {
             if (err) return fn(new Error('cannot find user'));
@@ -229,14 +229,49 @@ router.get('/profile', requiredAuthentication, function (req, res) {
 });
 
 /* Order Processing*/
+var Item = mongoose.model('Item');
+
+router.post("/ribozymeDesignAddToCart", function (req, res) {
+    var orderInfo = getOrderArray(req);
+    var oligoOrderArray = JSON.parse(req.body.ribozymeDesignOligos);
+
+    var index = 0;
+    function saveOrder(){
+        if(index < oligoOrderArray.length){
+            var oligoOrder = new Object();
+            oligoOrder.orderType = "ribozymeDesignOligo";
+            oligoOrder.orderItem = oligoOrderArray[index++];
+            var item = new Item({
+                json: JSON.stringify(oligoOrder)
+            }).save(function (err, newItem) {
+                if (err) throw err;
+                orderInfo.push(newItem._id);
+                console.log( "index: " + index + " !Saved item id: " + newItem._id);
+                if(index == oligoOrderArray.length){
+                    console.log("JSON.stringify(orderInfo): " + JSON.stringify(orderInfo));
+                    res.cookie(cookie_name , JSON.stringify(orderInfo));
+                    res.redirect('/orderProcessing');            
+                } else {
+                    saveOrder();
+                }
+            });
+        }
+    }
+    saveOrder();
+});
 
 router.post("/oligoAddToCart", function (req, res) {
     var orderInfo = getOrderArray(req);
     var oligoOrder = JSON.parse(JSON.stringify(req.body));
     oligoOrder.orderType = "oligo";
-    orderInfo.push(JSON.stringify(oligoOrder));
-    res.cookie(cookie_name , JSON.stringify(orderInfo));
-    res.redirect('/orderProcessing');
+    var item = new Item({
+        json: JSON.stringify(oligoOrder)
+    }).save(function (err, newItem) {
+        if (err) throw err;
+        orderInfo.push(newItem._id);
+        res.cookie(cookie_name , JSON.stringify(orderInfo));
+        res.redirect('/orderProcessing');
+    });
 });
 
 router.post("/bulkOligoAddToCart", function (req, res) {
@@ -245,16 +280,30 @@ router.post("/bulkOligoAddToCart", function (req, res) {
     var oligoOrder = new Object();
     oligoOrder.orderType = "bulkOligo";
     oligoOrder.orderList = oligoOrderArray;
-    orderInfo.push(JSON.stringify(oligoOrder));
-    res.cookie(cookie_name , JSON.stringify(orderInfo));
-    res.redirect('/orderProcessing');
+    var item = new Item({
+        json: JSON.stringify(oligoOrder)
+    }).save(function (err, newItem) {
+        if (err) throw err;
+        orderInfo.push(newItem._id);
+        res.cookie(cookie_name , JSON.stringify(orderInfo));
+        res.redirect('/orderProcessing');
+    });
 });
 
 router.post("/removeOrderItem", function (req, res) {
     var orderInfo = getOrderArray(req);
-    orderInfo.splice(req.body.removeOrderItem, 1);
-    res.cookie(cookie_name , JSON.stringify(orderInfo));
-    res.redirect('/orderProcessing');
+    Item.remove({
+        _id: orderInfo[req.body.removeOrderItem]
+    },
+    function (err) {
+        if (err){
+            console.log('cannot find item');
+        } else {
+            orderInfo.splice(req.body.removeOrderItem, 1);
+            res.cookie(cookie_name , JSON.stringify(orderInfo));
+            res.redirect('/orderProcessing');
+        }
+    });
 });
 
 router.get('/orderProcessing', function(req, res, next){
@@ -262,15 +311,42 @@ router.get('/orderProcessing', function(req, res, next){
     var ribozymeList = appConfigXML.getRibozymeList('Rz');
     var order = getOrderArray(req);
     var newOrderArray = new Array();
-    for(var i = 0; i < order.length; i++) {
-        newOrderArray.push(JSON.parse(order[i]));
+    if(order.length == 0) {
+        res.render('orderProcessing', { title: 'order_summary',
+                                        order: newOrderArray,
+                                        orderCount: order.length,
+                                        ribozymeList: ribozymeList,
+                                        username: getUserName(req),
+                                        user:  getUser(req),
+                                        error: ""});
+    } else {
+        var index = 0;
+        function findItems(){
+            Item.findOne({
+                _id: order[index++]
+            },
+            function (err, item) {
+                if (item) {
+                    if (err) console.log('cannot find item');
+                    newOrderArray.push(JSON.parse(item.json));
+                    if(index == order.length){
+                        res.render('orderProcessing', { title: 'order_summary',
+                                                        order: newOrderArray,
+                                                        orderCount: order.length,
+                                                        ribozymeList: ribozymeList,
+                                                        username: getUserName(req),
+                                                        user:  getUser(req),
+                                                        error: ""});
+                    } else {
+                        findItems();
+                    }
+                } else {
+                    console.log('cannot find item');
+                }
+            });
+        }
+        findItems();
     }
-    res.render('orderProcessing', { title: 'order_summary',
-                                    order: newOrderArray,
-                                    orderCount: order.length,
-                                    ribozymeList: ribozymeList,
-                                    username: getUserName(req),
-                                    user:  getUser(req)});
 });
 
 router.post('/confirmation', function(req, res, next){
@@ -279,22 +355,39 @@ router.post('/confirmation', function(req, res, next){
     var mailContent = JSON.parse(req.body.personalData);
     var order = getOrderArray(req);
     var newOrderArray = new Array();
-    for(var i = 0; i < order.length; i++) {
-        newOrderArray.push(JSON.parse(order[i]));
+
+    var index = 0;
+    function findItems(){
+        Item.findOne({
+            _id: order[index++]
+        },
+        function (err, item) {
+            if (item) {
+                if (err) console.log('cannot find item');
+                newOrderArray.push(JSON.parse(item.json));
+                if(index == order.length){
+                    mailContent.order = newOrderArray
+                    mailer.notifyCustomer(mailContent, function(success){
+                        if(success){
+                            var emptyJSON = JSON.stringify(new Array());
+                            req.cookies[cookie_name] = emptyJSON;
+                            res.cookie(cookie_name , emptyJSON);
+                            res.render('orderConfirmation', { title: 'order_confirmation',
+                                                            orderCount: getOrderCount(req),
+                                                            ribozymeList: ribozymeList,
+                                                            username: getUserName(req),
+                                                            user:  getUser(req)});
+                        }
+                    });
+                } else {
+                    findItems();
+                }
+            } else {
+                console.log('cannot find item');
+            }
+        });
     }
-    mailContent.order = newOrderArray
-    mailer.notifyCustomer(mailContent, function(success){
-        if(success){
-            var emptyJSON = JSON.stringify(new Array());
-            req.cookies[cookie_name] = emptyJSON;
-            res.cookie(cookie_name , emptyJSON);
-            res.render('orderConfirmation', { title: 'order_confirmation',
-                                            orderCount: getOrderCount(req),
-                                            ribozymeList: ribozymeList,
-                                            username: getUserName(req),
-                                            user:  getUser(req)});
-        }
-    });
+    findItems();
 });
 
 /* Ribozyme routes */
@@ -352,8 +445,9 @@ router.get('/processing/:id', function(req, res, next){
 
 router.get('/results/:id', function(req, res, next){
 
-    appConfigXML.getConfigXML();
-    var ribozymeList = appConfigXML.getRibozymeList('Rz');
+  appConfigXML.getConfigXML();
+  var ribozymeList = appConfigXML.getRibozymeList('Rz');
+  var enzymeList = appConfigXML.getEnzymeList();
 
   var path = require('path').join(config.home_folder, req.params.id, '/requestState.json');
 
@@ -371,6 +465,7 @@ router.get('/results/:id', function(req, res, next){
         stepTitle: 'ribozyme_design_results',
         orderCount: getOrderCount(req),
         ribozymeList: ribozymeList,
+        enzymeList: enzymeList,
         username: getUserName(req),
         results: json_output,
         resultMessage: resultMessage,
@@ -378,7 +473,7 @@ router.get('/results/:id', function(req, res, next){
     };
 
     if(err){
-      res.render('results_page', obj);
+      res.render('results_processing', obj);
     } else if(!request){
       res.redirect('/error');
     } else{
@@ -401,7 +496,7 @@ router.get('/results/:id', function(req, res, next){
         vivoEnv: request.getEnv().target,
         specificity: (request.specificity == "cleavage")? "Cleavage only" : "Cleavage and Hybridization"
       };
-      res.render('results_page', obj);
+      res.render('results_processing', obj);
     };
   });
 });
