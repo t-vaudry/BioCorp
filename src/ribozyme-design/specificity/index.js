@@ -1,6 +1,6 @@
 ﻿// We need this to build our post string
 var querystring = require('querystring');
-var http = require('http');
+var http = require('https');
 var fs = require('fs');
 var Log = require('../log/').Log;
 var RnaToDna = require('../AlgorithmUtilities.js').RnaToDna;
@@ -67,7 +67,7 @@ function QueryBlast(blastQueryPrimer, organism, reportObject) {
     });
     var POST_OPTIONS = {
         host: 'www.ncbi.nlm.nih.gov',
-        port: '80',
+        port: '443',
         path: '/blast/Blast.cgi',
         method: 'POST',
         headers: {
@@ -151,7 +151,7 @@ function CheckResults(args) {
     // An object of options to indicate where to post to
     var GET_OPTIONS = {
         host: 'www.ncbi.nlm.nih.gov',
-        port: '80',
+        port: '443',
         path: '/blast/Blast.cgi',
         method: 'POST', 
         headers: {
