@@ -60,7 +60,8 @@ window.onload = function() {
 		$("#oligoProgressbar li").eq($("fieldset").index(next_fs)).addClass("active");
 
 		//show the next fieldset
-		next_fs.show();
+		// next_fs.show();
+		next_fs.css('display', 'inline-block');
 
 		//hide the current fieldset with style
 		current_fs.animate({opacity: 0}, {
@@ -77,7 +78,8 @@ window.onload = function() {
 			},
 			duration: 200,
 			complete: function(){
-				current_fs.hide();
+				// current_fs.hide();
+				current_fs.css('display', 'none');
 				animating = false;
 			},
 			//this comes from the custom easing plugin
@@ -101,7 +103,8 @@ window.onload = function() {
 		$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
 
 		//show the previous fieldset
-		previous_fs.show();
+		// previous_fs.show();
+		previous_fs.css('display', 'inline-block');
 
 		//hide the current fieldset with style
 		current_fs.animate({opacity: 0}, {
@@ -118,7 +121,8 @@ window.onload = function() {
 			},
 			duration: 200,
 			complete: function(){
-				current_fs.hide();
+				// current_fs.hide();
+				current_fs.css('display', 'none');
 				animating = false;
 			},
 			//this comes from the custom easing plugin

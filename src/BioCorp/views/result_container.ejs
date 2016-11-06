@@ -129,7 +129,7 @@
                       meltingTemp += "<td class='melting_col'>" + candidate.MeltingTemperatureList[ii] + "</td>";
                     }
                     html +="<tr id='resultRow"+ind1+"-"+ind2+"-"+ind3+"'> \
-                    <td class='checkBoxRow'><input type='checkbox' class='candidateSelection' value='"+ind1+"-"+ind2+"-"+ind3+"'></td>\
+                    <td class='checkBoxRow'><input style='width:auto;' type='checkbox' class='candidateSelection' value='"+ind1+"-"+ind2+"-"+ind3+"'></td>\
                     <td>" + cutsite.ID + " (" + cutsite.Location + ")</td>"
                     + meltingTemp + "\
                     <td>"+candidate.Fitness_Target+"</td> \

@@ -38,6 +38,7 @@ body {
 
 	box-sizing: border-box;
 	margin: 0 0;
+	display: inline-block;
 
 	/*stacking fieldsets above each other*/
 	/*position: absolute;*/
