@@ -558,4 +558,14 @@ router.post('/config/submitXML', function(req, res) {
     });
 });
 
+router.get('/aboutUs', function(req, res, next){
+  appConfigXML.getConfigXML();
+  var ribozymeList = appConfigXML.getRibozymeList('Rz');
+  res.render('aboutUs',
+    { title: 'about_us',
+      orderCount: getOrderCount(req),
+      ribozymeList: ribozymeList,
+      username: getUserName(req)});
+});
+
 module.exports = router;

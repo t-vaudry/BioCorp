@@ -18,7 +18,7 @@
 	<% } %>
         <tr>
           <td><%=texts.sequence_length%></td>
-          <td id="seqLength"><%= input.sequence.length %> nucleotides</td>
+          <td id="seqLength"><%= input.sequence.length %> <%= texts.nucleotides %></td>
         </tr>
 	<% if(input.accessionNumber) { %>
         <tr id="targetRegionRow">
@@ -41,15 +41,15 @@
           <td id="tempEnv"><%= input.tempEnv %> &deg;C</td>
         </tr>
         <tr>
-          <td>Na&#8314; <%=texts.concentration%></td>
+          <td><%=texts.concentration_before%> Na&#8314; <%=texts.concentration_after%></td>
           <td id="naEnv"><%= input.naEnv %> mM</td>
         </tr>
         <tr>
-          <td>Mg<sup>&#8314;2</sup> <%=texts.concentration%></td>
+          <td><%=texts.concentration_before%> Mg<sup>&#8314;2</sup> <%=texts.concentration_after%></td>
           <td id="mgEnv"><%= input.mgEnv %> mM</td>
         </tr>
         <tr>
-          <td>Oligomer <%=texts.concentration%></td>
+          <td><%=texts.oligomer%></td>
           <td id="oligoEnv"><%= input.oligoEnv %> mM</td>
         </tr>
 	<% if(input.ribozymeSelection != 'crispr') { %>
@@ -57,7 +57,6 @@
           <td><%=texts.cut_sites%></td>
           <td id="cutsites"><%= input.cutsites %></td>
         </tr>
-	<% } %>
 	      <tr>
           <td><%=texts.ribyzome_type%></td>
           <% ribozymeList.forEach(function(ribozyme, index) { %>
@@ -65,7 +64,6 @@
             <td><%= ribozyme['title'] %></td>
           <% }}); %>
         </tr>
-	<% if(input.ribozymeSelection != 'crispr') { %>
 	      <tr>
           <td><%=texts.helix_I_length%></td>
           <td id="leftArm">[<%= input.left_arm_min %>, <%= input.left_arm_max %>]</td>
@@ -112,11 +110,11 @@
   <div id='selectDesignAlert' class='alert alert-danger invisible'></div>\
   <table class='table table-hover' id='results'>\
        <thead>\
-           <th><%=texts.cut_site_number%><br/>( <%=texts.position%> )</th> " + meltingTempHeader + "\
-           <th><%=texts.sequence%></th>\
+           <th><%=texts.cut_site_number%><br/>( <%=texts.position%> )</th>\
+           <th><%=texts.sequence%></th> " + meltingTempHeader + "\
            <th><%=texts.accessibility%> 1</th> \
            <th><%=texts.accessibility%> 2</th> \
-           <th><%=texts.ribozyme%><br/><%=texts.shape_quality%></th>";
+           <th><%=texts.shape_quality_before%><br/><%=texts.ribozyme%><br/><%=texts.shape_quality%></th>";
 
            html += "<th id='specificity-col'><%=texts.weighted%><br/><%=texts.off_target_hits%></th>";
            html += "<th id='rank-col'><p><%=texts.overall_rank%></p></th>";
