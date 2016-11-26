@@ -81,6 +81,7 @@
     </table>
 </div>
 <h4><%=texts.design_results%></h4>
+<input type='hidden' id='texts_annealing' value="<%= texts['annealing'] %>"/>
 <% if(resultMessage) { %><p class="step-description"><%= texts[resultMessage] %></p><% } %>
 <% if(results) { %>
   <script>
@@ -126,9 +127,27 @@
                     for(var ii = 0; ii < candidate.MeltingTemperatureList.length; ii++){
                       meltingTemp += "<td class='melting_col'>" + candidate.MeltingTemperatureList[ii] + "</td>";
                     }
+
+                    var sequenceHtml = '';
+                    var compPosIndx = 0;
+                    var start = 0;
+                    do {
+                      var compStart = candidate.complimentaryPositions[compPosIndx].start;
+                      var compEnd = candidate.complimentaryPositions[compPosIndx].end + 1;
+                      sequenceHtml += candidate.Sequence.substring(start, compStart) 
+                                  + "<font color='blue'>" 
+                                  + candidate.Sequence.substring(compStart, compEnd)
+                                  + "</font>";
+                      console.log("sequenceHtml: " + sequenceHtml);
+                      start = compEnd;
+                      console.log("new Start: " + start);
+                      compPosIndx++;
+                    } while(compPosIndx < candidate.complimentaryPositions.length);
+                    sequenceHtml += candidate.Sequence.substring(start, candidate.Sequence.length);
+
                     html +="<tr id='resultRow" + ind3 + "'> \
                     <td>" + cutsite.ID + " (" + cutsite.Location + ")</td>\
-                    <td style='max-width:200px; word-wrap: break-word;' title='" + candidate.Sequence + "'>" + candidate.Sequence + "</td>"
+                    <td style='max-width:200px; word-wrap: break-word;' title='" + $('#texts_annealing').val() + "'>" + sequenceHtml + "</td>"
                     + meltingTemp + "\
                     <td>"+candidate.Fitness_Target+"</td> \
                     <td>"+candidate.Fitness_Target_dG+"</td> \

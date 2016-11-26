@@ -204,5 +204,6 @@
     "only_copyright":"Copyright",
     "associate_professor":"Associate Professor",
     "department":"Department of Electrical & Computer Engineering, Concordia University",
-    "report":"To report any issues, please contact us at "
+    "report":"To report any issues, please contact us at ",
+    "annealing":"The annealing sequence is colored in blue"
 }

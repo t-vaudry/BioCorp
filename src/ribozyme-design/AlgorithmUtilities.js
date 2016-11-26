@@ -213,7 +213,22 @@ function CompressCandidates(candidates) {
         var structuresFold = candidates[ii].StructuresSFold;
         CompressObjectArrayIntoTable(structuresFold, ["EnergyInterval", "Frequency", "LowestFreeEnergy", "ConnectedPairs", "Fitness"]);
     }
-    CompressObjectArrayIntoTable(candidates, ["Sequence", "ID", "StructuresSFold", "Fitness_Shape",  "Fitness_Target", "Fitness_Target_dG", "Fitness_Specificity", "cutSiteID", "cutSiteLocation", "requestID", "MeltingTemperature","MeltingTemperatureList","ArmLengthList", "rank"]);
+    CompressObjectArrayIntoTable(
+        candidates, ["Sequence", 
+                    "ID", 
+                    "StructuresSFold", 
+                    "Fitness_Shape", 
+                    "Fitness_Target", 
+                    "Fitness_Target_dG", 
+                    "Fitness_Specificity", 
+                    "cutSiteID", 
+                    "cutSiteLocation", 
+                    "requestID", 
+                    "MeltingTemperature",
+                    "MeltingTemperatureList",
+                    "ArmLengthList", 
+                    "complimentaryPositions",
+                    "rank"]);
 }
 
 
