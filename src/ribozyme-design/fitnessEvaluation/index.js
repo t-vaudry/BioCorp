@@ -148,7 +148,8 @@ function ParetoFrontForRequest(request)
     }
     ParetoFrontRank(allEle,
     ["Fitness_Shape", "Fitness_Target", "Fitness_Target_dG", "Fitness_Specificity", "MeltingTemperature"],
-    [true,              true,               true,              false,                         true],
+    // [true,              true,               true,              false,                         true],
+    [false,              false,               false,              true,                         false],
     0);
 }
 
