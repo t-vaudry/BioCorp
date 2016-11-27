@@ -113,12 +113,13 @@ function ParetoFrontRank(array, propertyArray, maxMinArray, rank)
 
         // All front will have been computed. Repeat for next rank if the rank is not empty
         if (queueArray.length == 0) {
-            return;
+            return rank;
         }
         else {
             rank += 1;
         }
     } while (queueArray.length > 0);
+    return rank;
 }
 
 
@@ -146,11 +147,13 @@ function ParetoFrontForRequest(request)
             allEle.push.apply(allEle,candidates);
         }
     }
-    ParetoFrontRank(allEle,
+    var maxRank = ParetoFrontRank(allEle,
     ["Fitness_Shape", "Fitness_Target", "Fitness_Target_dG", "Fitness_Specificity", "MeltingTemperature"],
-    // [true,              true,               true,              false,                         true],
-    [false,              false,               false,              true,                         false],
+    [true,              true,               true,              false,                         true],
     0);
+    for(var indx = 0; indx < allEle.length; indx++){
+        allEle[indx].rank = maxRank - allEle[indx].rank;
+    }
 }
 
 /*
