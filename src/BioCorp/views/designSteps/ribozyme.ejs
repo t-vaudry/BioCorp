@@ -58,7 +58,11 @@
 
   <fieldset id="fsDesignOption" style="margin-bottom:40px;">
     <h2 class="fs-title"><%=texts.design_options%></h2>
-    <h3 class="fs-subtitle"><%=texts.please_select_option%></h3>
+    <%if (title != "design_crispr") { %>
+      <h3 class="fs-subtitle"><%=texts.please_select_option%></h3>
+    <% } else { %>
+      <h3 class="fs-subtitle"><%=texts.please_select_option_crispr%></h3>
+    <% } %>
     <div class="container" id="stepTwoDiv">
       <div id="designAlert" class="alert alert-danger invisible"></div>
 
@@ -282,15 +286,14 @@
               <td>Oligomer <%=texts.concentration%></td>
               <td id="oligoEnv"></td>
             </tr>
-
+            <tr>
+              <td><%=texts.ribyzome_type%></td>
+              <td id="ribozymeType"></td>
+            </tr>
             <%if (title != "design_crispr") { %>
             <tr>
               <td><%=texts.cut_sites%></td>
               <td id="cutsites"></td>
-            </tr>
-            <tr>
-              <td><%=texts.ribyzome_type%></td>
-              <td id="ribozymeType"></td>
             </tr>
             <tr>
               <td><%=texts.helix_I_length%></td>

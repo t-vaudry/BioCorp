@@ -44,7 +44,7 @@ function CleanseCandidates(rawCandidatesPerCutsite,prefs)
                 var position = candidate.compPositions[kk];
                 //Remove non-annealing c (G in this case since it is reverse complemented candidate)
                 //left, right, all arms are computed individually
-                var seqToCompute = candidate.seq.substr(position.start, position.end) ;                
+                var seqToCompute = candidate.seq.substr(position.start, position.end - position.start + 1) ;                
                 var meltingT = MeltingTCalcRouter(seqToCompute, prefs);
                 meltingTempList.push(meltingT);
                 totalMeltingT += meltingT;
@@ -56,7 +56,7 @@ function CleanseCandidates(rawCandidatesPerCutsite,prefs)
             }
             if(candidateIsClean){
                 candidate.MeltingTemperature = totalMeltingT;
-                candidate.MeltingTempList = meltingTempList;
+                candidate.MeltingTempList = meltingTempList.reverse();
                 cleansed.push(candidate);
             }
         }

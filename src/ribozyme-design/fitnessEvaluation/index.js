@@ -151,9 +151,9 @@ function ParetoFrontForRequest(request)
     ["Fitness_Shape", "Fitness_Target", "Fitness_Target_dG", "Fitness_Specificity", "MeltingTemperature"],
     [true,              true,               true,              false,                         true],
     0);
-    for(var indx = 0; indx < allEle.length; indx++){
-        allEle[indx].rank = maxRank - allEle[indx].rank;
-    }
+    // for(var indx = 0; indx < allEle.length; indx++){
+    //     allEle[indx].rank = maxRank - allEle[indx].rank;
+    // }
 }
 
 /*

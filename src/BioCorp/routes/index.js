@@ -409,7 +409,7 @@ router.get('/ribozyme', function(req, res, next){
 
 router.get('/crispr', function(req, res, next){
     appConfigXML.getConfigXML();
-    var ribozymeList = appConfigXML.getRibozymeList('Rz');
+    var ribozymeList = appConfigXML.getRibozymeList();
   res.render('./designSteps/ribozyme',
     { title: 'design_crispr',
       seqtitle: 'select_sequence_crispr',
@@ -446,7 +446,7 @@ router.get('/processing/:id', function(req, res, next){
 router.get('/results/:id', function(req, res, next){
 
   appConfigXML.getConfigXML();
-  var ribozymeList = appConfigXML.getRibozymeList('Rz');
+  var ribozymeList = appConfigXML.getRibozymeList();
   var enzymeList = appConfigXML.getEnzymeList();
 
   var path = require('path').join(config.home_folder, req.params.id, '/requestState.json');
