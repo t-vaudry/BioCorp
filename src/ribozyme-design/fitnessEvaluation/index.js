@@ -113,12 +113,13 @@ function ParetoFrontRank(array, propertyArray, maxMinArray, rank)
 
         // All front will have been computed. Repeat for next rank if the rank is not empty
         if (queueArray.length == 0) {
-            return;
+            return rank;
         }
         else {
             rank += 1;
         }
     } while (queueArray.length > 0);
+    return rank;
 }
 
 

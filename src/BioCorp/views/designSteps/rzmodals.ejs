@@ -29,7 +29,11 @@
 
       </div>
       <div class="modal-body">
+        <%if (title != "design_crispr") { %>
         <p><%=texts.select_what_environment%></p>
+        <% } else { %>
+        <p><%=texts.select_what_environment_crispr%></p>
+        <% } %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default action-button" name="button" data-dismiss="modal"><%=texts.close%></button>
@@ -49,7 +53,11 @@
 
       </div>
       <div class="modal-body">
+        <%if (title != "design_crispr") { %>
         <p><%=texts.provide_details%></p>
+        <% } else { %>
+        <p><%=texts.provide_details_crispr%></p>
+        <% } %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default action-button" name="button" data-dismiss="modal"><%=texts.close%></button>

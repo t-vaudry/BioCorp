@@ -252,6 +252,69 @@ InputValidation.validateInput= function(input){
     return {"ok" : true, "error" : "Sequence Found!" };
 }
 
+InputValidation.validateOligoInput= function(input){
+    var badInput = false;
+    var Problems = '';
+    var isRNA = true;
+    if(input == "")
+        return {"ok" : false , "error" : "Empty Input"};
+    for(var ii = 0; ii < input.length; ++ii)
+    {
+        if(input[ii] ==' ' || input[ii] =='\n')
+            continue;
+        if(input[ii] != 'T' 
+        && input[ii] != 'U' 
+        && input[ii] != 'G' 
+        && input[ii] != 'C' 
+        && input[ii] != 'A'
+        && input[ii] != 'R' 
+        && input[ii] != 'Y' 
+        && input[ii] != 'K' 
+        && input[ii] != 'M'
+        && input[ii] != 'S' 
+        && input[ii] != 'W' 
+        && input[ii] != 'B' 
+        && input[ii] != 'D'
+        && input[ii] != 'H' 
+        && input[ii] != 'V' 
+        && input[ii] != 'N')
+        {
+            Problems = "Unrecognized nucleotide: " + input[ii];
+            badInput = true;
+            break;
+        }
+    }
+    if(badInput)
+        return {"ok" : false , "error" :Problems};
+
+    for(var ii = 0; ii < input.length; ++ii)
+    {
+        if(input[ii] ==' ')
+            continue;
+        if(input[ii] == 'T')
+        {
+            isRNA = false;
+            break;
+        }
+    }
+    for(var ii = 0; ii < input.length; ++ii)
+    {
+        if(input[ii] ==' ' || input[ii] == '\n')
+            continue;
+        if((isRNA && input[ii] =='T') || (!isRNA && input[ii] == 'U'))
+        {
+            console.log("@" + ii + ":" + input[ii]);
+            Problems = "Inconsistent input (T and U): Check that your input is either DNA or RNA";
+            badInput = true;
+            break;
+        }
+    }
+
+    if(badInput)
+        return {"ok" : false , "error" :Problems};
+
+    return {"ok" : true, "error" : "Sequence Found!" };
+}
 
 InputValidation.cleanInput = function( input )
 {
@@ -289,6 +352,9 @@ InputValidation.isInputValid = function(str){
     return InputValidation.validateInput(InputValidation.cleanInput(str));
 };
 
+InputValidation.isOligoInputValid = function(str){
+    return InputValidation.validateOligoInput(InputValidation.cleanInput(str));
+};
 
 function SequenceInput(el){
     this.el = el;

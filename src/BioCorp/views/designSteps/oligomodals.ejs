@@ -60,6 +60,34 @@
       <div class="modal-body">
         <p><%=texts.length_desc%></p>
       </div>
+      <div class="modal-header">
+        <h4 class="modal-title"><%=texts.iub%></h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered table-condensed" style="width:none;">
+            <tbody>
+            <tr>
+                <th>Code</th>
+                <th><%=texts.definition%></th>
+                <th><%=texts.mnemonic%></th>
+            </tr>
+            <tr><td>A</td><td>Adenine</td><td><b>A</b></td></tr>
+            <tr><td>C</td><td>Cytosine</td><td><b>C</b></td></tr>
+            <tr><td>G</td><td>Guanine</td><td><b>G</b></td></tr>
+            <tr><td>T</td><td>Thymine</td><td><b>T</b></td></tr>
+            <tr><td>R</td><td>AG</td><td>pu<b>R</b>ine</td></tr>
+            <tr><td>Y</td><td>CT</td><td>p<b>Y</b>rimidine</td></tr>
+            <tr><td>K</td><td>GT</td><td><b>K</b>eto</td></tr>
+            <tr><td>M</td><td>AC</td><td>a<b>M</b>ino</td></tr>
+            <tr><td>S</td><td>GC</td><td><b>S</b>trong</td></tr>
+            <tr><td>W</td><td>AT</td><td><b>W</b>eak</td></tr>
+            <tr><td>B</td><td>CGT</td><td>Not A</td></tr>
+            <tr><td>D</td><td>AGT</td><td>Not C</td></tr>
+            <tr><td>H</td><td>ACT</td><td>Not G</td></tr>
+            <tr><td>V</td><td>ACG</td><td>Not T</td></tr>
+            <tr><td>N</td><td>AGCT</td><td>a<b>N</b>y</td></tr>
+        </tbody></table>
+      </div>
 
       <div class="modal-footer">
         <button type="button" class="btn btn-default action-button" name="button" data-dismiss="modal"><%=texts.close%></button>

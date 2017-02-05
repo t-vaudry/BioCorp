@@ -18,7 +18,7 @@
 	<% } %>
         <tr>
           <td><%=texts.sequence_length%></td>
-          <td id="seqLength"><%= input.sequence.length %> nucleotides</td>
+          <td id="seqLength"><%= input.sequence.length %> <%= texts.nucleotides %></td>
         </tr>
 	<% if(input.accessionNumber) { %>
         <tr id="targetRegionRow">
@@ -41,31 +41,35 @@
           <td id="tempEnv"><%= input.tempEnv %> &deg;C</td>
         </tr>
         <tr>
-          <td>Na&#8314; <%=texts.concentration%></td>
+          <td><%=texts.concentration_before%> Na&#8314; <%=texts.concentration_after%></td>
           <td id="naEnv"><%= input.naEnv %> mM</td>
         </tr>
         <tr>
-          <td>Mg<sup>&#8314;2</sup> <%=texts.concentration%></td>
+          <td><%=texts.concentration_before%> Mg<sup>&#8314;2</sup> <%=texts.concentration_after%></td>
           <td id="mgEnv"><%= input.mgEnv %> mM</td>
         </tr>
         <tr>
-          <td>Oligomer <%=texts.concentration%></td>
+          <td><%=texts.oligomer%></td>
           <td id="oligoEnv"><%= input.oligoEnv %> mM</td>
+        </tr>
+	      <tr>
+          <td><%=texts.ribyzome_type%></td>
+          <% ribozymeList.forEach(function(ribozyme, index) { %>
+          <% var condition = false;
+             if( input.ribozymeSelection.indexOf("-") == -1){
+               condition = (input.ribozymeSelection == ribozyme['name']);
+             } else {
+               condition = (input.ribozymeSelection == ribozyme['name'] + '-' + ribozyme['type']);
+             } %>
+          <% if(condition) { %>
+            <td><%= ribozyme['title'] %></td>
+          <% }}); %>
         </tr>
 	<% if(input.ribozymeSelection != 'crispr') { %>
         <tr>
           <td><%=texts.cut_sites%></td>
           <td id="cutsites"><%= input.cutsites %></td>
         </tr>
-	<% } %>
-	      <tr>
-          <td><%=texts.ribyzome_type%></td>
-          <% ribozymeList.forEach(function(ribozyme, index) { %>
-          <% if(input.ribozymeSelection == ribozyme['name'] + '-' + ribozyme['type']) { %>
-            <td><%= ribozyme['title'] %></td>
-          <% }}); %>
-        </tr>
-	<% if(input.ribozymeSelection != 'crispr') { %>
 	      <tr>
           <td><%=texts.helix_I_length%></td>
           <td id="leftArm">[<%= input.left_arm_min %>, <%= input.left_arm_max %>]</td>
@@ -83,6 +87,7 @@
     </table>
 </div>
 <h4><%=texts.design_results%></h4>
+<input type='hidden' id='texts_annealing' value="<%= texts['annealing'] %>"/>
 <% if(resultMessage) { %><p class="step-description"><%= texts[resultMessage] %></p><% } %>
 <% if(results) { %>
   <script>
@@ -105,7 +110,7 @@
     if(meltingTempList != null && meltingTempList.length > 0) break;
   }
   for(var ii = 0; ii < meltingTempList.length; ii++){
-    meltingTempHeader += "<th><%=texts.melting%><br/><%=texts.temperature%> (&deg;C)</th> ";
+    meltingTempHeader += "<th><%=texts.melting%> (&deg;C)</th> ";
   }
 
   var html ="<div class='step-contents center'>\
@@ -115,7 +120,7 @@
            <th><%=texts.cut_site_number%><br/>( <%=texts.position%> )</th> " + meltingTempHeader + "\
            <th><%=texts.accessibility%> 1</th> \
            <th><%=texts.accessibility%> 2</th> \
-           <th><%=texts.ribozyme%><br/><%=texts.shape_quality%></th>";
+           <th><%=texts.shape_quality_before%><br/><%=texts.ribozyme%><br/><%=texts.shape_quality%></th>";
 
            html += "<th id='specificity-col'><%=texts.weighted%><br/><%=texts.off_target_hits%></th>";
 //           html += "<th id='rank-col'><p><%=texts.overall_rank%></p></th>";

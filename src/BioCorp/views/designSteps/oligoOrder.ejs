@@ -62,9 +62,9 @@
         </ul>
 
         <div id="sequence-wrap">
+          <!--div id="sequence_alert" class="alert alert-danger invisible"></div-->
+          <textarea id="oligo-sequence-display" name="sequence" maxlength="300" class="input-block-level" rows="5" placeholder="<%=texts.paste_sequence%>..." style="width:80%;" required></textarea>
           <div id="sequence_alert" class="alert alert-danger invisible"></div>
-          <textarea id="sequence-display" name="sequence" maxlength="3000" class="input-block-level" rows="5" placeholder="<%=texts.paste_sequence%>..." style="width:80%;" required></textarea>
-          <div id="sequence_alert1" class="alert alert-danger invisible"></div>
         </div>
 
 
@@ -126,7 +126,7 @@
             </ul>
       </div>
     </div>
-    <input type="submit" class="btn btn-primary btn-large action-button" value="<%=texts.add_to_cart%>" id="addToCart">
+    <input type="submit" class="btn btn-primary btn-large action-button disabled" value="<%=texts.add_to_cart%>" id="addToCartOligo" disabled>
   </fieldset>
 </form>
 </div>

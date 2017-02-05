@@ -125,6 +125,24 @@ function initializePage() {
   });
 
 
+  var oligoSeqInput = new SequenceInput($('#oligo-sequence-display')[0]);
+  $('#oligo-sequence-display').on('keyup change mouseout', function(){
+    var validation = InputValidation.isOligoInputValid(oligoSeqInput.getText());
+    if(!oligoSeqInput.isEmptyText() && !validation.ok) {
+      seqAlert.setState(validation);
+    } else {
+      seqAlert.hide();
+    }
+    if(!oligoSeqInput.isEmptyText() && validation.ok){
+      $('#addToCartOligo').removeClass('disabled');
+      $('#addToCartOligo').prop('disabled', false);
+    } else {
+      $('#addToCartOligo').addClass('disabled');
+      $('#addToCartOligo').prop('disabled', true);
+    }
+  });
+
+
   $('#stepTwoFinish').click(function(event){
     var data = $("#msform").serializeArray().filter( function( item ) {
       return (item.name != 'left_arm_min' && item.name != 'left_arm_max'
