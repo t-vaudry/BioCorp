@@ -6,32 +6,26 @@
     <button type="submit" class="btn btn-info btn-xs" id="removeOrderItem"><%=texts.remove%></button>
     </form>
     <% if(order[i].orderType == "oligo"){ %>
-    <table class="table table-hover table-condensed">
+    <table class="table table-striped table-condensed">
         <thead>
         <th>5' <%=texts.modification%></th>
         <th>3' <%=texts.modification%></th>
+        <th><%=texts.sequence%></th>
         <th><%=texts.purity%></th>
         <th><%=texts.scale%></th>
-        <th><%=texts.date_requirement%></th>
-        <th><%=texts.optional%></th>
         </thead>
         <tbody>
         <tr>
             <td><%=order[i].modif5%></td>
             <td><%=order[i].modif3%></td>
+            <td><%=order[i].sequence%></td>
             <td><%=order[i].purity%></td>
             <td><%=order[i].scale%></td>
-            <td><%=texts[order[i].datereq]%></td>
-            <td><%=texts[order[i].optional] + " " + order[i].resuspend%></td>
-        </tr>
-        <tr>
-            <th><%=texts.sequence%></th>
-            <td colspan="5"><%=order[i].sequence%></td>
         </tr>
         </tbody>
     </table>
     <% } else if(order[i].orderType == "bulkOligo"){ %>
-    <table class="table table-hover table-condensed">
+    <table class="table table-striped table-condensed">
         <thead>
         <% for (key in order[i].orderList[0]){ %>
         <th><%=key%></th>
@@ -48,7 +42,7 @@
         </tbody>
     </table>
     <% } else if(order[i].orderType == "ribozymeDesignOligo"){ %>
-    <table class="table table-hover table-condensed">
+    <table class="table table-striped table-condensed">
         <thead>
         <th><%=texts.cut_site_number%><br/>( <%=texts.position%> )</th>
         <th><%=texts.melting%> (&deg;C)</th>

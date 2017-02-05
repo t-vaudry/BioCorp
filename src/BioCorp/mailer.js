@@ -46,8 +46,12 @@ mailer.notifyCustomer = function(content, callback){
             <td>" + content.ponumber + "</td>\
         </tr>\
         <tr>\
-            <th>Invoice</th>\
-            <td>" + content.invoice + "</td>\
+            <th>Date Requirement</th>\
+            <td>" + content.datereq + "</td>\
+        </tr>\
+        <tr>\
+            <th>In 96 well plates</th>\
+            <td>" + content.wellPlates + "</td>\
         </tr>\
         </tbody>\
     </table><br/>";
@@ -58,23 +62,17 @@ mailer.notifyCustomer = function(content, callback){
 			<thead>\
 			<th>5' Modification</th>\
 			<th>3' Modification</th>\
+			<th>Sequence</th>\
 			<th>Purity</th>\
 			<th>Scale</th>\
-			<th>Date Requirement</th>\
-			<th>Optional</th>\
 			</thead>\
 			<tbody>\
 			<tr>\
 				<td>" + order[i].modif5 + "</td>\
 				<td>" + order[i].modif3 + "</td>\
+				<td>" + order[i].sequence + "</td>\
 				<td>" + order[i].purity + "</td>\
 				<td>" + order[i].scale + "</td>\
-				<td>" + order[i].datereq + "</td>\
-				<td>" + order[i].optional + " " + order[i].resuspend + "</td>\
-			</tr>\
-			<tr>\
-				<th>Sequence</th>\
-				<td colspan=\"5\">" + order[i].sequence + "</td>\
 			</tr>\
 			</tbody>\
 		</table>";

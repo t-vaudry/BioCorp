@@ -38,7 +38,6 @@
               <option value="Fluorescein-Tet">Fluorescein-Tet</option>
               <option value="Phosphorylated">Phosphorylated</option>
               <option value="Tamra">Tamra</option>
-              <option value="Others"><%=texts.others%></option>
               </select>
             </div></li>
             <li>
@@ -56,7 +55,6 @@
                   <option value="Fluorescein-Tet">Fluorescein-Tet</option>
                   <option value="Phosphorylated">Phosphorylated</option>
                   <option value="Tamra">Tamra</option>
-                  <option value="Others"><%=texts.others%></option>
                 </select>
               </div></li>
         </ul>
@@ -96,34 +94,6 @@
                 <option value="10 micro">10 &#181M</option>
               </select>
             </div>
-
-            <legend align="left"><span class=" glyphicon glyphicon-arrow-right"></span> <%=texts.date_requirement%> </legend>
-
-              <div class="form-group scale" align="center">
-                <!--<label for="cutsites">Preferred Cut-Sites</label>-->
-                <select class="form-control" name="datereq" style="width:40%;">
-                  <option value="rush" selected="selected" ><%=texts.rush%>!</option>
-                  <option value="1or2">1 ~ 2 <%=texts.day%></option>
-                  <option value="lessWeek"> < 1 <%=texts.week%></option>
-                </select>
-              </div>
-
-            <legend align="left"><span class=" glyphicon glyphicon-arrow-right"></span> <%=texts.optional%> </legend>
-
-            <ul id="optional">
-              <li>
-                <input type="checkbox" name="optional" value="plates"><%=texts.well_plates%>
-              </li>
-              <li>
-                <input type="checkbox" name="optional" value="resuspended" onchange="handleResuspend(this)"><%=texts.resuspended%>
-              </li>
-              <li>
-                <select class="form-control" name="resuspend" disabled id="resuspendList">
-                  <option value="50pm" selected="selected">50 p mole/&#181L</option>
-                  <option value="100pm">100 p mole/&#181L</option>
-                </select>
-              </li>
-            </ul>
       </div>
     </div>
     <input type="submit" class="btn btn-primary btn-large action-button disabled" value="<%=texts.add_to_cart%>" id="addToCartOligo" disabled>

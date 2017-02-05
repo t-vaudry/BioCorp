@@ -397,6 +397,7 @@ function initializePage() {
     } else{
       $('#orderProcessPerInfo').removeClass('disabled');
     }
+    $('#wellPlates').text('');
   });
 
   var selectDesignAlert = new SequenceAlert($('#selectDesignAlert'),$('#selectDesignAlert2'));
