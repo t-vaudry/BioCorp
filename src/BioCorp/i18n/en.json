@@ -210,5 +210,6 @@
     "telephone": "Telephone",
     "iub": "IUB Nucleotide Codes",
     "definition": "Definition",
-    "mnemonic":"Mnemonic"
+    "mnemonic":"Mnemonic",
+    "download":"Download File"
 }

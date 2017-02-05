@@ -214,5 +214,6 @@
     "telephone": "Téléphone",
     "iub": "IUB Codes nucléotidiques",
     "definition": "Définition",
-    "mnemonic":"Mnémonique"
+    "mnemonic":"Mnémonique",
+    "download":"Téléchargement de fichier"
 }

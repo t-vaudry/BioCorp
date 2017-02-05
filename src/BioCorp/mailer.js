@@ -25,7 +25,9 @@ var host = config.host;
 mailer.notifyCustomer = function(content, callback){
 	var receiver = content.emailaddr;
 	var subject = "Order confirmation from Biocorp";
-	var message = "Hello,<br/><p>Your following order is now confirmed.</br/><br/>Regards,<br/>The Biocorp Team</p>";
+	var message = "Hello,<br/><p>Your following order is now confirmed.<br/><br/>Regards,<br/>The Biocorp Team</p>";
+
+	if(content.wellPlates == undefined) content.wellPlates = "";
 
     message += "<table>\
         <tbody>\
