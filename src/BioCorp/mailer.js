@@ -62,6 +62,7 @@ mailer.notifyCustomer = function(content, callback){
 		if(order[i].orderType == "oligo"){
 		message += "<table>\
 			<thead>\
+			<th>Name</th>\
 			<th>5' Modification</th>\
 			<th>3' Modification</th>\
 			<th>Sequence</th>\
@@ -70,6 +71,7 @@ mailer.notifyCustomer = function(content, callback){
 			</thead>\
 			<tbody>\
 			<tr>\
+				<td>" + order[i].name + "</td>\
 				<td>" + order[i].modif5 + "</td>\
 				<td>" + order[i].modif3 + "</td>\
 				<td>" + order[i].sequence + "</td>\

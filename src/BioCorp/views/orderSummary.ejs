@@ -8,6 +8,7 @@
     <% if(order[i].orderType == "oligo"){ %>
     <table class="table table-striped table-condensed">
         <thead>
+        <th><%=texts.oligo_name%></th>
         <th>5' <%=texts.modification%></th>
         <th>3' <%=texts.modification%></th>
         <th><%=texts.sequence%></th>
@@ -16,6 +17,7 @@
         </thead>
         <tbody>
         <tr>
+            <td><%=order[i].name%></td>
             <td><%=order[i].modif5%></td>
             <td><%=order[i].modif3%></td>
             <td><%=order[i].sequence%></td>

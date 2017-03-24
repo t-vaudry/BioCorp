@@ -122,6 +122,7 @@
     "oligo_sequence": "Oligo Sequence",
     "modification":"Modification",
     "none":"None",
+    "oligo_name": "Oligo Name",
     "purity": "Purity",
     "standard":"Standard",
     "mixed":"Mixed",

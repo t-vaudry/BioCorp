@@ -362,7 +362,7 @@ function addSequences(elaboratedSeqArr, bases) {
 function checkSequenceExist(seq, seqArray) {
   var exist = false;
   for(var i = 0; i < seqArray.length; i++){
-    exist = seq.includes(seqArray[i]);
+    exist = seq.toUpperCase().includes(seqArray[i].toUpperCase());
     if(exist) break;
   }
   return exist;

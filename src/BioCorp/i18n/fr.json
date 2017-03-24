@@ -114,6 +114,7 @@
     "order_oligo":"Commander ADN / ARN Oligo",
     "modification":"Modification",
     "oligo_sequence":"Oligo Sequence",
+    "oligo_name": "Oligo Nom",
     "purity":"Pureté",
     "standard":"Standard",
     "mixed":"Mixte",
