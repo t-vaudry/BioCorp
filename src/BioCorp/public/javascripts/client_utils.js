@@ -39,7 +39,8 @@ FileLoader.readOligoFile = function(fileToRead) {
     var reader = new FileReader();
     reader.readAsBinaryString(fileToRead);
     reader.onload = function() {
-        var input = reader.result;
+        if (reader.result) reader.content = reader.result;
+        var input = reader.content;
         var workbook = XLSX.read(input, {type : 'binary'});
         var XL_row_object = null;
         workbook.SheetNames.forEach(function(sheetName){
