@@ -50,6 +50,7 @@ FileLoader.readOligoFile = function(fileToRead) {
         var tableStr = "";
         tableStr += "<thead><tr>";
         tableStr += "<th>Sequence No</th>";
+        tableStr += "<th>Oligo Name</th>";
         tableStr += "<th>5' Modification</th>";
         tableStr += "<th>3' Modification</th>";
         tableStr += "<th>Sequence</th>";
