@@ -39,7 +39,7 @@ window.onload = function() {
 				current_fs = $("#fsOligoPersonal");
 				next_fs = $("#fsOrderSummary");
 				$("#fsOrderSummary").find(".removeItemForm").remove();
-				var personalArray = $('#fsOligoPersonal').serializeArray();
+				var personalArray = $('#oligoStepTwo :input').serializeArray();
 				$(personalArray).each(function(index, obj){
 					$("#fsOrderSummary").find("#" + obj.name).text(obj.value);
 				});
