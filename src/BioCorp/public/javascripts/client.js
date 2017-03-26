@@ -368,7 +368,7 @@ function initializePage() {
   });
 
   $("#orderConfirmation").click(function() {
-      var personalArray = $('#fsOligoPersonal').serializeArray();
+      var personalArray = $('#oligoStepTwo :input').serializeArray();
       var personalData = { };
       $(personalArray).each(function(index, obj){
         personalData[obj.name] = obj.value;
