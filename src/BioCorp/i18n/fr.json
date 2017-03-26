@@ -216,5 +216,8 @@
     "iub": "IUB Codes nucléotidiques",
     "definition": "Définition",
     "mnemonic":"Mnémonique",
-    "download":"Téléchargement de fichier"
+    "download":"Téléchargement de fichier",
+    "user_exists":"L'utilisateur existe",
+    "auth_fail":"Échec de l'authentification, vérifiez votre nom d'utilisateur et votre mot de passe.",
+    "access_denied":"Access denied!"
 }

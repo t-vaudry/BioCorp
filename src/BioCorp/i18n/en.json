@@ -212,5 +212,8 @@
     "iub": "IUB Nucleotide Codes",
     "definition": "Definition",
     "mnemonic":"Mnemonic",
-    "download":"Download File"
+    "download":"Download File",
+    "user_exists":"User Exists",
+    "auth_fail":"Authentication failed, please check your username and password.",
+    "access_denied":"Accès refusé!"
 }

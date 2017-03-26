@@ -11,6 +11,8 @@
        </div>
     </div>
 </div>
+<div id="serverSideError" style="position:fixed; bottom:0%; width:100%; text-align:center;" 
+    class="alert alert-danger <% if(!error && error.length === 0) { %>invisible<% } %>"><%=texts[error]%></div>
 </footer>
 
 </body>

@@ -52,11 +52,15 @@ var getUser = function(req) {
 var indexPageHandler = function(req, res, next) {
   appConfigXML.getConfigXML();
   var ribozymeList = appConfigXML.getRibozymeList('Rz');
-
+  var error = "";
+  if(req.query.error){
+    error = req.query.error;
+  }
   res.render('index', { title: 'bioCorp',
                         orderCount: getOrderCount(req),
                         username: getUserName(req),
-                        ribozymeList: ribozymeList });
+                        ribozymeList: ribozymeList,
+                        error: error });
 }
 
 router.get('/', indexPageHandler);
@@ -66,6 +70,10 @@ router.get('/index', indexPageHandler);
 router.get("/signup", function (req, res) {
     appConfigXML.getConfigXML();
     var ribozymeList = appConfigXML.getRibozymeList('Rz');
+    var error = "";
+    if(req.query.error){
+        error = req.query.error;
+    }
     if (req.session.user) {
         res.redirect("/");
     } else {
@@ -74,7 +82,7 @@ router.get("/signup", function (req, res) {
                         ribozymeList: ribozymeList,
                         username: getUserName(req),
                         user: null,
-                        error: "" });
+                        error: error });
     }
 });
 
@@ -106,7 +114,7 @@ function requiredAuthentication(req, res, next) {
         next();
     } else {
         req.session.error = 'Access denied!';
-        res.redirect('/');
+        res.redirect('/?error=access_denied');
     }
 }
 
@@ -145,8 +153,8 @@ function userExist(req, res, next) {
             if (count === 0) {
                 next();
             } else {
-                req.session.error = "User Exist"
-                res.redirect("/signup");
+                req.session.error = "user_exists"
+                res.redirect("/signup?error=user_exists");
             }
         });
     }
@@ -201,7 +209,7 @@ router.post("/login", function (req, res) {
             });
         } else {
             req.session.error = 'Authentication failed, please check your ' + ' username and password.';
-            res.redirect('/');
+            res.redirect('/?error=auth_fail');
         }
     });
 });
@@ -377,7 +385,8 @@ router.post('/confirmation', function(req, res, next){
                                                             orderCount: getOrderCount(req),
                                                             ribozymeList: ribozymeList,
                                                             username: getUserName(req),
-                                                            user:  getUser(req)});
+                                                            user:  getUser(req),
+                                                            error: ""});
                         }
                     });
                 } else {
@@ -405,7 +414,8 @@ router.get('/ribozyme', function(req, res, next){
       ribozymeList: ribozymeList,
       ribozymeHelixSizes: ribozymeHelixSizes,
       cutsiteList: cutsiteList,
-      username: getUserName(req)});
+      username: getUserName(req),
+      error: ""});
 });
 
 router.get('/crispr', function(req, res, next){
@@ -421,7 +431,8 @@ router.get('/crispr', function(req, res, next){
 
 router.get('/license', function(req, res, next){
   res.render('license', {title: 'license',
-                        username: getUserName(req)});
+                        username: getUserName(req),
+                        error: ""});
 });
 
 router.get('/oligoOrder', function(req, res, next){
@@ -430,7 +441,8 @@ router.get('/oligoOrder', function(req, res, next){
   res.render('./designSteps/oligoOrder', { title: 'order_your_oligoo',
                                         orderCount: getOrderCount(req),
                                         ribozymeList: ribozymeList,
-                                        username: getUserName(req)});
+                                        username: getUserName(req),
+                                        error: ""});
 });
 
 router.get('/processing/:id', function(req, res, next){
@@ -441,7 +453,8 @@ router.get('/processing/:id', function(req, res, next){
     pageTitle: 'design_in_process',
     orderCount: getOrderCount(req),
     ribozymeList: ribozymeList,
-    username: getUserName(req)});
+    username: getUserName(req),
+    error: ""});
 });
 
 router.get('/results/:id', function(req, res, next){
@@ -470,7 +483,8 @@ router.get('/results/:id', function(req, res, next){
         username: getUserName(req),
         results: json_output,
         resultMessage: resultMessage,
-        input: {}
+        input: {},
+        error: ""
     };
 
     if(err){
@@ -566,7 +580,8 @@ router.get('/aboutUs', function(req, res, next){
     { title: 'about_us',
       orderCount: getOrderCount(req),
       ribozymeList: ribozymeList,
-      username: getUserName(req)});
+      username: getUserName(req),
+      error: ""});
 });
 
 module.exports = router;

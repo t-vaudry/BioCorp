@@ -638,3 +638,9 @@ var showExtraInfo = function(ev){
     + GetDnaForCandidate(candidate, uset7);
     $("#resultModal").modal();
 };
+
+setTimeout(fadeOutError, 5000);
+
+function fadeOutError() {
+  $("#serverSideError").fadeOut().empty();
+}
