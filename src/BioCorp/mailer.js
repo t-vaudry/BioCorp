@@ -100,41 +100,12 @@ mailer.notifyCustomer = function(content, callback){
 		} else if(order[i].orderType == "ribozymeDesignOligo"){
 		message += "<table class='table table-hover table-condensed'>\
 			<thead>\
-			<th>Sequence</th>\
-			<th>Melting<br/>Temperature (&deg;C)</th>\
-			<th>Accessibility 1</th>\
-			<th>Accessibility 2</th>\
-			<th>Ribozyme<br/>Shape Quality</th>\
-			<th>Weighted<br/>off-target hits</th>\
+			<th>Sequences</th>\
 			</thead>\
 			<tbody>\
-				<td>" + order[i].orderItem.Sequence + "</td>\
-				<td>" + order[i].orderItem.MeltingTemperatureList + "</td>\
-				<td>" + order[i].orderItem.Fitness_Target + "</td>\
-				<td>" + order[i].orderItem.Fitness_Target_dG + "</td>\
-				<td>" + order[i].orderItem.Fitness_Shape + "</td>\
-				<td>" + order[i].orderItem.Fitness_Specificity + "</td>\
-				<tr>";
-					if(order[i].orderItem.prime5Enzyme['name'].length > 0){
-					message += "<th colspan='1'>5' Restriction Enzyme</th>\
-					<td colspan='1'>"
-						+ order[i].orderItem.prime5Enzyme['name'] + " (" + order[i].orderItem.prime5Enzyme['seq'] + ")\
-					</td>";
-					}
-					if(order[i].orderItem.prime3Enzyme['name'].length > 0){
-					message += "<th colspan='1'>3' Restriction Enzyme</th>\
-					<td colspan='3'>" 
-						+ order[i].orderItem.prime3Enzyme['name'] + " (" + order[i].orderItem.prime5Enzyme['seq'] + ")\
-					</td>";
-					}
-				message += "</tr>";
-				if(order[i].orderItem.primer.length > 0){
-				message += "<tr>\
-					<th colspan='1'>Primer Sequence</th>\
-					<td colspan='5'>" + order[i].orderItem.primer + "</td>\
-				</tr>";
-				}
-			message += "</tbody>\
+				<tr><td>" + order[i].orderItem.DNASequence5to3 + "</td></tr>\
+				<tr><td>" + order[i].orderItem.DNASequenceComp3to5 + "</td></tr>\
+			</tbody>\
 		</table>";
 		}
 

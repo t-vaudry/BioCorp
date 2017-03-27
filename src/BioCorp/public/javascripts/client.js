@@ -409,6 +409,7 @@ function initializePage() {
     } else {
       $('#selectDesignSeq').removeClass('disabled');
       $('.newlyAdded').remove();
+      $("#selectedDesignRow0").find(".primer").val('');
       var row = $("#selectedDesignRow0").clone();
       $( ".candidateSelection:checked" ).each(function(index) {
         var currentRow = null;
@@ -539,7 +540,6 @@ function initializePage() {
         newCandidate.Fitness_Specificity = "N/A";
       }
 
-      newCandidate.DNASequence = RnaToDna(newCandidate.Sequence);
       var prime3Enzyme = new Object();
       prime3Enzyme['name'] = $(this).find('.3primeEnzyme').find(':selected').val();
       prime3Enzyme['seq'] = $(this).find('.3primeEnzyme').find(':selected').attr("sequence");
@@ -550,7 +550,28 @@ function initializePage() {
       prime5Enzyme['seq'] = $(this).find('.5primeEnzyme').find(':selected').attr("sequence");
       newCandidate.prime5Enzyme = prime5Enzyme;
 
-      newCandidate.primer = $(this).find('.primer').val();
+      newCandidate.primer5prime = $(this).find('.primer5prime').val();
+      newCandidate.primer3prime = $(this).find('.primer3prime').val();
+
+      newCandidate.DNASequence5to3 = RnaToDna(newCandidate.Sequence);
+
+      if(prime5Enzyme['seq'] != null && prime5Enzyme['seq'].length > 0){
+        newCandidate.DNASequence5to3 = elaborateSingleLetterCode(prime5Enzyme['seq'])[0]
+                                      + newCandidate.DNASequence5to3;
+      }
+      if(prime3Enzyme['seq'] != null && prime3Enzyme['seq'].length > 0){
+        newCandidate.DNASequence5to3 = newCandidate.DNASequence5to3
+                                      + elaborateSingleLetterCode(prime3Enzyme['seq'])[0];
+      }
+      if( newCandidate.primer5prime != null 
+        && newCandidate.primer5prime.length > 0){
+        newCandidate.DNASequence5to3 = newCandidate.primer5prime + newCandidate.DNASequence5to3;
+      }
+      if( newCandidate.primer3prime != null 
+          && newCandidate.primer3prime.length > 0){
+        newCandidate.DNASequence5to3 = newCandidate.DNASequence5to3 + newCandidate.primer3prime;
+      }
+      newCandidate.DNASequenceComp3to5 = Reverse(Complement(newCandidate.DNASequence5to3, false));
       items.push(newCandidate);
     });
 

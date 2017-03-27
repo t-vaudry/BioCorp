@@ -195,7 +195,7 @@
     "confirm": "Confirm",
     "re_primer": "Restriction Enzyme and Primer",
     "restriction_enzyme": "Restriction Enzyme",
-    "primer": "Primer Sequence",
+    "primer": "Primer Annealing Sequence",
     "design_item": "Design Item",
     "ribozyme_order":"Ribozyme Order",
     "selection": "Selection",
