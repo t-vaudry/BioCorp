@@ -99,12 +99,9 @@ mailer.notifyCustomer = function(content, callback){
 		</table>";
 		} else if(order[i].orderType == "ribozymeDesignOligo"){
 		message += "<table class='table table-hover table-condensed'>\
-			<thead>\
-			<th>Sequences</th>\
-			</thead>\
 			<tbody>\
-				<tr><td>" + order[i].orderItem.DNASequence5to3 + "</td></tr>\
-				<tr><td>" + order[i].orderItem.DNASequenceComp3to5 + "</td></tr>\
+				<tr><td>Sequence 1: </td><td>" + order[i].orderItem.DNASequence5to3 + "</td></tr>\
+				<tr><td>Sequence 2: </td><td>" + order[i].orderItem.DNASequenceComp3to5 + "</td></tr>\
 			</tbody>\
 		</table>";
 		}
