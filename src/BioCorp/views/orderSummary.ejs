@@ -20,7 +20,7 @@
             <td><%=order[i].name%></td>
             <td><%=order[i].modif5%></td>
             <td><%=order[i].modif3%></td>
-            <td><%=order[i].sequence%></td>
+            <td style='word-wrap: break-word; max-width:200px;'><%=order[i].sequence%></td>
             <td><%=order[i].purity%></td>
             <td><%=order[i].scale%></td>
         </tr>
@@ -37,7 +37,7 @@
         <% for (var j = 0; j < order[i].orderList.length; j++){ %>
         <tr>
             <% for (key in order[i].orderList[j]){ %>
-            <td><%=order[i].orderList[j][key]%></td>
+            <td  style='word-wrap: break-word; max-width:200px;'><%=order[i].orderList[j][key]%></td>
             <% } %>
         </tr>
         <% } %>

@@ -66,7 +66,7 @@ FileLoader.readOligoFile = function(fileToRead) {
             var row = XL_row_object[index];
             tableStr += "<tr id='oligoUploadTableRow" + index + "'>";        
             for(var prop in row){
-                tableStr += "<td>" + row[prop] + "</td>";            
+                tableStr += "<td style='word-wrap: break-word; max-width:200px;'>" + row[prop] + "</td>";            
             }
             tableStr += "<td><a row-index='" + index + "' class='removeOligo'>Remove</a></td></tr>";        
         }
