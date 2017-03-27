@@ -21,6 +21,7 @@
       </div>
     <% } %>
     <% include orderSummary %>
+    <input type="button" id="closeConfirmation" class="submit action-button" value="<%=texts.home%>" />
     <input type="button" name="next" class="stepNext action-button <% if(order.length == 0) {%>disabled<% } %>" value="<%=texts.next%>" />
   </fieldset>
 
