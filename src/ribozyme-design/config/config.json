@@ -1,11 +1,11 @@
 {
     "env": {
-	"config_xml_path": "/home/mohiul/git/Biocorp/src/ribozyme-design/config/ribozyme.xml",
-	"sfold_path": "~/PhdResearch/Ribosoft/sfold-2.2/bin/sfold",
-    "hotknots_path": "/home/mohiul/git/Biocorp/src/ribozyme-design-executor",
-    "input_file_path": "/home/mohiul/git/Biocorp/src/ribozyme-design-executor/input_files",
-    "output_file_path": "/home/mohiul/git/Biocorp/src/ribozyme-design-executor/output",
-    "current_dir": "/home/mohiul/git/Biocorp/src/ribozyme-design-executor"
+	"config_xml_path": "/home/thomas/Documents/Git/BioCorp/src/ribozyme-design/config/ribozyme.xml",
+	"sfold_path": "/home/thomas/Documents/Git/BioCorp/src/sfold-2.2/bin/sfold",
+    "hotknots_path": "/home/thomas/Documents/Git/BioCorp/src/ribozyme-design-executor",
+    "input_file_path": "/home/thomas/Documents/Git/BioCorp/src/ribozyme-design-executor/input_files",
+    "output_file_path": "/home/thomas/Documents/Git/BioCorp/src/ribozyme-design-executor/output",
+    "current_dir": "/home/thomas/Docuemnts/Git/BioCorp/src/ribozyme-design-executor"
     },
     "log_level": 0
 }

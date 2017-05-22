@@ -1,3 +1,3 @@
 module.exports = {
-  'home_folder': '/home/mohiul/git/Biocorp/src/ribozyme-design-executor/'
+  'home_folder': '/home/thomas/Documents/Git/BioCorp/src/ribozyme-design-executor/'
 };
