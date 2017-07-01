@@ -24,7 +24,7 @@ var host = config.host;
 
 mailer.notifyCustomer = function(content, callback){
 	var receiver = content.emailaddr;
-	var subject = "Order confirmation from Biocorp";
+	var subject = "Order #" + content.order_number + ": Confirmation from Biocorp";
 	var message = "Hello,<br/><p>Your following order is now confirmed.<br/><br/>Regards,<br/>The Biocorp Team</p>";
 
 	if(content.wellPlates == undefined) content.wellPlates = "";
@@ -68,6 +68,7 @@ mailer.notifyCustomer = function(content, callback){
 			<th>Sequence</th>\
 			<th>Purity</th>\
 			<th>Scale</th>\
+			<th>Comments</th>\
 			</thead>\
 			<tbody>\
 			<tr>\
@@ -77,6 +78,7 @@ mailer.notifyCustomer = function(content, callback){
 				<td>" + order[i].sequence + "</td>\
 				<td>" + order[i].purity + "</td>\
 				<td>" + order[i].scale + "</td>\
+				<td>" + order[i].comments + "</td>\
 			</tr>\
 			</tbody>\
 		</table>";

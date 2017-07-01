@@ -57,6 +57,7 @@ FileLoader.readOligoFile = function(fileToRead) {
         tableStr += "<th>Sequence</th>";
         tableStr += "<th>Purity</th>";
         tableStr += "<th>Scale</th>";
+        tableStr += "<th>Comments</th>";
         // for(var prop in csvArray[0]){
         //     tableStr += "<th>" + prop + "</th>";            
         // }
