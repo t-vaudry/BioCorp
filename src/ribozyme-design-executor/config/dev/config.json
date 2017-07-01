@@ -5,5 +5,6 @@
     "pass_smtp": "ribosoft",
     "host" : "http://localhost:3000/",
     "admin": "ribosoft.mailer@gmail.com",
-    "devContact" : "ribosoft.contact@gmail.com"
+    "devContact" : "ribosoft.contact@gmail.com",
+    "access_token" : "a8WrGx1TjJAAAAAAAAAADDW_rbG85HgBWrCW3jDCI7lvNyjWvCvUE_KwFSG3RvLH"
 }

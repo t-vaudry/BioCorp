@@ -9,6 +9,8 @@ var RibozymeConfigXML = require('../../ribozyme-design/XMLReader/').RibozymeConf
 var appConfigXML = new RibozymeConfigXML(config_xml_path);
 var hash = require('./pass').hash;
 var mailer = require('../mailer.js');
+var dropbox = require('../dropbox.js');
+var Puid = require('puid');
 
 var cookie_name = "biocorp_order_cookie";
 
@@ -375,7 +377,9 @@ router.post('/confirmation', function(req, res, next){
                 if (err) console.log('cannot find item');
                 newOrderArray.push(JSON.parse(item.json));
                 if(index == order.length){
+                    var puid = new Puid(true);
                     mailContent.order = newOrderArray
+                    mailContent.order_number = puid.generate();
                     mailer.notifyCustomer(mailContent, function(success){
                         if(success){
                             var emptyJSON = JSON.stringify(new Array());
@@ -389,6 +393,7 @@ router.post('/confirmation', function(req, res, next){
                                                             error: ""});
                         }
                     });
+                    dropbox.uploadFile(mailContent, function() {});
                 } else {
                     findItems();
                 }

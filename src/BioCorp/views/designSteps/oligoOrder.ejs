@@ -101,6 +101,15 @@
                 <option value="10 micro">10 &#181M</option>
               </select>
             </div>
+
+          <legend data-toggle="collapse" align="left"><span class=" glyphicon glyphicon-arrow-right"></span> <%=texts.comments%> </legend>
+
+            <div id="comments-wrap">
+              <!--div id="comments_alert" class="alert alert-danger invisible"></div-->
+              <textarea id="oligo-comments-display" name="comments" maxlength="300" class="input-block-level" rows="5" placeholder="<%=texts.add_comments%>..." style="width:80%;" required></textarea>
+              <div id="commment_alert" class="alert alert-danger invisible"></div>
+            </div>
+          
       </div>
     </div>
     <input type="submit" class="btn btn-primary btn-large action-button disabled" value="<%=texts.add_to_cart%>" id="addToCartOligo" disabled>
