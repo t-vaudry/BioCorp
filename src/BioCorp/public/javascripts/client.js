@@ -6,6 +6,7 @@ $(document).on("page:load", initializePage);
   var seqInput = new SequenceInput($('#sequence-display')[0]);
 
   var seqAlert = new SequenceAlert($('#sequence_alert'), $('#sequence_alert1'));
+  var commentAlert = new CommentAlert($('#comment_alert'));
   var submit1 = $('#submit1');
   var searchAccession = new Button($('#submit_ACN'));
   var accessionAlert = new AccessionAlert($('#accession_alert'));
@@ -126,14 +127,17 @@ function initializePage() {
 
 
   var oligoSeqInput = new SequenceInput($('#oligo-sequence-display')[0]);
+  var oligoComments = new Comment($('#oligo-comments-display')[0]);
+  var internalMod = false;
+
   $('#oligo-sequence-display').on('keyup change mouseout', function(){
     var validation = InputValidation.isOligoInputValid(oligoSeqInput.getText());
-    if(!oligoSeqInput.isEmptyText() && !validation.ok) {
+    if(!oligoSeqInput.isEmptyText() && !validation.ok && !internalMod) {
       seqAlert.setState(validation);
     } else {
       seqAlert.hide();
     }
-    if(!oligoSeqInput.isEmptyText() && validation.ok){
+    if(!oligoSeqInput.isEmptyText() && (validation.ok || internalMod)){
       $('#addToCartOligo').removeClass('disabled');
       $('#addToCartOligo').prop('disabled', false);
     } else {
@@ -142,6 +146,38 @@ function initializePage() {
     }
   });
 
+  $('#oligo-comments-display').on('keyup change mouseout', function(){
+    var validation = InputValidation.isOligoCommentValid();
+    if (internalMod && oligoComments.isEmptyText() && !validation.ok) {
+      commentAlert.setState(validation);
+    } else {
+      commentAlert.hide();
+    }
+
+    if(oligoComments.isEmptyText() && internalMod){
+      $('#addToCartOligo').addClass('disabled');
+      $('#addToCartOligo').prop('disabled', true);
+    } else {
+      $('#addToCartOligo').removeClass('disabled');
+      $('#addToCartOligo').prop('disabled', false);
+    }
+  });
+
+  $('#internalmod').click(function(){
+    internalMod = this.checked;
+    this.value = this.checked ? "TRUE" : "FALSE";
+      
+    if (this.checked && (Cookies.get("modal_dismiss") == "false" || Cookies.get("modal_dismiss") == undefined))
+      $('#oligoInternalModificationsModal').modal();
+  });
+
+  $('#oligoInternalModificationsModal').on('hidden.bs.modal', function(){
+    var status = $("input[name=dismiss]", this).is(":checked");
+    Cookies.set('modal_dismiss', status, {
+      expires: 7,
+      path: ''
+    });
+  });
 
   $('#stepTwoFinish').click(function(event){
     var data = $("#msform").serializeArray().filter( function( item ) {
@@ -357,6 +393,7 @@ function initializePage() {
   $("#bulkOligoAddToCart").click(function() {
     var myRows = new Array;
     var $th = $('table#oligoUploadTable th');
+    $th.splice(-1, 1);
     $('table#oligoUploadTable tbody tr').each(function(i, tr){
         var obj = {}, $tds = $(tr).find('td');
         $th.each(function(index, th){

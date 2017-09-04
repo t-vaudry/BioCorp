@@ -11,6 +11,20 @@
   cursor: pointer;
 }
 
+.modal-custom {
+  width: 1200px;
+}
+
+.oligoError {
+  font-size: 20px;
+  color: red;
+}
+
+.oligoWarning {
+  font-size: 20px;
+  color: yellow;
+}
+
 legend[data-toggle="collapse"] {
   cursor: pointer;
 }

@@ -54,30 +54,82 @@ FileLoader.readOligoFile = function(fileToRead) {
         tableStr += "<th>Oligo Name</th>";
         tableStr += "<th>5' Modification</th>";
         tableStr += "<th>3' Modification</th>";
+        tableStr += "<th>Internal Modification</th>";
         tableStr += "<th>Sequence</th>";
         tableStr += "<th>Purity</th>";
         tableStr += "<th>Scale</th>";
         tableStr += "<th>Comments</th>";
+        tableStr += "<th>Errors</th>";
+        //tableStr += "<th></th>";
         // for(var prop in csvArray[0]){
         //     tableStr += "<th>" + prop + "</th>";            
         // }
-        tableStr += "</tr></thead>";        
-        tableStr += "<tbody>";        
+        tableStr += "</tr></thead>";
+        tableStr += "<tbody>";
+
+        var count = 0;
+
         for(var index in XL_row_object){
             var row = XL_row_object[index];
-            tableStr += "<tr id='oligoUploadTableRow" + index + "'>";        
+            tableStr += "<tr id='oligoUploadTableRow" + index + "'>";
+
+            var error = false;
+            var internmod = false;
+            var no_comments = true;
+
             for(var prop in row){
+                if (prop == "Oligo Sequence") {
+                    var validation = InputValidation.isOligoInputValid(row[prop]);
+                    error = !validation.ok;
+                } else if (prop == "Internal Modification") {
+                    internmod = row[prop] == "TRUE" ? true : false;
+                } else if (prop == "Comments") {
+                    no_comments = false;
+                }
                 tableStr += "<td style='word-wrap: break-word; max-width:200px;'>" + row[prop] + "</td>";            
             }
-            tableStr += "<td><a row-index='" + index + "' class='removeOligo'>Remove</a></td></tr>";        
+            if (no_comments) {
+                tableStr += "<td style='word-wrap: break-word; max-width:200px;'></td>";
+            }
+
+            if (error && !internmod) {
+                tableStr += "<td><a class='oligoError'>&#9888</a></td>";
+                count++;
+            } else if (internmod && no_comments) {
+                tableStr += "<td><a class='oligoWarning'>&#9888</a></td>";
+                count++;
+            } else {
+                tableStr += "<td></td>";
+            }
+
+            tableStr += "<td><a row-index='" + index + "' class='removeOligo'>Remove</a></td></tr>";
         }
         tableStr += "</tbody>";
         $('#oligoUploadTable').empty();
         $('#oligoUploadTable').append(tableStr);
+        $('.oligoError').click(function(){
+            $('#oligoSequenceErrorModal').modal();
+        });
+        $('.oligoWarning').click(function(){
+            $('#oligoCommentWarningModal').modal();
+        });
         $('.removeOligo').click(function(){
             var row_index = $(this).attr('row-index');
+            if ($(this).parent().prev().children().attr("class") == "oligoError" || $(this).parent().prev().children().attr("class") == "oligoWarning") {
+                count--;
+            }
+            if (count == 0) {
+                $('#bulkOligoAddToCart').removeClass("disabled");
+                $('#bulkOligoAddToCart').prop('disabled', false);
+            }
             $('#oligoUploadTableRow' + row_index).remove();
-        })
+        });
+        
+        if (count > 0) {
+            $('#bulkOligoAddToCart').addClass("disabled");
+            $('#bulkOligoAddToCart').prop('disabled', true);  
+        }
+
         $('#oligoFileUploadModal').modal();
     };
 }
@@ -340,6 +392,12 @@ InputValidation.validateOligoInput= function(input){
     return {"ok" : true, "error" : "Sequence Found!" };
 }
 
+InputValidation.validateComment = function(input)
+{
+    var Problems = "Internal Modification description missing in comments!";
+    return {"ok" : false , "error" :Problems};
+}
+
 InputValidation.cleanInput = function( input )
 {
     //FASTA
@@ -380,10 +438,13 @@ InputValidation.isOligoInputValid = function(str){
     return InputValidation.validateOligoInput(InputValidation.cleanInput(str));
 };
 
+InputValidation.isOligoCommentValid = function(){
+    return InputValidation.validateComment();
+}
+
 function SequenceInput(el){
     this.el = el;
 }
-
 
 SequenceInput.prototype.isInputValid = function(){
     return InputValidation.isInputValid(this.el.value);
@@ -447,6 +508,56 @@ SequenceAlert.prototype.show = function(){
 
 };
 
+function Comment(el){
+    this.el = el;
+}
+
+Comment.prototype.setText = function(text){
+    this.el.value = text;
+};
+
+Comment.prototype.getText = function(){
+    return this.el.value;
+};
+
+
+Comment.prototype.emptyText = function(){
+    if(this.el !== undefined){
+        this.el.value = "";
+    }
+};
+
+Comment.prototype.isEmptyText = function(){
+    return this.el.value.length == 0? true: false;
+};
+
+
+function CommentAlert(el){
+    this.el = el;
+}
+
+//state = {"ok": "true/false" , "error" : "<str>"}
+CommentAlert.prototype.setState = function(state){
+    this.el.removeClass("invisible");
+
+    if(state.ok === false){
+	     this.el.addClass("alert-error").removeClass("alert-success");
+    }
+    else {
+	     this.el.removeClass("alert-error").addClass("alert-success");
+    }
+    this.el.text(state.error);
+
+};
+
+CommentAlert.prototype.hide = function(){
+    this.el.addClass("invisible");
+    this.el.removeClass("alert-error alert-success");
+};
+
+CommentAlert.prototype.show = function(){
+    this.el.removeClass("invisible");
+};
 
 function Button(el){
     this.el = el;

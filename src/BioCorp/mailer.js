@@ -27,7 +27,8 @@ mailer.notifyCustomer = function(content, callback){
 	var subject = "Order #" + content.order_number + ": Confirmation from Biocorp";
 	var message = "Hello,<br/><p>Your following order is now confirmed.<br/><br/>Regards,<br/>The Biocorp Team</p>";
 
-	if(content.wellPlates == undefined) content.wellPlates = "";
+	if(content.wellPlates == undefined) content.wellPlates = "FALSE";
+	else content.wellPlates = "TRUE";
 
     message += "<table>\
         <tbody>\
@@ -60,11 +61,16 @@ mailer.notifyCustomer = function(content, callback){
 	var order = content.order;
 	for (var i = 0; i < order.length; i++){
 		if(order[i].orderType == "oligo"){
+		
+		if(order[i].internmod == undefined) order[i].internmod = "FALSE";
+		else order[i].internmod = "TRUE";
+		
 		message += "<table>\
 			<thead>\
 			<th>Name</th>\
 			<th>5' Modification</th>\
 			<th>3' Modification</th>\
+			<th>Internal Modification</th>\
 			<th>Sequence</th>\
 			<th>Purity</th>\
 			<th>Scale</th>\
@@ -75,6 +81,7 @@ mailer.notifyCustomer = function(content, callback){
 				<td>" + order[i].name + "</td>\
 				<td>" + order[i].modif5 + "</td>\
 				<td>" + order[i].modif3 + "</td>\
+				<td>" + order[i].internmod + "</td>\
 				<td>" + order[i].sequence + "</td>\
 				<td>" + order[i].purity + "</td>\
 				<td>" + order[i].scale + "</td>\

@@ -48,9 +48,6 @@
               </select>
             </div></li>
             <li>
-
-            </li>
-            <li>
               <label for="modification3" style="display:inline-block;">3' <%=texts.modification%> </label>
               <div class="form-group">
                 <select class="form-control" id="promoList" name="modif3" style="width:100%;">
@@ -64,6 +61,11 @@
                   <option value="Tamra">Tamra</option>
                 </select>
               </div></li>
+
+              <li>
+                  <label for="internalmodification" style="display:inline-block;"><%=texts.internalmod%> </label>
+                  <input type="checkbox" id="internalmod" name="internmod" value="FALSE">
+                </li>
         </ul>
 
         <div id="sequence-wrap">
@@ -105,9 +107,9 @@
           <legend data-toggle="collapse" align="left"><span class=" glyphicon glyphicon-arrow-right"></span> <%=texts.comments%> </legend>
 
             <div id="comments-wrap">
-              <!--div id="comments_alert" class="alert alert-danger invisible"></div-->
-              <textarea id="oligo-comments-display" name="comments" maxlength="300" class="input-block-level" rows="5" placeholder="<%=texts.add_comments%>..." style="width:80%;" required></textarea>
-              <div id="commment_alert" class="alert alert-danger invisible"></div>
+              <!--div id="comment_alert" class="alert alert-danger invisible"></div-->
+              <textarea id="oligo-comments-display" name="comments" maxlength="300" class="input-block-level" rows="5" placeholder="<%=texts.add_comments%>..." style="width:80%;"></textarea>
+              <div id="comment_alert" class="alert alert-danger invisible"></div>
             </div>
           
       </div>

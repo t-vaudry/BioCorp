@@ -1,6 +1,6 @@
 <!-- Modal for File Upload-->
 <div class="modal fade bd-example-modal-lg" id="oligoFileUploadModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog modal-lg modal-custom" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -20,6 +20,61 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<!-- Modal for Sequence Error-->
+<div class="modal fade bd-example-modal-sm" id="oligoSequenceErrorModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"><%=texts.sequence_error%></h4>
+      </div>
+      <div class="modal-body">
+        <p><%=texts.sequence_error_text%></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><%=texts.close%></button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Modal for Comment Warning-->
+<div class="modal fade bd-example-modal-sm" id="oligoCommentWarningModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"><%=texts.comment_warning%></h4>
+      </div>
+      <div class="modal-body">
+        <p><%=texts.comment_warning_text%></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><%=texts.close%></button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Modal for Internal Modifications-->
+<div class="modal fade" id="oligoInternalModificationsModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title"><%=texts.internalmod%></h4>
+        </div>
+        <div class="modal-body">
+          <p><%=texts.internal_modification_text%></p>
+        </div>
+        <div class="modal-footer">
+          <label><input type="checkbox" name="dismiss" style="margin-right: 5px;"><%=texts.do_not_show_again%></br></label>
+          <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-left: 15px;"><%=texts.close%></button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 
 <!-- Modal for Regions for Target Design-->
 <div class="modal fade" id="oligoSequenceModal" role="dialog">

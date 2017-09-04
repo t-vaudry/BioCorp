@@ -11,6 +11,7 @@
         <th><%=texts.oligo_name%></th>
         <th>5' <%=texts.modification%></th>
         <th>3' <%=texts.modification%></th>
+        <th><%=texts.internalmod%></th>
         <th><%=texts.sequence%></th>
         <th><%=texts.purity%></th>
         <th><%=texts.scale%></th>
@@ -21,6 +22,11 @@
             <td><%=order[i].name%></td>
             <td><%=order[i].modif5%></td>
             <td><%=order[i].modif3%></td>
+            <%if (order[i].internmod) { %>
+            <td><%=texts.true%></td>
+            <% } else { %>
+            <td><%=texts.false%></td>
+            <% } %>
             <td style='word-wrap: break-word; max-width:200px;'><%=order[i].sequence%></td>
             <td><%=order[i].purity%></td>
             <td><%=order[i].scale%></td>
