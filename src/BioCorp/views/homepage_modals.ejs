@@ -31,3 +31,22 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 </form>
+
+<!-- Modal to Ask to sign in -->
+<div class="modal fade bd-example-modal-sm" id="welcomeSignInModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"><%=texts.welcome%><%=texts.to_biocorp%></h4>
+      </div>
+      <div class="modal-body">
+        <p><%=texts.please_signin%></p>
+      </div>
+      <div class="modal-footer">
+        <label><input type="checkbox" name="welcome_dismiss" style="margin-right: 5px;"><%=texts.do_not_show_again%></br></label>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><%=texts.close%></button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -143,6 +143,7 @@ function userExist(req, res, next) {
                             req.session.user = user;
                             req.session.success = 'Authenticated as ' + user.username + ' click to <a href="/logout">logout</a>. ' + ' You may now access <a href="/restricted">/restricted</a>.';
                             res.redirect('/');
+                            dropbox.uploadModifiedUserFile(req.body, function() {});
                         });
                     }
                 });
@@ -192,6 +193,7 @@ router.post("/signup", userExist, function (req, res) {
                         req.session.user = user;
                         req.session.success = 'Authenticated as ' + user.username + ' click to <a href="/logout">logout</a>. ' + ' You may now access <a href="/restricted">/restricted</a>.';
                         res.redirect('/');
+                        dropbox.uploadNewUserFile(req.body, function() {});
                     });
                 }
             });
@@ -393,7 +395,7 @@ router.post('/confirmation', function(req, res, next){
                                                             error: ""});
                         }
                     });
-                    dropbox.uploadFile(mailContent, function() {});
+                    dropbox.uploadOrderFile(mailContent, function() {});
                 } else {
                     findItems();
                 }
@@ -443,7 +445,7 @@ router.get('/license', function(req, res, next){
 router.get('/oligoOrder', function(req, res, next){
     appConfigXML.getConfigXML();
     var ribozymeList = appConfigXML.getRibozymeList('Rz');
-  res.render('./designSteps/oligoOrder', { title: 'order_your_oligoo',
+    res.render('./designSteps/oligoOrder', { title: 'order_your_oligoo',
                                         orderCount: getOrderCount(req),
                                         ribozymeList: ribozymeList,
                                         username: getUserName(req),

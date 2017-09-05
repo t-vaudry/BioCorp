@@ -23,7 +23,11 @@
       <p>
         <%=texts.sequence_you_want%>
       </p>
-      <a href="/oligoOrder" class="btn btn-default pull-right"><%=texts.design_own_oligo%> >></a>
+      <% if(username.length > 0){ %>
+        <a href="/oligoOrder" id="oligoOrder" class="btn btn-default pull-right"><%=texts.design_own_oligo%> >></a>
+      <% } else {%>
+        <a href="/oligoOrder" id="oligoOrder" class="btn btn-default pull-right disabled"><%=texts.design_own_oligo%> >></a>
+      <% } %>
     </div>
   </div>
 </div>

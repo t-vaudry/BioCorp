@@ -5,20 +5,20 @@ var file = require('fs');
 
 module.exports = exports = dropbox = {};
 
-dropbox.uploadFile = function(content, callback){
+dropbox.uploadOrderFile = function(content, callback){
     var file_content = content.order_number + os.EOL;
+    file_content += content.emailaddr + os.EOL;
     var now = new Date();
 
     file_content += 'Oligo Order File' + os.EOL;
     file_content += dateFormat(now, "m/d/yyyy") + os.EOL;
+    file_content += content.datereq + os.EOL;
+    file_content += content.wellPlates + os.EOL;
     file_content += 'Position, OligoName, Sequence, Scale, Purity, 5mod, 3mod, InternalMod' + os.EOL;
     file_content += 'Start SeqInfo' + os.EOL;
     
     for (var index = 0; index < content.order.length; index++)
     {
-        if (content.order[index].internmod == undefined) content.order[index].internmod = "FALSE";
-        else content.order[index].internmod = "TRUE";
-
         if (content.order[index].orderType == "oligo")
         {
             file_content += (index+1) + ';';
@@ -97,6 +97,36 @@ dropbox.uploadFile = function(content, callback){
     }
 
     file.writeFile("../../../Dropbox/BCOrders/Orders/" + content.order_number + ".dna6", file_content, function(err) {
+        if (err)
+            console.log(err);
+    });
+}
+
+dropbox.uploadNewUserFile = function(content, callback) {
+    var file_content = content.emailaddr + os.EOL;
+    file_content += content.firstname + os.EOL;
+    file_content += content.lastname + os.EOL;
+    file_content += content.accHolder + os.EOL;
+    file_content += content.institution + os.EOL;
+    file_content += content.ponumber + os.EOL;
+    file_content += content.invoice + os.EOL;
+
+    file.writeFile("../../../Dropbox/BCOrders/NewUsers/" + content.emailaddr + ".usr", file_content, function(err) {
+        if (err)
+            console.log(err);
+    });
+}
+
+dropbox.uploadModifiedUserFile = function(content, callback) {
+    var file_content = content.emailaddr + os.EOL;
+    file_content += content.firstname + os.EOL;
+    file_content += content.lastname + os.EOL;
+    file_content += content.accHolder + os.EOL;
+    file_content += content.institution + os.EOL;
+    file_content += content.ponumber + os.EOL;
+    file_content += content.invoice + os.EOL;
+
+    file.writeFile("../../../Dropbox/BCOrders/UpdatedUsers/" + content.emailaddr + ".usr", file_content, function(err) {
         if (err)
             console.log(err);
     });

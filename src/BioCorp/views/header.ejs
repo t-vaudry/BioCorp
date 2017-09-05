@@ -57,7 +57,11 @@
                   <button type="button" id="signInButton" class="btn btn-default"><%=texts.sign_in%>?</button>
                 <% } %>
                 <!-- Shopping Cart -->
-                <button type="button" id="shoppingCartButton" class="btn btn-default">
+                <% if(username.length > 0){ %>
+                  <button type="button" id="shoppingCartButton" class="btn btn-default">
+                <% } else {%>
+                  <button type="button" id="shoppingCartButton" class="btn btn-default disabled" disabled>
+                <% } %>
                   <span class="glyphicon glyphicon-shopping-cart"></span>
                   <span id="shoppingCartSpan" data-bind="#"><%=orderCount%> <%=texts.items%></span>
                 </button>
@@ -100,7 +104,11 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=texts.products_and_services%> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li>
-                    <a href="/oligoOrder"><%=texts.oligo_synthesis%></a>
+                    <% if(username.length > 0){ %>
+                      <a href="/oligoOrder"><%=texts.oligo_synthesis%></a>
+                    <% } else { %>
+                      <a id="oligoOrder"><%=texts.oligo_synthesis%></a>
+                    <% } %>
                   </li>
                 </ul>
                   </li>

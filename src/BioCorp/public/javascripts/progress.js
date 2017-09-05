@@ -33,16 +33,8 @@ window.onload = function() {
 		switch(temp){
 			case "fsOrderReview":
 				current_fs = $("#fsOrderReview");
-				next_fs = $("#fsOligoPersonal");
-				break;
-			case "fsOligoPersonal":
-				current_fs = $("#fsOligoPersonal");
 				next_fs = $("#fsOrderSummary");
 				$("#fsOrderSummary").find(".removeItemForm").remove();
-				var personalArray = $('#oligoStepTwo :input').serializeArray();
-				$(personalArray).each(function(index, obj){
-					$("#fsOrderSummary").find("#" + obj.name).text(obj.value);
-				});
 				break;
 			case "fsOrderSummary":
 				current_fs = $("#fsOrderSummary");

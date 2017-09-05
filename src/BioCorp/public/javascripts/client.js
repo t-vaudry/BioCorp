@@ -179,6 +179,14 @@ function initializePage() {
     });
   });
 
+  $('#welcomeSignInModal').on('hidden.bs.modal', function(){
+    var status = $("input[name=welcome_dismiss]", this).is(":checked");
+    Cookies.set('welcome_dismiss', status, {
+      expires: 7,
+      path: ''
+    });
+  });
+
   $('#stepTwoFinish').click(function(event){
     var data = $("#msform").serializeArray().filter( function( item ) {
       return (item.name != 'left_arm_min' && item.name != 'left_arm_max'
@@ -378,6 +386,11 @@ function initializePage() {
   
   $('#selectFileOligoInput').change(FileLoader.handleOligoFile);
 
+  $("#oligoOrder").click(function(){
+    if (Cookies.get("welcome_dismiss") == "false" || Cookies.get("welcome_dismiss") == undefined)
+      $('#welcomeSignInModal').modal();
+  });
+
   $("#signInButton").click(function() {
     $('#signInModal').modal();
   });
@@ -405,7 +418,14 @@ function initializePage() {
   });
 
   $("#orderConfirmation").click(function() {
-      var personalArray = $('#oligoStepTwo :input').serializeArray();
+      $('#firstname').prop('disabled', false);
+      $('#lastname').prop('disabled', false);
+      $('#emailaddr').prop('disabled', false);
+      $('#accHolder').prop('disabled', false);
+      $('#institution').prop('disabled', false);
+      $('#ponumber').prop('disabled', false);
+      $('#invoice').prop('disabled', false);
+      var personalArray = $('#order_summary :input').serializeArray();
       var personalData = { };
       $(personalArray).each(function(index, obj){
         personalData[obj.name] = obj.value;
